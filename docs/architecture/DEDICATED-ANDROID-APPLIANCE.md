@@ -79,7 +79,7 @@ The current Android CI backend returns a visibly labeled `EMULATED_APPLIANCE` in
 - creates a new mode-0600 output without following symlinks;
 - contains no `send`, `sendto` or `sendmsg` call.
 
-The virtual-SPAN CI gate compiles the daemon, rejects transmission symbols, creates a veth pair, injects frames from the peer, validates the resulting PCAP and asserts that the capture-side transmit counter does not increase.
+The virtual-SPAN CI gate compiles the daemon, rejects packet-transmission symbols, creates a veth pair, injects frames from the peer and validates the resulting PCAP. During live capture, syscall tracing must remain empty for `send`, `sendto` and `sendmsg`; this also detects a direct transmission path that is not visible in the normal symbol table.
 
 This software assertion does not replace physical hardware acceptance. A receive-only TAP remains the highest-assurance collection topology.
 
