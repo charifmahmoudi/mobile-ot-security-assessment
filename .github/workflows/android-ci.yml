@@ -84,7 +84,7 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: gradle --no-daemon --stacktrace connectedDebugAndroidTest
+          script: bash tools/run_ui_e2e.sh
       - name: Publish emulator reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -94,6 +94,7 @@ jobs:
           path: |
             **/build/reports/androidTests/**
             **/build/outputs/androidTest-results/**
+            build/emulator-screenshots/**/*.png
 
   active-testbed:
     name: Active E2E • ${{ matrix.target }}
@@ -161,4 +162,5 @@ jobs:
           path: |
             **/build/reports/androidTests/**
             **/build/outputs/androidTest-results/**
+            build/emulator-screenshots/**/*.png
             *.log

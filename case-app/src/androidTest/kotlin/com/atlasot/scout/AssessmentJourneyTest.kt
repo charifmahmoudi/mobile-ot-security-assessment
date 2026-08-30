@@ -1,7 +1,9 @@
 package com.atlasot.scout
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.SystemClock
 import android.widget.Button
 import android.widget.CheckBox
@@ -14,6 +16,8 @@ import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.File
+import java.io.FileOutputStream
 
 @RunWith(AndroidJUnit4::class)
 class AssessmentJourneyTest {
@@ -22,11 +26,15 @@ class AssessmentJourneyTest {
             scenario.onActivity { activity ->
                 val safety = activity.findViewById<TextView>(MainActivity.SAFETY_STATUS_ID)
                 assertTrue(safety.text.contains("No packet is sent"))
+            }
+            capture("01-home")
+            scenario.onActivity { activity ->
                 activity.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
                 val active = activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
                 assertFalse(active.isEnabled)
                 assertTrue(activity.findViewById<TextView>(MainActivity.ACTIVE_LIMITS_ID).text.contains("no register writes"))
             }
+            capture("02-active-authorization")
         }
     }
 
@@ -41,6 +49,7 @@ class AssessmentJourneyTest {
                 assertTrue(validation.text.contains("outside the authorized CIDR"))
                 assertTrue(activity.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID).text.contains("New authorized assessment"))
             }
+            capture("03-out-of-scope-blocked")
         }
     }
 
@@ -61,18 +70,19 @@ class AssessmentJourneyTest {
                 var title = ""
                 var summary = ""
                 var assetCount = 0
-                repeat(80) {
+                for (attempt in 0 until 80) {
                     scenario.onActivity { activity ->
                         title = activity.findViewById<TextView?>(MainActivity.SCREEN_TITLE_ID)?.text?.toString().orEmpty()
                         summary = activity.findViewById<TextView?>(MainActivity.RESULT_SUMMARY_ID)?.text?.toString().orEmpty()
                         assetCount = activity.findViewById<android.widget.LinearLayout?>(MainActivity.ASSET_LIST_ID)?.childCount ?: 0
                     }
-                    if (title.contains("Passive analysis complete")) return@repeat
+                    if (title.contains("Passive analysis complete")) break
                     SystemClock.sleep(100)
                 }
                 assertTrue("title was: $title", title.contains("Passive analysis complete"))
                 assertTrue("summary was: $summary", summary.contains(protocol))
                 assertTrue(assetCount > 0)
+                capture("04-passive-" + file.substringBefore('.'))
             }
         }
     }
@@ -92,14 +102,29 @@ class AssessmentJourneyTest {
                 active.performClick()
             }
             var result = ""
-            repeat(60) {
+            for (attempt in 0 until 60) {
                 scenario.onActivity { activity ->
                     result = activity.findViewById<TextView?>(MainActivity.ACTIVE_RESULT_ID)?.text?.toString().orEmpty()
                 }
-                if (result.contains(expected) || result.contains("ACTION REQUIRED")) return@repeat
+                if (result.contains(expected) || result.contains("ACTION REQUIRED")) break
                 SystemClock.sleep(250)
             }
             assertTrue("active result was: $result", result.contains(expected))
+            capture(InstrumentationRegistry.getArguments().getString("screenshotPrefix") ?: "05-active-result")
         }
+    }
+
+    private fun capture(name: String) {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        instrumentation.waitForIdleSync()
+        SystemClock.sleep(200)
+        val directory = File(instrumentation.targetContext.getExternalFilesDir(null), "screenshots")
+        check(directory.mkdirs() || directory.isDirectory)
+        val output = File(directory, name + "-api" + Build.VERSION.SDK_INT + ".png")
+        val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
+        FileOutputStream(output).use { stream ->
+            check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream))
+        }
+        bitmap.recycle()
     }
 }
