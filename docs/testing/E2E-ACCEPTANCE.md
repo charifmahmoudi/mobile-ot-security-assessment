@@ -21,11 +21,14 @@ This file defines what a green pipeline proves. It deliberately separates softwa
 | PCAPNG normalization | JVM | Same Modbus attribution; digest covers original PCAPNG; truncation rejected |
 | Upload journey | Android API 29 and 35 | Real content URI reaches summary and asset review for all four captures |
 | Live capture journey | Android API 29 and 35 | Labeled SPAN/TAP stream crosses Binder/FD boundary and reaches the same parser/inventory UI |
-| Native capture backend | Linux virtual SPAN/veth | AF_PACKET daemon captures injected Ethernet while capture-side TX remains unchanged |
+| Native capture backend | Linux virtual SPAN/veth | AF_PACKET daemon captures injected Ethernet; static linkage and runtime tracing show no packet-transmission syscall |
 | Active identity | Android API 35 + PyModbus 3.11.3 | Vendor, product and revision returned through the signed broker path |
 | Independent slave | Android API 35 + modbus-tk 1.1.5 | Modbus service confirmed without fabricated identity |
 | ICS honeypot | Android API 35 + pinned Conpot commit | Modbus service confirmed without broadening the probe |
 | Privilege boundary | Static + Android | Case app has no Internet permission; broker service is signature-protected |
+| Guided assessor journey | Android API 29 and 35 | Site → Overview → Collect → Assets → Findings → blocked Report completes with stable navigation contracts |
+
+The current reference is green [run #28](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33335842915) at [`f9807de`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/f9807de7635656b2b5d4d86e585bdd515b9cf1ec).
 
 ## Not proven by this pipeline
 
