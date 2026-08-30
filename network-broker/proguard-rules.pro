@@ -1,0 +1,2 @@
+-keep class com.atlasot.netbroker.BrokerService { *; }
+-keep class com.atlasot.netbroker.IAtlasNetworkBroker$Stub { *; }

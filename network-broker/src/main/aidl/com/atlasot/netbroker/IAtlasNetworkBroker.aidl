@@ -1,0 +1,10 @@
+package com.atlasot.netbroker;
+
+import android.os.ParcelFileDescriptor;
+
+interface IAtlasNetworkBroker {
+    byte[] inspectInterfaces(in byte[] signedRequest);
+    byte[] provisionGrantKey(in byte[] x509Ed25519PublicKey);
+    byte[] execute(in byte[] grantEnvelope, in ParcelFileDescriptor evidenceSink);
+    byte[] emergencyStop(in byte[] signedStop);
+}

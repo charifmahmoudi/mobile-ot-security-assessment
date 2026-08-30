@@ -1,0 +1,1 @@
+-keep class com.atlasot.scout.ParserService { *; }
