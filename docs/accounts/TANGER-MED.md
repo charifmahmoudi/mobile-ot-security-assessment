@@ -37,7 +37,7 @@ The product fit is therefore evidence reconciliation and controlled integration,
 | Person | Appearance | Relevance | Source |
 |---|---|---|---|
 | Mehdi Tazi Riffi | Opened TOC Africa, Tanger, 17–18 Sep 2025 | Senior port/logistics convening route | [Tanger Med](https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/) |
-| Idriss Aarabi | TOC Africa supply-chain session, 2025 | Named TMPA decision-maker in operating ecosystem | [Tanger Med](https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/) |
+| Idriss Aarabi | TOC Africa supply-chain session, 2025 | Named TMPA decision-maker in operating ecosystem | [Tanger Med](https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/) |\n| Taoufik Chahir, Marsa Maroc Container BU Director | Tech TOC panel on terminal efficiency, 2025 | Terminal-operator route; separate from TMPA authorization | [Tanger Med](https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/) |
 | Chawki Benouarrek | TOC Africa digital-port panel, 2023 | Direct digital/port event participation | [IAPH](https://www.iaphworldports.org/news/iaphnews/16622/) |
 | Chawki Benouarrek + Mehdi Tazi Riffi | chainPORT partner meeting in Tangier, 2022 | International port-digitalization peer network | [AJOT](https://www.ajot.com/news/new-chainport-member-tanger-med-welcomes-partner-ports-presidents-cios-and-head-strategists-in-tangier) |
 | Mohamed Eddoujaji | Huawei port AI/intelligent-twin event, 17 Sep 2025 | Named operational-IS speaker discussing congestion and security risk | [Huawei](https://e.huawei.com/en/news/2025/industries/waterway/port-ai-intelligent-twin) |
@@ -49,7 +49,7 @@ The product fit is therefore evidence reconciliation and controlled integration,
 |---|---|---|
 | PCS integrations and transaction volume | Direct platform metrics | [PCS](https://www.tangermedpcs.com/en/home) |
 | PMIS co-development | Direct vendor/customer announcement | [TMPA/Wärtsilä](https://www.tangermedport.com/en/wartsila-and-tanger-med-team-up-to-co-develop-next-generation-port-management-information-system/) |
-| Digital twins/predictive maintenance | Direct corporate claim | [Tanger Med](https://www.tangermed.ma/en/digital-twins-and-predictive-maintenance-a-major-advancement-for-tanger-med/) |
+| TM2 Link Bridge digital-twin PoC | Direct project names PHD Soft, TMPA Maintenance, TME Asset Management and the Digitalization Team | [Tanger Med](https://www.tangermed.ma/en/digital-twins-and-predictive-maintenance-a-major-advancement-for-tanger-med/) |
 
 ## Entry route
 
