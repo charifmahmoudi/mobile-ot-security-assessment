@@ -23,4 +23,9 @@ class ModbusDeviceIdCodecTest {
         val malformed = byteArrayOf(0, 1, 0, 0, 0, 9, 1, 0x2B, 0x0E, 1, 1, 0, 0, 0, 0)
         assertFailsWith<IllegalArgumentException> { ModbusDeviceIdCodec.parseResponse(malformed, 2, 1) }
     }
+
+    @Test fun `valid illegal-function exception still confirms Modbus service`() {
+        val response = byteArrayOf(0x12, 0x34, 0, 0, 0, 3, 1, 0xAB.toByte(), 1)
+        assertEquals(null, ModbusDeviceIdCodec.validateResponse(response, 0x1234, 1))
+    }
 }

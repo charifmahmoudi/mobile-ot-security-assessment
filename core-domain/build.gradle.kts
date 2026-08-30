@@ -12,4 +12,5 @@ dependencies {
 
 tasks.test {
     useJUnit()
+    environment("RESEARCH_PCAP_DIR", rootProject.file("testdata/research").absolutePath)
 }

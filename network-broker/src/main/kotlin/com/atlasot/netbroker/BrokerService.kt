@@ -27,7 +27,8 @@ class BrokerService : Service() {
             val manager = getSystemService(ConnectivityManager::class.java)
             val body = manager.allNetworks.joinToString(prefix = "[", postfix = "]") { network ->
                 val caps = manager.getNetworkCapabilities(network)
-                "{\"handle\":${network.networkHandle},\"ethernet\":${caps?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET) == true}}"
+                "{\"handle\":${network.networkHandle},\"ethernet\":${caps?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_ETHERNET) == true}," +
+                    "\"wifi\":${caps?.hasTransport(android.net.NetworkCapabilities.TRANSPORT_WIFI) == true}}"
             }
             return body.toByteArray()
         }
@@ -63,6 +64,7 @@ class BrokerService : Service() {
             }
             if (decision is GrantDecision.Rejected) return "REJECTED:${decision.reason}".toByteArray()
             val writeFd = ParcelFileDescriptor.dup(evidenceSink.fileDescriptor)
+            evidenceSink.close()
             executor.execute {
                 FileOutputStream(writeFd.fileDescriptor).use { output ->
                     runCatching {

@@ -45,6 +45,17 @@ object ModbusDeviceIdCodec {
         require(cursor == bytes.size) { "trailing response bytes" }
         return ModbusIdentity(conformity, more, next, objects)
     }
+
+    fun validateResponse(bytes: ByteArray, transactionId: Int, unitId: Int): ModbusIdentity? {
+        fun u(index: Int) = bytes[index].toInt() and 0xff
+        if (bytes.size == 9 && u(7) == 0xAB) {
+            require((u(0) shl 8 or u(1)) == transactionId) { "transaction mismatch" }
+            require(u(2) == 0 && u(3) == 0 && u(4) == 0 && u(5) == 3) { "invalid exception MBAP" }
+            require(u(6) == unitId && u(8) in 1..11) { "invalid exception response" }
+            return null
+        }
+        return parseResponse(bytes, transactionId, unitId)
+    }
 }
 
 class ModbusDeviceIdClient {
@@ -62,9 +73,9 @@ class ModbusDeviceIdClient {
             socket.getOutputStream().flush()
             val header = socket.getInputStream().readExactly(7)
             val remaining = ((header[4].toInt() and 0xff) shl 8 or (header[5].toInt() and 0xff)) - 1
-            require(remaining in 8..505) { "invalid Modbus length" }
+            require(remaining in 2..505) { "invalid Modbus length" }
             val response = header + socket.getInputStream().readExactly(remaining)
-            ModbusDeviceIdCodec.parseResponse(response, transactionId, unitId)
+            ModbusDeviceIdCodec.validateResponse(response, transactionId, unitId)
             return response
         } finally {
             active.remove(caseId, socket)
