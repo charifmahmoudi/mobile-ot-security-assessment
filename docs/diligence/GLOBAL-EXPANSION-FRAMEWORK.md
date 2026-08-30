@@ -1,59 +1,36 @@
-# Expansion beyond Morocco
+# International expansion evidence requirements
 
-## Strategy
+No country beyond Morocco has been researched to the standard used in the behavioral evidence ledger. Previous candidate-country lists are withdrawn.
 
-Morocco is a design reference for export-oriented industrial clusters, French/Arabic workflows, strong mobile availability and mixed modern/legacy infrastructure. It is not a proxy for all lower-income countries.
+## Entry evidence required per country
 
-## Country score
+1. official cybersecurity and industrial-control audit rules;
+2. qualified/recognized audit-provider list, if one exists;
+3. named public automation/telemanagement procurements;
+4. named employer technology records;
+5. deduplicated industrial site/operator universe;
+6. Android and capture-hardware availability;
+7. data-protection, cryptography, import and evidence-transfer rules;
+8. public competitor/channel presence;
+9. real price or procurement observations;
+10. one local method/evidence reviewer.
 
-Score 1–5 and require primary evidence for each:
+## Country comparison record
 
-| Dimension | Weight |
-|---|---:|
-| concentrated manufacturing/mining/utility sites | 20% |
-| cybersecurity/regulatory trigger | 15% |
-| local automation/integrator channel | 15% |
-| mobile/Android and hardware availability | 10% |
-| enterprise-tool affordability/deployment gap | 15% |
-| procurement/payment feasibility | 10% |
-| language/localization leverage | 5% |
-| political, sanctions and field-safety risk | 10% |
+| Field | Required evidence |
+|---|---|
+| country | ISO code and scope |
+| industrial sectors | government/operator sources |
+| audit mechanism | law/regulator source |
+| qualified providers | official list |
+| procurement behavior | tender records |
+| technology signals | named employer/tender evidence |
+| data constraints | regulator/law |
+| hardware availability | current distributor quotations |
+| competitor presence | vendor/partner pages |
+| accepted price | purchase/quote response |
+| entry decision | documented review |
 
-[
-Country score = sum(score_i/5 	imes weight_i)
-]
+## Rule
 
-A high score starts research; it does not authorize market entry.
-
-## Candidate corridors for later diligence
-
-- Francophone North/West Africa: Tunisia, Senegal, Côte d’Ivoire.
-- Larger African industrial markets: Egypt, Kenya, Ghana, Nigeria, South Africa (different competitive/price profile).
-- South/Southeast Asia: India, Bangladesh, Vietnam, Indonesia, Philippines.
-- Latin America: Colombia, Peru, Mexico and selected Central American markets.
-
-These are candidates, not rankings. Each needs sector, law, import, partner and protocol evidence.
-
-## Expansion sequence
-
-1. Local evidence pack and legal/privacy map.
-2. Fifteen named accounts and five channel candidates.
-3. Hardware supply/compatibility check.
-4. One lab or paid partner baseline.
-5. Localized report and support terms.
-6. Country launch only after repeat use.
-
-## Product localization layers
-
-- UI/report language and terminology;
-- local currency and procurement packages;
-- regulatory/control mappings;
-- priority sector/device packs;
-- approved hardware availability;
-- regional vulnerability advisories/CERT links;
-- local partner training and escalation;
-- data-export/retention configuration.
-
-## Central versus local assets
-
-Keep capture engine, safety policy, evidence schema and core protocol packs global. Keep regulation, market dossiers, report language, contacts, pricing and optional vendor mappings in signed country packs.
+Do not describe a country as “low cost,” “underserved,” “high potential” or similar without a defined metric and source. Morocco is the only active market case until another country dossier satisfies the evidence requirements.
