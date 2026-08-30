@@ -67,3 +67,19 @@ Advance an account only when the following are known:
 7. reference inventory and success measures.
 
 If any of the first five is unknown, the opportunity is research—not pipeline.
+
+
+## Questions that disqualify the seller
+
+Never ask whether the customer has OT, whether it already has a mobile application, or whether it wants an all-in-one scanner. Product novelty is not evidence of demand. Established adjacent products already cover enterprise discovery through sensors, collectors and explorers: [Claroty](https://claroty.com/industrial-cybersecurity) describes multiple discovery methods across more than 450 industrial protocols, and [runZero](https://www.runzero.com/) covers IT/OT/IoT asset discovery. [Kali NetHunter](https://www.kali.org/docs/nethunter/) proves mobile penetration-testing capability, but it is not an OT-governed field-evidence workflow.
+
+The diligence questions are:
+
+- Which existing task creates repeat work: walkdown, commissioning, maintenance preparation, audit evidence or inventory reconciliation?
+- Which CMDB, CMMS/EAM, engineering database or OT-security platform is the system of record?
+- Which operational owner accepts the result, which security owner approves collection and which commercial entity buys?
+- Which incumbent integrator, auditor or maintenance contractor must participate?
+- Which capture points, active queries, radios, removable media, retention and export paths are permitted?
+- Which measurable result justifies a change: fewer revisits, shorter acceptance time, fewer unresolved records or less reviewer effort?
+
+The competitive claim is therefore narrow: a portable, offline-first evidence and reconciliation workflow may be an unfilled packaging gap. It is not proof that customers lack discovery capability, and it must be validated against their current process.
