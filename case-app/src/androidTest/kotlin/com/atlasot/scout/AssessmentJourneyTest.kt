@@ -250,7 +250,10 @@ class AssessmentJourneyTest {
     private fun capture(name: String) {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         instrumentation.waitForIdleSync()
-        SystemClock.sleep(200)
+        // The first Compose-backed screen can be semantically ready before the
+        // emulator compositor has published its first frame. Wait for that frame
+        // so acceptance artifacts never contain a blank launch screenshot.
+        SystemClock.sleep(800)
         val resolver = instrumentation.targetContext.contentResolver
         val values = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, name + "-api" + Build.VERSION.SDK_INT + ".png")
