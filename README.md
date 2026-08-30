@@ -20,7 +20,12 @@ The strongest first user is an authorized OT auditor, integrator or operator tea
 
 The [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md) fixes the assessment scope, lab, protocol actions, evidence hierarchy, rules, report, performance targets and definition of done. Supporting contracts:
 
-- [Technical architecture](docs/wiki/Technical-Architecture.md)
+- [Technical architecture index](docs/wiki/Technical-Architecture.md)
+- [System and deployment architecture](docs/architecture/SYSTEM-AND-DEPLOYMENT.md)
+- [Network execution architecture](docs/architecture/NETWORK-EXECUTION.md)
+- [Component contracts](docs/architecture/COMPONENT-CONTRACTS.md)
+- [Evidence and data architecture](docs/architecture/EVIDENCE-DATA-MODEL.md)
+- [Security architecture and threat model](docs/architecture/SECURITY-AND-THREAT-MODEL.md)
 - [Assessment method](docs/poc/ASSESSMENT-METHOD.md)
 - [Test and acceptance plan](docs/poc/TEST-AND-ACCEPTANCE.md)
 - [Implementation backlog](docs/poc/IMPLEMENTATION-BACKLOG.md)
