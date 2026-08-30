@@ -102,7 +102,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [pymodbus, conpot]
+        # Two independent libraries plus a full ICS honeypot. Keeping these as
+        # separate jobs prevents one implementation from validating itself.
+        target: [pymodbus, modbus-tk, conpot]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -117,14 +119,19 @@ jobs:
       - name: Start OT emulator on TCP 502
         run: |
           if [ "${{ matrix.target }}" = "pymodbus" ]; then
-            python3 -m venv .pymodbus-venv
-            .pymodbus-venv/bin/pip install --disable-pip-version-check pymodbus==3.11.3
-            nohup sudo -E .pymodbus-venv/bin/python -u tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
+            python3 -m venv .ot-emulator-venv
+            .ot-emulator-venv/bin/pip install --disable-pip-version-check pymodbus==3.11.3
+            nohup sudo -E .ot-emulator-venv/bin/python -u tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
+          elif [ "${{ matrix.target }}" = "modbus-tk" ]; then
+            python3 -m venv .ot-emulator-venv
+            .ot-emulator-venv/bin/pip install --disable-pip-version-check modbus-tk==1.1.5
+            nohup sudo -E .ot-emulator-venv/bin/python -u tools/modbus_tk_testbed.py >modbus-tk.log 2>&1 &
           else
             git clone --filter=blob:none https://github.com/mushorg/conpot.git conpot-upstream
             git -C conpot-upstream checkout 32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044
-            docker build --tag atlas-conpot:32fc03b conpot-upstream
-            docker run --detach --name atlas-conpot --publish 502:5020 atlas-conpot:32fc03b
+            docker build --tag atlas-conpot-upstream:32fc03b conpot-upstream
+            docker build --tag atlas-conpot-ci:32fc03b --file tools/conpot-ci.Dockerfile .
+            docker run --detach --name atlas-conpot --publish 502:5020 atlas-conpot-ci:32fc03b
           fi
           for attempt in $(seq 1 90); do
             nc -z 127.0.0.1 502 && exit 0
