@@ -1,5 +1,11 @@
 # Executable baseline
 
+## Guided assessment UI
+
+The Case App now implements a persistent five-stage assessment shell: Overview, Collect, Assets, Findings and Report. The dashboard recommends the next defensible action; passive observations require explicit selection before inventory changes; the inventory includes list and process-zone views; findings keep confidence separate from consequence; and report finalization remains blocked while required security controls are incomplete.
+
+The open-source integration decisions, visual tokens and remaining engineering gates are specified in `docs/product/OPEN-SOURCE-AND-UX-IMPLEMENTATION.md`.
+
 This repository now contains the first deployable safety slice for **P0-WATER**. It is deliberately narrower than the complete product architecture: it proves that Android can enforce authorization, constrain one OT operation, preserve evidence bytes, and keep general application code away from raw network sockets.
 
 ## What is implemented
