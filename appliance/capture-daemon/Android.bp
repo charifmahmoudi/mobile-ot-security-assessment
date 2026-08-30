@@ -1,0 +1,6 @@
+cc_binary {
+    name: "atlas_capture",
+    vendor: true,
+    srcs: ["atlas_capture.c"],
+    cflags: ["-Wall", "-Wextra", "-Werror", "-O2"],
+}

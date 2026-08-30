@@ -89,6 +89,44 @@ class AssessmentJourneyTest {
         }
     }
 
+    @Test fun dedicatedApplianceStreamUsesLiveCaptureBoundaryAndInventoryParser() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity {
+                it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
+                it.findViewById<View>(MainActivity.PRIMARY_ACTION_ID).performClick()
+                it.findViewById<View>(MainActivity.LIVE_CAPTURE_OPTION_ID).performClick()
+            }
+            var ready = false
+            for (attempt in 0 until 50) {
+                scenario.onActivity { activity ->
+                    ready = activity.findViewById<Button?>(MainActivity.LIVE_CAPTURE_ACTION_ID)?.isEnabled == true
+                }
+                if (ready) break
+                SystemClock.sleep(100)
+            }
+            assertTrue("capture broker did not become ready", ready)
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("CI emulation"))
+                activity.findViewById<View>(MainActivity.LIVE_CAPTURE_ACTION_ID).performClick()
+            }
+            capture("05-live-span-ready")
+            var page = ""
+            var body = ""
+            for (attempt in 0 until 80) {
+                scenario.onActivity { activity ->
+                    page = activity.findViewById<TextView?>(MainActivity.SCREEN_TITLE_ID)?.text?.toString().orEmpty()
+                    body = screenText(activity)
+                }
+                if (page.contains("assets observed")) break
+                SystemClock.sleep(100)
+            }
+            assertTrue("live capture page was: " + page, page.contains("assets observed"))
+            assertTrue("live capture result was: " + body, body.contains("CI SPAN replay"))
+            assertTrue(body.contains("Modbus/TCP"))
+            capture("06-live-span-result")
+        }
+    }
+
     @Test fun outOfScopeTargetIsStoppedBeforeBrokerContact() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             navigateToActiveSetup(scenario)

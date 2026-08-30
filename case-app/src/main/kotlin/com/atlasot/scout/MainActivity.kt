@@ -15,6 +15,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import com.atlasot.domain.*
+import com.atlasot.capturebroker.IAtlasCaptureBroker
 import com.atlasot.netbroker.IAtlasNetworkBroker
 import java.io.FileInputStream
 import java.io.InputStream
@@ -30,6 +31,7 @@ class MainActivity : Activity() {
     private lateinit var content: LinearLayout
     private var site: SiteProfile? = null
     private var brokerConnection: ServiceConnection? = null
+    private var captureConnection: ServiceConnection? = null
     private var backAction: (() -> Unit)? = null
 
     override fun onCreate(state: Bundle?) {
@@ -46,6 +48,7 @@ class MainActivity : Activity() {
 
     override fun onDestroy() {
         brokerConnection?.let { runCatching { unbindService(it) } }
+        captureConnection?.let { runCatching { unbindService(it) } }
         worker.shutdownNow()
         super.onDestroy()
     }
@@ -170,11 +173,73 @@ class MainActivity : Activity() {
         page("Collect evidence", "Choose a method", current.name, ::renderWorkspace)
         content.addView(banner("SAFE DEFAULT", "Passive import never transmits. Active identity remains locked behind exact scope and authorization."))
         content.addView(section("Available now", "Match the method to your visibility and authorization."))
+        content.addView(method("LIVE · DEDICATED APPLIANCE", "Observe a SPAN / TAP interface", "Stream Ethernet frames from the hardened receive-only capture service.", "Requires qualified appliance image", LIVE_CAPTURE_OPTION_ID, ::renderLiveCaptureSetup))
         content.addView(method("PASSIVE", "Analyze PCAP / PCAPNG", "Use a supplied SPAN/TAP capture when the phone cannot see the switched segment.", "No packets sent", PASSIVE_ACTION_ID, ::openCapturePicker))
         content.addView(method("ACTIVE · MODBUS", "Identify one known controller", "One FC 43 / MEI 14 request to an exact allowlisted target.", "Written authorization required", ACTIVE_SCAN_OPTION_ID, ::renderAssessmentSetup))
         content.addView(section("Planned collection packs", "Roadmap items are visually separated from working capability."))
         content.addView(card("PLANNED · WI-FI OBSERVATION", "Inventory approved SSIDs and access-point evidence.", accent = MUTED).apply { alpha = .65f })
         content.addView(card("PLANNED · BLUETOOTH OBSERVATION", "Record nearby industrial BLE identity signals.", accent = MUTED).apply { alpha = .65f })
+    }
+
+    private fun renderLiveCaptureSetup() {
+        val current = requireNotNull(site)
+        page("Live passive capture", "Connect SPAN / TAP", current.name, ::renderScanMenu)
+        content.addView(banner("PASSIVE INTERFACE", "The capture interface must have no IPv4/IPv6 address and kernel egress must remain blocked."))
+        content.addView(card("REQUIRED CONNECTION", "Approved SPAN port or network TAP  ·  qualified USB Ethernet  ·  signed appliance image", LIVE_CAPTURE_STATUS_ID, TEAL))
+        content.addView(section("Appliance check", "The Case App cannot open raw sockets. It asks the separately signed capture boundary to inspect the dedicated interface."))
+        val state = card("CHECKING CAPABILITY", "Looking for the Passive Capture Broker…", CAPTURE_CAPABILITY_ID, BLUE)
+        content.addView(state)
+        val start = button("Start 30-second passive sample", LIVE_CAPTURE_ACTION_ID) { }.apply { isEnabled = false; alpha = .45f }
+        content.addView(start)
+
+        captureConnection?.let { runCatching { unbindService(it) } }
+        val connection = object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                val broker = IAtlasCaptureBroker.Stub.asInterface(service)
+                runCatching { broker.inspectInterfaces().toString(Charsets.UTF_8) }
+                    .onSuccess { capability ->
+                        val available = capability.contains("\"available\":true")
+                        val emulated = capability.contains("EMULATED_APPLIANCE")
+                        state.removeAllViews()
+                        state.addView(txt(if (available) "INTERFACE READY" else "APPLIANCE NOT READY", 11f,
+                            if (available) TEAL else DANGER, Typeface.BOLD).apply { letterSpacing = .07f })
+                        state.addView(txt(if (available)
+                            "USB Ethernet · SPAN/TAP\nNo address assigned · receive-only policy\nBackend: " + if (emulated) "CI emulation" else "native capture daemon"
+                        else "Install and attest the signed appliance capture service before field use.", 14f, NAVY).apply { setPadding(0, dp(6), 0, 0) })
+                        start.isEnabled = available; start.alpha = if (available) 1f else .45f
+                        start.setOnClickListener { runLiveCapture(broker, emulated) }
+                    }
+                    .onFailure { state.removeAllViews(); state.addView(txt("CAPABILITY CHECK FAILED", 12f, DANGER, Typeface.BOLD)) }
+            }
+            override fun onServiceDisconnected(name: ComponentName?) {
+                start.isEnabled = false; start.alpha = .45f
+            }
+        }
+        captureConnection = connection
+        if (!bindService(Intent("com.atlasot.capturebroker.BIND").setPackage("com.atlasot.capturebroker"), connection, Context.BIND_AUTO_CREATE)) {
+            state.removeAllViews()
+            state.addView(txt("PASSIVE CAPTURE BROKER UNAVAILABLE", 12f, DANGER, Typeface.BOLD))
+            state.addView(txt("Use imported PCAP/PCAPNG until the dedicated appliance image is installed.", 14f, NAVY).apply { setPadding(0, dp(6), 0, 0) })
+        }
+    }
+
+    private fun runLiveCapture(broker: IAtlasCaptureBroker, emulated: Boolean) {
+        page("Live passive capture", "Observing SPAN / TAP", "30-second bounded sample · zero intended transmission", ::renderLiveCaptureSetup)
+        content.addView(card("CAPTURE ACTIVE", "Interface span0  ·  16 MiB limit  ·  analyzer isolated after collection" +
+            if (emulated) "\nCI uses a labeled replay stream; this is not rooted-hardware qualification." else "", LIVE_CAPTURE_STATUS_ID, BLUE))
+        val pipe = ParcelFileDescriptor.createPipe()
+        val accepted = runCatching { pipe[1].use { broker.startPassiveCapture("span0", 16L * 1024 * 1024, 30_000, it) }.toString(Charsets.UTF_8) }
+            .getOrElse {
+                pipe[0].close(); renderFailure("Live capture stopped safely", it.message ?: it.javaClass.simpleName); return
+            }
+        if (!accepted.startsWith("ACCEPTED:")) {
+            pipe[0].close(); renderFailure("Live capture unavailable", accepted); return
+        }
+        worker.execute {
+            runCatching { pipe[0].use { descriptor -> FileInputStream(descriptor.fileDescriptor).use { PassivePcapAnalyzer.analyze(it) } } }
+                .onSuccess { result -> runOnUiThread { renderPassiveResult(if (emulated) "CI SPAN replay" else "Live SPAN sample", result) } }
+                .onFailure { error -> runOnUiThread { renderFailure("Live capture could not be analyzed", error.message ?: error.javaClass.simpleName) } }
+        }
     }
 
     private fun renderAssessmentSetup() {
@@ -571,6 +636,10 @@ class MainActivity : Activity() {
         const val INVENTORY_LIST_ID = 0x41544C5D
         const val NETWORK_INSIGHT_ID = 0x41544C5E
         const val ASSET_DETAIL_ID = 0x41544C5F
+        const val LIVE_CAPTURE_OPTION_ID = 0x41544C60
+        const val LIVE_CAPTURE_STATUS_ID = 0x41544C61
+        const val CAPTURE_CAPABILITY_ID = 0x41544C62
+        const val LIVE_CAPTURE_ACTION_ID = 0x41544C63
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")

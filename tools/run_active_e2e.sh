@@ -33,6 +33,7 @@ if [ "$ready" != true ]; then
 fi
 
 gradle --no-daemon --stacktrace :network-broker:installDebug
+gradle --no-daemon --stacktrace :capture-broker:installDebug
 gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest \
   -Pandroid.testInstrumentationRunnerArguments.activeTest=true \
   -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS \

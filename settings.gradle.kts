@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "atlas-ot-scout"
-include(":core-domain", ":case-app", ":network-broker")
+include(":core-domain", ":case-app", ":network-broker", ":capture-broker")

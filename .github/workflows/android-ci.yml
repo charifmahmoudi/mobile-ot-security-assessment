@@ -31,14 +31,18 @@ jobs:
         run: bash tools/fetch_research_pcaps.sh
       - name: Verify package isolation
         run: python3 tools/verify_architecture.py
+      - name: Exercise AF_PACKET capture daemon on a virtual SPAN link
+        run: bash tools/test_capture_daemon.sh
       - name: Unit tests, lint, and debug APKs
         run: >-
           gradle --no-daemon --stacktrace
           :core-domain:test
           :case-app:testDebugUnitTest
           :network-broker:testDebugUnitTest
+          :capture-broker:testDebugUnitTest
           :case-app:assembleDebugAndroidTest
           :network-broker:assembleDebugAndroidTest
+          :capture-broker:assembleDebug
           lintDebug assembleDebug
       - name: Publish reports and APKs
         if: always()

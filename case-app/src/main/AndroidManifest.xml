@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:name="android.hardware.usb.host" android:required="false" />
     <uses-permission android:name="com.atlasot.permission.BIND_NETWORK_BROKER" />
+    <uses-permission android:name="com.atlasot.permission.BIND_CAPTURE_BROKER" />
 
     <queries>
         <package android:name="com.atlasot.netbroker" />
+        <package android:name="com.atlasot.capturebroker" />
     </queries>
 
     <application
