@@ -1,89 +1,80 @@
-# Morocco sector dossiers
+# Morocco sector evidence dossiers
 
-## Prioritization model
-
-Score each sector 1–5 on site concentration, OT intensity, assessment trigger, channel accessibility and ability to pay. The scores are hypotheses derived from public footprint, not customer research.
-
-| Sector | Concentration | OT intensity | Trigger | Channel access | Ability to pay | Total /25 | Priority |
-|---|---:|---:|---:|---:|---:|---:|---|
-| Automotive/suppliers | 5 | 5 | 4 | 5 | 5 | 24 | A |
-| Phosphate/chemicals/mining | 4 | 5 | 5 | 3 | 5 | 22 | A |
-| Ports/logistics | 4 | 5 | 5 | 4 | 5 | 23 | A |
-| Energy/water | 3 | 5 | 5 | 3 | 5 | 21 | A |
-| Food/beverage | 4 | 4 | 3 | 4 | 3 | 18 | B |
-| Cement/materials | 4 | 5 | 4 | 3 | 4 | 20 | B |
-| Aerospace | 5 | 4 | 5 | 4 | 5 | 23 | A/B |
-| Pharmaceuticals | 3 | 4 | 5 | 3 | 4 | 19 | B |
-| Textile | 5 | 3 | 2 | 4 | 2 | 16 | C |
+The previous sector score and “likely asset/protocol” tables were assumptions and are withdrawn. This edition records only observable facilities, procurement and employer technology signals.
 
 ## Automotive and suppliers
 
-**Verified landscape.** Renault operates Tangier and SOMACA Casablanca. Stellantis operates Kenitra and announced expansion toward 400,000 vehicles/year plus electric mobility objects. Tanger Med cites more than 150 foreign automotive operators in its ecosystem.
+**Verified facilities/scale:** Renault Tangier, SOMACA Casablanca and Stellantis Kenitra. Tanger Med Zones reports more than 150 foreign automotive companies in the ecosystem.
 
-**Likely asset classes (sector hypothesis):** PLCs, robot controllers, safety controllers, vision, torque systems, conveyors, paint-shop controls, drives, energy meters, industrial switches, AGVs, building management and quality systems.
+**Behavioral technology evidence:**
 
-**Protocol coverage priority:** PROFINET/DCP, S7 passive signatures, EtherNet/IP/CIP identity, Modbus/TCP, OPC UA, SNMP, LLDP, mDNS and vendor web/TLS fingerprints. Automotive facilities can be multi-vendor; no single protocol should be assumed.
+- Renault Morocco automation role: PLC, HMI/SCADA, Modbus, PROFIBUS, EtherNet/IP.
+- Suprajit Morocco: Siemens, Schneider, Omron, Rockwell; PROFINET, PROFIBUS, Modbus, EtherNet/IP.
+- OPmobility Morocco: Apriso MES, Schneider EMS, Siemens TIA Portal/Step7 and IoT/API.
+- Adept Technology Morocco: SCADA environments, ABB/KUKA/FANUC robotics and industrial buses.
 
-**Entry offer:** contractor/handover inventory validation or a controlled baseline of a supplier facility, not a flagship assembly line first.
-
-**Disqualifier:** no mirror/TAP access, no maintenance owner, or expectation of uncontrolled scanning during production.
-
-## Phosphate, chemicals and mining
-
-**Verified landscape.** OCP documents mines and integrated chemical/fertilizer platforms at Jorf Lasfar and Safi. Managem lists Moroccan mines including Draa Sfar, Imiter, Akka, Bou-Azzer, Bleida and Tizert.
-
-**Likely assets:** DCS/PLC, process analyzers, drives, conveyors, weigh systems, remote telemetry, power distribution, water/desalination, historians and safety systems.
-
-**Protocol hypotheses:** Modbus RTU/TCP, OPC UA/DA gateways, PROFINET, EtherNet/IP, IEC 60870-5-104/IEC 61850 in electrical domains, HART behind gateways and vendor-specific DCS protocols. The mobile product should not directly interrogate SIS or fieldbus loops in MVP.
-
-**Entry offer:** passive inventory reconciliation on an isolated area or maintenance network; imported PCAP analysis; contractor handover.
+**Not proven:** vendor market share, plant-level models, cybersecurity buying preference or mobile-tool demand.
 
 ## Ports and logistics
 
-**Verified landscape.** Tanger Med Group operates port, logistics and industrial platforms; its public LinkedIn description reports 187m tonnes and 11.44m TEU across the group and Marsa Maroc terminals. Treat social figures as current profile claims, not audited statistics.
+**Verified procurement:**
 
-**Likely assets:** crane PLCs, terminal operating interfaces, gates, OCR/cameras, access control, reefer monitoring, shore power, substations, conveyors and BMS.
+- Essaouira water telemanagement;
+- Jorf Lasfar exterior-lighting telemanagement;
+- Agadir surveillance, automatic pumping, electrical and future telemanagement work;
+- Nador VTS, surveillance, access-control, electrical/network and future telemanagement work.
 
-**Protocol priorities:** SNMP/LLDP, Modbus/TCP, PROFINET, EtherNet/IP, OPC UA, ONVIF, BACnet/IP and standard IP services. Physical segmentation means multi-interface case mapping is valuable.
+**Employer evidence:** APM Terminals Tangier Automation Expert listing names AS-i and PROFIBUS in accessible text.
 
-**Entry offer:** terminal-area evidence baseline tied to an expansion/handover.
+**Not proven:** complete terminal system inventories, exact vendor stack or responsibility boundaries between ANP, Tanger Med entities and terminal operators.
 
-## Energy and water
+## Electricity, water and renewables
 
-**Verified landscape.** ONEE is the national electricity/water operator; Masen publishes the Noor renewable project portfolio including 160 MW Noor Ouarzazate I.
+**Verified procurement:** ONEE automation maintenance at Mohammedia; ANP water telemanagement provides additional utility-system evidence.
 
-**Likely assets:** SCADA, RTU, IED, protection relays, plant PLC/DCS, meters, pumps, telemetry and BMS.
+**Morocco-linked skills evidence:** Elum Energy SCADA roles name Modbus, IEC 104, OPC UA and IEC 61850 for solar/PV work, but projects may be international.
 
-**Protocol hypotheses:** IEC 60870-5-104, IEC 61850, Modbus, OPC UA and vendor-specific engineering protocols. DNP3 is lower priority than IEC protocols for Morocco until evidence changes the ranking.
+**Not proven:** these protocols at a named ONEE or Masen facility.
 
-**Safety position:** passive-only for substation/protection and safety-relevant assets in early releases.
+## Food and process manufacturing
 
-## Food and beverage
+**Verified market context:** Ministry names major agro-food companies; Cosumar publishes operations in five regions plus Casablanca refinery.
 
-The Ministry of Industry names Cosumar, Centrale Danone, COPAG, Nestlé, Mondelez, Lesieur Cristal and other significant operators. Cosumar reports sugar operations in five regions plus a Casablanca refinery.
+**Employer technology evidence:**
 
-Likely assets include batch control, temperature/cold chain, packaging, CIP cleaning, boilers, refrigeration, utilities and warehouse systems. Prioritize Modbus, PROFINET, EtherNet/IP, OPC UA, BACnet and common packaging/drive fingerprints.
+- Givaudan Morocco names Siemens, Schneider, Rockwell, SCADA, PROFIBUS, PROFINET, Modbus and EtherNet/IP.
+- Jibal role names Modbus, PROFIBUS, EtherNet/IP, instrumentation, drives, documentation and CMMS.
 
-The channel opportunity is stronger than large direct contracts: a standardized baseline service for many medium plants.
+**Not proven:** the stack at Cosumar, Centrale Danone, Lesieur Cristal or any other account without direct evidence.
 
-## Cement and materials
+## Mining, phosphate and chemicals
 
-Holcim Maroc describes itself as Morocco's national leader in construction materials. Ciments du Maroc and CIMAT operate additional cement/grinding sites.
+**Verified operators:** OCP publishes mines and industrial operations; Managem enumerates Moroccan mines.
 
-Likely assets: kiln and mill DCS/PLC, conveyors, drives, weigh feeders, bagging, quarry systems, analyzers and power distribution. Remote and harsh environments strengthen offline value.
+**Technology evidence found:** no sufficiently specific current plant-linked source in this pass.
+
+**Result:** no protocol priority may be attributed to OCP or Managem yet. Procurement, OEM cases and current job evidence remain required.
 
 ## Aerospace
 
-Safran reports more than 4,800 staff across ten Moroccan sites. US Commercial Service reported nearly 150 aerospace companies and $2.6bn of exports at end-2024.
+**Verified scale:** Safran reports ten Moroccan sites and more than 4,800 staff; US Commercial Service reported roughly 150 aerospace companies at end-2024.
 
-High-value manufacturing and MRO create strong assurance triggers. However, access and supplier security requirements can lengthen sales. Start through a certified integrator or supplier, with strict data handling.
+**Technology evidence found:** no sufficiently specific site-linked OT source in this pass.
+
+## Cement/materials
+
+**Verified operators:** Holcim Maroc, Ciments du Maroc and other manufacturers operate in Morocco.
+
+**Evidence found:** a historical public CV refers to a Siemens S7-300 project at Lafarge; this is too weak and old for current installed-base claims.
+
+**Result:** current employer/tender/OEM evidence required.
 
 ## Pharmaceuticals
 
-Sothema documents specialized manufacturing units; Cooper Pharma identifies as a producer/distributor/exporter. Asset inventory touches validated systems, so changes and evidence handling are sensitive.
+**Verified facilities:** Sothema publishes specialized manufacturing units; Cooper Pharma identifies as a producer/exporter.
 
-Entry offer: passive network evidence and inventory reconciliation around utilities/environmental monitoring, with quality and validation approval. Do not actively query validated production without a separately approved protocol.
+**Technology evidence found:** no sufficiently specific current site-linked control source in this pass.
 
-## Textile
+## Sector prioritization rule
 
-Large employment and many SMEs make this a possible later-volume segment, but lower budgets and less standardized OT may increase support cost. Serve through partners after the product has a repeatable low-touch workflow.
+Priority is determined by evidence volume and a real evaluation opportunity, not a speculative score. Current evidence density is strongest in automotive/suppliers, ports, and selected food/process employers. Regulatory channel evidence is strongest among DGSSI-qualified industrial audit providers.
