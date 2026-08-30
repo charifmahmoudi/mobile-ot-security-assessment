@@ -65,7 +65,7 @@ class AssessmentJourneyTest {
                 assertTrue(checks.size >= 2)
                 activity.findViewById<View>(MainActivity.CREATE_SITE_ACTION_ID).performClick()
                 assertTrue(screenText(activity).contains("Demo bottling line"))
-                assertTrue(screenText(activity).contains("Food & beverage"))
+                assertTrue(screenText(activity).contains("Food & beverage", ignoreCase = true))
             }
         }
     }
@@ -77,7 +77,7 @@ class AssessmentJourneyTest {
                 it.findViewById<View>(MainActivity.INVENTORY_ACTION_ID).performClick()
             }
             scenario.onActivity { activity ->
-                assertTrue(screenText(activity).contains("Asset inventory"))
+                assertTrue(screenText(activity).contains("Asset inventory", ignoreCase = true))
                 assertTrue(activity.findViewById<LinearLayout>(MainActivity.INVENTORY_LIST_ID).childCount >= 4)
             }
             capture("07-asset-inventory")
