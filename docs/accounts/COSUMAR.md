@@ -21,7 +21,7 @@ _Public-source review: 30 August 2026. Historical employee roles and technology 
 | Industrial Operations | Abdelmotalib El Abbadi | Official governance | Plant scope and continuity |
 | Supply chain | [Anas Jamal Eddine](https://ma.linkedin.com/in/anas-jamal-eddine-b43b6257) | Official governance/profile | Campaign-flow impact |
 | Automation/instrumentation | [Ayoub Halimi](https://ma.linkedin.com/in/ayoub-halimi) | Historical Cosumar role | Evidence the function existed; **not a current contact** |
-| OT administration | [Imame Bendarkaoui](https://nl.linkedin.com/in/imame-bendarkaoui-0080b074/en) | Public career history | Technical capability clue; current status requires checking |
+| OT administration | [Imame Bendarkaoui](https://nl.linkedin.com/in/imame-bendarkaoui-0080b074/en) | Public career history | Technical capability clue; current status requires checking |\n| Doukkala sugar factory | [Jibril Younes](https://ma.linkedin.com/in/jibril-younes-bab2847), public profile title | Public profile | Site sponsor candidate; authority must be verified |
 
 The current plant automation lead and OT-security owner were not verified publicly.
 
@@ -33,7 +33,7 @@ Le360 framed Cosumar's SIAM 2026 presence around **“performance and innovation
 
 | Person/entity | Appearance | Relevance | Source |
 |---|---|---|---|
-| Groupe Cosumar | SIAM 2026, Meknes | Public customer/agriculture ecosystem and campaign narrative | [Le360](https://fr.le360.ma/economie/cosumar-au-siam-2026-performance-et-innovation-au-service-de-la-souverainete-sucriere_36XB52HXUZDW3GUDT67WEXC6WQ/) |
+| Amine Lahbichi | Digital Morocco 2030 strategy launch, 25 Sep 2024 | Named IT/Digital leader in the national digital-policy ecosystem | [Event coverage](https://www.instagram.com/reel/DAVnn7esor9/) |\n| Groupe Cosumar | SIAM 2026, Meknes | Public customer/agriculture ecosystem and campaign narrative | [Le360](https://fr.le360.ma/economie/cosumar-au-siam-2026-performance-et-innovation-au-service-de-la-souverainete-sucriere_36XB52HXUZDW3GUDT67WEXC6WQ/) |
 | Groupe Cosumar | Active corporate LinkedIn coverage of campaigns, sustainability and employer activity | Ongoing public surface for timing and named-role validation | [Company page](https://ma.linkedin.com/company/groupe-cosumar) |
 
 The sources reviewed did **not** identify which executives or technical employees attended SIAM 2026. Employer participation is not employee attendance; the gap is explicit.
