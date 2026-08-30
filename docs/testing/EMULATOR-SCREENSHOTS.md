@@ -1,43 +1,47 @@
 # Emulator acceptance screenshots
 
-These images are outputs of the Android 15 (API 35) instrumentation journeys in [GitHub Actions run #16](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33322997770), not design mockups. The same run passed Android API 29 and API 35, PyModbus, modbus-tk, and Conpot jobs.
+These are Android 15 (API 35) instrumentation outputs from [GitHub Actions run #20](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33326876122), not design mockups. That run passed all six jobs: build/lint/unit/architecture, API 29, API 35, PyModbus, modbus-tk and Conpot.
 
-## Collection-mode decision
+## Site-centered assessment journey
 
-![Home screen with active and passive choices](../user-guide/screenshots/01-home-api35.png)
+| Site selection | New-site onboarding | Site dashboard |
+|---|---|---|
+| ![Site selection](../user-guide/screenshots/01-site-selection-api35.png) | ![New site](../user-guide/screenshots/02-new-site-api35.png) | ![Dashboard](../user-guide/screenshots/03-site-dashboard-api35.png) |
 
-The home screen keeps passive import separate from network transmission and states the safety boundary before either workflow begins.
+The instrumentation creates a site with an industry dropdown and multiple vendor selections, then reopens it from persisted application state.
+
+## Collection and inventory
+
+| Collection-method decision | Asset inventory |
+|---|---|
+| ![Collection methods](../user-guide/screenshots/04-collection-methods-api35.png) | ![Asset inventory](../user-guide/screenshots/07-asset-inventory-api35.png) |
+
+The test verifies search, review filtering, asset navigation, and the separation of working methods from planned Wi-Fi/Bluetooth packs.
 
 ## Passive research-capture analysis
 
 | Modbus/TCP | DNP3 |
 |---|---|
-| ![Modbus/TCP capture result](../user-guide/screenshots/04-passive-modbus-api35.png) | ![DNP3 capture result](../user-guide/screenshots/04-passive-dnp3-api35.png) |
+| ![Modbus result](../user-guide/screenshots/08-passive-modbus-api35.png) | ![DNP3 result](../user-guide/screenshots/08-passive-dnp3-api35.png) |
 
 | IEC 60870-5-104 | BACnet/IP |
 |---|---|
-| ![IEC-104 capture result](../user-guide/screenshots/04-passive-iec104-api35.png) | ![BACnet capture result](../user-guide/screenshots/04-passive-bacnet-api35.png) |
+| ![IEC-104 result](../user-guide/screenshots/08-passive-iec104-api35.png) | ![BACnet result](../user-guide/screenshots/08-passive-bacnet-api35.png) |
 
-Each file entered the app as a real Android `content://` upload. The UI shows the capture hash prefix, total and supported OT packet counts, inferred endpoints, roles, confidence, and the evidence supporting classification.
+Each capture enters through a real Android `content://` upload. Results expose hash, packet counts, time window, endpoints, inferred roles and confidence before observations enter inventory.
 
-## Active authorization and local scope enforcement
+## Active authorization and emulator outcomes
 
-| Authorization checkpoint | Out-of-scope stop |
+| Exact authorization | Out-of-scope stop |
 |---|---|
-| ![Active authorization screen](../user-guide/screenshots/02-active-authorization-api35.png) | ![Out-of-scope target stopped](../user-guide/screenshots/03-out-of-scope-blocked-api35.png) |
+| ![Authorization](../user-guide/screenshots/05-active-authorization-api35.png) | ![Scope stop](../user-guide/screenshots/06-out-of-scope-blocked-api35.png) |
 
-The action is disabled before authorization. A target outside the entered CIDR is rejected in the Case App before the Network Broker is contacted.
-
-## Active emulator outcomes
-
-| PyModbus identity returned | modbus-tk service only |
+| PyModbus identity | modbus-tk service only |
 |---|---|
-| ![PyModbus identity-confirmed result](../user-guide/screenshots/05-active-pymodbus-api35.png) | ![modbus-tk service-confirmed result](../user-guide/screenshots/05-active-modbus-tk-api35.png) |
+| ![PyModbus identity](../user-guide/screenshots/09-active-pymodbus-api35.png) | ![modbus-tk service](../user-guide/screenshots/09-active-modbus-tk-api35.png) |
 
-PyModbus returned vendor, product, and revision objects. modbus-tk returned a valid Modbus exception, so the application confirmed the service without fabricating device identity. Conpot also passed the signed end-to-end job; its screenshot is intentionally omitted because the captured frame contained an unrelated Android launcher dialog.
+The active jobs execute the actual Case App → signed grant → Binder broker → TCP/502 → emulator → evidence UI path. Conpot also passes; PyModbus and modbus-tk are shown because they demonstrate the two distinct identity and service-only outcomes.
 
 ## Reproduction
 
-The instrumentation test writes PNG checkpoints through Android MediaStore. While the emulator is still running, `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them into `build/emulator-screenshots`; the workflow publishes them with the test reports and emulator logs.
-
-Documentation images are reduced to 540 × 1200 pixels and a 64-color palette. Their content is otherwise unchanged from the CI output.
+Instrumentation writes PNG checkpoints through Android MediaStore. `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them before emulator shutdown; CI retains screenshots, test reports and logs as artifacts. Documentation copies are reduced to 540 × 1200 pixels and 64 colors without altering their content.

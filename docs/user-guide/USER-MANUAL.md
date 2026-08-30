@@ -1,170 +1,161 @@
-# Atlas OT Scout guided user manual
+# Atlas OT Scout — guided user manual
 
-This manual covers the implemented P0-WATER discovery slice: offline PCAP/PCAPNG analysis and one explicitly authorized Modbus/TCP identity check. It does not describe an unrestricted network scanner or a complete certification audit.
+Atlas OT Scout is a site-centered OT discovery PoC. The working journey is:
 
-The screenshots were captured automatically from the Android 15 (API 35) emulator acceptance tests in [CI run #16](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33322997770). Test values such as `E2E-WATER-001`, `CI treatment cell`, and `10.0.2.2` are examples, not recommended production values.
+**Choose or create a site → understand the current inventory → choose a collection method → review evidence → add accepted observations → investigate the updated inventory.**
 
-## 1. Before going on site
+This manual covers the implemented passive PCAP/PCAPNG analysis and the explicitly authorized, single-target Modbus/TCP identity check. It does not describe an unrestricted scanner or a complete certification audit.
 
-For passive work, obtain:
+All screenshots are unedited UI outputs from the Android 15 emulator in [CI run #20](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33326876122). The same source passed API 29, API 35, PyModbus, modbus-tk and Conpot jobs.
 
-- a PCAP or PCAPNG exported from an approved SPAN port, network TAP, capture appliance, or packet-analysis workstation;
-- the capture start/end time, collection point, and responsible operator;
-- permission to handle the capture, because it may contain sensitive addresses and process communications.
+## 1. Start in the correct site
 
-For active work, obtain all of the following before opening the active workflow:
+![Choose an existing site or create a new one](screenshots/01-site-selection-api35.png)
 
-- written operational and security authorization;
-- a work-order or case reference;
-- the site and process area;
-- one exact controller IPv4 address;
-- the approved CIDR containing that address;
-- the Modbus unit ID;
-- an approved maintenance window;
-- the matching signed Network Broker application.
+The first screen establishes the operating context before any evidence is collected.
 
-Do not guess a broader CIDR, sweep unit IDs, or substitute another target when a check fails.
+- Tap an existing site to continue its assessment.
+- Tap **Create a new site** when the location is not listed.
+- The included North Water Treatment Plant is clearly marked **SAMPLE**. It is demonstration data, not field evidence.
 
-## 2. Choose the collection mode
+Confirm the site and process area before continuing. Evidence assigned to the wrong site can produce a misleading inventory.
 
-![Atlas OT Scout home screen](screenshots/01-home-api35.png)
+## 2. Create a site
 
-The home screen presents two distinct workflows.
+![New-site guided form](screenshots/02-new-site-api35.png)
 
-| Situation | Choose | Network effect |
+Enter the site information once so it remains visible throughout the assessment:
+
+1. Enter a distinctive **site name**.
+2. Enter the **location / process area** at the level covered by the authorization.
+3. Choose the **industry** from the dropdown.
+4. Select any known **main technology vendors**. Multiple vendors may be selected.
+5. Scroll to the review section and tap **Create site**.
+
+Vendor selections are context and filtering hints—not claims that equipment has been discovered. A vendor becomes an asset fact only when supported by evidence and analyst review.
+
+PoC note: site and inventory state is persisted locally using application preferences. Encrypted professional case storage, access control and export are later milestones.
+
+## 3. Read the site dashboard
+
+![Site assessment dashboard](screenshots/03-site-dashboard-api35.png)
+
+Use the dashboard as the assessment home:
+
+- **Assets** shows the working inventory count.
+- **Protocols** counts distinct protocols currently represented.
+- **To review** highlights observations needing analyst attention.
+- **Network picture** summarizes roles and the next priority.
+- **Recent assets** gives quick access to the latest evidence-backed records.
+
+Tap **Open asset inventory** when you need to investigate the current model. Tap **Collect evidence** when you know what evidence gap you intend to close.
+
+## 4. Choose the collection method
+
+![Passive and active collection methods](screenshots/04-collection-methods-api35.png)
+
+Choose the method that matches both visibility and authorization.
+
+| Situation | Method | Network effect |
 |---|---|---|
-| You were supplied a PCAP/PCAPNG, or the phone cannot observe the switched segment | **Analyze an existing capture** | No packets transmitted |
-| You have written authorization for one known controller | **Start an authorized assessment** | One bounded Modbus identity request |
-| You do not know the target or approved scope | Neither | Stop and obtain the missing authorization data |
+| An approved PCAP/PCAPNG is available, or the phone cannot observe the switched segment | **Analyze PCAP / PCAPNG** | No packets transmitted |
+| One controller and exact CIDR are explicitly authorized | **Identify one known controller** | One bounded Modbus identity request |
+| Target or scope is unknown | Stop | Obtain authorization or a capture |
 
-The Case App has no Internet permission. Active network access is delegated to the separately signed and constrained Network Broker.
+Wi-Fi and Bluetooth appear under **Planned collection packs** and cannot be mistaken for working capability.
 
-## 3. Passive identification from PCAP or PCAPNG
+## 5. Analyze a passive capture
 
-### Step 1 — select the capture
+### Prepare the evidence
 
-1. From the home screen, tap **Analyze an existing capture**.
-2. In Android's document picker, select the approved `.pcap` or `.pcapng` file.
-3. Wait while the app validates the container and analyzes supported OT framing locally.
+Obtain the original PCAP or PCAPNG, capture start/end time, collection point, operator and authorization to handle the file. A capture may contain sensitive addressing and process communications.
 
-The app does not require storage-wide permission. A malformed, truncated, oversized, or unsupported capture is stopped rather than partially trusted.
+### Import and review
 
-### Step 2 — verify the capture summary
+1. Tap **Analyze PCAP / PCAPNG**.
+2. Select the approved file in Android's document picker.
+3. Review the filename, SHA-256 prefix, packet counts, time window and protocol summary.
+4. Review every proposed endpoint, inferred role and confidence.
+5. Add observations only after deciding they belong to this site.
 
-![Passive Modbus capture result](screenshots/04-passive-modbus-api35.png)
+![Passive Modbus observations awaiting review](screenshots/08-passive-modbus-api35.png)
 
-Before reviewing assets, compare the displayed capture name and SHA-256 prefix with the file you intended to analyze. Then review:
+The screen deliberately says **observed**, **candidate** and **to review**. A capture is a visibility sample: absence from the file is not proof that an asset is absent from the site.
 
-- **Capture packets** — all packets present in the file;
-- **OT packets** — packets matching supported, validated OT framing;
-- **Duration** — time between the first and last accepted packet timestamps;
-- **Protocols** — supported OT protocols observed in this capture;
-- **Assets** — endpoints supported by packet evidence, not a complete site inventory.
+The research corpus also exercises DNP3, IEC 60870-5-104 and BACnet/IP:
 
-Protocol examples exercised by the research corpus are shown below.
-
-| Capture result | Example |
-|---|---|
-| Modbus/TCP | ![Modbus passive result](screenshots/04-passive-modbus-api35.png) |
-| DNP3 | ![DNP3 passive result](screenshots/04-passive-dnp3-api35.png) |
-| IEC 60870-5-104 | ![IEC-104 passive result](screenshots/04-passive-iec104-api35.png) |
-| BACnet/IP | ![BACnet passive result](screenshots/04-passive-bacnet-api35.png) |
-
-### Step 3 — review each proposed asset
-
-For every proposed asset, review the address, protocol, inferred role, confidence, and evidence statement. Confirm the observation against the collection point and any approved inventory available to you.
-
-Interpret the result conservatively:
-
-- a detected asset means that supporting traffic appeared in this capture;
-- no detected asset does **not** mean the segment has no OT assets;
-- missing vendor/model data does not reduce a protocol observation to zero evidence;
-- unsupported link types and parser warnings must be recorded as visibility limitations.
-
-### Step 4 — accept or reject the observation
-
-Tap **Save assets to case** only after the observations have been reviewed. In the current PoC this action confirms the decision only for the running session; durable encrypted case storage and export are not yet implemented. Record the original capture and its full SHA-256 in the controlled assessment workspace outside the PoC.
-
-## 4. Authorized active Modbus identification
-
-### Step 1 — record the authorization context
-
-From the home screen, tap **Start an authorized assessment**.
-
-![Active assessment authorization screen](screenshots/02-active-authorization-api35.png)
-
-Complete the three sections in order:
-
-1. **Record the work order** — enter the real case reference and site/process area.
-2. **Confirm the exact target and scope** — enter one canonical IPv4 address, its authorized CIDR, and a unit ID from 0 to 247.
-3. **Confirm authorization** — compare the values on screen with the written authorization, then select the checkbox.
-
-The button remains disabled until authorization is confirmed. The screen states the operation before execution: one Modbus Device Identification request on TCP/502, a 1.5-second timeout, and no register writes.
-
-### Step 2 — respond to a scope error
-
-![Out-of-scope target blocked](screenshots/03-out-of-scope-blocked-api35.png)
-
-If the target is outside the entered CIDR, the app stops before contacting the Network Broker. Correct a transcription error only by referring to the authorization document. Do not enlarge the CIDR merely to make validation pass.
-
-### Step 3 — run the bounded check
-
-1. Recheck the target, CIDR, unit ID, work order, and site.
-2. Select the authorization checkbox.
-3. Tap **Authorize and identify device** once.
-4. Keep the application open while the signed one-use grant is processed.
-
-The broker enforces the target, TCP port, unit, interface, time window, byte/packet limits, retry limit, and replay nonce. It does not expose a generic scanning socket to the Case App.
-
-### Step 4 — interpret the result
-
-![PyModbus identity-confirmed result](screenshots/05-active-pymodbus-api35.png)
-
-| Result | Meaning | Assessor action |
+| DNP3 | IEC 60870-5-104 | BACnet/IP |
 |---|---|---|
-| **IDENTITY CONFIRMED** | The service returned Modbus identity objects such as vendor, product, or revision | Compare values with the device label and approved inventory before saving |
-| **SERVICE CONFIRMED** | A valid Modbus response or exception confirmed the service, but reliable vendor/model identity was not returned | Save only the protocol/service observation; do not invent device identity |
-| **ACTION REQUIRED** | The request failed safely, the broker is unavailable, or the response is invalid | Record the message and troubleshoot without expanding scope |
+| ![DNP3 result](screenshots/08-passive-dnp3-api35.png) | ![IEC-104 result](screenshots/08-passive-iec104-api35.png) | ![BACnet result](screenshots/08-passive-bacnet-api35.png) |
 
-An independent service-only result from modbus-tk shows how the UI avoids inventing vendor/model identity:
+Malformed, truncated, oversized or unsupported captures stop safely rather than being partially trusted.
 
-![modbus-tk service-confirmed result](screenshots/05-active-modbus-tk-api35.png)
+## 6. Identify one authorized Modbus device
 
-Tap **Save identified asset** only after comparing the evidence with the physical device and authorized inventory. As with passive saving, current PoC state is not durable after the process ends.
+Before starting, obtain written authorization, a case reference, process area, one controller IPv4 address, its approved CIDR, Modbus unit ID and approved time window. Do not guess a broader CIDR or sweep targets.
 
-## 5. Safe-stop rules
+![Active authorization and exact scope form](screenshots/05-active-authorization-api35.png)
 
-Stop and escalate instead of improvising when:
+1. Enter the work-order or case reference and process area.
+2. Enter the exact target IPv4, authorized CIDR and unit ID.
+3. Read the displayed limit: one FC 43 / MEI 14 request on TCP/502, 1.5-second timeout, no register reads or writes.
+4. Compare the values with the written authorization.
+5. Select the authorization checkbox and tap **Authorize and identify device** once.
 
-- the authorization does not identify the target and scope;
-- the controller address is outside the approved CIDR;
-- the correct Modbus unit ID is unknown;
-- the matching signed broker is missing;
-- the maintenance window has closed;
-- the interface shown in the result is not the intended assessment interface;
-- the result conflicts with the physical label or authoritative inventory;
-- a PCAP warning makes visibility insufficient for the requested conclusion.
+If the target is outside the entered CIDR, the Case App stops before contacting the Network Broker:
 
-The PoC does not fall back to a port sweep, address sweep, unit sweep, register read, credential attempt, or write operation.
+![Out-of-scope target blocked locally](screenshots/06-out-of-scope-blocked-api35.png)
 
-## 6. Troubleshooting
+Do not enlarge the scope to make validation pass. Correct transcription errors only from the authorization record.
 
-| Message or symptom | What it means | Safe response |
+### Interpret the result
+
+![PyModbus controller identity result](screenshots/09-active-pymodbus-api35.png)
+
+| Result | Meaning | Decision |
 |---|---|---|
-| Capture could not be analyzed | File validation, size, framing, or read failed | Verify the original file and hash; export again without modifying the original |
-| No supported OT protocol evidence | Nothing supported was observed in this visibility sample | Check collection point, duration, link type, and whether relevant traffic occurred |
-| Target outside authorized CIDR | Local preflight blocked the request | Compare target and scope with the written authorization |
-| Network broker unavailable | Matching broker is not installed or cannot bind | Install/verify the signed broker; do not use an unrestricted scanner |
-| Device identification failed safely | Timeout, routing, interface, invalid response, or policy rejection | Record the exact message and verify cabling/routing/window with operations |
-| Service confirmed; vendor/model blank | Device did not return supported identity objects | Report service evidence only and corroborate identity physically |
+| **Identity confirmed** | Valid vendor, product or revision identity objects were returned | Corroborate, then add the asset |
+| **Service confirmed** | Modbus responded, but reliable device identity was not returned | Record the service only |
+| **Action required** | The request failed safely or the broker rejected it | Record the message; do not broaden scope |
 
-## 7. What this version does not yet provide
+The modbus-tk emulator demonstrates the conservative service-only case:
 
-- live whole-segment sniffing from an ordinary phone;
-- physical SPAN/TAP or USB-Ethernet acceptance;
-- general subnet or multi-protocol active scanning;
-- durable encrypted cases or chain-of-custody storage;
-- inventory reconciliation and findings workflow;
-- signed professional report generation.
+![modbus-tk service-only result](screenshots/09-active-modbus-tk-api35.png)
 
-Use imported PCAP/PCAPNG for passive identification when the phone cannot observe the segment. Treat this PoC as a controlled evidence-collection component, not as a complete professional assessment deliverable.
+## 7. Navigate and reason about the asset inventory
+
+![Searchable and filterable asset inventory](screenshots/07-asset-inventory-api35.png)
+
+The inventory is a working evidence model, not a flat scan result.
+
+- Search by address, name, vendor, protocol or role.
+- Filter all assets, review items, controllers, HMI/clients, gateways, passive evidence or active evidence.
+- Use the network insight card to see protocol concentration, identified vendors and unresolved observations.
+- Tap an asset to inspect identity, provenance, confidence, supporting evidence and the recommended next decision.
+- Treat **Review** as a queue for analyst work, not a vulnerability label.
+
+After adding passive or active evidence, return here to ask: Is this a new asset, corroboration of an existing one, a role conflict, or an observation that needs physical/inventory validation?
+
+## 8. Safe-stop rules
+
+Stop and escalate when authorization, target, scope, unit ID, maintenance window or intended interface is uncertain; when the result conflicts with a physical label or authoritative inventory; or when capture visibility is insufficient for the requested conclusion.
+
+The PoC never falls back to an address sweep, port sweep, unit-ID sweep, register read, credential attempt or write operation.
+
+## 9. Five-minute demonstration
+
+Use [the presenter script](../product/DEMO-SCRIPT.md) for a coherent customer demonstration. The shortest storyline is:
+
+1. Show site selection and explain why evidence must have site context.
+2. Open the sample water site and read its current assessment snapshot.
+3. Open inventory, filter **Needs review**, and inspect the unresolved HMI observation.
+4. Return to **Collect evidence** and explain the passive-safe default.
+5. Import the Modbus PCAP and review its four proposed assets.
+6. Show the authorized active path and its exact safety limit.
+7. Finish in inventory: evidence becomes useful only after it supports an analyst decision.
+
+## 10. Current PoC boundary
+
+Implemented: site onboarding, persisted local site/inventory state, dashboard, passive PCAP/PCAPNG analysis, four passive OT protocol decoders, constrained Modbus identity, inventory search/filter/detail and emulator-tested evidence flows.
+
+Not yet implemented: live whole-segment sniffing from an ordinary phone, physical SPAN/TAP or USB-Ethernet acceptance, general active scanning, encrypted multi-user case storage, inventory import/reconciliation, findings workflow and signed professional reports.

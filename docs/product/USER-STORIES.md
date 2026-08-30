@@ -1,49 +1,75 @@
 # Field-assessor user stories and acceptance criteria
 
-## Journey 1 — choose the safe assessment mode
+## 1 — establish site context
 
-**As an assessor arriving on site, I need to choose passive or active work before entering technical details, so I do not accidentally transmit on an OT network.**
+**As an assessor, I need to choose an existing site or create a new one before collecting evidence, so observations cannot float without an operating context.**
 
-- The home screen states whether packets can be sent.
-- Passive analysis is a first-class action, not hidden under scanning.
-- Active assessment opens an authorization and scope screen before the broker is contacted.
+- Existing sites show name, location/process area, industry, asset count and sample status.
+- Creation requires site name, process area and industry; expected vendors support multiple selection.
+- Vendor choices are explicitly described as context, not discovery claims.
+- The selected site remains visible through dashboard, collection and inventory screens.
 
-## Journey 2 — analyze an existing capture
+## 2 — understand the current network picture
 
-**As an assessor who received a PCAP/PCAPNG from a SPAN port, TAP, capture appliance, or another inventory tool, I need to import it offline and understand what was actually observed.**
+**As an assessor resuming work, I need an immediate assessment snapshot, so I can choose the next action based on gaps rather than run another indiscriminate scan.**
 
-- Android's document picker accepts classic PCAP and PCAPNG through a content URI without storage-wide permission.
-- The app validates PCAP records or PCAPNG sections, interfaces, blocks and packet bounds before interpreting Ethernet/IP/transport framing.
-- The result shows capture hash, duration, total packets, supported OT packets, protocols, endpoints, role, confidence, and the evidence behind classification.
-- Unsupported link types are skipped with an explicit warning; oversized, truncated, malformed, or wholly unsupported captures fail closed or return "no supported evidence" without claiming the segment is empty.
-- The screen reminds the assessor that a capture is a visibility sample, not a complete asset inventory.
-- Saving an asset is a separate analyst decision after review.
+- Dashboard shows asset, protocol and review counts.
+- Network picture summarizes role distribution and priority observations.
+- Recent assets link to evidence detail.
+- Collection and inventory are separate, prominent actions.
 
-## Journey 3 — perform constrained active identification
+## 3 — choose a safe collection method
 
-**As an authorized assessor, I need to identify one controller without reading or changing process registers.**
+**As an assessor, I need passive and active methods visibly separated, so I know whether an action transmits before entering technical details.**
 
-- The screen presents three visible steps: work order, exact target/scope, and authorization. Every populated field keeps a visible label.
-- Target IPv4, CIDR membership and Modbus unit are checked before the broker is contacted.
-- The exact operation and limits are visible before approval.
-- The action remains disabled until written operational and security authorization is confirmed.
-- The case app creates a 30-second, one-use P-256-signed grant.
-- The isolated broker selects the connected Android network, enforces CIDR/port/unit/time/packet limits, persists the nonce, and sends one FC 43 / MEI 14 basic-identity request.
-- The result distinguishes full identity from protocol-only service confirmation and shows interface and evidence size.
+- Passive import is the safe default and says no packets are sent.
+- Active identity explains its exact bounded operation and authorization requirement.
+- Planned Wi-Fi/Bluetooth packs are disabled and visually separate from working functions.
 
-## Journey 4 — recover safely
+## 4 — analyze a capture
 
-**As an assessor facing a missing broker, malformed capture, unreachable controller, or unsupported identity function, I need an actionable explanation without the app silently broadening the scan.**
+**As an assessor supplied with PCAP/PCAPNG, I need to analyze it offline and review proposed observations before they affect inventory.**
 
-- Errors appear in the current workflow with a safe return action.
-- No fallback port sweep, unit sweep, register read, or scope expansion occurs.
-- A valid Modbus exception confirms the protocol but is not reported as vendor/model evidence.
+- Real content-URI import validates PCAP/PCAPNG bounds and framing.
+- Results show filename/hash, window, packet counts, supported protocols, endpoints, inferred role and confidence.
+- The app labels the capture a visibility sample, never a complete inventory.
+- Malformed, truncated, oversized and unsupported inputs fail safely.
+- Adding observations is a distinct analyst decision.
+
+## 5 — perform constrained active identity
+
+**As an authorized assessor, I need to identify one known Modbus controller without reading or changing process registers.**
+
+- Work order, process area, exact IPv4, CIDR and unit ID remain visibly labeled.
+- CIDR membership is checked before the broker is contacted.
+- Authorization checkbox gates a one-use signed grant.
+- Broker binds the Android network and enforces target, port, unit, time, packet, byte, retry and replay limits.
+- Result distinguishes identity confirmation from service-only confirmation.
+
+## 6 — investigate the asset inventory
+
+**As an assessor, I need to navigate, filter and inspect the network model, so evidence leads to decisions rather than a flat list of addresses.**
+
+- Search covers address, name, vendor, protocol and role.
+- Filters cover review queue, controllers, HMI/clients, gateways and evidence provenance.
+- Each record exposes identity, role, protocol, confidence, provenance, evidence and next decision.
+- Review status is analyst workflow, not an automatically asserted vulnerability.
+- Accepted active/passive observations update the selected site's inventory.
+
+## 7 — recover safely
+
+**As an assessor facing invalid scope, malformed evidence or unreachable equipment, I need an actionable stop state without silent scan expansion.**
+
+- Errors stay within the current workflow and preserve context.
+- No fallback sweep, register read or scope expansion occurs.
+- A valid Modbus exception confirms only the service, not vendor or model.
 
 ## Automated acceptance mapping
 
-| Story | JVM corpus | Android UI | Live emulator |
+| Story | JVM/corpus | Android API 29 + 35 | Live OT emulator |
 |---|---:|---:|---:|
-| Mode and authorization | Grant policy | API 29 + 35 | — |
-| Passive capture analysis | Four research PCAPs + PCAPNG conversion/corruption | Real content-URI import and four result screens | — |
-| Active identification | Grant/codec tests | Authorization UI → signed case-to-broker flow | PyModbus, modbus-tk, Conpot |
-| Safe failure | Malformed capture, grant and replay tests | Validation/error-state checks | modbus-tk and Conpot service-only behavior |
+| Site onboarding/persistence | Repository model | Full UI journey | — |
+| Dashboard/inventory reasoning | Filtering/model tests | Search, filter and navigation | — |
+| Passive capture analysis | Four protocols + malformed corpus | Real content-URI import | — |
+| Active identity | Grant/policy/codec tests | Authorization → broker → result | PyModbus, modbus-tk, Conpot |
+| Safe failure | Replay, scope and parser tests | Local scope-stop screen | Service-only and failure paths |
