@@ -4,7 +4,7 @@ Atlas OT Scout is a research project for a self-contained Android field instrume
 
 The intended workflow is deliberately narrower than a mobile pentesting suite. An engineer records the approved scope, imports existing inventory, collects passive observations, and—only when an approved profile allows it—uses a bounded identity query. Every result retains its source and confidence so a reviewer can decide what enters the customer's inventory or audit file.
 
-No production application exists yet. The repository currently contains market research, account intelligence, product boundaries, requirements and the secure development plan needed to decide whether a prototype deserves to be built.
+No production application exists yet. The repository now defines an implementable first prototype: a professional asset-inventory and network-exposure assessment for one water/wastewater pumping or treatment segment.
 
 ## Why a phone
 
@@ -15,6 +15,17 @@ A phone can combine a camera, local encrypted database, Wi-Fi and Bluetooth radi
 Morocco is the first operating case. Public regulator, procurement, employer and company material shows an established industrial-audit market, multi-site operators, active factory and infrastructure expansion, and real use of PLC, DCS, SCADA and industrial network technology.
 
 The strongest first user is an authorized OT auditor, integrator or operator team performing a workflow it already owns: commissioning handover, maintenance walkdown, audit collection or inventory reconciliation. The first benchmark should occur in a lab, training cell or tightly controlled maintenance window—not as unsolicited scanning on a production network.
+
+## First implementable PoC
+
+The [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md) fixes the assessment scope, lab, protocol actions, evidence hierarchy, rules, report, performance targets and definition of done. Supporting contracts:
+
+- [Technical architecture](docs/wiki/Technical-Architecture.md)
+- [Assessment method](docs/poc/ASSESSMENT-METHOD.md)
+- [Test and acceptance plan](docs/poc/TEST-AND-ACCEPTANCE.md)
+- [Implementation backlog](docs/poc/IMPLEMENTATION-BACKLOG.md)
+- [Assessment evidence schema](schemas/assessment-evidence.schema.json)
+- [Signed query-profile schema](schemas/query-profile.schema.json)
 
 ## Research map
 
