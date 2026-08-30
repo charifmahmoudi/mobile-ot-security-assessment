@@ -1,118 +1,64 @@
-# ONEE account map
+# ONEE — account decision brief
 
-_Research baseline: 30 August 2026. ONEE is a public critical-infrastructure operator; public role data is incomplete and every technical approach requires formal authorization._
+_Public-source review: 30 August 2026. Electricity and water branches, regions and projects can have distinct owners and procurement._
 
-## Operating structure
+## Decision
 
-ONEE combines two major branches that should be treated as separate markets:
+**Pursue a utility-project inventory/handover pilot through ONEE's engineering and operations chain.** Existing smart-grid, SCADA and telemanagement investments make a generic discovery pitch redundant; the gap to test is portable evidence at substations, pumping stations and contractor handover.
 
-- **Electricity Branch (ONEE-BE):** generation, transmission, distribution, dispatch, metering and interconnection.
-- **Water Branch (ONEE-BO):** drinking-water production, treatment, pumping, transfer, distribution, sanitation and telemanagement.
+## Why now
 
-Tarik Hamane has led ONEE since 2024. Board and financing material describes large grid, renewable-integration, water-production and modernization programs. Regional directorates and individual plants/stations create the actual field-authorization layer.
+- Siemens described its ONEE work with Atos as the **“biggest joint smart grid project in Africa”**, covering a smart-control centre and meter/data integration ([Siemens](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid)).
+- ONEE has published procurements for automata and historical SCADA/supervision projects, confirming distributed control estates in both branches ([ONEE tender](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772), [SCADA tender archive](https://www.developmentaid.org/tenders/view/253523/onee-water-supply-supervisory-control-and-data-acquisition-scada)).
+- ONEE approved a large 2026–2030 investment program covering electricity and drinking water; exact figures should be taken from the board record, not social reposts ([Ministry of Economy and Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)).
 
-## Reconstructed OT-relevant organization
+## Relevant public organization
 
-| Public node | Person | Source | Relevance |
+| Function | Public person | Evidence | Likely relevance — inference |
 |---|---|---|---|
-| Director General / Group CEO | Tarik Hamane | Public profile and official/public events | Strategic sponsorship across both branches |
-| Electricity production direction | Houssine Naji | Public LinkedIn title “Directeur Production chez ONEE-BE” | Generation operations; exact current mandate to confirm |
-| Electricity technical division | Omar Benemmane | Public LinkedIn title | Technical/substation context; profile mentions IEC 61850 |
-| Electricity smart metering architecture | Mohamed Bahid | Public LinkedIn title, AMI/Smart Metering Architect | EnergyIP/metering architecture and cyber requirements |
-| Electricity SCADA administration | Ismail N. | Public LinkedIn title | Operational SCADA administration; not necessarily decision authority |
-| Network and security engineering | Mohamed-Yacine Chahdaoui | Public LinkedIn profile | Enterprise/network security review |
-| Water automation, instrumentation and telemanagement team | Abderrahim Samir | Public LinkedIn title | Direct Water Branch field-use audience |
-| Water SCADA/automation training | Sami Laknizi | Public LinkedIn title | Training and controlled validation route |
+| Group executive | [Tarik Hamane](https://ma.linkedin.com/in/tarik-hamane-71bb37125), CEO | Public profile; public event appearances | Sponsor/investment priorities |
+| Information systems | [Houssine Naji](https://ma.linkedin.com/in/houssine-naji-b40766152) | Public profile | IT architecture/integration |
+| Cybersecurity | [Omar Benemmane](https://ma.linkedin.com/in/omar-benemmane-8635bb45) | Public profile | Security approval |
+| Grid/dispatching engineering | [Mohamed Bahid](https://ma.linkedin.com/in/mohamed-bahid-00a78b31) | Public profile | Electricity operations |
+| Industrial control/automation | [Ismail Nassereddine](https://ma.linkedin.com/in/inassereddine) | Public profile | Protocol/field evaluation |
+| Water telemanagement | [Abderrahim Samir](https://ma.linkedin.com/in/abderrahim-samir-a34a87140) | Public profile | Water-branch use case |
 
-These profiles establish functions, not a formal hierarchy. ONEE's authoritative organization and current appointments must come from the Office.
+These public roles do not prove current reporting lines or budget authority.
 
-### Probable authorization chain
+## What is publicly said
 
-For a Water Branch pumping or treatment station: regional/site operations → automation/instrumentation/telemanagement → branch IT/security → central governance/procurement. For an Electricity Branch substation or plant: production/transmission asset owner → protection/control/SCADA → network/cybersecurity → branch and central approval.
+> “biggest joint smart grid project in Africa” — Siemens on the Atos/ONEE project. ([Siemens](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid))
 
-No active protocol query should be proposed until the protection/control owner approves it. A portable tool must never conflate smart-meter systems, enterprise IT and protection-control networks.
+The scale suggests integration and contractor governance matter more than a standalone phone database.
 
-## LinkedIn and public presence
+## Employees and visible activity
 
-- ONEE has public corporate and branch references, while LinkedIn employees commonly name the precise branch in their profiles.
-- Search results expose production, technical-division, SCADA, smart-metering, network-security and water-telemanagement roles.
-- Public intern/project profiles repeatedly mention pumping-station telemanagement, treatment SCADA and integration of communicating switches into ONEE supervision. These are secondary capability signals; they should not be treated as official architecture disclosures.
+| Person | Appearance | Relevance | Source |
+|---|---|---|---|
+| Tarik Hamane | Powering Africa Summit 2026, Washington, D.C. | Public focus on grid resilience, renewables and water–energy nexus | [Morocco Global Leaders](https://www.linkedin.com/posts/mgl-network_mrtarik-hamane-ceo-of-moroccos-national-activity-7440447394611105792-naU-) |
+| Tarik Hamane | Africa Energy Forum 2026, Cape Town; fireside chat on resilient, integrated grids | Executive access surface for infrastructure partners | [Infinity Power](https://www.linkedin.com/posts/infinity-power_aef2026-infinitypower-energyinvestment-activity-7474074203546157056-SPUM) |
+| Tarik Hamane | AIX Power & Renewables, London, 18–19 Nov 2025; grid-modernization and gas-to-power sessions | Investor/project-developer network | [AIX announcement](https://www.linkedin.com/posts/activity-7366411042555367424-MJUJ) |
+| Tarik Hamane | APUA Scientific Committee meeting, Marrakech, 2026 | African utility peer network | [ABB participant post](https://www.linkedin.com/posts/khaled-aw-tawfik_abb-onee-apua-activity-7445074310249086976-GvPD) |
 
-The public employee surface is sufficient to identify role families, but not to build a complete named management chart. Outreach should go through official procurement, company contact and professional introductions, not guessed addresses.
+No equally strong public event record was found for the named technical staff. Treat their profiles as role clues only.
 
-## Technology, suppliers and procurement
+## Technology evidence
 
-### Confirmed projects
-
-- Atos and Siemens announced an ONEE smart-grid project using Siemens EnergyIP to process data from more than 100,000 smart meters. Atos was responsible for IT infrastructure and security consistency.
-- Public ONEE procurement covers maintenance of automata at the Mohammedia fuel-loading station.
-- An EBRD procurement record covers Water Branch SCADA acquisition.
-- Public professional profiles refer to ONEE SCADA integration, water telemanagement, PLC supervision and IEC 61850 technical work.
-
-### What these signals mean
-
-ONEE's estate is not one protocol list. Smart metering, generation controls, substation automation and water telemanagement have different technologies and risk. The first product profile should be chosen from an actual tender specification or lab configuration. Likely standards such as IEC 60870-5-104, IEC 61850, Modbus and DLMS/COSEM should remain research priorities, not claims about every ONEE site.
-
-## Events and external activity
-
-| Event/relationship | Public activity | Relevance |
+| Signal | Strength | Source |
 |---|---|---|
-| Powering Africa Summit 2026 | Tarik Hamane spoke about renewables, grid resilience, investment and water–energy nexus | Executive priority and partner ecosystem |
-| Morocco Energy & Sustainability Week | Advertises roundtables with ONEE, Masen and ANRE | Route to project developers, EPCs and policy stakeholders |
-| EBRD digitalization engagement | EBRD publicly described work with ONEE | Modernization partner and procurement context |
-| GITEX Africa / smart-grid ecosystem | Relevant suppliers attend; direct ONEE attendance must be checked per edition | Supplier mapping, not assumed account participation |
+| Smart control centre and smart-meter/data integration | Direct Siemens project statement | [Siemens](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid) |
+| Water SCADA/telemanagement | Tender and public-role evidence | [Tender](https://www.developmentaid.org/tenders/view/253523/onee-water-supply-supervisory-control-and-data-acquisition-scada), [role](https://ma.linkedin.com/in/abderrahim-samir-a34a87140) |
+| PLC/automata procurement | Direct tender; vendor/site scope must be read per lot | [ONEE](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772) |
 
-Technical users are more likely reached through approved engineering contractors, public tenders and training centers than through a broad technology conference.
+## Entry route
 
-## What outside sources say
+1. Choose one branch and one project; do not pitch “ONEE-wide.”
+2. Work through the EPC/approved integrator on a training rack, commissioning zone or planned maintenance window.
+3. Produce a signed as-designed versus observed exception pack; prohibit write operations.
 
-Siemens and Atos describe the smart-meter project as Africa's largest joint smart-grid project at announcement and emphasize security, scalability and changing utility operating models. EBRD frames digitalization as an enabler of energy transition and security. Public ONEE professionals emphasize long-lived telemanagement and SCADA responsibilities. This points to an organization already modernizing at scale while retaining legacy and regional operational complexity.
+## Stop/go questions
 
-## Opportunity designs
-
-### Water telemanagement inventory
-
-Select one noncritical pumping/treatment training system or planned maintenance scope. Import the existing PLC/RTU/communications list, collect passive observations and issue a reviewed discrepancy report.
-
-### Contractor delivery pack
-
-An approved automation contractor uses the mobile workflow during telemanagement maintenance and delivers evidence in the tender-required format. This is commercially more realistic than direct enterprise software adoption.
-
-### Training-center protocol validation
-
-ONEE trainers validate identity-only profiles against representative IEC/Modbus/DLMS devices without production risk.
-
-## Product implications
-
-- Separate electricity, water, site and regional directorate tenants/scopes.
-- Full offline operation and controlled export are core requirements for remote sites.
-- Query profiles must distinguish monitoring/metrology from protection/control.
-- Capture timestamps, interface identity, authorization and operator must be tamper-evident.
-- Import/export should support public-procurement deliverables and common engineering formats.
-- Arabic/French field terminology and French reporting are important for Morocco rollout.
-
-## Unknowns
-
-- Official current branch organization and named cybersecurity/OT-security owners.
-- Which ONEE systems are designated vital information infrastructure and what additional rules apply.
-- Current approved audit firms, integrators and hardware.
-- Exact vendor/protocol inventory at a candidate station.
-- Procurement threshold and framework route for a prototype.
-- Whether packet evidence can leave a regional site and who holds encryption keys.
-
-## Sources
-
-- [ONEE board reporting — Ministry of Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)
-- [Atos–Siemens ONEE smart-grid project](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid)
-- [ONEE automata-maintenance notice](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772)
-- [Historical Water Branch SCADA procurement](https://www.developmentaid.org/tenders/view/253523/onee-water-supply-supervisory-control-and-data-acquisition-scada)
-- [Tarik Hamane public profile](https://ma.linkedin.com/in/tarik-hamane-71bb37125)
-- [Electricity Production Director](https://ma.linkedin.com/in/houssine-naji-b40766152)
-- [Electricity technical-division profile](https://ma.linkedin.com/in/omar-benemmane-8635bb45)
-- [AMI/Smart Metering Architect](https://ma.linkedin.com/in/mohamed-bahid-00a78b31)
-- [ONEE-BE SCADA administrator](https://ma.linkedin.com/in/inassereddine)
-- [ONEE network/security engineer](https://ma.linkedin.com/in/chahdaoui)
-- [Water automation/instrumentation/telemanagement team lead](https://ma.linkedin.com/in/abderrahim-samir-a34a87140)
-- [Water SCADA/automation trainer](https://ma.linkedin.com/in/sami-laknizi-523b45b4)
-- [Powering Africa Summit participation](https://www.linkedin.com/posts/mgl-network_mrtarik-hamane-ceo-of-moroccos-national-activity-7440447394611105792-naU-)
-- [Morocco Energy & Sustainability Week](https://www.netzerocircle.org/event/morocco-energy-week)
+- Which branch/entity owns the target and its authoritative inventory?
+- Which protocols and vendors are present in that exact project?
+- What national critical-infrastructure, data-residency and device rules apply?
+- Must procurement run through the EPC or a framework contractor?
