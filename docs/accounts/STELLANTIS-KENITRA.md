@@ -1,118 +1,62 @@
-# Stellantis Kenitra account map
+# Stellantis Kénitra — account decision brief
 
-_Research baseline: 30 August 2026. The plant is in active ramp-up; roles and program ownership may change quickly._
+_Public-source review: 30 August 2026. Titles are time-sensitive._
 
-## Operating situation
+## Decision
 
-Stellantis opened the Kenitra plant in 2019 and inaugurated a major expansion in July 2025. Reuters reported a €1.2 billion program intended to raise annual capacity to 535,000 vehicles, increase light electric-vehicle capacity from 20,000 to 70,000, add hybrid engines and three-wheelers, and raise local sourcing from about 69% toward 75% by 2030. In July 2026 the plant launched Fiat Fastback and Fiat Grizzly production on the Smart Car platform. Public plant content refers to approximately 7,600 employees.
+**Pursue commissioning and supplier handover around the Kénitra expansion.** The expansion creates a bounded inventory-reconciliation problem; permanent monitoring is a later discussion.
 
-This is not simply a mature plant-security account. It is a commissioning, ramp-up and supplier-handover account where new assets, production areas and documentation are being created now.
+## Why now
 
-## Relevant organization map
+- Reuters reported a €1.2 billion expansion, capacity rising to 535,000 vehicles/year and EV capacity increasing from 20,000 to 70,000 ([Reuters, 17 July 2025](https://www.reuters.com/world/africa/stellantis-expands-production-capacity-morocco-plant-2025-07-17/)).
+- Stellantis previously announced production-capacity and local-integration expansion for its Middle East and Africa plan ([Stellantis](https://www.stellantis.com/en/news/press-releases/2022/november/a-new-step-for-kenitra-site-to-support-growth-plans-for-middle-east-and-africa-region)).
+- The plant publicly launched Smart Car platform production for Fiat Fastback and Grizzly, creating new-line documentation and acceptance work ([plant leader post](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_fiatfastback-fiatgrizzly-stellantis-activity-7488178372452417536-SnXr)).
 
-| Public node | Person | Basis | Likely relevance |
+## Relevant public organization
+
+| Function | Public person | Evidence | Likely relevance — inference |
 |---|---|---|---|
-| VP / General Manager, Kenitra Automotive Industrial Complex | Mounir Kharbouche | Public LinkedIn profile and plant posts | Site accountability and expansion sponsorship |
-| Middle East & Africa operations leadership | Samir Cherfan | Stellantis/Reuters public expansion statements | Regional investment and manufacturing priorities |
-| Plant Maintenance Director | Mohammed Amine Charef | Public LinkedIn profile | Equipment availability, maintenance workflow and commissioning acceptance |
-| Manufacturing mainstream plant management | Said Elkhomri | Public LinkedIn profile | Production ownership; exact Kenitra scope must be checked |
-| Maintenance group leadership | Radwane Nassiri | Public LinkedIn profile | Stamping, body, paint, assembly and engine maintenance context |
-| Industrial electrical/electronic project leadership | Thibault Munyaneza | Public LinkedIn profile | New-equipment project and diagnostic workflow |
-| Data Champion network | Aymane N. | Public LinkedIn profile | Data governance and ownership model; not necessarily OT security |
-| Equipment Leader recruitment | Role, not named person | Public job posting | Demonstrates current equipment/project governance need |
+| Plant executive | [Mounir Kharbouche](https://ma.linkedin.com/in/mounir-kharbouche-66255a113/fr), VP/General Manager Kénitra | Public profile and posts | Site sponsorship |
+| Plant maintenance | [Mohammed Amine Charef](https://ma.linkedin.com/in/mohammed-amine-charef-592b0b18) | Public profile | Maintenance acceptance |
+| Maintenance execution | [Radwane Nassiri](https://ma.linkedin.com/in/radwane-nassiri-950ba96b) | Public profile | Field workflow |
+| Industrial projects | [Thibault Munyaneza](https://ma.linkedin.com/in/thibault-munyaneza-ba488611a/fr) | Public profile | New-line handover |
+| Automation/industrial data | [Aymane Nassri](https://ma.linkedin.com/in/nassriayman) | Public profile | Technical evaluation |
 
-No reliable public source found a current named Kenitra OT-security manager. Regional IT profiles exist, but attributing plant OT authority to them would be speculation. This missing node must be resolved through the plant or an approved supplier.
+The group cybersecurity, plant IT and procurement chain is not publicly resolved; this is not an official organigram.
 
-### Reconstructed project approval path
+## What is publicly said
 
-For one production cell, the plausible route is:
+> “more than double production capacity ... to 535,000 vehicles annually” — Reuters on the Kénitra expansion. ([Reuters](https://www.reuters.com/world/africa/stellantis-expands-production-capacity-morocco-plant-2025-07-17/))
 
-1. equipment/project leader defines the acceptance or maintenance task;
-2. plant maintenance and production approve timing and safe state;
-3. plant IT/OT security approves the connection, capture and export policy;
-4. line builder/integrator performs collection or supports it;
-5. site management and purchasing approve broader deployment;
-6. regional/global Stellantis architecture reviews integration.
+> “engage with suppliers, investors, institutions, and talented professionals” — Mounir Kharbouche on the Automotive Competitiveness Show. ([LinkedIn](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_stellantis-kenitra-automotive-activity-7480190205069623296-9c3n))
 
-The functions are publicly visible; their exact reporting order is inferred.
+The second quote identifies the practical access surface: suppliers and institutions around a live capacity ramp.
 
-## LinkedIn and public discussion
+## Employees and visible activity
 
-- [Stellantis company page](https://www.linkedin.com/company/stellantis/) covers global and regional announcements.
-- Mounir Kharbouche maintains an active public profile and posts about plant milestones, visits, workforce engagement and the Automotive Competitiveness Show.
-- Public comments around the 2026 town hall describe a 7,600-person complex and the new model launch. These comments are useful corroboration of ramp-up scale, not technical evidence.
-- Public profiles expose plant maintenance, manufacturing, equipment and data roles. They indicate a mature internal organization that will expect precise terminology and safe boundaries.
+| Person | Appearance | Relevance | Source |
+|---|---|---|---|
+| Mounir Kharbouche | Automotive Competitiveness Show, 2026 | Named plant executive publicly using the event for supplier/investor engagement | [Post](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_stellantis-kenitra-automotive-activity-7480190205069623296-9c3n) |
+| Mounir Kharbouche + plant executive team | 3rd SPW Day 2025; 100+ colleagues and 54 improvement sheets | Plant has a visible continuous-improvement mechanism | [Post](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_stellantis-kenitra-spwday-activity-7307325503965724672-heXM) |
+| Mounir Kharbouche | Official Smart Car platform launch | Direct executive ownership of the expansion narrative | [Post](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_fiatfastback-fiatgrizzly-stellantis-activity-7488178372452417536-SnXr) |
 
-## Technology signals and their limits
+## Technology evidence
 
-The public record supports automation and industrial diagnostics at Kenitra, but it does not establish a complete vendor inventory. Current job and professional material shows:
-
-- automation-technician and equipment-leader roles;
-- maintenance organization across stamping, body, paint, final assembly and engine assembly;
-- industrial electrical/electronic project activity;
-- a project integrating autonomous mobile robots into internal logistics;
-- plant participation in a global data-champion network with formal RBAC, ownership and lineage work.
-
-Comau has a long relationship with Stellantis globally and is relevant to automotive automation, but no source found in this research proves which Comau systems are installed at Kenitra. The same caution applies to Siemens, Rockwell, Schneider, ABB, KUKA and FANUC. They belong in a vendor-detection backlog only when a Kenitra document, job description or pilot observation supports them.
-
-## Events and ecosystem
-
-| Event/activity | Public participation | Why it matters |
+| Signal | Strength | Source |
 |---|---|---|
-| Automotive Industry Competitiveness Show | Mounir Kharbouche described engagement with suppliers, investors and institutions | Strong route to project suppliers and local purchasing ecosystem |
-| Expansion inauguration, July 2025 | Stellantis MEA, plant and Moroccan government leaders | Identifies active capital program and strategic visibility |
-| Smart Car launch, July 2026 | Plant and Industry Ministry participation | Confirms continuing ramp-up and new production scope |
-| Plant visits/innovation content | Site leader hosts technical and academic visitors | Shows an outward-facing innovation posture, but not open network access |
+| New lines and flexible production | Direct expansion/launch evidence | [Reuters](https://www.reuters.com/world/africa/stellantis-expands-production-capacity-morocco-plant-2025-07-17/), [launch](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_fiatfastback-fiatgrizzly-stellantis-activity-7488178372452417536-SnXr) |
+| Industrial equipment/automation requirements | Public recruitment signal; not a complete installed-base inventory | [Job posting](https://www.linkedin.com/jobs/view/4246058489/) |
+| AMR activity | Individual-profile clue; validate site/current scope | [Public profile](https://ma.linkedin.com/in/achraffariss) |
 
-## What outside commentary implies
+## Entry route
 
-Reuters frames Kenitra as central to Morocco exceeding one million vehicles of national capacity and to Stellantis's regional EV/hybrid strategy. Plant leadership frames industry events as supplier and investor engagement, not merely branding. Public project profiles show AMR and data-governance work. Together, these signals support a handover/reconciliation proposition linked to expansion.
+1. Meet an approved line builder or project/maintenance lead at the Automotive Competitiveness Show ecosystem.
+2. Offer a handover pack for one new or modified cell: import design list, passive observe, attach physical evidence, sign exceptions.
+3. Measure acceptance-cycle time and unresolved inventory discrepancies.
 
-They do not show dissatisfaction with existing security tools. Atlas OT Scout must solve a documentation and field-work problem that current project teams acknowledge.
+## Stop/go questions
 
-## Opportunity designs
-
-### New-cell acceptance package
-
-An approved line builder imports the as-designed inventory, records passive observations and produces unresolved differences for Stellantis maintenance and IT review.
-
-### Contractor maintenance pack
-
-During a planned stop, a maintenance contractor records the assets actually encountered and attaches packet/label evidence without performing broad active discovery.
-
-### Training-cell validation
-
-Use IFMIA Kenitra or another controlled cell to validate industrial protocol profiles before asking for production use.
-
-## Product requirements generated by this account
-
-- Change-controlled assessment profiles tied to a project/cell and expiry date.
-- A handover workflow comparing as-designed, as-commissioned and currently observed assets.
-- Strong separation between contractor collection and Stellantis approval.
-- Offline mode and radio-disable controls visible to site security.
-- Data export that respects plant/global ownership and can carry RBAC metadata.
-- No “auto-scan everything” action.
-
-## Questions still open
-
-- Current Kenitra plant IT/OT security owner.
-- Approved line builders, automation integrators and commissioning contractors for the expansion.
-- Current CMDB/MES/maintenance stack and handover file format.
-- Permitted Android hardware, USB devices and radio settings.
-- Whether supplier purchasing can run a prototype under an existing framework.
-- Which new areas have a stable reference inventory suitable for a benchmark.
-
-## Sources
-
-- [Stellantis Kenitra expansion announcement](https://www.stellantis.com/en/news/press-releases/2022/november/a-new-step-for-kenitra-site-to-support-growth-plans-for-middle-east-and-africa-region)
-- [Reuters on €1.2bn expansion](https://www.reuters.com/world/africa/stellantis-expands-production-capacity-morocco-plant-2025-07-17/)
-- [Mounir Kharbouche public profile](https://ma.linkedin.com/in/mounir-kharbouche-66255a113/fr)
-- [Plant leader on Automotive Competitiveness Show](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_stellantis-kenitra-automotive-activity-7480190205069623296-9c3n)
-- [Plant Maintenance Director](https://ma.linkedin.com/in/mohammed-amine-charef-592b0b18)
-- [Maintenance group leader](https://ma.linkedin.com/in/radwane-nassiri-950ba96b)
-- [Industrial project leader](https://ma.linkedin.com/in/thibault-munyaneza-ba488611a/fr)
-- [Manufacturing plant manager](https://ma.linkedin.com/in/said-elkhomri-b153ab92)
-- [Kenitra data-governance signal](https://ma.linkedin.com/in/nassriayman)
-- [Equipment Leader job](https://www.linkedin.com/jobs/view/4246058489/)
-- [AMR project signal](https://ma.linkedin.com/in/achraffariss)
-- [Smart Car model launch](https://www.moroccoworldnews.com/2026/07/329721/stellantis-launches-fiat-grizzly-fastback-production-at-moroccos-kenitra-plant/)
+- Who owns OT cybersecurity and asset inventory at Kénitra?
+- Which EPCs/line builders are approved for the new platforms?
+- What mobile/radio/removable-media restrictions apply?
+- Can evidence be exported into Stellantis configuration and maintenance systems?
