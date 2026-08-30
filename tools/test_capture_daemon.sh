@@ -27,8 +27,16 @@ if ! $SUDO ip link add atlas_tx type veth peer name atlas_rx; then
 fi
 $SUDO ip link set atlas_tx up
 $SUDO ip link set atlas_rx up
-before_tx=$(cat /sys/class/net/atlas_rx/statistics/tx_packets)
-$SUDO "$build_dir/atlas_capture" --interface atlas_rx --output "$capture_file" --max-bytes 1048576 --duration-ms 2000 >"$build_dir/result.json" &
+trace_file="$build_dir/transmit-syscalls.log"
+rm -f "$trace_file"
+if command -v strace >/dev/null; then
+  # Runtime proof complements the undefined-symbol gate above and also catches
+  # direct syscall(2) use. The trace must remain empty for the entire capture.
+  $SUDO strace -f -qq -e trace=send,sendto,sendmsg -o "$trace_file" \
+    "$build_dir/atlas_capture" --interface atlas_rx --output "$capture_file" --max-bytes 1048576 --duration-ms 3000 >"$build_dir/result.json" &
+else
+  $SUDO "$build_dir/atlas_capture" --interface atlas_rx --output "$capture_file" --max-bytes 1048576 --duration-ms 3000 >"$build_dir/result.json" &
+fi
 capture_pid=$!
 # The process must have bound AF_PACKET and written the PCAP header before the
 # producer starts. A fixed sleep was flaky on cold GitHub runners and could
@@ -69,8 +77,11 @@ wait "$capture_pid" || {
   cat "$build_dir/result.json" >&2 || true
   exit "$capture_status"
 }
-after_tx=$(cat /sys/class/net/atlas_rx/statistics/tx_packets)
-test "$before_tx" = "$after_tx"
+if [ -e "$trace_file" ] && [ -n "$($SUDO cat "$trace_file")" ]; then
+  echo "capture daemon invoked a packet-transmission syscall" >&2
+  $SUDO cat "$trace_file" >&2
+  exit 1
+fi
 $SUDO chown "$(id -u):$(id -g)" "$capture_file"
 python3 - "$capture_file" <<'PY'
 import struct, sys
