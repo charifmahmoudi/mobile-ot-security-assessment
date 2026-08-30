@@ -48,7 +48,7 @@ No source reviewed tied the named Moroccan technical employees to a specific pub
 
 | Signal | Strength | Source |
 |---|---|---|
-| Industrial IT and security capacity building | Direct public role/recruitment signal | [Profile](https://ma.linkedin.com/in/abdelkrim-berrada-8791b874), [job](https://www.linkedin.com/jobs/view/4449009317/) |
+| Industrial IT and security capacity building | Direct public role/recruitment signal | [Profile](https://ma.linkedin.com/in/abdelkrim-berrada-8791b874), [job](https://www.linkedin.com/jobs/view/4449009317/) |\n| Direct-purchasing leadership recruitment | Official Safran jobs index; role holder not disclosed | [Safran jobs](https://www.safran-group.com/jobs?page=254) |
 | New assembly, MRO and landing-gear facilities | Direct company/media evidence | [Safran](https://www.safran-group.com/countries/morocco), Reuters links above |
 | PLC/DCS vendor inventory | **Not publicly verified** | Must be obtained per project/EPC |
 
