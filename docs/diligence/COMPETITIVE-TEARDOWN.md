@@ -1,78 +1,42 @@
-# Competitive teardown
+# Competitor evidence
 
-## The actual alternatives
+Subjective 0–2 scores have been removed. This table records only publicly stated capabilities and prices.
 
-The customer can buy a continuous OT platform, run an active-discovery product, use general security/network tools, commission a consultant, or keep a spreadsheet. The product must beat the last two on evidence and repeatability without pretending to replace the first.
+| Product/project | Publicly stated fact | Public price found | Unresolved comparison |
+|---|---|---:|---|
+| Claroty Edge | Windows/Linux one-time agentless executable for CPS asset visibility; supports safe vendor-specific queries | quote | protocol depth, offline export, Morocco channel, field workflow |
+| Dragos Platform | OT asset visibility, threat detection and response platform | quote | portable assessment mode and entry configuration |
+| Nozomi platform | passive and active OT/IoT asset discovery; Arc endpoint component | quote; Arc stated per monitored asset | one-time offline field workflow |
+| runZero | active network asset discovery/exposure management; Community Edition up to 100 assets | free community | OT safety behavior, disconnected workflow, mobile support |
+| Tenable Nessus Professional | general vulnerability scanner with unlimited assessments per licensed scanner | USD 4,790/year on official 2026 page | OT-safe profile and industrial identity accuracy |
+| Nmap | general network discovery/service detection | no license fee; NPSL terms | Android packaging, commercial license, OT safety |
+| Wireshark | broad passive protocol dissection | GPL/no fee | mobile product integration and workflow |
+| Malcolm + ICSNPP | server-oriented passive traffic analysis with industrial protocol packages | no license fee; component licenses | hardware footprint and Android suitability |
+| PCAPdroid | Android VPN/root capture/export for device traffic | GPL/no fee | third-party LAN capture is not provided by ordinary VPN capture |
+| PentAGI | AI-assisted pentest orchestration using container/tool integrations | repository MIT; dependencies vary | unsuitable packet authority for production OT |
 
-## Capability comparison
+## Evidence-backed competitive conclusions
 
-Scores: 0 absent, 1 limited/indirect, 2 material capability, ? not publicly verifiable. Scores summarize public product information and require hands-on validation.
+1. Portable/one-time CPS discovery already exists: Claroty Edge publicly claims it.
+2. A free asset-discovery substitute exists for environments up to 100 assets: runZero Community Edition.
+3. A professional general scanner has a transparent public anchor: Nessus Professional at USD 4,790/year.
+4. Strong passive/open-source analysis is available, but generally as expert/server tooling rather than an integrated Android audit case.
+5. Mobile and low price alone are not defensible differentiation.
 
-| Alternative | Portable one-time | Passive evidence | OT identity | Android field UI | Offline case | Active safety governance | Inventory export | Public entry price |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| Claroty Edge | 2 | 1 | 2 | 0 | 1 | 2 | 2 | quote |
-| Dragos Platform/SiteStore | 1 | 2 | 2 | 0 | 1 | 2 | 2 | quote |
-| Nozomi Guardian/Arc | 1 | 2 | 2 | 0 | 1 | 2 | 2 | quote; Arc per asset |
-| runZero | 2 | 0/1 | 1 | 0 | 1 | 1 | 2 | free community up to 100 assets |
-| Tenable Nessus Pro | 2 | 0 | 1 | 0 | 2 | 0/1 | 2 | $4,790/year (official 2026 page) |
-| Nmap | 2 | 0 | 1 | 0 | 2 | 0 | 1 | no fee; NPSL |
-| Wireshark | 2 | 2 | 2 dissectors | 0 | 2 | n/a | 1 | GPL/no fee |
-| Malcolm + ICSNPP | 0/1 | 2 | 2 | 0 | 2 | n/a | 2 | no fee; substantial server stack |
-| PCAPdroid | 2 | 1 local-device | 0 | 2 | 2 | n/a | 2 | GPL/no fee |
-| Spreadsheet + consultant | 1 | ? | 0/1 | 1 | 2 | human | 2 | project-specific |
-| Atlas target | 2 | 2 with correct visibility | 2 | 2 | 2 | 2 | 2 | MAD-local tiers proposed |
+## Product comparison still required
 
-## Competitor-by-competitor implications
+No conclusion about superiority is permitted until hands-on testing covers:
 
-### Claroty Edge
+- same labeled network/device corpus;
+- exact packets sent;
+- identity depth and errors;
+- visibility disclosure;
+- offline behavior;
+- hardware/setup time;
+- export schema;
+- report/reconciliation effort;
+- price quote for the same buyer and scope.
 
-Claroty describes Edge as a Windows/Linux one-time agentless executable delivering CPS visibility in minutes without lower-level sensors. This directly validates the portable-baseline job. Atlas cannot win by claiming “portable discovery” alone. It must win on Android field ergonomics, offline case evidence, low-cost channel packaging, BLE/Wi-Fi workflow and transparent safety.
+## Positioning status
 
-### Dragos
-
-Dragos is a mature OT security platform and strong threat-intelligence brand. It is an enterprise complement/competitor. Atlas should export evidence toward such platforms and target sites or engagements not yet instrumented.
-
-### Nozomi
-
-Nozomi promotes passive and active asset discovery; Arc is an endpoint sensor priced by monitored assets. Atlas differs as an assessor-controlled field case, not continuous endpoint protection.
-
-### runZero
-
-runZero is the closest product-category substitute for active asset inventory. It offers a free community edition up to 100 assets. Atlas must demonstrate superior OT safety, packet provenance, disconnected operation and mobile multi-interface collection. Price alone will not win.
-
-### Tenable Nessus
-
-Nessus Professional has a transparent $4,790 annual list price in 2026. It establishes an upper reference for a professional general scanner, but active vulnerability scanning is not the desired OT safety posture. Atlas Professional must be materially cheaper locally or deliver an OT-specific outcome.
-
-### Open-source stack
-
-Nmap/Wireshark/Zeek/ICSNPP/Malcolm can produce excellent technical evidence in expert hands. Atlas adds governed workflow, packaging, identity confidence, local reports and support. It must not misrepresent open-source work as proprietary invention.
-
-## Positioning
-
-Do not position as “cheaper Claroty.” Position as:
-
-> The controlled field baseline and evidence handoff for sites not yet covered continuously, and for professionals who assess many sites.
-
-## Defensible proof comparison
-
-Before launch, publish:
-
-- tested protocol-family count, with exact identity depth;
-- assets/hour on a reproducible lab;
-- false merge/split and model-identification rates;
-- RAM, battery and storage behavior;
-- packets sent per active profile;
-- supported Android/NIC/TAP matrix;
-- report reconciliation time versus Wireshark/Nmap/spreadsheet workflow;
-- export acceptance by at least two downstream systems.
-
-## Competitive response risks
-
-| Response | Probability | Counter |
-|---|---|---|
-| Incumbent ships mobile collector | medium | country/channel packs and field evidence workflow |
-| runZero expands OT/mobile | high | operational safety and passive multi-interface specialization |
-| integrator scripts own toolkit | high | signed knowledge, QA, reporting and support |
-| Android OEM restrictions worsen | medium | capture accessory abstraction and optional rugged Linux companion |
-| free tools remain sufficient | certain | sell repeatability, governance and service margin—not packets |
+“Controlled mobile evidence instrument for qualified industrial audit workflows” is a research position. It is not yet proven to be unique or preferred.
