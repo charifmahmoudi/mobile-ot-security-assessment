@@ -37,6 +37,10 @@ android {
 dependencies {
     implementation(project(":core-domain"))
     testImplementation(kotlin("test-junit"))
+    // The test-only content provider is instantiated in the instrumentation APK's
+    // process before the target application. Package the runtime explicitly so a
+    // real content:// PCAP import can execute independently of the target APK.
+    androidTestImplementation(kotlin("stdlib"))
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test:core-ktx:1.6.1")
     androidTestImplementation("androidx.test:runner:1.6.2")
