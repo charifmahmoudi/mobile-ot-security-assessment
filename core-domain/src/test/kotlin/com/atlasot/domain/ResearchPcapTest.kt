@@ -20,7 +20,7 @@ class ResearchPcapTest {
         assertTrue(result.totalPackets > 0)
         assertTrue(result.parsedPackets > 0, "no supported packets in $name")
         assertTrue(result.protocolCounts.getOrDefault(expected, 0) > 0, "missing $expected in $name")
-        assertTrue(result.assets.any { expected in it.protocols && it.role.contains("server", ignoreCase = true) })
+        assertTrue(result.assets.any { expected in it.protocols && it.confidence >= 80 })
         assertEquals(64, result.sha256.length)
     }
 }

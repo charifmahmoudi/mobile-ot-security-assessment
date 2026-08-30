@@ -121,7 +121,10 @@ jobs:
             .pymodbus-venv/bin/pip install --disable-pip-version-check pymodbus==3.11.3
             sudo -E .pymodbus-venv/bin/python tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
           else
-            docker run --detach --name atlas-conpot --publish 502:5020 mushorg/conpot:latest
+            git clone --filter=blob:none https://github.com/mushorg/conpot.git conpot-upstream
+            git -C conpot-upstream checkout 32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044
+            docker build --tag atlas-conpot:32fc03b conpot-upstream
+            docker run --detach --name atlas-conpot --publish 502:5020 atlas-conpot:32fc03b
           fi
           for attempt in $(seq 1 90); do
             nc -z 127.0.0.1 502 && exit 0
@@ -145,9 +148,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
             gradle --no-daemon --stacktrace :network-broker:installDebug
-            gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest \
-              -Pandroid.testInstrumentationRunnerArguments.activeTest=true \
-              -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS
+            gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.activeTest=true -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS
       - name: Publish active E2E evidence
         if: always()
         uses: actions/upload-artifact@v4

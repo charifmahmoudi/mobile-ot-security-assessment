@@ -56,7 +56,7 @@ class MainActivity : Activity() {
         content.addView(button("Analyze an existing capture", PASSIVE_ACTION_ID, ::openCapturePicker))
         content.addView(help("Passive mode reads a PCAP locally. It never connects to or transmits on the OT network."))
         content.addView(section("At a glance"))
-        content.addView(label("0 open cases   •   0 unresolved findings\nEvidence remains on this device.", 15f).apply { id = STATUS_VIEW_ID })
+        content.addView(label("P0-WATER • 0 open cases • 0 unresolved findings\nEvidence remains on this device.", 15f).apply { id = STATUS_VIEW_ID })
     }
 
     private fun renderAssessmentSetup() {

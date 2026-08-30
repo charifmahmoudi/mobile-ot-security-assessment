@@ -34,10 +34,11 @@ class AssessmentJourneyTest {
             "iec104.pcap" to "IEC 60870-5-104",
             "bacnet.pcap" to "BACnet/IP",
         )
+        val testAssets = InstrumentationRegistry.getInstrumentation().context.assets
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             fixtures.forEach { (file, protocol) ->
                 scenario.onActivity { activity ->
-                    activity.assets.open(file).use { activity.analyzeCaptureForTest(file, it) }
+                    testAssets.open(file).use { activity.analyzeCaptureForTest(file, it) }
                     val title = activity.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID)
                     val summary = activity.findViewById<TextView>(MainActivity.RESULT_SUMMARY_ID)
                     val assets = activity.findViewById<android.widget.LinearLayout>(MainActivity.ASSET_LIST_ID)
