@@ -1,23 +1,23 @@
-# Product and business risk register
+# Evidence-gap and hazard register
 
-Likelihood and impact: 1 low to 5 critical. Score = likelihood × impact.
+Subjective likelihood/impact scores have been removed. Hazards remain design inputs; evidence gaps require tests.
 
-| ID | Risk | L | I | Score | Owner | Leading indicator | Mitigation |
-|---|---|---:|---:|---:|---|---|---|
-| R1 | Android cannot capture promised traffic | 4 | 5 | 20 | platform | unsupported NIC/TAP or missing packets | hardware spike and certified matrix |
-| R2 | Active query affects fragile OT | 3 | 5 | 15 | safety | timeout, unexpected response/state | passive default, packet budgets, independent review |
-| R3 | Device identity false positives | 4 | 4 | 16 | knowledge | corrections/conflicts | evidence scoring, corpus, conservative UI |
-| R4 | Knowledge-pack maintenance overwhelms team | 4 | 4 | 16 | product | stale mappings and support tickets | prioritize families, partner packs, citations |
-| R5 | Buyers demand permanent monitoring | 3 | 4 | 12 | commercial | baseline proposals rejected | position as feeder/field workflow |
-| R6 | Incumbent duplicates mobile workflow | 3 | 4 | 12 | strategy | new portable/mobile launch | local channel, offline evidence, kit |
-| R7 | No willingness to pay | 4 | 5 | 20 | founder | praise but no scoped PO | paid service before full build |
-| R8 | Sales cycle too long | 4 | 4 | 16 | commercial | >120 days without pilot | integrator channel and SME supplier wedge |
-| R9 | Personal/capture data violation | 3 | 5 | 15 | privacy | excessive payload/retention | minimization, encryption, DPIA, access logs |
-| R10 | OSS license conflict | 3 | 4 | 12 | engineering/legal | GPL linkage or missing notices | exact-component review and isolation |
-| R11 | Parser vulnerability | 4 | 5 | 20 | security | crashes/malformed corpus failures | memory-safe code where possible, fuzzing |
-| R12 | Field kit supply variance | 3 | 3 | 9 | operations | adapter revision changes | multiple approved SKUs and device IDs |
-| R13 | Partner produces unsafe service | 3 | 5 | 15 | channel | scope deviations | training, signed policy, audit and certification |
-| R14 | Support economics fail | 4 | 4 | 16 | operations | >6 h/account/year | narrow support matrix and paid tiers |
-| R15 | “AI pentest” messaging creates distrust | 3 | 4 | 12 | marketing | safety objections | evidence-led StoryBrand; AI never packet authority |
+| ID | Hazard or gap | Current evidence | Required resolution |
+|---|---|---|---|
+| H1 | promised traffic may not be visible | Android USB API does not change switched-Ethernet visibility | two phone/NIC/TAP capture tests |
+| H2 | active identity may affect fragile OT | industrial protocols/devices vary; no lab profiles approved | golden packets, owned devices, independent safety review |
+| H3 | identity may be wrong | no labeled corpus benchmark | corpus accuracy/conflict results |
+| H4 | catalog maintenance may be uneconomic | many vendors/protocols appear in Morocco-linked jobs | measured maintenance and support effort |
+| H5 | product may duplicate existing tools | Claroty Edge/runZero/general/open tools exist | same-corpus competitive evaluation |
+| H6 | willingness to pay unknown | zero accepted product prices/pilots | real offers and procurement outcome |
+| H7 | qualified auditor may reject evidence | no provider review | written schema/method review |
+| H8 | capture may contain personal/sensitive data | Law 09-08 and sensitive-system rules apply | DPIA/legal review and minimization tests |
+| H9 | dependency license may block model | GPL/LGPL/MPL/NPSL mix | pinned legal/component review |
+| H10 | parser may be exploitable | untrusted packets; no implementation tests | memory-safe design, fuzzing and sanitizers |
+| H11 | field hardware may vary | no supported matrix | multiple SKU/device-ID tests |
+| H12 | product vendor role may require qualification | legal boundary not formally reviewed | Moroccan counsel/DGSSI-qualified provider interpretation |
+| H13 | phone use may be prohibited at site | no site mobile/MDM evidence | real evaluation policy review |
+| H14 | Bluetooth may be irrelevant | no Moroccan procurement/job demand found | remove from MVP unless evidence appears |
+| H15 | support cost may exceed price | neither variable observed | timed pilot and accepted price |
 
-Review monthly during design and before each gate.
+A hazard is closed only with evidence, not a lower subjective score.
