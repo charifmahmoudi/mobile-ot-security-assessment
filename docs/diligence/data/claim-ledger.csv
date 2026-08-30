@@ -1,0 +1,19 @@
+claim_id,claim,scope,status,source,publisher,source_date,accessed,next_test
+MA-001,"2024 industrial revenue MAD 898bn",Morocco industry,Verified,https://www.mcinet.gov.ma/fr/actualites/barometre-de-lindustrie-nationale-lindustrie-marocaine-franchit-un-nouveau-cap-en-2024,Ministry of Industry,2025,2026-08-30,recheck annual edition
+MA-002,"2024 industrial employment 1038133",Morocco industry,Verified,https://www.mcinet.gov.ma/fr/actualites/barometre-de-lindustrie-nationale-lindustrie-marocaine-franchit-un-nouveau-cap-en-2024,Ministry of Industry,2025,2026-08-30,recheck annual edition
+MA-003,"Tanger Med Zones reports 1500 companies and 145000 jobs",Tanger Med platform,Verified,https://www.tangermedzones.com/,Tanger Med Zones,current page,2026-08-30,capture dated annual source
+MA-004,"Moroccan aerospace had nearly 150 companies and USD 2.6bn exports at Dec 2024",Aerospace,Verified,https://www.trade.gov/country-commercial-guides/morocco-aerospace,US Commercial Service,2025-07-31,2026-08-30,compare GIMAS/ministry
+AC-001,"SOMACA exported two-thirds of production and expected nearly 100000 vehicles in 2024",SOMACA,Verified,https://www.renaultgroup.com/en/group/locations/casablanca-plant-somaca/,Renault Group,current page,2026-08-30,recheck annual production
+AC-002,"Stellantis announced Kenitra expansion toward 400000 vehicles/year",Kenitra,Verified,https://www.stellantis.com/en/news/press-releases/2022/november/a-new-step-for-kenitra-site-to-support-growth-plans-for-middle-east-and-africa-region,Stellantis,2022-11-09,2026-08-30,verify achieved current capacity
+AC-003,"Safran reports more than 4800 staff and ten Moroccan sites",Safran Morocco,Verified,https://www.safran-group.com/countries/morocco,Safran,current page,2026-08-30,enumerate site legal entities
+AC-004,"Cosumar has sugar mills in five regions and a Casablanca refinery",Cosumar,Verified,https://www.cosumar.co.ma/en/who-we-are/,Cosumar,current page,2026-08-30,enumerate individual sites
+TECH-001,"M580 network module supports EtherNet/IP and Modbus TCP",Schneider product,Verified,https://www.se.com/id/en/product/BMENOC0301C/network-module-modicon-m580-ethernet-ip-modbus-tcp-coated/,Schneider Electric,current product page,2026-08-30,lab device
+TECH-002,"Rockwell EtherNet/IP uses TCP and CIP connections",Rockwell product family,Verified,https://literature.rockwellautomation.com/idc/groups/literature/documents/um/enet-um006_-en-p.pdf,Rockwell Automation,2025-09,2026-08-30,lab device
+TECH-003,"S7-1500 supports PROFINET and OPC UA configurations",Siemens product family,Verified,https://support.industry.siemens.com/cs/mdm/59192925,Siemens,2025,2026-08-30,lab device
+TECH-004,"Named Moroccan target plants predominantly use Siemens",Morocco installed base,Unknown,,none,,2026-08-30,tenders OEM cases authorized observation
+BUS-001,"Customers accept proposed MAD pricing",Morocco pricing,Unknown,,none,,2026-08-30,issue two fixed-price offers
+BUS-002,"Mobile workflow cuts reconciliation time at least 30 percent",Product value,Unknown,,none,,2026-08-30,concierge baseline benchmark
+PLAT-001,"Ordinary USB Ethernet provides third-party segment visibility",Android capture,Contradicted,https://developer.android.com/develop/connectivity/usb/host,Android,current docs,2026-08-30,TAP/SPAN hardware tests
+COMP-001,"Nessus Professional list price is USD 4790/year",Competitive price,Verified,https://www.tenable.com/buy,Tenable,current page,2026-08-30,recheck before publication
+COMP-002,"runZero Community Edition supports up to 100 assets",Competitive offer,Verified,https://www.runzero.com/platform/community-edition/,runZero,current page,2026-08-30,hands-on comparison
+COMP-003,"Claroty Edge is a Windows/Linux one-time agentless collector",Competitive capability,Verified,https://claroty.com/resources/datasheets/claroty-edge,Claroty,current page,2026-08-30,hands-on/quote

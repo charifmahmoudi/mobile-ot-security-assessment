@@ -1,31 +1,40 @@
 # Research and design wiki
 
 **Working name:** Atlas OT Scout  
-**Phase:** evidence-led discovery and product design  
-**Market thesis:** Morocco first; portable to industrial markets where specialist OT-security tooling and expertise are scarce or expensive.
+**Phase:** due diligence and product design  
+**Market:** Morocco beachhead; repeatable country evidence packs for later expansion.
 
-## Start here
+## Primary diligence
 
-1. [Product vision](Product-Vision.md)
-2. [Business case](Business-Case.md)
-3. [Morocco market and target accounts](Morocco-Market.md)
-4. [Device, vendor and protocol coverage](Device-Protocol-Catalog.md)
-5. [Open-source technology assessment](Open-Source-Assessment.md)
-6. [Technical architecture](Technical-Architecture.md)
-7. [Safety model](Safety-and-Ethics.md)
-8. [StoryBrand marketing plan](StoryBrand-Marketing.md)
-9. [Research method and evidence standard](Research-Methodology.md)
-10. [SDLC and roadmap](SDLC.md)
+1. [Diligence index](../diligence/README.md)
+2. [Executive business case](../diligence/EXECUTIVE-BUSINESS-CASE.md)
+3. [Market and economic model](../diligence/MARKET-AND-ECONOMIC-MODEL.md)
+4. [Morocco sector dossiers](../diligence/MOROCCO-SECTOR-DOSSIERS.md)
+5. [Priority-account dossiers](../diligence/ACCOUNT-DOSSIERS.md)
+6. [Competitive teardown](../diligence/COMPETITIVE-TEARDOWN.md)
+7. [Technology evidence matrix](../diligence/TECHNOLOGY-EVIDENCE-MATRIX.md)
+8. [Open-source due diligence](../diligence/OPEN-SOURCE-DUE-DILIGENCE.md)
+9. [StoryBrand GTM](../diligence/STORYBRAND-GTM-PLAN.md)
+10. [Validation without interviews](../diligence/VALIDATION-WITHOUT-INTERVIEWS.md)
 
-## Product boundary
+## Product design
 
-This is an **authorized assessment and inventory instrument**, not an autonomous exploitation agent. It must work offline, preserve evidence, default to passive observation, and require an explicit approved scope before any packet is sent.
+- [Product vision](Product-Vision.md)
+- [Technical architecture](Technical-Architecture.md)
+- [Device/protocol catalog](Device-Protocol-Catalog.md)
+- [Safety and ethics](Safety-and-Ethics.md)
+- [Research methodology](Research-Methodology.md)
+- [Secure development lifecycle](SDLC.md)
+- [Traceable requirements](../REQUIREMENTS.md)
 
-## Evidence status
+## Non-negotiable boundary
 
-Claims use four labels:
+This is an authorized inventory and assessment instrument, not an autonomous exploitation system. Passive collection is the default. Every packet-producing action requires a predefined signed profile, approved scope, strict budget, stop control and audit evidence.
 
-- **Verified:** primary or authoritative public source directly supports the claim.
-- **Corroborated:** at least two credible sources agree.
-- **Inferred:** reasonable sector/device hypothesis, clearly marked and not used as a product fact.
-- **Unknown:** requires lab, procurement-document, or customer-site validation.
+## Evidence labels
+
+- **Verified:** directly supported by a primary or authoritative source.
+- **Corroborated:** credible independent sources agree.
+- **Inferred:** a stated hypothesis, never presented as installed-base fact.
+- **Unknown:** requires tender, lab, OEM or authorized-site evidence.
+- **Contradicted:** evidence shows the proposition is false or misleading.
