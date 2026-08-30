@@ -339,5 +339,6 @@ These enter later only through a new threat review, protocol specification, test
 - [Technical architecture](../wiki/Technical-Architecture.md)
 - [Assessment method and report controls](ASSESSMENT-METHOD.md)
 - [Test and acceptance plan](TEST-AND-ACCEPTANCE.md)
+- [H2 capture accessory reference design](CAPTURE-ACCESSORY.md)
 - [Implementation backlog](IMPLEMENTATION-BACKLOG.md)
 - [Product requirements](../REQUIREMENTS.md)
