@@ -30,7 +30,26 @@ $SUDO ip link set atlas_rx up
 before_tx=$(cat /sys/class/net/atlas_rx/statistics/tx_packets)
 $SUDO "$build_dir/atlas_capture" --interface atlas_rx --output "$capture_file" --max-bytes 1048576 --duration-ms 2000 >"$build_dir/result.json" &
 capture_pid=$!
-sleep 0.2
+# The process must have bound AF_PACKET and written the PCAP header before the
+# producer starts. A fixed sleep was flaky on cold GitHub runners and could
+# send every test frame before the capture socket was ready.
+for _ in $(seq 1 100); do
+  [ -s "$capture_file" ] && [ "$(stat -c %s "$capture_file")" -ge 24 ] && break
+  if ! kill -0 "$capture_pid" 2>/dev/null; then
+    wait "$capture_pid" || true
+    echo "capture daemon exited before becoming ready" >&2
+    cat "$build_dir/result.json" >&2 || true
+    exit 1
+  fi
+  sleep 0.05
+done
+if [ ! -s "$capture_file" ] || [ "$(stat -c %s "$capture_file")" -lt 24 ]; then
+  echo "capture daemon did not publish its PCAP header" >&2
+  kill "$capture_pid" 2>/dev/null || true
+  wait "$capture_pid" || true
+  cat "$build_dir/result.json" >&2 || true
+  exit 1
+fi
 $SUDO python3 - testdata/research/modbus.pcap atlas_tx <<'PY'
 import socket, struct, sys, time
 data = open(sys.argv[1], 'rb').read()
@@ -44,7 +63,12 @@ for _ in range(4):
     s.send(frame); time.sleep(0.03)
 s.close()
 PY
-wait "$capture_pid"
+wait "$capture_pid" || {
+  capture_status=$?
+  echo "capture daemon failed with status $capture_status" >&2
+  cat "$build_dir/result.json" >&2 || true
+  exit "$capture_status"
+}
 after_tx=$(cat /sys/class/net/atlas_rx/statistics/tx_packets)
 test "$before_tx" = "$after_tx"
 $SUDO chown "$(id -u):$(id -g)" "$capture_file"
