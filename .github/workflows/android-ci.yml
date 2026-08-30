@@ -35,6 +35,8 @@ jobs:
           :core-domain:test
           :case-app:testDebugUnitTest
           :network-broker:testDebugUnitTest
+          :case-app:assembleDebugAndroidTest
+          :network-broker:assembleDebugAndroidTest
           lintDebug assembleDebug
       - name: Publish reports and APKs
         if: always()

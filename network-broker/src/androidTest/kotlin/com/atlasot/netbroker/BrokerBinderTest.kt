@@ -14,8 +14,8 @@ import java.security.KeyPairGenerator
 import java.time.Instant
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
-import kotlin.test.assertContentEquals
-import kotlin.test.assertTrue
+import org.junit.Assert.assertArrayEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -37,12 +37,12 @@ class BrokerBinderTest {
         val intent = Intent("com.atlasot.netbroker.BIND").setPackage(context.packageName)
         assertTrue(context.bindService(intent, connection, Context.BIND_AUTO_CREATE))
         try {
-            assertTrue(connected.await(5, TimeUnit.SECONDS), "broker did not bind")
+            assertTrue("broker did not bind", connected.await(5, TimeUnit.SECONDS))
             val first = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
-            assertContentEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
-            assertContentEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
+            assertArrayEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
+            assertArrayEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
             val replacement = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
-            assertContentEquals(
+            assertArrayEquals(
                 "REJECTED:KEY_ALREADY_PROVISIONED".toByteArray(),
                 broker!!.provisionGrantKey(replacement.public.encoded),
             )
@@ -57,7 +57,7 @@ class BrokerBinderTest {
             pipe[0].use { readEnd ->
                 pipe[1].use { writeEnd ->
                     val envelope = GrantWireCodec.envelope(GrantWireCodec.encode(grant), ByteArray(64))
-                    assertContentEquals(
+                    assertArrayEquals(
                         "REJECTED:BAD_SIGNATURE".toByteArray(),
                         broker!!.execute(envelope, writeEnd),
                     )
