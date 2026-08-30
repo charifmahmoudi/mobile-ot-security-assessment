@@ -26,6 +26,10 @@ import java.util.UUID
 import java.util.concurrent.Executors
 
 class MainActivity : Activity() {
+    private enum class WorkspaceSection(val label: String) {
+        OVERVIEW("Overview"), COLLECT("Collect"), ASSETS("Assets"), FINDINGS("Findings"), REPORT("Report")
+    }
+
     private val worker = Executors.newSingleThreadExecutor()
     private lateinit var repository: SiteRepository
     private lateinit var content: LinearLayout
@@ -56,7 +60,13 @@ class MainActivity : Activity() {
     @Deprecated("Screen-specific back behavior")
     override fun onBackPressed() = backAction?.invoke() ?: super.onBackPressed()
 
-    private fun page(kicker: String, title: String, subtitle: String, back: (() -> Unit)? = null) {
+    private fun page(
+        kicker: String,
+        title: String,
+        subtitle: String,
+        back: (() -> Unit)? = null,
+        section: WorkspaceSection? = null,
+    ) {
         backAction = back
         val root = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -84,8 +94,49 @@ class MainActivity : Activity() {
         content.addView(header)
         content.addView(space(20))
         scroll.addView(content)
+        if (section != null) root.addView(fieldSafetyBar())
         root.addView(scroll, LinearLayout.LayoutParams(-1, 0, 1f))
+        if (section != null) root.addView(workspaceNavigation(section))
         setContentView(root)
+    }
+
+    private fun fieldSafetyBar(): View = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.CENTER_VERTICAL
+        setPadding(dp(18), dp(9), dp(18), dp(9))
+        setBackgroundColor(NAVY)
+        addView(txt("●  OFFLINE", 11f, AQUA, Typeface.BOLD).apply { letterSpacing = .06f })
+        addView(txt("PASSIVE DEFAULT", 11f, WHITE, Typeface.BOLD).apply {
+            gravity = Gravity.END
+        }, LinearLayout.LayoutParams(0, -2, 1f))
+        contentDescription = "Offline field mode. Passive collection is the safe default."
+    }
+
+    private fun workspaceNavigation(selected: WorkspaceSection): View = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.CENTER
+        setPadding(dp(6), dp(6), dp(6), dp(8))
+        setBackgroundColor(WHITE)
+        WorkspaceSection.entries.forEach { destination ->
+            addView(TextView(this@MainActivity).apply {
+                text = destination.label
+                textSize = 11f
+                gravity = Gravity.CENTER
+                setTypeface(Typeface.DEFAULT, if (destination == selected) Typeface.BOLD else Typeface.NORMAL)
+                setTextColor(if (destination == selected) BLUE else MUTED)
+                background = if (destination == selected) rounded(PALE_BLUE, 12) else null
+                minHeight = dp(48)
+                setOnClickListener {
+                    when (destination) {
+                        WorkspaceSection.OVERVIEW -> renderWorkspace()
+                        WorkspaceSection.COLLECT -> renderScanMenu()
+                        WorkspaceSection.ASSETS -> renderInventory()
+                        WorkspaceSection.FINDINGS -> renderFindings()
+                        WorkspaceSection.REPORT -> renderReportReadiness()
+                    }
+                }
+            }, LinearLayout.LayoutParams(0, dp(50), 1f))
+        }
     }
 
     fun renderHome() = renderSiteSelection()
@@ -125,6 +176,22 @@ class MainActivity : Activity() {
                 setPadding(0, dp(4), 0, dp(4)); content.addView(this)
             }
         }
+        content.addView(step("4", "Field and report settings"))
+        content.addView(txt("Report language", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
+        val language = Spinner(this).apply {
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item,
+                listOf("French", "Arabic", "English"))
+            background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
+        }
+        content.addView(language, margins(0, 0, 0, 10))
+        content.addView(txt("Local retention", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
+        val retention = Spinner(this).apply {
+            adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item,
+                listOf("7 days", "30 days", "90 days"))
+            setSelection(1)
+            background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
+        }
+        content.addView(retention, margins(0, 0, 0, 10))
         val error = txt("", 13f, DANGER).apply { id = VALIDATION_MESSAGE_ID }
         content.addView(error)
         content.addView(button("Create site workspace", CREATE_SITE_ACTION_ID) {
@@ -132,7 +199,8 @@ class MainActivity : Activity() {
                 error.text = "Enter a site name and location or process area."
             } else {
                 site = repository.addSite(name.text.toString(), location.text.toString(), industry.selectedItem.toString(),
-                    checks.filter { it.isChecked }.map { it.text.toString() })
+                    checks.filter { it.isChecked }.map { it.text.toString() }, language.selectedItem.toString(),
+                    retention.selectedItem.toString().substringBefore(' ').toInt())
                 renderWorkspace()
             }
         })
@@ -141,19 +209,56 @@ class MainActivity : Activity() {
     private fun renderWorkspace() {
         val current = requireNotNull(site)
         val assets = repository.assets(current.id)
-        page(current.industry, current.name, current.location, ::renderSiteSelection)
+        page(current.industry, current.name, current.location, ::renderSiteSelection, WorkspaceSection.OVERVIEW)
         content.addView(LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; background = rounded(NAVY, 18); setPadding(dp(18), dp(15), dp(18), dp(15))
             addView(txt(if (current.sample) "SAMPLE SITE" else "ACTIVE SITE", 11f, AQUA, Typeface.BOLD).apply { letterSpacing = .1f })
             addView(txt(current.vendors.ifEmpty { listOf("Vendors not recorded") }.joinToString("  ·  "), 14f, WHITE).apply { setPadding(0, dp(6), 0, 0) })
         })
-        content.addView(section("Assessment snapshot", "Evidence is organized around this site."))
+        val reviewCount = assets.count { it.reviewState == "Needs review" }
+        val completedStages = when {
+            assets.isEmpty() -> 1
+            reviewCount > 0 -> 2
+            else -> 3
+        }
+        content.addView(card("ASSESSMENT PROGRESS · $completedStages OF 5",
+            when (completedStages) {
+                1 -> "Prepare complete  ·  Collect evidence next"
+                2 -> "Evidence collected  ·  Review $reviewCount observations next"
+                else -> "Inventory reconciled  ·  Review findings next"
+            }, accent = BLUE))
+        content.addView(section("Assessment snapshot", "Evidence is organized around this site—not around an anonymous subnet."))
         val metrics = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         metrics.addView(metric(assets.size.toString(), "Assets"), weight(8))
         metrics.addView(metric(assets.map { it.protocol }.distinct().size.toString(), "Protocols"), weight(8))
         metrics.addView(metric(assets.count { it.reviewState == "Needs review" }.toString(), "To review"), weight(0))
         content.addView(metrics)
-        content.addView(button("Collect evidence", PRIMARY_ACTION_ID, true, ::renderScanMenu))
+        val nextTitle = when {
+            assets.isEmpty() -> "Begin passive collection"
+            reviewCount > 0 -> "Review $reviewCount unresolved assets"
+            else -> "Review assessment findings"
+        }
+        val nextBody = when {
+            assets.isEmpty() -> "Start with a SPAN/TAP capture or import an approved PCAP file."
+            reviewCount > 0 -> "Resolve identity uncertainty before making risk conclusions."
+            else -> "Turn the reconciled evidence model into defensible observations."
+        }
+        content.addView(section("Recommended next action", "The application guides the assessment one decision at a time."))
+        content.addView(LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            background = rounded(PALE_BLUE, 18, BLUE)
+            setPadding(dp(18), dp(16), dp(18), dp(16))
+            addView(txt(nextTitle, 18f, NAVY, Typeface.BOLD))
+            addView(txt(nextBody, 14f, MUTED).apply { setPadding(0, dp(5), 0, dp(8)) })
+            addView(button("Continue assessment", CONTINUE_ACTION_ID) {
+                when {
+                    assets.isEmpty() -> renderScanMenu()
+                    reviewCount > 0 -> renderInventory("Needs review")
+                    else -> renderFindings()
+                }
+            })
+        })
+        content.addView(button("Collect evidence", PRIMARY_ACTION_ID, false, ::renderScanMenu))
         content.addView(button("Open asset inventory", INVENTORY_ACTION_ID, false, ::renderInventory))
         content.addView(section("Network picture", "Use current evidence to decide what to inspect next."))
         val roles = assets.groupingBy { it.role.substringBefore('/') }.eachCount().entries
@@ -170,11 +275,13 @@ class MainActivity : Activity() {
 
     private fun renderScanMenu() {
         val current = requireNotNull(site)
-        page("Collect evidence", "Choose a method", current.name, ::renderWorkspace)
-        content.addView(banner("SAFE DEFAULT", "Passive import never transmits. Active identity remains locked behind exact scope and authorization."))
-        content.addView(section("Available now", "Match the method to your visibility and authorization."))
+        page("Collect evidence", "Choose a method", current.name, ::renderWorkspace, WorkspaceSection.COLLECT)
+        content.addView(card("STEP 2 OF 5 · COLLECT",
+            "Choose the least intrusive method that can answer the assessment question.", accent = BLUE))
+        content.addView(banner("SAFE DEFAULT", "Passive collection never transmits. Active identity remains locked behind exact scope and written authorization."))
+        content.addView(section("Available now", "Each method states its visibility, transmission behavior and prerequisites."))
         content.addView(method("LIVE · DEDICATED APPLIANCE", "Observe a SPAN / TAP interface", "Stream Ethernet frames from the hardened receive-only capture service.", "Requires qualified appliance image", LIVE_CAPTURE_OPTION_ID, ::renderLiveCaptureSetup))
-        content.addView(method("PASSIVE", "Analyze PCAP / PCAPNG", "Use a supplied SPAN/TAP capture when the phone cannot see the switched segment.", "No packets sent", PASSIVE_ACTION_ID, ::openCapturePicker))
+        content.addView(method("PASSIVE · RECOMMENDED", "Analyze PCAP / PCAPNG", "Use a supplied SPAN/TAP capture when the phone cannot see the switched segment.", "No packets sent", PASSIVE_ACTION_ID, ::openCapturePicker))
         content.addView(method("ACTIVE · MODBUS", "Identify one known controller", "One FC 43 / MEI 14 request to an exact allowlisted target.", "Written authorization required", ACTIVE_SCAN_OPTION_ID, ::renderAssessmentSetup))
         content.addView(section("Planned collection packs", "Roadmap items are visually separated from working capability."))
         content.addView(card("PLANNED · WI-FI OBSERVATION", "Inventory approved SSIDs and access-point evidence.", accent = MUTED).apply { alpha = .65f })
@@ -311,7 +418,7 @@ class MainActivity : Activity() {
 
     private fun renderPassiveResult(name: String, result: PassiveAnalysis) {
         val current = requireNotNull(site)
-        page("Passive evidence", result.assets.size.toString() + " assets observed", name + " · no packets transmitted", ::renderScanMenu)
+        page("Passive evidence", result.assets.size.toString() + " assets observed · review required", name + " · no packets transmitted", ::renderScanMenu, WorkspaceSection.ASSETS)
         val duration = if (result.startedAt != null && result.endedAt != null)
             java.time.Duration.between(result.startedAt, result.endedAt).seconds else 0
         content.addView(summary(result.assets.size.toString(), "Assets", result.parsedPackets.toString(), "OT packets", duration.toString() + "s", "Window", RESULT_SUMMARY_ID))
@@ -320,18 +427,43 @@ class MainActivity : Activity() {
         content.addView(banner("ANALYST DECISION", if (result.assets.isEmpty())
             "No supported OT evidence was found. This does not prove the segment is empty."
         else "This capture is a visibility sample. Review role, confidence and evidence before adding observations."))
-        content.addView(section("Observations to review", "Nothing enters the inventory until you accept it."))
+        content.addView(card("STEP 3 OF 5 · REVIEW", "Accept only observations supported by this evidence window. Unselected records remain outside inventory.", accent = BLUE))
+        content.addView(section("Observations to review", "Nothing enters the inventory until you explicitly accept it."))
         val list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; id = ASSET_LIST_ID }
-        result.assets.forEach { asset ->
+        val accepted = mutableSetOf<Int>()
+        var save: Button? = null
+        result.assets.forEachIndexed { index, asset ->
             val identity = listOfNotNull(asset.vendor, asset.product, asset.revision).joinToString(" · ")
             val detail = asset.protocols.joinToString { it.label } + "  ·  " + asset.role + "\n" +
                 asset.confidence + "% confidence" + if (identity.isBlank()) "" else "  ·  " + identity +
                 "\n" + (asset.evidence.firstOrNull() ?: "Protocol framing")
-            list.addView(card(asset.address, detail, accent = if (asset.confidence >= 90) TEAL else AMBER))
+            list.addView(LinearLayout(this).apply {
+                orientation = LinearLayout.VERTICAL
+                background = rounded(WHITE, 16, BORDER)
+                elevation = dp(1).toFloat()
+                setPadding(dp(16), dp(14), dp(16), dp(12))
+                layoutParams = margins(0, 0, 0, 10)
+                addView(txt(asset.address, 14f, if (asset.confidence >= 90) TEAL else AMBER, Typeface.BOLD))
+                addView(txt(detail, 14f, NAVY).apply { setPadding(0, dp(6), 0, dp(8)); setLineSpacing(0f, 1.12f) })
+                addView(CheckBox(this@MainActivity).apply {
+                    text = "Accept into site inventory"
+                    textSize = 13f
+                    setTextColor(NAVY)
+                    buttonTintList = android.content.res.ColorStateList.valueOf(TEAL)
+                    setOnCheckedChangeListener { _, checked ->
+                        if (checked) accepted += index else accepted -= index
+                        save?.let {
+                            it.text = "Add ${accepted.size} selected observations"
+                            it.isEnabled = accepted.isNotEmpty()
+                            it.alpha = if (accepted.isNotEmpty()) 1f else .45f
+                        }
+                    }
+                })
+            })
         }
         content.addView(list)
-        content.addView(button("Add " + result.assets.size + " observations to inventory", SAVE_ASSETS_ID) {
-            repository.addAssets(current.id, result.assets.map { asset ->
+        save = button("Add 0 selected observations", SAVE_ASSETS_ID) {
+            repository.addAssets(current.id, result.assets.filterIndexed { index, _ -> index in accepted }.map { asset ->
                 InventoryAsset(UUID.randomUUID().toString(), current.id, asset.address,
                     asset.product ?: asset.vendor ?: asset.role.replaceFirstChar { it.uppercase() },
                     asset.protocols.firstOrNull()?.label ?: "OT protocol", asset.role, asset.vendor, asset.product,
@@ -339,14 +471,24 @@ class MainActivity : Activity() {
                     if (asset.confidence >= 90 && asset.vendor != null) "Confirmed" else "Needs review")
             })
             renderInventory()
-        })
+        }.apply { isEnabled = false; alpha = .45f }
+        content.addView(checkNotNull(save))
     }
 
-    private fun renderInventory() {
+    private fun renderInventory() = renderInventory("All assets")
+
+    private fun renderInventory(initialFilter: String) {
         val current = requireNotNull(site)
         val all = repository.assets(current.id)
-        page("Asset inventory", current.name, "Search, filter and inspect the evidence model", ::renderWorkspace)
+        page("Asset inventory", current.name, "Navigate, filter and reason about the current network model", ::renderWorkspace, WorkspaceSection.ASSETS)
+        content.addView(card("STEP 3 OF 5 · REVIEW",
+            "Confirm, merge or challenge observations before they become assessment conclusions.", accent = BLUE))
         content.addView(card("NETWORK INSIGHT", networkInsight(all), NETWORK_INSIGHT_ID, TEAL))
+        content.addView(LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            addView(button("List", primary = true, action = { }), LinearLayout.LayoutParams(0, dp(54), 1f).apply { marginEnd = dp(8) })
+            addView(button("Zone map", primary = false, action = ::renderNetworkMap), LinearLayout.LayoutParams(0, dp(54), 1f))
+        })
         val search = field("Search inventory", "Address, name, vendor, protocol or role", INVENTORY_SEARCH_ID, "")
         val filter = Spinner(this).apply {
             id = INVENTORY_FILTER_ID
@@ -354,6 +496,9 @@ class MainActivity : Activity() {
                 listOf("All assets", "Needs review", "Controllers", "HMIs / clients", "Gateways", "Passive evidence", "Active evidence"))
             background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
         }
+        val initialIndex = listOf("All assets", "Needs review", "Controllers", "HMIs / clients", "Gateways", "Passive evidence", "Active evidence")
+            .indexOf(initialFilter)
+        if (initialIndex >= 0) filter.setSelection(initialIndex)
         content.addView(filter, margins(0, 8, 0, 12))
         val count = txt("", 12f, MUTED, Typeface.BOLD)
         content.addView(count)
@@ -391,6 +536,156 @@ class MainActivity : Activity() {
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
         refresh()
+    }
+
+    private fun renderNetworkMap() {
+        val current = requireNotNull(site)
+        val assets = repository.assets(current.id)
+        page("Network model", current.name, "Process-zone view · derived from reviewed inventory", ::renderInventory, WorkspaceSection.ASSETS)
+        content.addView(card("ZONE VIEW · NOT A COMPLETE TOPOLOGY",
+            "Relationships are evidence-scoped. Missing traffic does not prove that a connection does not exist.", accent = AMBER))
+        if (assets.isEmpty()) {
+            content.addView(card("NO NETWORK MODEL YET", "Collect passive evidence or import an approved inventory baseline.", accent = MUTED))
+            content.addView(button("Collect evidence", action = ::renderScanMenu))
+            return
+        }
+        val zones = linkedMapOf(
+            "Supervisory" to assets.filter { it.role.contains("HMI", true) || it.role.contains("client", true) },
+            "Control" to assets.filter { it.role.contains("controller", true) || it.role.contains("server", true) },
+            "Cell integration" to assets.filter { it.role.contains("gateway", true) },
+            "Field" to assets.filter { it.role.contains("field", true) || it.role.contains("instrument", true) },
+        ).filterValues { it.isNotEmpty() }
+        content.addView(section("Observed process zones", "Start with functional boundaries, then drill into individual assets."))
+        zones.forEach { (zone, members) ->
+            content.addView(card(zone.uppercase(), members.joinToString("\n") {
+                it.displayName + "  ·  " + it.address + "  ·  " + it.protocol
+            }, accent = when (zone) {
+                "Supervisory" -> BLUE
+                "Control" -> TEAL
+                "Cell integration" -> AMBER
+                else -> MUTED
+            }))
+        }
+        val protocols = assets.groupBy { it.protocol }.entries.sortedByDescending { it.value.size }
+        content.addView(section("Communication picture", "Protocol groupings that deserve validation against drawings and expected conduits."))
+        protocols.forEach { (protocol, members) ->
+            content.addView(keyValue(protocol, members.size.toString() + " observed assets"))
+        }
+        content.addView(button("Return to inventory list", primary = false, action = ::renderInventory))
+    }
+
+    private fun renderFindings() {
+        val current = requireNotNull(site)
+        val assets = repository.assets(current.id)
+        val unresolved = assets.filter { it.reviewState == "Needs review" }
+        val cleartextProtocols = assets.map { it.protocol }.filter {
+            it.contains("Modbus", true) || it.contains("IEC 60870", true) || it.contains("DNP3", true)
+        }.distinct()
+        page("Assessment findings", current.name, "Evidence-linked observations · severity and confidence kept separate", ::renderWorkspace, WorkspaceSection.FINDINGS)
+        content.addView(card("STEP 4 OF 5 · REASON",
+            "A finding explains the condition, evidence, consequence and required validation. Device counts alone are not findings.", accent = BLUE))
+        if (assets.isEmpty()) {
+            content.addView(card("NOT READY FOR FINDINGS", "No reviewed asset evidence is available for this site.", accent = AMBER))
+            content.addView(button("Collect evidence", action = ::renderScanMenu))
+            return
+        }
+        content.addView(summary(
+            (unresolved.size + if (cleartextProtocols.isEmpty()) 0 else 1).toString(), "Drafts",
+            unresolved.size.toString(), "Need review",
+            "0", "Final", FINDINGS_SUMMARY_ID,
+        ))
+        if (unresolved.isNotEmpty()) {
+            content.addView(section("Identity and inventory", "Resolve uncertainty before assigning ownership or consequence."))
+            content.addView(findingCard(
+                "F-001 · Unresolved asset identities",
+                "REVIEW REQUIRED", "Confidence: High",
+                unresolved.joinToString("\n") { it.displayName + "  ·  " + it.address + "  ·  " + it.confidence + "% identity confidence" },
+                "Corroborate with a nameplate, approved baseline or authorized identity request.",
+            ))
+        }
+        if (cleartextProtocols.isNotEmpty()) {
+            content.addView(section("Communication characteristics", "Document protocol design in its operational context."))
+            content.addView(findingCard(
+                "F-002 · Legacy cleartext OT communication observed",
+                "CONTEXT REQUIRED", "Confidence: High",
+                "Observed protocol evidence: " + cleartextProtocols.joinToString() + ". This observation alone does not establish exploitability or business consequence.",
+                "Validate segmentation, authorized peers, remote paths and compensating controls before assigning severity.",
+            ))
+        }
+        if (unresolved.isEmpty() && cleartextProtocols.isEmpty()) {
+            content.addView(card("NO DETERMINISTIC DRAFTS", "The current evidence does not trigger a supported finding rule. Continue review; this is not a clean-bill-of-health statement.", accent = TEAL))
+        }
+        content.addView(button("Review report readiness", action = ::renderReportReadiness))
+    }
+
+    private fun findingCard(title: String, status: String, confidence: String, evidence: String, next: String): View =
+        LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            background = rounded(WHITE, 18, BORDER)
+            elevation = dp(1).toFloat()
+            setPadding(dp(17), dp(16), dp(17), dp(16))
+            layoutParams = margins(0, 0, 0, 12)
+            addView(txt(status, 11f, AMBER, Typeface.BOLD).apply { letterSpacing = .07f })
+            addView(txt(title, 17f, NAVY, Typeface.BOLD).apply { setPadding(0, dp(5), 0, dp(6)) })
+            addView(txt(confidence, 12f, TEAL, Typeface.BOLD))
+            addView(txt(evidence, 14f, NAVY).apply { setPadding(0, dp(10), 0, dp(10)); setLineSpacing(0f, 1.12f) })
+            addView(txt("NEXT DECISION", 11f, BLUE, Typeface.BOLD))
+            addView(txt(next, 13f, MUTED).apply { setPadding(0, dp(4), 0, 0) })
+        }
+
+    private fun renderReportReadiness() {
+        val current = requireNotNull(site)
+        val assets = repository.assets(current.id)
+        val unresolved = assets.count { it.reviewState == "Needs review" }
+        page("Report readiness", current.name, "Professional handoff checklist · " + current.reportLanguage, ::renderWorkspace, WorkspaceSection.REPORT)
+        content.addView(card("STEP 5 OF 5 · REPORT",
+            "The report remains blocked until required context, review and approval records are complete.", accent = BLUE))
+        content.addView(section("Readiness checks", "Green checks are supported by current local case data; amber items require action."))
+        content.addView(readinessRow(true, "Site context", current.industry + "  ·  " + current.location))
+        content.addView(readinessRow(assets.isNotEmpty(), "Evidence-backed inventory",
+            if (assets.isEmpty()) "No assets recorded" else assets.size.toString() + " assets with provenance"))
+        content.addView(readinessRow(unresolved == 0 && assets.isNotEmpty(), "Observation review",
+            if (unresolved == 0 && assets.isNotEmpty()) "No unresolved identities" else "$unresolved assets require review"))
+        content.addView(readinessRow(false, "Signed authorization record", "Persist operational and security approvals in the case record"))
+        content.addView(readinessRow(false, "Independent reviewer", "Assign a reviewer before finalization"))
+        content.addView(section("Deliverable", "The final package will contain a signed PDF, machine-readable JSON, inventory CSV and evidence manifest."))
+        content.addView(card("REPORT SETTINGS", current.reportLanguage + "  ·  Local retention " + current.retentionDays + " days\n" +
+            "Timestamps: Africa/Casablanca  ·  Evidence hashes: SHA-256", accent = TEAL))
+        val ready = assets.isNotEmpty() && unresolved == 0
+        content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
+            if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
+        })
+        content.addView(txt("Final signing and export remain disabled in this PoC until encrypted case storage and reviewer approval are implemented.", 12f, MUTED).apply {
+            setPadding(0, dp(10), 0, 0)
+        })
+    }
+
+    private fun readinessRow(complete: Boolean, title: String, detail: String): View = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.TOP
+        background = rounded(WHITE, 14, BORDER)
+        setPadding(dp(14), dp(12), dp(14), dp(12))
+        layoutParams = margins(0, 0, 0, 8)
+        addView(txt(if (complete) "✓" else "!", 18f, if (complete) TEAL else AMBER, Typeface.BOLD).apply { gravity = Gravity.CENTER },
+            LinearLayout.LayoutParams(dp(32), dp(32)))
+        addView(LinearLayout(this@MainActivity).apply {
+            orientation = LinearLayout.VERTICAL
+            addView(txt(title, 14f, NAVY, Typeface.BOLD))
+            addView(txt(detail, 12f, MUTED).apply { setPadding(0, dp(3), 0, 0) })
+        }, LinearLayout.LayoutParams(0, -2, 1f))
+    }
+
+    private fun renderReportPreview() {
+        val current = requireNotNull(site)
+        val assets = repository.assets(current.id)
+        page("Draft report", current.name, "Preview only · not signed", ::renderReportReadiness, WorkspaceSection.REPORT)
+        content.addView(banner("DRAFT · NOT FOR ISSUE", "This preview demonstrates report structure. It is not a certification or finalized audit deliverable."))
+        content.addView(section("Executive summary", "Assessment scope and decision-relevant results."))
+        content.addView(card("SITE AND SCOPE", current.industry + "\n" + current.location + "\n" + assets.size + " evidence-backed assets", accent = NAVY))
+        content.addView(section("Technical inventory", "Every record retains its evidence source and confidence."))
+        assets.take(8).forEach { content.addView(assetCard(it) { renderAssetDetail(it) }) }
+        content.addView(section("Evidence manifest", "Generated package contents and cryptographic hashes."))
+        content.addView(card("EXPORT BLOCKED", "Encrypted case persistence, reviewer signature and deterministic PDF generation are required before issue.", accent = AMBER))
     }
 
     private fun renderAssetDetail(asset: InventoryAsset) {
@@ -640,21 +935,25 @@ class MainActivity : Activity() {
         const val LIVE_CAPTURE_STATUS_ID = 0x41544C61
         const val CAPTURE_CAPABILITY_ID = 0x41544C62
         const val LIVE_CAPTURE_ACTION_ID = 0x41544C63
+        const val FINDINGS_SUMMARY_ID = 0x41544C64
+        const val REPORT_ACTION_ID = 0x41544C65
+        const val CONTINUE_ACTION_ID = 0x41544C66
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")
         private val VENDORS = listOf("Siemens", "Schneider Electric", "Rockwell Automation", "ABB", "Emerson", "Honeywell", "Yokogawa", "Endress+Hauser", "Phoenix Contact", "WAGO")
-        private val NAVY = Color.rgb(12, 36, 55)
-        private val MUTED = Color.rgb(92, 108, 120)
-        private val TEAL = Color.rgb(0, 121, 116)
-        private val AQUA = Color.rgb(124, 225, 211)
-        private val BLUE = Color.rgb(30, 99, 184)
-        private val AMBER = Color.rgb(190, 104, 11)
-        private val DANGER = Color.rgb(190, 48, 48)
-        private val SURFACE = Color.rgb(245, 248, 250)
+        private val NAVY = Color.rgb(16, 42, 67)
+        private val MUTED = Color.rgb(82, 101, 117)
+        private val TEAL = Color.rgb(8, 126, 139)
+        private val AQUA = Color.rgb(119, 216, 208)
+        private val BLUE = Color.rgb(21, 94, 239)
+        private val AMBER = Color.rgb(181, 71, 8)
+        private val DANGER = Color.rgb(180, 35, 24)
+        private val SURFACE = Color.rgb(245, 247, 250)
         private val WHITE = Color.WHITE
-        private val BORDER = Color.rgb(218, 226, 232)
-        private val PALE_TEAL = Color.rgb(226, 244, 241)
-        private val PALE_AMBER = Color.rgb(253, 239, 218)
+        private val BORDER = Color.rgb(216, 225, 232)
+        private val PALE_TEAL = Color.rgb(226, 245, 243)
+        private val PALE_AMBER = Color.rgb(255, 241, 219)
+        private val PALE_BLUE = Color.rgb(232, 239, 255)
     }
 }
