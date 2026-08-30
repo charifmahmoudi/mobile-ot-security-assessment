@@ -9,6 +9,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +32,7 @@ public final class TestCaptureProvider extends ContentProvider {
         return cursor;
     }
 
-    @Override public ParcelFileDescriptor openFile(Uri uri, String mode) throws IOException {
+    @Override public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
         if (!"r".equals(mode)) throw new IllegalArgumentException("read-only provider");
         return ParcelFileDescriptor.open(materialize(requireName(uri)), ParcelFileDescriptor.MODE_READ_ONLY);
     }
