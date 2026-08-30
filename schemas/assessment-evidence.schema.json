@@ -1,40 +1,158 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/atlas/assessment-evidence.schema.json",
-  "title": "Atlas assessment evidence",
+  "$id": "https://github.com/charifmahmoudi/mobile-ot-security-assessment/schemas/assessment-evidence.schema.json",
+  "title": "Atlas P0 assessment evidence package",
   "type": "object",
-  "required": ["schemaVersion", "case", "visibility", "observations", "identityClaims", "auditEvents"],
+  "required": ["schemaVersion", "generatedAt", "tool", "case", "visibility", "artifacts", "assets", "observations", "identityClaims", "findings", "activeExecutions", "reviews", "audit"],
   "properties": {
-    "schemaVersion": {"type": "string"},
+    "schemaVersion": {"const": "1.0.0"},
+    "generatedAt": {"type": "string", "format": "date-time"},
+    "tool": {
+      "type": "object",
+      "required": ["name", "build", "platform", "industryPack"],
+      "properties": {
+        "name": {"const": "Atlas OT Scout"},
+        "build": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "industryPack": {"$ref": "#/$defs/versionedObject"}
+      },
+      "additionalProperties": false
+    },
     "case": {
       "type": "object",
-      "required": ["id", "authorizingEntity", "scope", "start", "end", "retention"],
+      "required": ["id", "revision", "state", "industry", "authorizingEntity", "site", "processArea", "scope", "exclusions", "start", "end", "authorizationArtifactHash", "approvers", "retention", "dataClassification"],
       "properties": {
-        "id": {"type": "string"},
-        "authorizingEntity": {"type": "string"},
-        "operator": {"type": "string"},
-        "scope": {"type": "array", "items": {"type": "string"}},
+        "id": {"$ref": "#/$defs/id"},
+        "revision": {"type": "integer", "minimum": 1},
+        "previousManifestHash": {"$ref": "#/$defs/hash"},
+        "state": {"const": "finalized"},
+        "industry": {"const": "water-wastewater"},
+        "authorizingEntity": {"type": "string", "minLength": 1},
+        "site": {"type": "string", "minLength": 1},
+        "processArea": {"type": "string", "minLength": 1},
+        "scope": {
+          "type": "object",
+          "required": ["segments", "targets", "interfaces", "methods"],
+          "properties": {
+            "segments": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "targets": {"type": "array", "maxItems": 64, "items": {"type": "string"}},
+            "interfaces": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "methods": {"type": "array", "minItems": 1, "items": {"enum": ["physical", "passive-live", "passive-import", "wifi-api", "ble-advertisement", "A1-modbus-device-id", "A1-opcua-discovery", "A1-reachability", "A1-service-confirm"]}}
+          },
+          "additionalProperties": false
+        },
         "exclusions": {"type": "array", "items": {"type": "string"}},
         "start": {"type": "string", "format": "date-time"},
         "end": {"type": "string", "format": "date-time"},
-        "retention": {"type": "string"},
-        "authorizationReference": {"type": "string"}
+        "authorizationArtifactHash": {"$ref": "#/$defs/hash"},
+        "approvers": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["role", "name", "decisionAt"],
+            "properties": {
+              "role": {"enum": ["operational", "security", "reviewer"]},
+              "name": {"type": "string", "minLength": 1},
+              "decisionAt": {"type": "string", "format": "date-time"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "retention": {"type": "string", "minLength": 1},
+        "dataClassification": {"type": "string", "minLength": 1},
+        "sampling": {"enum": ["census", "risk-based", "convenience"]}
       },
       "additionalProperties": false
     },
     "visibility": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["interfaceId", "mode", "limitations"],
+        "required": ["interfaceId", "mode", "start", "end", "limitations"],
         "properties": {
           "interfaceId": {"type": "string"},
-          "mode": {
-            "enum": ["imported", "local-origin", "delivered-multicast", "tap-span", "connected-wifi", "raw-wifi", "ble-advertisement", "ble-connection"]
-          },
-          "limitations": {"type": "array", "items": {"type": "string"}},
+          "mode": {"$ref": "#/$defs/visibilityMode"},
+          "start": {"type": "string", "format": "date-time"},
+          "end": {"type": "string", "format": "date-time"},
           "hardware": {"type": "string"},
-          "driver": {"type": "string"}
+          "driver": {"type": "string"},
+          "packets": {"type": "integer", "minimum": 0},
+          "bytes": {"type": "integer", "minimum": 0},
+          "drops": {"type": ["integer", "null"], "minimum": 0},
+          "limitations": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "imports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "artifactHash", "sourceOrganization", "receivedAt", "mappingVersion"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "artifactHash": {"$ref": "#/$defs/hash"},
+          "sourceOrganization": {"type": "string"},
+          "receivedAt": {"type": "string", "format": "date-time"},
+          "mappingVersion": {"type": "string"},
+          "acceptedRows": {"type": "integer", "minimum": 0},
+          "rejectedRows": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "sha256", "length", "createdAt", "source", "includedInExport"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "kind": {"enum": ["authorization", "pcap", "pcapng", "csv", "json", "photo", "document", "active-response", "report"]},
+          "sha256": {"$ref": "#/$defs/hash"},
+          "length": {"type": "integer", "minimum": 0},
+          "createdAt": {"type": "string", "format": "date-time"},
+          "source": {"type": "string"},
+          "includedInExport": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "assets": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "required": ["id", "deviceClass", "status", "criticality", "endpointIds", "claimIds", "reviewState"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "customerAssetId": {"type": ["string", "null"]},
+          "deviceClass": {"enum": ["plc-rtu", "hmi", "scada-server", "engineering-workstation", "historian", "switch", "firewall-router", "vfd-starter", "protection-relay", "gateway", "analyzer-meter", "wireless-gateway", "unknown"]},
+          "status": {"enum": ["confirmed", "probable", "tentative", "insufficient", "not-observed", "excluded", "unexpected", "conflict"]},
+          "criticality": {"type": "integer", "minimum": 1, "maximum": 5},
+          "location": {"type": ["string", "null"]},
+          "endpointIds": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+          "claimIds": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+          "reviewState": {"enum": ["unreviewed", "accepted", "rejected", "needs-evidence"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "endpoints": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "required": ["id", "addresses", "firstSeen", "lastSeen", "observationIds"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "addresses": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "vlan": {"type": ["integer", "null"], "minimum": 0, "maximum": 4094},
+          "firstSeen": {"type": "string", "format": "date-time"},
+          "lastSeen": {"type": "string", "format": "date-time"},
+          "observationIds": {"type": "array", "items": {"$ref": "#/$defs/id"}}
         },
         "additionalProperties": false
       }
@@ -43,18 +161,21 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "observedAt", "interfaceId", "protocol", "evidenceHash", "parser"],
+        "required": ["id", "observedAt", "visibilityMode", "protocol", "artifactHash", "byteOffset", "byteLength", "parser"],
         "properties": {
-          "id": {"type": "string"},
+          "id": {"$ref": "#/$defs/id"},
           "observedAt": {"type": "string", "format": "date-time"},
-          "interfaceId": {"type": "string"},
-          "source": {"type": "string"},
-          "destination": {"type": "string"},
+          "visibilityMode": {"$ref": "#/$defs/visibilityMode"},
+          "source": {"type": ["string", "null"]},
+          "destination": {"type": ["string", "null"]},
           "protocol": {"type": "string"},
-          "field": {"type": "string"},
+          "field": {"type": ["string", "null"]},
           "value": {},
-          "evidenceHash": {"type": "string"},
-          "parser": {"type": "string"}
+          "artifactHash": {"$ref": "#/$defs/hash"},
+          "byteOffset": {"type": "integer", "minimum": 0},
+          "byteLength": {"type": "integer", "minimum": 0},
+          "parser": {"$ref": "#/$defs/versionedObject"},
+          "warnings": {"type": "array", "items": {"type": "string"}}
         },
         "additionalProperties": false
       }
@@ -63,56 +184,131 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "subject", "attribute", "value", "observationIds", "confidence", "rule", "reviewState"],
+        "required": ["id", "subject", "attribute", "value", "observationIds", "confidence", "confidenceReasons", "rule", "reviewState"],
         "properties": {
-          "id": {"type": "string"},
-          "subject": {"type": "string"},
+          "id": {"$ref": "#/$defs/id"},
+          "subject": {"$ref": "#/$defs/id"},
           "attribute": {"type": "string"},
           "value": {},
-          "observationIds": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "observationIds": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/id"}},
           "confidence": {"type": "number", "minimum": 0, "maximum": 1},
-          "rule": {"type": "string"},
-          "contradictions": {"type": "array", "items": {"type": "string"}},
+          "confidenceReasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "rule": {"$ref": "#/$defs/versionedObject"},
+          "contradictions": {"type": "array", "items": {"$ref": "#/$defs/id"}},
           "reviewState": {"enum": ["unreviewed", "accepted", "rejected", "needs-evidence"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "rule", "title", "assetIds", "evidenceIds", "condition", "confidence", "consequence", "exposure", "riskScore", "severity", "recommendation", "reviewState"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "rule": {"$ref": "#/$defs/versionedObject"},
+          "title": {"type": "string"},
+          "assetIds": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+          "evidenceIds": {"type": "array", "items": {"$ref": "#/$defs/id"}},
+          "condition": {"type": "string"},
+          "limitations": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"enum": ["high", "medium", "low"]},
+          "consequence": {"type": "integer", "minimum": 1, "maximum": 5},
+          "exposure": {"type": "integer", "minimum": 1, "maximum": 5},
+          "riskScore": {"type": "integer", "minimum": 1, "maximum": 25},
+          "severity": {"enum": ["critical", "high", "medium", "low"]},
+          "recommendation": {"type": "string"},
+          "owner": {"type": ["string", "null"]},
+          "dueDate": {"type": ["string", "null"], "format": "date"},
+          "reviewState": {"enum": ["accepted", "rejected", "deferred"]}
         },
         "additionalProperties": false
       }
     },
     "activeExecutions": {
       "type": "array",
+      "maxItems": 16,
       "items": {
         "type": "object",
-        "required": ["profileId", "profileHash", "target", "requestHash", "startedAt", "endedAt", "packetCount", "stopReason"],
+        "required": ["id", "profileId", "profileHash", "grantHash", "interfaceId", "target", "requestHash", "startedAt", "endedAt", "packetCount", "retryCount", "stopReason"],
         "properties": {
+          "id": {"$ref": "#/$defs/id"},
           "profileId": {"type": "string"},
-          "profileHash": {"type": "string"},
+          "profileHash": {"$ref": "#/$defs/hash"},
+          "grantHash": {"$ref": "#/$defs/hash"},
+          "interfaceId": {"type": "string"},
           "target": {"type": "string"},
-          "requestHash": {"type": "string"},
-          "responseEvidenceIds": {"type": "array", "items": {"type": "string"}},
+          "requestHash": {"$ref": "#/$defs/hash"},
+          "responseEvidenceIds": {"type": "array", "items": {"$ref": "#/$defs/id"}},
           "startedAt": {"type": "string", "format": "date-time"},
           "endedAt": {"type": "string", "format": "date-time"},
           "packetCount": {"type": "integer", "minimum": 0},
-          "retryCount": {"type": "integer", "minimum": 0},
+          "retryCount": {"type": "integer", "minimum": 0, "maximum": 1},
           "stopReason": {"type": "string"}
         },
         "additionalProperties": false
       }
     },
-    "auditEvents": {
+    "reviews": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["at", "actor", "action", "object", "previousHash", "eventHash"],
+        "required": ["id", "objectType", "objectId", "reviewer", "decision", "at"],
         "properties": {
-          "at": {"type": "string", "format": "date-time"},
-          "actor": {"type": "string"},
-          "action": {"type": "string"},
-          "object": {"type": "string"},
-          "previousHash": {"type": "string"},
-          "eventHash": {"type": "string"}
+          "id": {"$ref": "#/$defs/id"},
+          "objectType": {"enum": ["asset", "claim", "finding", "case"]},
+          "objectId": {"$ref": "#/$defs/id"},
+          "reviewer": {"type": "string"},
+          "decision": {"enum": ["accepted", "rejected", "deferred", "needs-evidence"]},
+          "reason": {"type": ["string", "null"]},
+          "at": {"type": "string", "format": "date-time"}
         },
         "additionalProperties": false
       }
+    },
+    "audit": {
+      "type": "object",
+      "required": ["algorithm", "headHash", "events"],
+      "properties": {
+        "algorithm": {"const": "SHA-256"},
+        "headHash": {"$ref": "#/$defs/hash"},
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["sequence", "at", "monotonicMs", "actor", "role", "action", "object", "previousHash", "eventHash"],
+            "properties": {
+              "sequence": {"type": "integer", "minimum": 1},
+              "at": {"type": "string", "format": "date-time"},
+              "monotonicMs": {"type": "integer", "minimum": 0},
+              "actor": {"type": "string"},
+              "role": {"type": "string"},
+              "action": {"type": "string"},
+              "object": {"type": "string"},
+              "previousHash": {"$ref": "#/$defs/hash"},
+              "eventHash": {"$ref": "#/$defs/hash"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+    "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "visibilityMode": {"enum": ["imported", "local-origin", "delivered-multicast", "tap-span", "wifi-api", "ble-advertisement", "manual-physical"]},
+    "versionedObject": {
+      "type": "object",
+      "required": ["id", "version", "sha256"],
+      "properties": {
+        "id": {"type": "string"},
+        "version": {"type": "string"},
+        "sha256": {"$ref": "#/$defs/hash"}
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
