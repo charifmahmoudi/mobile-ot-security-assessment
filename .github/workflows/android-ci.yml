@@ -116,28 +116,19 @@ jobs:
           gradle-version: "8.13"
       - name: Fetch hash-pinned OT research captures
         run: bash tools/fetch_research_pcaps.sh
-      - name: Start OT emulator on TCP 502
+      - name: Prepare OT emulator
         run: |
           if [ "${{ matrix.target }}" = "pymodbus" ]; then
             docker build --tag atlas-pymodbus:3.11.3 --file tools/pymodbus-ci.Dockerfile .
-            docker run --detach --name atlas-pymodbus --publish 502:502 atlas-pymodbus:3.11.3
           elif [ "${{ matrix.target }}" = "modbus-tk" ]; then
             python3 -m venv .ot-emulator-venv
             .ot-emulator-venv/bin/pip install --disable-pip-version-check modbus-tk==1.1.5
-            nohup sudo -E .ot-emulator-venv/bin/python -u tools/modbus_tk_testbed.py >modbus-tk.log 2>&1 &
           else
             git clone --filter=blob:none https://github.com/mushorg/conpot.git conpot-upstream
             git -C conpot-upstream checkout 32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044
             docker build --tag atlas-conpot-upstream:32fc03b conpot-upstream
             docker build --tag atlas-conpot-ci:32fc03b --file tools/conpot-ci.Dockerfile .
-            docker run --detach --name atlas-conpot --publish 502:5020 atlas-conpot-ci:32fc03b
           fi
-          for attempt in $(seq 1 90); do
-            nc -z 127.0.0.1 502 && exit 0
-            sleep 1
-          done
-          echo "OT emulator did not expose TCP/502" >&2
-          exit 1
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
@@ -153,7 +144,26 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            adb shell 'toybox nc -z -w 5 10.0.2.2 502'
+            if [ "${{ matrix.target }}" = "pymodbus" ]; then
+              docker run --detach --name atlas-pymodbus --publish 502:502 atlas-pymodbus:3.11.3
+            elif [ "${{ matrix.target }}" = "modbus-tk" ]; then
+              nohup sudo -E .ot-emulator-venv/bin/python -u tools/modbus_tk_testbed.py >modbus-tk.log 2>&1 &
+            else
+              docker run --detach --name atlas-conpot --publish 502:5020 atlas-conpot-ci:32fc03b
+            fi
+            ready=false
+            for attempt in $(seq 1 90); do
+              if nc -z 127.0.0.1 502 && adb shell 'toybox nc -z -w 2 10.0.2.2 502'; then
+                ready=true
+                break
+              fi
+              sleep 1
+            done
+            if [ "$ready" != true ]; then
+              docker ps --all || true
+              echo "Android emulator could not route to the host OT testbed" >&2
+              exit 1
+            fi
             gradle --no-daemon --stacktrace :network-broker:installDebug
             gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.activeTest=true -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS
       - name: Collect OT emulator log
