@@ -1,140 +1,64 @@
-# OCP Group account map
+# OCP Group — account decision brief
 
-_Research baseline: 30 August 2026. Public professional titles should be rechecked immediately before outreach._
+_Public-source review: 30 August 2026. Titles are time-sensitive. LinkedIn proves a public professional claim, not reporting authority or permission to contact._
 
-## What this account actually contains
+## Decision
 
-OCP is a group of mines, chemical platforms, utilities, joint ventures and specialist service companies. The Moroccan industrial core spans Khouribga, Benguerir and Youssoufia mining operations; Safi and Jorf Lasfar chemical platforms; transport and slurry-pipeline infrastructure; and water and energy projects. OCP calls Jorf Lasfar the world's largest phosphate-fertilizer production platform. Group material also describes more than US$9 billion turnover in 2024.
+**Pursue through OCP Maintenance Solutions (OCP-MS) or JESA, not as a generic scanner sale to OCP Group.** OCP already has OT-security, digital, automation and assessment capability. The credible opening is a controlled field-evidence component for an existing assessment or project-handover workflow.
 
-For Atlas OT Scout, “sell to OCP” is not a workable instruction. Five parts of the ecosystem have different roles:
+## Why now
 
-| Entity/function | Published activity | Relevance to a mobile assessment tool |
-|---|---|---|
-| OCP Group / Manufacturing SBU | Owns industrial operations and group strategy | Asset owner and policy authority |
-| Site organizations | Run mines, chemical plants and utilities | Approve the physical area, timing and safe connection point |
-| OCP Maintenance Solutions (OCP-MS) | Industrial maintenance, consulting and transformation assessments | Potential user and productization/channel partner |
-| JESA | OCP–Worley engineering joint venture with industrial digitalization and OT/IT architecture capability | Engineering standards, project handover and integration route |
-| Teal Technology Services | Public roles describe an Engineering & Automation business unit | Automation delivery and technical integration route |
-| OCP Solutions | Consulting focused on digital, data and AI transformation | Enterprise transformation stakeholder, less likely field operator |
+- OCP publicly operates mines, chemical platforms and utilities; Jorf Lasfar is described as the world's largest phosphate-fertilizer platform ([OCP operations](https://www.ocpgroup.ma/en/what-we-do/industrial-operations)).
+- OCP invited startups to co-develop Industry 4.0 solutions through its **Usine du Futur** program ([OCP](https://www.ocpgroup.ma/en/press-release/ocp-group-launches-usine-du-futur-ocp-open-innovation-challenge-dedicated-industry-40)).
+- In January 2026, INCIT and OCP-MS announced structured industrial-maturity assessments, assessor training and an Advanced Manufacturing Transformation Centre ([INCIT](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/)). That is a direct workflow and channel signal.
 
-Joint ventures at Jorf Lasfar can create additional approval boundaries. A pilot involving a joint-venture plant would need the operating company's consent, not only an OCP Group introduction.
+## Relevant public organization
 
-## OT-relevant organization map
-
-The lines below distinguish published roles from commercial interpretation. They are not presented as OCP's official reporting chart.
-
-| Publicly visible node | Person | Basis | Likely part in a pilot |
+| Function | Public person | Evidence | Likely relevance — inference |
 |---|---|---|---|
-| Group Chairman and CEO | Mostafa Terrab | OCP governance page | Executive context; not an initial technical approach |
-| Chief Digital and AI Officer | Imad Boumhi | Public LinkedIn profile | Digital architecture and strategic sponsorship |
-| Head OT Cyber Security / Head Cyber Sécurité Industrielle | Amine Ait Ouarasse | Public LinkedIn profile | Security policy, permitted discovery behavior and acceptance criteria |
-| Jorf Lasfar Head of Security | Abdelaziz Majjad | Public LinkedIn profile | Site-security review at Jorf Lasfar |
-| Manufacturing Data & AI / OCP-MS growth mandate | Karim El Baz | Public LinkedIn profile | Bridge between manufacturing transformation and OCP-MS product/service strategy |
-| SP2M industrial transformation delivery | Mehdi Amry | Public LinkedIn profile | Program delivery context for industrial transformation |
-| JESA Industrial Digitalization Engineering Manager | Ayoub Taqi | Public LinkedIn profile | OT/IT reference architectures, standards and engineering fit |
-| JESA Industrial Digitalization Project Management | Abdelkader Ibn El Mehdi | Public LinkedIn profile | Project implementation and industrial-protocol context |
-| Teal Head of Engineering & Automation BU | Jaouad Ajebli | Public LinkedIn profile | Automation integration and delivery channel |
-| OCP-MS Consulting PMO | Amine Douihi | Public LinkedIn profile | Assessment-method and consulting-delivery workflow |
-| OCP-MS predictive maintenance / Industry 4.0 | Oussama Agounine | Public LinkedIn profile | Field-maintenance and portable collection use cases |
+| Group digital and AI | [Imad Boumhi](https://ma.linkedin.com/in/iboumhi), Chief Digital & AI Officer | Public profile; [OCP digital strategy](https://www.ocpgroup.ma/en/our-strategy/digital-data-and-ai) | Architecture/sponsorship |
+| Industrial cybersecurity | [Amine Ait Ouarasse](https://ma.linkedin.com/in/ait-ouarasse-amine), Head OT Cyber Security | Public profile | Connection policy and test limits |
+| Jorf Lasfar security | [Abdelaziz Majjad](https://ma.linkedin.com/in/abdelaziz-majjad-5017609b) | Public profile | Site approval/security review |
+| Industrial digital engineering | [Ayoub Taqi](https://ma.linkedin.com/in/ayoubtaqi), JESA | Public profile | OT/IT architecture and project route |
+| Engineering & automation | [Jaouad Ajebli](https://ma.linkedin.com/in/ajebli), Teal | Public profile | Integration/delivery route |
+| Assessment delivery | [Amine Douihi](https://ma.linkedin.com/in/amine-douihi-bab44226b), OCP-MS | Public profile | Consulting workflow |
+| Predictive maintenance / Industry 4.0 | [Oussama Agounine](https://ma.linkedin.com/in/oussama-agounine), OCP-MS | Public profile | Field-user perspective |
 
-### Reconstructed decision path
+This is a stakeholder map, not an OCP organigram. Site operations/maintenance, OT security, the implementing entity and procurement would all need validation.
 
-The most defensible account model is:
+## What is publicly said
 
-1. a site operations or maintenance owner defines the asset and maintenance window;
-2. Group OT Cyber Security and site security define what may connect and what data may leave;
-3. JESA, Teal, OCP-MS or an approved external integrator performs or supports the work;
-4. the digital organization determines integration with group platforms;
-5. procurement and legal approve the supplier route.
+> “globally benchmarked industrial assessment frameworks” — INCIT describing what it brings to the OCP-MS cooperation. ([INCIT, 2026](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/))
 
-Only the roles are public. The ordering and reporting relationships are a commercial hypothesis to validate.
+The implication is specific: the product should collect defensible evidence for an existing maturity method, not introduce a competing assessment vocabulary.
 
-## LinkedIn and public professional surface
+## Employees and visible activity
 
-- [OCP Group company page](https://www.linkedin.com/company/ocpgroup/) provides the broadest employee and corporate-content surface.
-- [OCP Maintenance Solutions](https://www.linkedin.com/company/ocp-maintenance-solutions/) is the more relevant page for industrial-assessment and maintenance positioning.
-- JESA and Teal should be researched as potential implementers, not treated as departments of the same legal entity.
-- Public profiles show a substantial community around industrial digitalization, asset digitalization, automation, predictive maintenance and OT/IT integration. This makes a generic “OT awareness” message inappropriate; the product must demonstrate a specific workflow improvement.
+| Person/entity | Appearance | What it reveals | Source |
+|---|---|---|---|
+| Majda Moumni, CEO OCP Solutions | MoroccoAI Annual Conference, 4–5 Dec 2024; keynote on AI and industry transformation | OCP Solutions is publicly active in Morocco's transformation ecosystem | [Event announcement](https://www.linkedin.com/posts/ocp-solutions_ai-ocps-solutions-activity-7269304342376022017-oKs_) |
+| Majda Moumni | Morocco AI Forum 2025, panel “AI for Innovation and Industry Transformation” | Repeat participation, not a one-off appearance | [OCP Solutions](https://www.linkedin.com/posts/ocp-solutions_moroccoai-aiforum2025-ocpsolutions-activity-7391770938821726208-H_qk) |
+| OCP-MS + INCIT | Formal cooperation announced Jan 2026 | Best documented assessment-channel entry | [INCIT](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/) |
 
-Profiles are useful for identifying functions and vocabulary. They do not establish budget ownership, availability or permission to contact a private address.
+No source found tying the named OT-security lead to a public conference. Do not imply attendance.
 
-## Technology and project signals
+## Technology evidence
 
-### Directly attributable signals
-
-- A public Benguerir operations profile describes monitoring industrial operations with Honeywell DCS and SCADA. This is a site-level clue, not a group standard.
-- JESA public roles explicitly mention industrial digitalization, OT/IT architectures, industrial communication protocols and cybersecurity standards.
-- Teal's public Engineering & Automation leadership describes industrial digital transformation bridging IT, data and OT.
-- OCP launched the “Usine du Futur” open-innovation challenge in 2022 to co-develop Industry 4.0 solutions.
-- OCP-MS and BCG GAMMA announced work combining industrial expertise, data science and AI.
-- OCP-MS and INCIT announced cooperation in January 2026 around industrial-maturity and transformation assessments in Morocco and Africa.
-
-### What outside activity says
-
-The public pattern is not that OCP lacks digital capability. It is building an internal ecosystem able to design, deliver and commercialize industrial transformation. Atlas OT Scout therefore has two possible positions:
-
-1. a controlled collection component that fits OCP/JESA/Teal standards; or
-2. a tool OCP-MS can include in assessment delivery beyond OCP.
-
-The second is strategically attractive because it could turn one enterprise relationship into a channel for African industrial assessments. It is also harder: OCP-MS may already have internal tools, and any external code would face architecture, IP and product-governance review.
-
-## Events and communities
-
-| Activity | Public record | Account meaning |
+| Signal | Strength | Source |
 |---|---|---|
-| MoroccoAI 2024 | OCP Solutions CEO Majda Moumni spoke on AI transforming industries | Digital leadership is visible in Morocco's technology ecosystem |
-| Usine du Futur challenge | OCP invited Moroccan, African and international startups | A precedent exists for structured startup engagement |
-| INCIT–OCP-MS cooperation, 2026 | Industrial maturity, AI and transformation assessments | Directly aligned partner/channel conversation |
-| OCP global sustainability and fertilizer events | Group participates extensively | Useful for corporate context, less useful than maintenance/automation forums |
+| Honeywell DCS/SCADA at Benguerir | Site-level employee claim; not a group standard | [Public profile](https://ma.linkedin.com/in/ikram-hara-31b1a628b) |
+| OT/IT architecture and industrial protocols in JESA roles | Function-level evidence; vendors unspecified | [Ayoub Taqi](https://ma.linkedin.com/in/ayoubtaqi), [Abdelkader Ibn El Mehdi](https://ma.linkedin.com/in/abdelkader-ibn-el-mehdi) |
+| OCP-MS assessment capability | Direct organizational signal | [INCIT–OCP-MS](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/) |
 
-The best event strategy is not a generic cybersecurity booth. It is to secure an introduction through OCP-MS/INCIT, JESA's industrial-digitalization network or an OCP-approved industrial auditor and propose a benchmark that those teams can evaluate.
+## Entry route
 
-## Opportunity design
+1. Ask OCP-MS whether field asset evidence is a bottleneck in SIRI/OPERI delivery.
+2. Offer a **passive-only, offline assessment kit** on a training or noncritical network; OCP owns the reference inventory and acceptance criteria.
+3. Measure reconciliation time, unknown assets resolved and report-review effort. Do not lead with vulnerability scanning.
 
-### Candidate workflow A — OCP-MS assessment kit
+## Stop/go questions
 
-An OCP-MS consultant records authorization, imports the customer's inventory, captures passive evidence and produces a reviewer-controlled reconciliation package. This tests repeatability across clients without beginning on OCP production assets.
-
-### Candidate workflow B — project handover with JESA
-
-During commissioning, JESA compares EPC/vendor records with passive observations from one approved network zone. The output is a signed exception list for the asset owner.
-
-### Candidate workflow C — site maintenance walkdown
-
-At Benguerir or Jorf Lasfar, a site engineer uses the tool during a planned window on a training, utility or noncritical area. OT Security supplies the allowed hardware and query policy.
-
-## Product implications from this account
-
-- Tenant/site/project separation must exist in the data model.
-- Offline capture and local encryption are mandatory candidates, but not sufficient without OCP-approved key custody and export control.
-- Evidence must export into existing OCP/JESA/OCP-MS formats rather than create another isolated database.
-- Vendor recognition must be modular and confidence-scored; Honeywell is one confirmed site clue, not a reason to hard-code OCP as a Honeywell estate.
-- The product needs a consulting mode: reusable scope templates, reviewer sign-off and branded evidence packs.
-
-## Questions that public research cannot answer
-
-- Who currently owns the authoritative OT asset repository in each SBU and site?
-- Does OCP-MS already use Claroty, Nozomi, Tenable.ot, runZero or an internally built collector?
-- Are Android devices and USB Ethernet peripherals allowed in target areas?
-- Which entity owns procurement for a cross-company prototype: OCP, OCP-MS, JESA or Teal?
-- Which joint-venture plants require partner approval?
-- What capture data can leave a site and under whose encryption keys?
-
-## Sources
-
-- [OCP leadership and governance](https://www.ocpgroup.ma/en/who-we-are/our-leadership-and-governance)
-- [OCP industrial operations](https://www.ocpgroup.ma/en/what-we-do/industrial-operations)
-- [OCP digital, data and AI](https://www.ocpgroup.ma/en/our-strategy/digital-data-and-ai)
-- [OCP Usine du Futur challenge](https://www.ocpgroup.ma/en/press-release/ocp-group-launches-usine-du-futur-ocp-open-innovation-challenge-dedicated-industry-40)
-- [INCIT–OCP-MS cooperation](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/)
-- [Head OT Cyber Security](https://ma.linkedin.com/in/ait-ouarasse-amine)
-- [Chief Digital and AI Officer](https://ma.linkedin.com/in/iboumhi)
-- [Jorf Lasfar Head of Security](https://ma.linkedin.com/in/abdelaziz-majjad-5017609b)
-- [JESA industrial-digitalization leadership](https://ma.linkedin.com/in/ayoubtaqi)
-- [JESA OT/IT project role](https://ma.linkedin.com/in/abdelkader-ibn-el-mehdi)
-- [Teal Engineering & Automation leadership](https://ma.linkedin.com/in/ajebli)
-- [OCP-MS consulting PMO](https://ma.linkedin.com/in/amine-douihi-bab44226b)
-- [OCP-MS predictive-maintenance role](https://ma.linkedin.com/in/oussama-agounine)
-- [Manufacturing Data & AI / OCP-MS growth role](https://ma.linkedin.com/in/karimelbaz/ar)
-- [Benguerir Honeywell DCS/SCADA signal](https://ma.linkedin.com/in/ikram-hara-31b1a628b)
-- [OCP Solutions at MoroccoAI 2024](https://www.linkedin.com/posts/ocp-solutions_ai-ocps-solutions-activity-7269304342376022017-oKs_)
+- Does OCP-MS already have a mobile collector?
+- Who owns the authoritative asset record for the proposed site?
+- Are Android, USB Ethernet, packet capture and local encrypted storage permitted?
+- Can the result become an OCP-MS service component, or only an internal tool?
