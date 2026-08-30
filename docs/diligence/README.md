@@ -1,31 +1,45 @@
-# Due-diligence index
+# Evidence-only due-diligence index
 
-This folder is the decision corpus for research and design. It separates evidence, assumptions and product decisions.
+This corpus separates verified observations, normative product choices and unknowns. Unsupported revenue, pricing, customer-emotion and installed-base claims have been withdrawn.
 
-## Business
+## Read first
 
-- [Executive business case](EXECUTIVE-BUSINESS-CASE.md)
-- [Market and economic model](MARKET-AND-ECONOMIC-MODEL.md)
-- [Competitive teardown](COMPETITIVE-TEARDOWN.md)
-- [StoryBrand go-to-market plan](STORYBRAND-GTM-PLAN.md)
-- [Global expansion framework](GLOBAL-EXPANSION-FRAMEWORK.md)
+1. [Executive business case](EXECUTIVE-BUSINESS-CASE.md)
+2. [Unsupported-assumption audit](ASSUMPTION-AUDIT.md)
+3. [Research dashboard](RESEARCH-DASHBOARD.md)
+4. [Behavioral evidence ledger](data/behavioral-evidence.csv)
+5. [Observable market evidence](MARKET-AND-ECONOMIC-MODEL.md)
 
-## Market evidence
+## Customer and message
+
+- [Customer evidence map](CUSTOMER-EVIDENCE-MAP.md)
+- [Evidence-grounded StoryBrand](STORYBRAND-GTM-PLAN.md)
+- [Customer organization and ethical outreach](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
+- [Priority-account dossiers](ACCOUNT-DOSSIERS.md)
+
+## Market and technical evidence
 
 - [Morocco sector dossiers](MOROCCO-SECTOR-DOSSIERS.md)
-- [Priority account dossiers](ACCOUNT-DOSSIERS.md)
-- [Customer organization and outreach](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
-- [Technology evidence matrix](TECHNOLOGY-EVIDENCE-MATRIX.md)
+- [Morocco technology evidence matrix](TECHNOLOGY-EVIDENCE-MATRIX.md)
+- [Competitive teardown](COMPETITIVE-TEARDOWN.md)
+- [Source notes](SOURCE-NOTES.md)
 - [Claim ledger](data/claim-ledger.csv)
-- [Market assumptions](data/market-model.csv)
+- [Market evidence inputs](data/market-model.csv)
 
-## Technical and validation
+## Product decisions and validation
 
 - [Open-source due diligence](OPEN-SOURCE-DUE-DILIGENCE.md)
+- [Requirements traceability](REQUIREMENTS-TRACEABILITY.md)
 - [Validation without interviews](VALIDATION-WITHOUT-INTERVIEWS.md)
 - [Risk register](RISK-REGISTER.md)
-- [Requirements traceability](REQUIREMENTS-TRACEABILITY.md)
+- [Global expansion framework](GLOBAL-EXPANSION-FRAMEWORK.md)
 
-## Interpretation rules
+## Evidence hierarchy
 
-“Verified company facility” and “verified vendor protocol” do not together prove an installed technology. Market sizes and prices labelled scenario/hypothesis are planning inputs. Named-person prospect data is intentionally not stored in the public repository.
+1. Moroccan regulator, law, operator procurement or official report.
+2. Named employer job specification tied to Morocco.
+3. OEM manual or original project repository.
+4. Credible independent research.
+5. Ecosystem signal used only to create a research question.
+
+A vendor manual plus a factory name never proves that vendor is installed at the factory.
