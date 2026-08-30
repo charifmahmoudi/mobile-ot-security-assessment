@@ -10,7 +10,7 @@ _Public-source review: 30 August 2026. Electricity and water branches, regions a
 
 - Siemens described its ONEE work with Atos as the **“biggest joint smart grid project in Africa”**, covering a smart-control centre and meter/data integration ([Siemens](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid)).
 - ONEE has published procurements for automata and historical SCADA/supervision projects, confirming distributed control estates in both branches ([ONEE tender](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772), [SCADA tender archive](https://www.developmentaid.org/tenders/view/253523/onee-water-supply-supervisory-control-and-data-acquisition-scada)).
-- ONEE approved a large 2026–2030 investment program covering electricity and drinking water; exact figures should be taken from the board record, not social reposts ([Ministry of Economy and Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)).
+- ONEE approved a large 2026–2030 investment program covering electricity and drinking water; exact figures should be taken from the board record, not social reposts ([Ministry of Economy and Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)).\n- The EIB records a multi-component, multi-annual program to reinforce and extend Morocco's transmission network ([EIB project 20230866](https://www.eib.org/en/projects/all/20230866)). This supports an EPC-handover route at distributed projects, not the control-centre core.
 
 ## Relevant public organization
 
