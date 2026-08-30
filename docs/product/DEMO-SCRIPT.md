@@ -1,6 +1,8 @@
 # Atlas OT Scout PoC demonstration script
 
-Use this 6–8 minute story. Do not present planned features as implemented.
+Use this 7–9 minute story. Do not present planned features as implemented.
+
+The story follows the persistent product stages: **Overview → Collect → Assets → Findings → Report**.
 
 ## Setup
 
@@ -17,9 +19,9 @@ Say: “OT discovery is only useful when evidence belongs to a known site and pr
 
 Point out the sample label, industry, asset count and **Create a new site** option. Briefly show onboarding: industry dropdown and multi-vendor selection.
 
-## 2. Resume an assessment — 60 seconds
+## 2. Resume and follow the recommendation — 60 seconds
 
-On the dashboard, explain the 4 assets, 3 protocols and 1 review item. Point to **Network picture**.
+On **Overview**, explain the 4 assets, 3 protocols and 1 review item. Point to **Assessment progress** and **Recommended next action**.
 
 Say: “This is the working model. The app tells the assessor what is known and what still needs a decision.”
 
@@ -53,11 +55,19 @@ Say: “The Case App cannot open arbitrary sockets. A signed, one-use grant asks
 
 Add the result to inventory.
 
-## 6. Close on the decision — 45 seconds
+## 6. Reason about the network — 60 seconds
 
-Return to inventory and search for the new address or vendor.
+Return to **Assets**, search for the new address or vendor, then open **Zone map**.
 
-Say: “The output is not a celebratory device count. It is a navigable evidence model: what was observed, how, with what confidence, and what the assessor should validate next.”
+Say: “The output is not a celebratory device count. It is a navigable evidence model: what was observed, how, with what confidence, and where it sits in the operating process.”
+
+## 7. Show the professional handoff — 60 seconds
+
+Open **Findings**. Explain that confidence is separate from consequence and that protocol presence does not automatically become a vulnerability claim.
+
+Open **Report**. Show the readiness checks and the explicit authorization/reviewer blockers.
+
+Say: “The product guides the assessor all the way to a defensible handoff, but it refuses to issue a professional report until the required evidence and approvals exist.”
 
 ## Questions to answer precisely
 
