@@ -108,10 +108,10 @@ object GrantCanonicalizer {
 }
 
 object GrantSignatures {
-    fun sign(grant: ExecutionGrant, privateKey: PrivateKey): ByteArray = Signature.getInstance("Ed25519").run {
+    fun sign(grant: ExecutionGrant, privateKey: PrivateKey): ByteArray = Signature.getInstance("SHA256withECDSA").run {
         initSign(privateKey); update(GrantCanonicalizer.bytes(grant)); sign()
     }
-    fun verify(grant: ExecutionGrant, signature: ByteArray, publicKey: PublicKey): Boolean = Signature.getInstance("Ed25519").run {
+    fun verify(grant: ExecutionGrant, signature: ByteArray, publicKey: PublicKey): Boolean = Signature.getInstance("SHA256withECDSA").run {
         initVerify(publicKey); update(GrantCanonicalizer.bytes(grant)); verify(signature)
     }
 }

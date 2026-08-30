@@ -11,6 +11,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.atlasot.domain.ExecutionGrant
 import com.atlasot.domain.Operation
 import java.security.KeyPairGenerator
+import java.security.spec.ECGenParameterSpec
 import java.time.Instant
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -38,10 +39,10 @@ class BrokerBinderTest {
         assertTrue(context.bindService(intent, connection, Context.BIND_AUTO_CREATE))
         try {
             assertTrue("broker did not bind", connected.await(5, TimeUnit.SECONDS))
-            val first = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
+            val first = grantKeyPair()
             assertArrayEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
             assertArrayEquals("PROVISIONED".toByteArray(), broker!!.provisionGrantKey(first.public.encoded))
-            val replacement = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
+            val replacement = grantKeyPair()
             assertArrayEquals(
                 "REJECTED:KEY_ALREADY_PROVISIONED".toByteArray(),
                 broker!!.provisionGrantKey(replacement.public.encoded),
@@ -66,5 +67,10 @@ class BrokerBinderTest {
         } finally {
             context.unbindService(connection)
         }
+    }
+
+    private fun grantKeyPair() = KeyPairGenerator.getInstance("EC").run {
+        initialize(ECGenParameterSpec("secp256r1"))
+        generateKeyPair()
     }
 }

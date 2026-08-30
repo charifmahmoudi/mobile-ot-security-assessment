@@ -1,6 +1,7 @@
 package com.atlasot.domain
 
 import java.security.KeyPairGenerator
+import java.security.spec.ECGenParameterSpec
 import java.time.Instant
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -31,7 +32,10 @@ class GrantPolicyTest {
     }
 
     @Test fun `signature detects grant mutation`() {
-        val pair = KeyPairGenerator.getInstance("Ed25519").generateKeyPair()
+        val pair = KeyPairGenerator.getInstance("EC").run {
+            initialize(ECGenParameterSpec("secp256r1"))
+            generateKeyPair()
+        }
         val original = grant()
         val signature = GrantSignatures.sign(original, pair.private)
         assertTrue(GrantSignatures.verify(original, signature, pair.public))

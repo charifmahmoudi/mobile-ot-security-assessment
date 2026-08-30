@@ -32,9 +32,9 @@ class BrokerService : Service() {
             return body.toByteArray()
         }
 
-        override fun provisionGrantKey(x509Ed25519PublicKey: ByteArray?): ByteArray {
-            requireNotNull(x509Ed25519PublicKey)
-            val key = KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(x509Ed25519PublicKey))
+        override fun provisionGrantKey(x509GrantPublicKey: ByteArray?): ByteArray {
+            requireNotNull(x509GrantPublicKey)
+            val key = KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(x509GrantPublicKey))
             val encoded = Base64.encodeToString(key.encoded, Base64.NO_WRAP)
             val existing = preferences().getString(KEY_GRANT_PUBLIC, null)
             if (existing != null && existing != encoded) return "REJECTED:KEY_ALREADY_PROVISIONED".toByteArray()
@@ -90,7 +90,7 @@ class BrokerService : Service() {
 
     private fun preferences() = getSharedPreferences("broker-security", MODE_PRIVATE)
     private fun loadGrantKey(): PublicKey? = preferences().getString(KEY_GRANT_PUBLIC, null)?.let {
-        KeyFactory.getInstance("Ed25519").generatePublic(X509EncodedKeySpec(Base64.decode(it, Base64.NO_WRAP)))
+        KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(Base64.decode(it, Base64.NO_WRAP)))
     }
 
     companion object {

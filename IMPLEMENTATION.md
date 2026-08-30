@@ -7,7 +7,7 @@ This repository now contains the first deployable safety slice for **P0-WATER**.
 | Boundary | Executable behavior | Verification |
 |---|---|---|
 | Case lifecycle | Draft → authorized → collecting/paused → reviewing → finalized with role gates and time window | JVM unit tests |
-| Execution grants | Ed25519 signature, 60-second maximum lifetime, one-time nonce, CIDR/exclusion checks, packet/byte/timeout/concurrency caps | JVM unit tests |
+| Execution grants | P-256 ECDSA signature, 60-second maximum lifetime, one-time nonce, CIDR/exclusion checks, packet/byte/timeout/concurrency caps | JVM + device tests |
 | Network privilege | `case-app` has no `INTERNET`; only `network-broker` has socket access | Manifest policy script + emulator tests |
 | IPC | Exported broker service requires an app-signature permission; AIDL carries bounded grants and a file descriptor evidence sink | Emulator tests |
 | Active OT identification | One bounded Modbus/TCP Read Device Identification request: FC `0x2B`, MEI `0x0E`, basic objects only | Codec unit tests |
