@@ -119,6 +119,13 @@ class MainActivity : Activity() {
         setBackgroundColor(WHITE)
         WorkspaceSection.entries.forEach { destination ->
             addView(TextView(this@MainActivity).apply {
+                id = when (destination) {
+                    WorkspaceSection.OVERVIEW -> OVERVIEW_NAV_ID
+                    WorkspaceSection.COLLECT -> COLLECT_NAV_ID
+                    WorkspaceSection.ASSETS -> ASSETS_NAV_ID
+                    WorkspaceSection.FINDINGS -> FINDINGS_NAV_ID
+                    WorkspaceSection.REPORT -> REPORT_NAV_ID
+                }
                 text = destination.label
                 textSize = 11f
                 gravity = Gravity.CENTER
@@ -938,6 +945,11 @@ class MainActivity : Activity() {
         const val FINDINGS_SUMMARY_ID = 0x41544C64
         const val REPORT_ACTION_ID = 0x41544C65
         const val CONTINUE_ACTION_ID = 0x41544C66
+        const val OVERVIEW_NAV_ID = 0x41544C67
+        const val COLLECT_NAV_ID = 0x41544C68
+        const val ASSETS_NAV_ID = 0x41544C69
+        const val FINDINGS_NAV_ID = 0x41544C6A
+        const val REPORT_NAV_ID = 0x41544C6B
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")
