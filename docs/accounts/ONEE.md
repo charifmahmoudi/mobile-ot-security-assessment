@@ -10,18 +10,21 @@ _Public-source review: 30 August 2026. Electricity and water branches, regions a
 
 - Siemens described its ONEE work with Atos as the **“biggest joint smart grid project in Africa”**, covering a smart-control centre and meter/data integration ([Siemens](https://press.siemens.com/global/en/pressrelease/atos-and-siemens-support-morocco-smart-management-its-power-grid)).
 - ONEE has published procurements for automata and historical SCADA/supervision projects, confirming distributed control estates in both branches ([ONEE tender](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772), [SCADA tender archive](https://www.developmentaid.org/tenders/view/253523/onee-water-supply-supervisory-control-and-data-acquisition-scada)).
-- ONEE approved a large 2026–2030 investment program covering electricity and drinking water; exact figures should be taken from the board record, not social reposts ([Ministry of Economy and Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)).\n- The EIB records a multi-component, multi-annual program to reinforce and extend Morocco's transmission network ([EIB project 20230866](https://www.eib.org/en/projects/all/20230866)). This supports an EPC-handover route at distributed projects, not the control-centre core.
+- ONEE approved a large 2026–2030 investment program covering electricity and drinking water; exact figures should be taken from the board record, not social reposts ([Ministry of Economy and Finance](https://www.finances.gov.ma/en/Pages/detail-actualite.aspx?fiche=7799)).
+- The EIB records a multi-component, multi-annual program to reinforce and extend Morocco's transmission network ([EIB project 20230866](https://www.eib.org/en/projects/all/20230866)). This supports an EPC-handover route at distributed projects, not the control-centre core.
 
 ## Relevant public organization
 
 | Function | Public person | Evidence | Likely relevance — inference |
 |---|---|---|---|
 | Group executive | [Tarik Hamane](https://ma.linkedin.com/in/tarik-hamane-71bb37125), CEO | Public profile; public event appearances | Sponsor/investment priorities |
-| Information systems | [Houssine Naji](https://ma.linkedin.com/in/houssine-naji-b40766152) | Public profile | IT architecture/integration |
-| Cybersecurity | [Omar Benemmane](https://ma.linkedin.com/in/omar-benemmane-8635bb45) | Public profile | Security approval |
-| Grid/dispatching engineering | [Mohamed Bahid](https://ma.linkedin.com/in/mohamed-bahid-00a78b31) | Public profile | Electricity operations |
-| Industrial control/automation | [Ismail Nassereddine](https://ma.linkedin.com/in/inassereddine) | Public profile | Protocol/field evaluation |
-| Water telemanagement | [Abderrahim Samir](https://ma.linkedin.com/in/abderrahim-samir-a34a87140) | Public profile | Water-branch use case |
+| Generation operations | [Houssine Naji](https://ma.linkedin.com/in/houssine-naji-b40766152), Production Director | Public profile | Operating sponsor candidate; exact pilot scope unconfirmed |
+| Technical/substation | [Omar Benemmane](https://ma.linkedin.com/in/omar-benemmane-8635bb45), Head of Technical Division | Public profile | Technical sponsor candidate; not identified as cybersecurity |
+| AMI/smart metering | [Mohamed Bahid](https://ma.linkedin.com/in/mohamed-bahid-00a78b31), AMI & Smart Metering Architect | Public profile | Electricity architecture |
+| SCADA operations | [Ismail N.](https://ma.linkedin.com/in/inassereddine), SCADA System Administrator | Public profile | Electricity technical user |
+| Network security | [Mohamed-Yacine Chahdaoui](https://ma.linkedin.com/in/chahdaoui), Network & Security Engineer | Public profile | Security evaluator |
+| Water telemanagement | [Abderrahim Samir](https://ma.linkedin.com/in/abderrahim-samir-a34a87140), Automation, Instrumentation & Telemanagement Team Lead | Public profile | Water-branch use case |
+| Training/lab route | [Sami Laknizi](https://ma.linkedin.com/in/sami-laknizi-523b45b4), Automation, Instrumentation & SCADA Trainer | Public profile | Safe benchmark/training route |
 
 These public roles do not prove current reporting lines or budget authority.
 
@@ -52,9 +55,10 @@ No equally strong public event record was found for the named technical staff. T
 
 ## Entry route
 
-1. Choose one branch and one project; do not pitch “ONEE-wide.”
-2. Work through the EPC/approved integrator on a training rack, commissioning zone or planned maintenance window.
-3. Produce a signed as-designed versus observed exception pack; prohibit write operations.
+1. For Water, start with Abderrahim Samir and validate the use case on a training rack with Sami Laknizi before security review.
+2. For Electricity, start with Ismail N. for SCADA workflow or Mohamed Bahid for AMI; bring Mohamed-Yacine Chahdaoui into collection-policy review.
+3. Work through the relevant EPC/approved integrator on a lab, commissioning zone or planned maintenance window.
+4. Produce a signed as-designed versus observed exception pack; prohibit write operations.
 
 ## Stop/go questions
 
