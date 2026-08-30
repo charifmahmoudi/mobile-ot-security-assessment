@@ -13,13 +13,20 @@ The executable test corpus is downloaded at test time from the [Idaho National L
 
 The [UNB CIC Modbus Dataset 2023](https://www.unb.ca/cic/datasets/modbus-2023.html) is the scale benchmark: its maintainers describe PCAPs from a simulated Docker substation with IED and HMI containers, benign and attack traffic, and explicit redistribution/citation terms. It is unsuitable for every commit because of its size; it belongs in scheduled benchmark runs after the streaming/PCAPNG parser milestone.
 
+The mobile parser now accepts classic PCAP and PCAPNG. CI converts the pinned Modbus fixture into PCAPNG, verifies that attribution and the uploaded-file digest are preserved, and verifies that a truncated block fails closed. The four upstream files remain the per-commit interoperability corpus; they are small protocol fixtures, not a substitute for the larger UNB benchmark or a real-site acceptance capture.
+
 ## Active emulators
 
 | Emulator | What it represents | Use in acceptance testing |
 |---|---|---|
 | [PyModbus](https://pymodbus.readthedocs.io/en/v3.11.3/) | Standards-oriented Modbus server/simulator | Positive FC 43/MEI 14 device-identity path with vendor/product/revision |
+| [modbus-tk](https://github.com/ljean/modbus-tk) | Independent Modbus slave simulator | Valid Modbus exception to the read-device-identification request; the app must report service confirmation without inventing vendor/model |
 | [Conpot](https://github.com/mushorg/conpot) | Multi-protocol ICS honeypot (GPL-2.0) | Modbus service compatibility and unsupported-identification behavior; its official compose mapping exposes container port 5020 as host 502 |
 | [OpenPLC Runtime](https://github.com/thiagoralves/OpenPLC_v3) | IEC 61131-3 soft PLC with Modbus/TCP | Candidate hardware-in-the-loop substitute after register-safe probes are approved |
 | [Snap7](https://github.com/SCADACS/snap7) | Siemens S7 client/server library | Candidate for the S7 identification milestone; not exercised by the Modbus-only active slice |
 
 An emulator passing is evidence of protocol interoperability, not evidence that every physical PLC behaves identically. Hardware validation remains a separate release gate.
+
+## Exact end-to-end boundary
+
+The live CI journey is `authorization UI → Android Keystore signature → Binder → broker policy → Android Network binding → TCP/502 → emulator → raw response pipe → identity/service classification → result UI`. It does not bypass the application with a host-side scanner. Passive CI is `content URI → bounded parser → protocol/asset evidence → analyst review UI` and performs no network operation.

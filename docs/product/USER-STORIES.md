@@ -10,19 +10,21 @@
 
 ## Journey 2 — analyze an existing capture
 
-**As an assessor who received a PCAP from a SPAN port or another inventory tool, I need to import it offline and understand what was actually observed.**
+**As an assessor who received a PCAP/PCAPNG from a SPAN port, TAP, capture appliance, or another inventory tool, I need to import it offline and understand what was actually observed.**
 
-- Android's document picker accepts a PCAP without storage-wide permission.
-- The app validates the PCAP global header, record bounds, Ethernet/IP/transport framing, and protocol markers.
+- Android's document picker accepts classic PCAP and PCAPNG through a content URI without storage-wide permission.
+- The app validates PCAP records or PCAPNG sections, interfaces, blocks and packet bounds before interpreting Ethernet/IP/transport framing.
 - The result shows capture hash, duration, total packets, supported OT packets, protocols, endpoints, role, confidence, and the evidence behind classification.
-- Unsupported PCAPNG, oversized, truncated, or non-Ethernet files fail closed and explain why.
+- Unsupported link types are skipped with an explicit warning; oversized, truncated, malformed, or wholly unsupported captures fail closed or return "no supported evidence" without claiming the segment is empty.
+- The screen reminds the assessor that a capture is a visibility sample, not a complete asset inventory.
 - Saving an asset is a separate analyst decision after review.
 
 ## Journey 3 — perform constrained active identification
 
 **As an authorized assessor, I need to identify one controller without reading or changing process registers.**
 
-- The screen collects case reference, site/process area, target, authorized CIDR, and Modbus unit.
+- The screen presents three visible steps: work order, exact target/scope, and authorization. Every populated field keeps a visible label.
+- Target IPv4, CIDR membership and Modbus unit are checked before the broker is contacted.
 - The exact operation and limits are visible before approval.
 - The action remains disabled until written operational and security authorization is confirmed.
 - The case app creates a 30-second, one-use P-256-signed grant.
@@ -42,6 +44,6 @@
 | Story | JVM corpus | Android UI | Live emulator |
 |---|---:|---:|---:|
 | Mode and authorization | Grant policy | API 29 + 35 | — |
-| Passive PCAP analysis | Four research captures | Four complete result screens | — |
-| Active identification | Grant/codec tests | Signed case-to-broker flow | PyModbus and Conpot |
-| Safe failure | Malformed/replay tests | Error-state checks | Conpot unsupported-identity behavior |
+| Passive capture analysis | Four research PCAPs + PCAPNG conversion/corruption | Real content-URI import and four result screens | — |
+| Active identification | Grant/codec tests | Authorization UI → signed case-to-broker flow | PyModbus, modbus-tk, Conpot |
+| Safe failure | Malformed capture, grant and replay tests | Validation/error-state checks | modbus-tk and Conpot service-only behavior |

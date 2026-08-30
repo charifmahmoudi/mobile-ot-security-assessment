@@ -1,7 +1,10 @@
 package com.atlasot.scout
 
+import android.content.Intent
+import android.net.Uri
 import android.os.SystemClock
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,25 +30,49 @@ class AssessmentJourneyTest {
         }
     }
 
-    @Test fun researchPcapsReachEvidenceBackedAssetReviewUi() {
+    @Test fun outOfScopeTargetIsStoppedBeforeBrokerContact() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity { activity ->
+                activity.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
+                activity.findViewById<android.widget.EditText>(MainActivity.TARGET_FIELD_ID).setText("192.0.2.5")
+                activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
+                activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID).performClick()
+                val validation = activity.findViewById<TextView>(MainActivity.VALIDATION_MESSAGE_ID)
+                assertTrue(validation.text.contains("outside the authorized CIDR"))
+                assertTrue(activity.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID).text.contains("New authorized assessment"))
+            }
+        }
+    }
+
+    @Test fun contentUriUploadReachesEvidenceBackedAssetReviewUi() {
         val fixtures = mapOf(
             "modbus.pcap" to "Modbus/TCP",
             "dnp3.pcap" to "DNP3",
             "iec104.pcap" to "IEC 60870-5-104",
             "bacnet.pcap" to "BACnet/IP",
         )
-        val testAssets = InstrumentationRegistry.getInstrumentation().context.assets
-        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
-            fixtures.forEach { (file, protocol) ->
-                scenario.onActivity { activity ->
-                    testAssets.open(file).use { activity.analyzeCaptureForTest(file, it) }
-                    val title = activity.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID)
-                    val summary = activity.findViewById<TextView>(MainActivity.RESULT_SUMMARY_ID)
-                    val assets = activity.findViewById<android.widget.LinearLayout>(MainActivity.ASSET_LIST_ID)
-                    assertTrue(title.text.contains("Passive analysis complete"))
-                    assertTrue(summary.text.contains(protocol))
-                    assertTrue(assets.childCount > 0)
+        fixtures.forEach { (file, protocol) ->
+            val intent = Intent(
+                InstrumentationRegistry.getInstrumentation().targetContext,
+                MainActivity::class.java,
+            ).setData(Uri.parse("content://com.atlasot.scout.testcaptures/$file"))
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            ActivityScenario.launch<MainActivity>(intent).use { scenario ->
+                var title = ""
+                var summary = ""
+                var assetCount = 0
+                repeat(80) {
+                    scenario.onActivity { activity ->
+                        title = activity.findViewById<TextView?>(MainActivity.SCREEN_TITLE_ID)?.text?.toString().orEmpty()
+                        summary = activity.findViewById<TextView?>(MainActivity.RESULT_SUMMARY_ID)?.text?.toString().orEmpty()
+                        assetCount = activity.findViewById<android.widget.LinearLayout?>(MainActivity.ASSET_LIST_ID)?.childCount ?: 0
+                    }
+                    if (title.contains("Passive analysis complete")) return@repeat
+                    SystemClock.sleep(100)
                 }
+                assertTrue("title was: $title", title.contains("Passive analysis complete"))
+                assertTrue("summary was: $summary", summary.contains(protocol))
+                assertTrue(assetCount > 0)
             }
         }
     }
@@ -56,7 +83,13 @@ class AssessmentJourneyTest {
         val expected = arguments.getString("expectedIdentity") ?: "MODBUS/TCP"
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             scenario.onActivity {
-                it.runActiveDiscovery("E2E-WATER-001", "CI treatment cell", "10.0.2.2", "10.0.2.0/24", 1)
+                it.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
+                it.findViewById<android.widget.EditText>(MainActivity.CASE_FIELD_ID).setText("E2E-WATER-001")
+                it.findViewById<android.widget.EditText>(MainActivity.SITE_FIELD_ID).setText("CI treatment cell")
+                it.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
+                val active = it.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
+                assertTrue(active.isEnabled)
+                active.performClick()
             }
             var result = ""
             repeat(60) {

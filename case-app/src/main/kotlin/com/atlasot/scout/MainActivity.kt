@@ -50,35 +50,51 @@ class MainActivity : Activity() {
     fun renderHome() {
         page("Atlas OT Scout", "Field assessment workspace • P0-WATER")
         content.addView(card("SAFE BY DEFAULT", "Offline workspace. No packet is sent until scope and authorization are confirmed.", SAFETY_STATUS_ID))
-        content.addView(section("What do you need to do?"))
+        content.addView(section("Choose how evidence will be collected"))
         content.addView(button("Start an authorized assessment", PRIMARY_ACTION_ID, ::renderAssessmentSetup))
-        content.addView(help("Use this on site after receiving written authorization for controlled active identification."))
+        content.addView(help("Best when you are on site, have written authorization, and need to identify one known controller."))
         content.addView(button("Analyze an existing capture", PASSIVE_ACTION_ID, ::openCapturePicker))
-        content.addView(help("Passive mode reads a PCAP locally. It never connects to or transmits on the OT network."))
+        content.addView(help("Best when a SPAN/TAP capture was supplied or this phone cannot observe the segment. PCAP and PCAPNG stay on the device; passive analysis never transmits."))
         content.addView(section("At a glance"))
         content.addView(label("P0-WATER • 0 open cases • 0 unresolved findings\nEvidence remains on this device.", 15f).apply { id = STATUS_VIEW_ID })
     }
 
     private fun renderAssessmentSetup() {
-        page("New authorized assessment", "Enter only the network scope stated in the written authorization.")
-        val caseId = field("Case reference", "P0-WATER-001")
-        val site = field("Site / process area", "Water treatment plant")
-        val target = field("Target controller IPv4", "10.0.2.2")
-        val scope = field("Authorized IPv4 scope", "10.0.2.0/24")
-        val unit = field("Modbus unit ID", "1")
+        page("New authorized assessment", "Identify one known controller inside the approved maintenance window.")
+        content.addView(section("1. Record the work order"))
+        val caseId = field("Case reference", "P0-WATER-001", CASE_FIELD_ID)
+        val site = field("Site / process area", "Water treatment plant", SITE_FIELD_ID)
+        content.addView(section("2. Confirm the exact target and scope"))
+        val target = field("Target controller IPv4", "10.0.2.2", TARGET_FIELD_ID)
+        val scope = field("Authorized IPv4 scope (CIDR)", "10.0.2.0/24", SCOPE_FIELD_ID)
+        val unit = field("Modbus unit ID (0–247)", "1", UNIT_FIELD_ID)
         content.addView(card("ACTIVE LIMITS", "One Modbus Device Identification request • TCP/502 • 1.5 s timeout • no register writes", ACTIVE_LIMITS_ID))
+        content.addView(section("3. Confirm authorization"))
         val approval = CheckBox(this).apply {
             text = "I confirm written operational and security authorization for this scope and time window."
+            id = AUTHORIZATION_CHECK_ID
             textSize = 15f
             setPadding(0, 18, 0, 18)
         }
         content.addView(approval)
         val start = button("Authorize and identify device", ACTIVE_ACTION_ID) {
             val unitId = unit.text.toString().toIntOrNull()
-            if (caseId.text.isBlank() || site.text.isBlank() || unitId == null || unitId !in 0..247) {
-                content.addView(help("Complete the case, site, and a unit ID from 0 to 247.").apply { setTextColor(Color.RED) })
+            val validation = runCatching {
+                require(caseId.text.isNotBlank()) { "Enter the work-order or case reference." }
+                require(site.text.isNotBlank()) { "Enter the site and process area." }
+                require(unitId != null && unitId in 0..247) { "Use a Modbus unit ID from 0 to 247." }
+                val targetAddress = IPv4Cidr.parseAddress(target.text.toString())
+                require(IPv4Cidr.parse(scope.text.toString()).contains(targetAddress)) {
+                    "The target is outside the authorized CIDR. Correct the scope; the app will not expand it."
+                }
+            }
+            if (validation.isFailure) {
+                content.addView(help(validation.exceptionOrNull()?.message ?: "Review the assessment fields.").apply {
+                    id = VALIDATION_MESSAGE_ID
+                    setTextColor(Color.RED)
+                })
             } else {
-                runActiveDiscovery(caseId.text.toString(), site.text.toString(), target.text.toString(), scope.text.toString(), unitId)
+                runActiveDiscovery(caseId.text.toString(), site.text.toString(), target.text.toString(), scope.text.toString(), unitId!!)
             }
         }.apply { isEnabled = false }
         approval.setOnCheckedChangeListener { _, checked -> start.isEnabled = checked }
@@ -90,7 +106,9 @@ class MainActivity : Activity() {
         startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
-            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("application/vnd.tcpdump.pcap", "application/octet-stream"))
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf(
+                "application/vnd.tcpdump.pcap", "application/x-pcapng", "application/octet-stream"
+            ))
         }, OPEN_CAPTURE)
     }
 
@@ -127,6 +145,11 @@ class MainActivity : Activity() {
             "Capture packets: " + result.totalPackets + "\nDuration: " + duration + "s\nSHA-256: " +
                 result.sha256.take(16) + "…\n" + protocols,
             RESULT_SUMMARY_ID,
+        ))
+        content.addView(card(
+            "ANALYST DECISION",
+            if (result.assets.isEmpty()) "No supported OT protocol evidence was found. Do not treat this as proof that the segment has no OT assets."
+            else "Review identity, role and confidence before adding assets. Passive observations show what appeared in this capture, not a complete inventory."
         ))
         content.addView(section("Assets requiring review"))
         val list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; id = ASSET_LIST_ID }
@@ -239,8 +262,9 @@ class MainActivity : Activity() {
         .joinToString("") { "%02x".format(it.toInt() and 0xff) }
     private fun section(value: String) = label(value, 18f, Color.rgb(15, 44, 67)).apply { setPadding(0, 28, 0, 10) }
     private fun help(value: String) = label(value, 13f, Color.DKGRAY).apply { setPadding(8, 4, 8, 12) }
-    private fun field(hintText: String, value: String) = EditText(this).apply {
-        hint = hintText; setText(value); textSize = 16f; setPadding(12, 10, 12, 10); content.addView(this)
+    private fun field(labelText: String, value: String, viewId: Int) = EditText(this).apply {
+        content.addView(label(labelText, 13f, Color.DKGRAY).apply { setPadding(8, 10, 8, 0) })
+        hint = labelText; setText(value); id = viewId; textSize = 16f; setPadding(12, 8, 12, 12); content.addView(this)
     }
     private fun label(value: String, size: Float, color: Int = Color.BLACK) = TextView(this).apply {
         text = value; textSize = size; setTextColor(color)
@@ -267,6 +291,13 @@ class MainActivity : Activity() {
         const val ACTIVE_ACTION_ID = 0x41544C49
         const val ACTIVE_RESULT_ID = 0x41544C4A
         const val ACTIVE_LIMITS_ID = 0x41544C4B
+        const val CASE_FIELD_ID = 0x41544C4C
+        const val SITE_FIELD_ID = 0x41544C4D
+        const val TARGET_FIELD_ID = 0x41544C4E
+        const val SCOPE_FIELD_ID = 0x41544C4F
+        const val UNIT_FIELD_ID = 0x41544C50
+        const val AUTHORIZATION_CHECK_ID = 0x41544C51
+        const val VALIDATION_MESSAGE_ID = 0x41544C52
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
     }

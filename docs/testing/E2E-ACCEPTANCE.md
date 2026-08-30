@@ -1,0 +1,35 @@
+# End-to-end acceptance contract
+
+This file defines what a green pipeline proves. It deliberately separates software emulation from field and hardware acceptance.
+
+## User journeys
+
+| Journey | Entry point | Observable completion | Safety assertion |
+|---|---|---|---|
+| Passive import | Android `ACTION_OPEN_DOCUMENT` / `content://` URI | Capture summary and evidence-backed asset review | Case app has no Internet permission; no broker call |
+| Authorized identification | Home → work order → target/scope → authorization | `IDENTITY CONFIRMED` or `SERVICE CONFIRMED` result | One FC 43/MEI 14 request; no reads, writes, sweep or fallback |
+| Invalid scope | Target outside CIDR | Inline correction before result screen | Broker is never contacted |
+| Unsupported identity | Authorized request to a valid Modbus service | Service confirmed, vendor/model blank | Protocol evidence is not promoted to identity evidence |
+| Malformed capture | Corrupt/truncated upload | Actionable failure screen | No partial assets are saved |
+
+## CI evidence matrix
+
+| Gate | Environment | Required result |
+|---|---|---|
+| Research PCAP corpus | JVM | Modbus, DNP3, IEC-104 and BACnet detected from hash-pinned upstream files |
+| PCAPNG normalization | JVM | Same Modbus attribution; digest covers original PCAPNG; truncation rejected |
+| Upload journey | Android API 29 and 35 | Real content URI reaches summary and asset review for all four captures |
+| Active identity | Android API 35 + PyModbus 3.11.3 | Vendor, product and revision returned through the signed broker path |
+| Independent slave | Android API 35 + modbus-tk 1.1.5 | Modbus service confirmed without fabricated identity |
+| ICS honeypot | Android API 35 + pinned Conpot commit | Modbus service confirmed without broadening the probe |
+| Privilege boundary | Static + Android | Case app has no Internet permission; broker service is signature-protected |
+
+## Not proven by this pipeline
+
+- behavior of physical PLC/RTU models or vendor firmware variants;
+- USB Ethernet selection on supported phones;
+- receive-only SPAN/TAP capture hardware;
+- completeness against a multi-gigabyte production capture;
+- encrypted case persistence, findings, report signing, or a complete professional P0-WATER report.
+
+Those remain release gates. Emulator compatibility is not a hardware compatibility claim.

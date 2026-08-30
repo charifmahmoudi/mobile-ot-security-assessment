@@ -36,7 +36,7 @@ data class PassiveAnalysis(
 
 class PcapFormatException(message: String) : IllegalArgumentException(message)
 
-/** Bounded classic-PCAP parser. PCAPNG and non-Ethernet link types fail closed. */
+/** Bounded PCAP/PCAPNG parser. Unsupported link types fail closed or are explicitly skipped. */
 object PassivePcapAnalyzer {
     private const val MAX_FILE_BYTES = 64 * 1024 * 1024
     private const val MAX_CAPTURED_PACKET = 262_144
@@ -44,14 +44,15 @@ object PassivePcapAnalyzer {
     fun analyze(input: InputStream): PassiveAnalysis = analyze(readBounded(input))
 
     fun analyze(bytes: ByteArray): PassiveAnalysis {
-        if (bytes.size < 24) throw PcapFormatException("Capture is shorter than a PCAP header")
+        if (bytes.size < 12) throw PcapFormatException("Capture is shorter than a capture header")
         if (bytes.size > MAX_FILE_BYTES) throw PcapFormatException("Capture exceeds the 64 MiB mobile analysis limit")
+        if (bytes.copyOfRange(0, 4).toHex() == "0a0d0d0a") return analyzePcapng(bytes)
+        if (bytes.size < 24) throw PcapFormatException("Capture is shorter than a PCAP header")
         val order = when (bytes.copyOfRange(0, 4).toHex()) {
             "d4c3b2a1" -> Order.LITTLE_MICRO
             "a1b2c3d4" -> Order.BIG_MICRO
             "4d3cb2a1" -> Order.LITTLE_NANO
             "a1b23c4d" -> Order.BIG_NANO
-            "0a0d0d0a" -> throw PcapFormatException("PCAPNG is not supported in this milestone")
             else -> throw PcapFormatException("Unsupported capture magic")
         }
         val linkType = u32(bytes, 20, order).toInt()
@@ -97,6 +98,133 @@ object PassivePcapAnalyzer {
             assets = assets.values.map { it.freeze() }.sortedWith(compareByDescending<PassiveAsset> { it.confidence }.thenBy { it.address }),
             protocolCounts = protocolCounts.toMap(), warnings = warnings.toList(),
         )
+    }
+
+    /**
+     * Validates PCAPNG block boundaries and normalizes Ethernet Enhanced/Simple Packet Blocks to
+     * classic PCAP before protocol analysis. The reported digest always covers the uploaded file.
+     */
+    private fun analyzePcapng(bytes: ByteArray): PassiveAnalysis {
+        val normalized = ByteArrayOutputStream()
+        writeLe32(normalized, 0xa1b2c3d4L)
+        writeLe16(normalized, 2); writeLe16(normalized, 4)
+        writeLe32(normalized, 0); writeLe32(normalized, 0)
+        writeLe32(normalized, MAX_CAPTURED_PACKET.toLong()); writeLe32(normalized, 1)
+
+        val warnings = linkedSetOf<String>()
+        val interfaces = mutableListOf<PcapngInterface>()
+        var order: Order? = null
+        var cursor = 0
+        var blockNumber = 0
+        var writtenPackets = 0
+        while (cursor < bytes.size) {
+            blockNumber++
+            if (bytes.size - cursor < 12) throw PcapFormatException("Truncated PCAPNG block $blockNumber")
+            val isSection = bytes.copyOfRange(cursor, cursor + 4).toHex() == "0a0d0d0a"
+            if (isSection) {
+                if (bytes.size - cursor < 28) throw PcapFormatException("Truncated PCAPNG section header")
+                order = when (bytes.copyOfRange(cursor + 8, cursor + 12).toHex()) {
+                    "4d3c2b1a" -> Order.LITTLE_MICRO
+                    "1a2b3c4d" -> Order.BIG_MICRO
+                    else -> throw PcapFormatException("Invalid PCAPNG byte-order magic")
+                }
+                interfaces.clear()
+            }
+            val activeOrder = order ?: throw PcapFormatException("PCAPNG must start with a section header")
+            val blockType = if (isSection) 0x0a0d0d0aL else u32(bytes, cursor, activeOrder)
+            val blockLengthLong = u32(bytes, cursor + 4, activeOrder)
+            if (blockLengthLong < 12 || blockLengthLong > Int.MAX_VALUE || blockLengthLong % 4L != 0L) {
+                throw PcapFormatException("Invalid PCAPNG block length at block $blockNumber")
+            }
+            val blockLength = blockLengthLong.toInt()
+            if (cursor + blockLength > bytes.size) throw PcapFormatException("Truncated PCAPNG block $blockNumber")
+            if (u32(bytes, cursor + blockLength - 4, activeOrder) != blockLengthLong) {
+                throw PcapFormatException("PCAPNG block length trailer mismatch at block $blockNumber")
+            }
+            when (blockType) {
+                0x0a0d0d0aL -> if (blockLength < 28) throw PcapFormatException("Invalid PCAPNG section header")
+                1L -> {
+                    if (blockLength < 20) throw PcapFormatException("Invalid PCAPNG interface block")
+                    val linkType = u16(bytes, cursor + 8, activeOrder)
+                    interfaces += PcapngInterface(linkType, pcapngTicksPerSecond(bytes, cursor, blockLength, activeOrder))
+                    if (linkType != 1) warnings += "Skipped PCAPNG interface ${interfaces.lastIndex}: unsupported link type $linkType"
+                }
+                6L -> {
+                    if (blockLength < 32) throw PcapFormatException("Invalid PCAPNG enhanced packet block")
+                    val interfaceId = u32(bytes, cursor + 8, activeOrder).toInt()
+                    val descriptor = interfaces.getOrNull(interfaceId)
+                        ?: throw PcapFormatException("PCAPNG packet references unknown interface $interfaceId")
+                    val captured = checkedPacketLength(u32(bytes, cursor + 20, activeOrder), blockNumber)
+                    val original = u32(bytes, cursor + 24, activeOrder)
+                    if (original < captured || cursor + 28L + captured > cursor + blockLength - 4L) {
+                        throw PcapFormatException("Invalid PCAPNG packet lengths at block $blockNumber")
+                    }
+                    if (descriptor.linkType == 1) {
+                        val ticks = (u32(bytes, cursor + 12, activeOrder) shl 32) or u32(bytes, cursor + 16, activeOrder)
+                        val seconds = ticks / descriptor.ticksPerSecond
+                        val micros = ((ticks % descriptor.ticksPerSecond) * 1_000_000L / descriptor.ticksPerSecond)
+                        writeClassicRecord(normalized, seconds, micros, bytes, cursor + 28, captured, original)
+                        writtenPackets++
+                    }
+                }
+                3L -> {
+                    if (blockLength < 16 || interfaces.isEmpty()) throw PcapFormatException("Invalid PCAPNG simple packet block")
+                    val original = u32(bytes, cursor + 8, activeOrder)
+                    val captured = checkedPacketLength(minOf(original, (blockLength - 16).toLong()), blockNumber)
+                    if (interfaces[0].linkType == 1) {
+                        writeClassicRecord(normalized, 0, 0, bytes, cursor + 12, captured, original)
+                        writtenPackets++
+                    }
+                }
+            }
+            cursor += blockLength
+        }
+        if (writtenPackets == 0 && interfaces.any { it.linkType != 1 }) {
+            warnings += "No Ethernet packets were available on a supported PCAPNG interface"
+        }
+        val result = analyze(normalized.toByteArray())
+        return result.copy(
+            sha256 = MessageDigest.getInstance("SHA-256").digest(bytes).toHex(),
+            warnings = (result.warnings + warnings).distinct(),
+        )
+    }
+
+    private fun pcapngTicksPerSecond(bytes: ByteArray, block: Int, length: Int, order: Order): Long {
+        var cursor = block + 16
+        val end = block + length - 4
+        var ticks = 1_000_000L
+        while (cursor + 4 <= end) {
+            val code = u16(bytes, cursor, order)
+            val optionLength = u16(bytes, cursor + 2, order)
+            if (code == 0) break
+            if (cursor + 4L + optionLength > end) throw PcapFormatException("Truncated PCAPNG interface option")
+            if (code == 9 && optionLength == 1) {
+                val value = bytes[cursor + 4].toInt() and 0xff
+                ticks = if (value and 0x80 == 0) power(10, value.coerceAtMost(9))
+                else power(2, (value and 0x7f).coerceAtMost(30))
+            }
+            cursor += 4 + ((optionLength + 3) / 4) * 4
+        }
+        return ticks
+    }
+
+    private fun power(base: Int, exponent: Int): Long = (0 until exponent).fold(1L) { value, _ -> value * base }
+    private fun checkedPacketLength(value: Long, block: Int): Int {
+        if (value !in 0..MAX_CAPTURED_PACKET.toLong()) throw PcapFormatException("Invalid PCAPNG captured length at block $block")
+        return value.toInt()
+    }
+    private fun writeClassicRecord(
+        out: ByteArrayOutputStream, seconds: Long, micros: Long, source: ByteArray, offset: Int, captured: Int, original: Long,
+    ) {
+        writeLe32(out, seconds.coerceIn(0, 0xffff_ffffL)); writeLe32(out, micros.coerceIn(0, 999_999))
+        writeLe32(out, captured.toLong()); writeLe32(out, original.coerceIn(captured.toLong(), 0xffff_ffffL))
+        out.write(source, offset, captured)
+    }
+    private fun writeLe16(out: ByteArrayOutputStream, value: Int) {
+        out.write(value and 0xff); out.write((value ushr 8) and 0xff)
+    }
+    private fun writeLe32(out: ByteArrayOutputStream, value: Long) {
+        repeat(4) { out.write(((value ushr (it * 8)) and 0xff).toInt()) }
     }
 
     private fun record(assets: MutableMap<String, MutableAsset>, address: String, o: Observation, server: Boolean) {
@@ -243,6 +371,9 @@ object PassivePcapAnalyzer {
     }
 
     private fun u16be(bytes: ByteArray, offset: Int) = ((bytes[offset].toInt() and 0xff) shl 8) or (bytes[offset + 1].toInt() and 0xff)
+    private fun u16(bytes: ByteArray, offset: Int, order: Order): Int = if (order.little) {
+        (bytes[offset].toInt() and 0xff) or ((bytes[offset + 1].toInt() and 0xff) shl 8)
+    } else u16be(bytes, offset)
     private fun u32(bytes: ByteArray, offset: Int, order: Order): Long {
         val indices = if (order.little) intArrayOf(3, 2, 1, 0) else intArrayOf(0, 1, 2, 3)
         return indices.fold(0L) { value, index -> (value shl 8) or (bytes[offset + index].toLong() and 0xff) }
@@ -253,6 +384,7 @@ object PassivePcapAnalyzer {
     private enum class Order(val little: Boolean, val nano: Boolean) {
         LITTLE_MICRO(true, false), BIG_MICRO(false, false), LITTLE_NANO(true, true), BIG_NANO(false, true)
     }
+    private data class PcapngInterface(val linkType: Int, val ticksPerSecond: Long)
     private data class Observation(
         val protocol: OtProtocol, val client: String, val server: String, val confidence: Int, val detail: String,
         val vendor: String? = null, val product: String? = null, val revision: String? = null,
