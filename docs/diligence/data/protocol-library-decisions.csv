@@ -1,0 +1,10 @@
+protocol,use_case,candidate,license,android_fit,safety_fit,decision,next_spike
+OPC UA,server discovery/open endpoints,open62541,MPL-2.0,strong if NDK,minimal client must be isolated,prototype candidate,ARM64 FindServers/GetEndpoints
+Modbus TCP,device identification,libmodbus,LGPL-2.1-or-later,strong,write-capable API requires wrapper,candidate,function 43/14 golden test
+EtherNet/IP,CIP identity,libplctag,MPL-2.0 or LGPL-2+,strong C/ARM,library broader than identity,evaluate,compare minimal parser
+EtherNet/IP,test oracle,pycomm3,MIT,weak production/strong lab,read features must be constrained,lab only,ListIdentity corpus
+Packet capture,capture/filter,libpcap,BSD-style,conditional on OS,neutral,candidate,TAP capture spike
+Android local traffic,VPN capture reference,PCAPdroid,GPL-3.0,strong for device traffic,not LAN capture,study only,license architecture review
+Many protocols,dissection oracle,Wireshark,GPL-2+,poor embed/strong lab,passive,lab only,golden output corpus
+OT passive,Zeek packages ICSNPP,component-specific,server oriented,passive,lab/companion,export compatibility
+Orchestration,task/report patterns,PentAGI,MIT repository,poor native mobile,unsafe execution assumptions,concept reuse only,model deterministic policy boundary
