@@ -1,117 +1,167 @@
-# StoryBrand go-to-market plan
+# Evidence-grounded StoryBrand
 
-## Master brand script
+## Method
 
-### Character
+StoryBrand normally includes internal feelings, aspirations and feared failure. Those elements require customer voice. No admissible Moroccan customer interviews, statements or behavioral dataset currently supports claims such as “plant engineers feel anxious,” “buyers want a phone,” or “customers are frustrated with enterprise platforms.”
 
-A responsible industrial professional who has been asked, “What is actually connected here, and can you prove it?”
+This version uses only documented duties, observable work and verifiable product boundaries. Unsupported emotional language is prohibited until evidence exists.
 
-Primary hero: the automation/OT engineer or assessor. The product is the guide, never the hero.
+## The character
 
-### Problems
+### Primary character
 
-- **External:** incomplete inventories across wired, Wi-Fi and Bluetooth systems; fragmented evidence; site visits requiring too much equipment and reconciliation.
-- **Internal:** fear of missing a critical asset and fear that discovery itself might disrupt production.
-- **Philosophical:** trustworthy industrial visibility should not require exporting sensitive data or buying enterprise infrastructure before a baseline is possible.
+A Moroccan provider qualified or seeking qualification to conduct industrial information-systems audits, or an industrial automation provider supporting authorized assessments.
 
-### Guide
+Evidence:
 
-Empathy: “Production networks are not ordinary IT networks. A useful inventory is worthless if obtaining it creates operational risk.”
+- DGSSI defines industrial-systems audit as a distinct qualification domain.
+- DGSSI evaluates provider references, personnel, methods, tools, organization and security.
+- Three currently listed providers visibly hold the industrial-audit qualification.
+- Public Moroccan automation jobs show staff working with PLC, SCADA and heterogeneous industrial networks.
 
-Authority: signed query profiles, passive-first defaults, packet-level audit, published coverage benchmarks, tested hardware kits, primary-source knowledge packs and local qualified partners.
+What is not known: whether these firms prefer mobile tooling, which tools they use, or their procurement budgets.
 
-### Plan
+## The problem
 
-1. **Authorize:** define interfaces, scope, exclusions, retention and stop conditions.
-2. **Observe:** connect the approved kit and collect passive/imported evidence.
-3. **Confirm and export:** use only approved identity queries, review confidence and hand off the inventory.
+### External problem — proven
 
-### Calls to action
+Industrial audit and maintenance work must deal with heterogeneous operational systems and produce controlled evidence.
 
-- Direct: **Book a controlled baseline.**
-- Transitional: **Get the OT field-readiness checklist.**
-- Partner: **Add a repeatable OT baseline service.**
+Evidence chain:
 
-### Failure
+1. DGSSI requires periodic audits for applicable sensitive systems by qualified providers.
+2. DGSSI evaluates the adequacy of audit methods and tools.
+3. ONEE and ANP procure maintenance and telemanagement work for automata, water, lighting, VTS, surveillance and electrical/network systems.
+4. Renault Group Morocco and other Moroccan employers explicitly seek skills across PLC, HMI/SCADA, Modbus, PROFIBUS, PROFINET, EtherNet/IP, Siemens, Schneider and Rockwell.
+5. CISA's OT asset-inventory guidance treats asset inventory as a foundation for owners/operators.
 
-Hidden devices remain unmanaged; contractor spreadsheets diverge; an incident begins with emergency discovery; expensive monitoring is delayed because nobody has a baseline.
+### Internal problem — unknown
 
-### Success
+No evidence supports a statement about how Moroccan auditors or automation engineers feel. Do not write fear, frustration, lack of confidence or desire for simplicity as fact.
 
-The customer leaves the site with an evidence-linked asset register, visible unknowns, clear remediation priorities and data that can enter the existing inventory system.
+### Philosophical problem — normative, not factual
 
-## Persona messages
+Possible principle for testing:
 
-| Persona | Headline | Proof | CTA |
-|---|---|---|---|
-| Plant director | Know the environment without treating production like an IT scan | passive-first runbook and stop controls | approve a bounded baseline |
-| Automation lead | Device identity with the packet evidence behind it | protocol/model coverage report | test against a lab cell |
-| CISO | Turn site surveys into governed, comparable evidence | immutable scope/actions and exports | standardize a pilot |
-| Integrator/MSSP | Productize the OT baseline work you already perform | branded report, reusable packs and margin | become a design partner |
-| Auditor | Trace each inventory claim to observation and rule version | evidence bundle and chain of custody | use on next controlled engagement |
-| SME manager | Get a practical baseline before buying enterprise monitoring | fixed local price and offline delivery | book readiness workshop |
+> An industrial audit claim should be traceable to collected evidence and the method that produced it.
 
-## Funnel
+This is a proposed standard consistent with audit traceability, not a quotation from customers.
 
-| Stage | Customer question | Asset | Conversion event |
-|---|---|---|---|
-| Awareness | “Why is our spreadsheet insufficient?” | Morocco OT inventory benchmark article | checklist download |
-| Problem | “Can discovery disrupt devices?” | safe-query matrix and 10-minute demo | lab session |
-| Solution | “Will it recognize our environment?” | protocol coverage and unknowns report | scoped feasibility review |
-| Trust | “Can this operate under our rules?” | safety/privacy/procurement pack | signed pilot scope |
-| Purchase | “What outcome and price?” | fixed-scope baseline proposal | purchase order |
-| Expansion | “Can we repeat this?” | site comparison and connector workflow | annual Team/Site license |
+## The guide
 
-## Twelve-month plan
+The product cannot yet claim authority. It has no released binary, safety benchmark, supported hardware matrix, qualified-provider approval or field record.
 
-### Months 1–2: authority assets
+The guide position becomes usable only after it can show:
 
-Publish field-readiness checklist, capture-visibility explainer, evidence-grade protocol matrix, Morocco sector map and a sample report. Build a French landing page; Arabic executive summary.
+- exact packet behavior;
+- reproducible identity accuracy;
+- signed query profiles;
+- supported phone/NIC/TAP configurations;
+- evidence export accepted by a qualified auditor;
+- secure-development and license records.
 
-### Months 3–4: lab proof
+Current honest formulation:
 
-Demonstrate USB Ethernet + TAP, BLE advertisement inventory and imported PCAP. Publish exact packets and coverage results. Recruit 5–10 integrator/MSSP candidates through public corporate routes and introductions.
+> Atlas OT Scout is an open research effort to build a controlled mobile evidence instrument for industrial audit teams.
 
-### Months 5–6: paid design-partner offer
+## The plan
 
-Sell readiness workshops and one or two constrained baselines. The offer is paid because willingness to pay is the missing evidence. Measure hours, corrections, report time and procurement objections.
+The plan is derived from authorization and asset-inventory guidance, not invented customer preference:
 
-### Months 7–9: channel package
+1. **Record authority and visibility.** Document scope, exclusions, interface, capture mode and retention.
+2. **Collect before querying.** Import or passively capture evidence; label what the interface could and could not see.
+3. **Use approved identity operations.** Run only signed, bounded profiles authorized for the case.
+4. **Review every identity claim.** Preserve source observations, confidence, conflicts and rule version.
+5. **Export into the existing audit method.** The product supports the provider; it does not replace qualified judgment.
 
-Create partner training, field kit, scope template, branded report, support boundary, deal registration and 25–35% partner margin hypothesis. Target two active partners, not dozens of logo agreements.
+## Calls to action by evidence stage
 
-### Months 10–12: launch decision
+### Now: research stage
 
-Publish anonymized benchmark, finalize pricing from paid evidence, choose license model, conduct external security review and decide whether to fund production build.
+**Review the evidence specification.**
 
-## Channel economics hypothesis
+This asks qualified professionals to evaluate a concrete artifact without pretending the product already delivers the outcome.
 
-For a MAD 40,000 baseline:
+### After lab proof
 
-- partner delivery revenue: MAD 28,000;
-- platform/vendor enablement: MAD 12,000;
-- estimated partner labor/travel: MAD 14,000;
-- estimated partner gross contribution: MAD 14,000.
+**Evaluate the controlled collector in your lab.**
 
-For recurring Team ARR MAD 29,000, test 25% year-one partner margin and 15% renewal margin. Validate against actual selling/delivery effort.
+### After qualified-provider acceptance
 
-## Editorial calendar
+**Scope a controlled field evaluation.**
 
-| Week | Content | Proof objective |
-|---:|---|---|
-| 1 | USB adapter versus TAP | establish technical honesty |
-| 2 | OT safe-discovery risk classes | reduce disruption fear |
-| 3 | Morocco industrial evidence map | establish local relevance |
-| 4 | Inventory confidence explained | differentiate from port lists |
-| 5 | Open-source architecture | earn technical trust |
-| 6 | Example evidence bundle | show audit usefulness |
-| 7 | Integrator service economics | recruit channel |
-| 8 | Android compatibility results | prove feasibility |
-| 9 | Protocol lab benchmark | prove identification |
-| 10 | Inventory import/export demo | reduce silo objection |
-| 11 | Privacy and offline design | address governance |
-| 12 | Paid baseline case result | demonstrate commercial outcome |
+“Book an OT baseline” is premature until those gates pass.
 
-## Metrics
+## Success
 
-Do not optimize followers. Track qualified corporate responses, lab-demo attendance, scoped proposals, paid baselines, time-to-authorization, assessment gross margin, report acceptance, software conversion and renewal intent.
+Evidence-supported success is not “peace of mind.” It is measurable:
+
+- authorized scope attached to the case;
+- captures and observations hashed and timestamped;
+- identity claims reproducible from evidence;
+- unsupported claims visibly unresolved;
+- no prohibited packet behavior;
+- export accepted into the auditor's workflow;
+- measured change in collection/reconciliation/report time.
+
+## Failure
+
+Only observable failure statements may be used:
+
+- incomplete visibility is not disclosed;
+- device identity cannot be reproduced;
+- evidence provenance is lost;
+- the tool sends traffic outside scope;
+- output cannot enter the audit method;
+- field support cost exceeds the value created.
+
+Claims about incidents, downtime or regulatory penalties require direct causal evidence and are not used.
+
+## Message house
+
+### Factual headline
+
+**Collect traceable OT asset evidence in the field.**
+
+Support: this is the designed job; it remains a target claim until prototype proof.
+
+### Factual subhead
+
+**An offline-first Android research platform for authorized Ethernet, Wi-Fi and Bluetooth collection, with explicit visibility limits and bounded identity profiles.**
+
+Each capability must be removed from production messaging until implemented and tested.
+
+### Proof strip
+
+- DGSSI industrial-audit workflow alignment — requires qualified-provider review.
+- Exact packets — requires published golden tests.
+- Hardware compatibility — requires test matrix.
+- Identification coverage — requires labeled corpus.
+- Evidence exports — requires downstream acceptance.
+
+## Prohibited marketing claims
+
+- exhaustive vendor coverage;
+- complete visibility;
+- zero-risk or non-intrusive active discovery;
+- compliance in a box;
+- DGSSI approved or qualified;
+- replaces a qualified audit;
+- proven time or cost savings;
+- Morocco's preferred tool;
+- AI-powered autonomous OT assessment;
+- any ROI, incident reduction or price advantage without observations.
+
+## Evidence-based acquisition plan
+
+1. Publish the evidence schema and packet-safety specification.
+2. Send it through public corporate routes to the three visibly industrial-qualified providers.
+3. Record formal corrections and acceptance criteria.
+4. Build only the lab collector needed to test those criteria.
+5. Publish measured results.
+6. Seek a paid controlled evaluation.
+7. Derive final StoryBrand language from written objections, acceptance decisions and observed use.
+
+## Message experiment ledger
+
+For every tested statement record: audience, exact copy, evidence cited, channel, exposure count, response, requested next step and decision. Clicks alone do not validate operational value; signed scope, accepted evidence or purchase behavior does.
