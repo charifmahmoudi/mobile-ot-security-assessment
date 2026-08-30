@@ -9,19 +9,20 @@ This corpus separates verified observations, normative product choices and unkno
 3. [Research dashboard](RESEARCH-DASHBOARD.md)
 4. [Behavioral evidence ledger](data/behavioral-evidence.csv)
 5. [Observable market evidence](MARKET-AND-ECONOMIC-MODEL.md)
+6. [Evidence specification for qualified-provider review](EVIDENCE-SPECIFICATION.md)
 
 ## Customer and message
 
 - [Customer evidence map](CUSTOMER-EVIDENCE-MAP.md)
 - [Evidence-grounded StoryBrand](STORYBRAND-GTM-PLAN.md)
-- [Customer organization and ethical outreach](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
-- [Priority-account dossiers](ACCOUNT-DOSSIERS.md)
+- [Verified customer/channel landscape](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
+- [Account evidence dossiers](ACCOUNT-DOSSIERS.md)
 
 ## Market and technical evidence
 
-- [Morocco sector dossiers](MOROCCO-SECTOR-DOSSIERS.md)
+- [Morocco sector evidence](MOROCCO-SECTOR-DOSSIERS.md)
 - [Morocco technology evidence matrix](TECHNOLOGY-EVIDENCE-MATRIX.md)
-- [Competitive teardown](COMPETITIVE-TEARDOWN.md)
+- [Competitor evidence](COMPETITIVE-TEARDOWN.md)
 - [Source notes](SOURCE-NOTES.md)
 - [Claim ledger](data/claim-ledger.csv)
 - [Market evidence inputs](data/market-model.csv)
@@ -31,8 +32,10 @@ This corpus separates verified observations, normative product choices and unkno
 - [Open-source due diligence](OPEN-SOURCE-DUE-DILIGENCE.md)
 - [Requirements traceability](REQUIREMENTS-TRACEABILITY.md)
 - [Validation without interviews](VALIDATION-WITHOUT-INTERVIEWS.md)
-- [Risk register](RISK-REGISTER.md)
-- [Global expansion framework](GLOBAL-EXPANSION-FRAMEWORK.md)
+- [Evidence-gap and hazard register](RISK-REGISTER.md)
+- [International expansion evidence requirements](GLOBAL-EXPANSION-FRAMEWORK.md)
+- [Assessment evidence JSON Schema](../../schemas/assessment-evidence.schema.json)
+- [Signed query-profile JSON Schema](../../schemas/query-profile.schema.json)
 
 ## Evidence hierarchy
 
