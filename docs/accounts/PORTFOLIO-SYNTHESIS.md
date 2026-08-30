@@ -15,7 +15,7 @@ The eight accounts do not share one buyer. They fall into four different commerc
 
 ## Research coverage
 
-The public-role ledger contains 58 sourced entries across the eight accounts. It includes official executives, current public professional roles, historical roles and role signals. Historical entries are deliberately retained and labeled because they reveal that a function existed without falsely presenting the person as a current employee.
+The public-role ledger contains 63 sourced entries across the eight accounts. The supporting [employee/event ledger](research/EMPLOYEE-EVENT-LEDGER.csv) contains 29 appearances and the [project/supplier/technology ledger](research/PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv) contains 35 scoped signals. It includes official executives, current public professional roles, historical roles and role signals. Historical entries are deliberately retained and labeled because they reveal that a function existed without falsely presenting the person as a current employee.
 
 | Account | High-value public structure found | Important missing node |
 |---|---|---|
@@ -41,7 +41,7 @@ The public-role ledger contains 58 sourced entries across the eight accounts. It
 | Morocco Energy & Sustainability Week / Powering Africa | ONEE | Map EPCs, grid/water programs and procurement routes |
 | OCP innovation / INCIT–OCP-MS activity | OCP ecosystem | Test OCP-MS as assessment product/channel partner |
 
-## Priority order for research prototypes
+See the [expanded coverage assessment](research/DEEP-RESEARCH-SYNTHESIS.md) for the evidence added after this synthesis and revised tiering.\n\n## Priority order for research prototypes
 
 1. **OCP-MS/JESA lab or client-assessment simulation.** Best visible combination of OT-security, industrial digitalization and assessment capability.
 2. **IFMIA automotive training cell.** Safest place to measure the mobile workflow against a known inventory.
