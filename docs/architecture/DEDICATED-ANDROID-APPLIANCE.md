@@ -6,6 +6,11 @@ Atlas OT Scout will support a dedicated Android appliance profile. The product p
 
 Imported PCAP remains mandatory as the universal fallback. The existing unrooted build remains a supported compatibility profile.
 
+The selected laboratory platform and exact Samsung/emulator compatibility are specified in:
+
+- `docs/appliance/ROOTED-ANDROID-POC.md`;
+- `docs/appliance/COMPATIBILITY-MATRIX.md`.
+
 ## Deployment profiles
 
 | Profile | Passive source | Active source | Claim permitted |
