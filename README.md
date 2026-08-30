@@ -4,7 +4,7 @@ Atlas OT Scout is a research project for a self-contained Android field instrume
 
 The intended workflow is deliberately narrower than a mobile pentesting suite. An engineer records the approved scope, imports existing inventory, collects passive observations, and—only when an approved profile allows it—uses a bounded identity query. Every result retains its source and confidence so a reviewer can decide what enters the customer's inventory or audit file.
 
-No production application exists yet. The repository now defines an implementable first prototype: a professional asset-inventory and network-exposure assessment for one water/wastewater pumping or treatment segment.
+An executable discovery PoC now exists for one water/wastewater pumping or treatment segment. It implements offline PCAP/PCAPNG identification and one constrained, authorized Modbus/TCP identity request; it is not yet the complete professional assessment product.
 
 ## Why a phone
 
@@ -32,7 +32,7 @@ The [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md) fixes the assessm
 - [Assessment evidence schema](schemas/assessment-evidence.schema.json)
 - [Signed query-profile schema](schemas/query-profile.schema.json)
 
-## Research map
+## Use and verify the executable PoC\n\n- [Step-by-step user manual](docs/user-guide/USER-MANUAL.md)\n- [Emulator acceptance screenshots](docs/testing/EMULATOR-SCREENSHOTS.md)\n- [Field-assessor user stories](docs/product/USER-STORIES.md)\n- [End-to-end acceptance contract](docs/testing/E2E-ACCEPTANCE.md)\n- [Research PCAP and emulator testbeds](docs/testing/RESEARCH-TESTBEDS.md)\n- [Implementation status](IMPLEMENTATION.md)\n\n## Research map
 
 - [Morocco account intelligence](docs/accounts/README.md) — OCP, Renault, Stellantis, Tanger Med, ONEE, Managem, Safran and Cosumar
 - [Account engagement playbook](docs/accounts/ENGAGEMENT-PLAYBOOK.md) — approval paths, partner routes, events and qualification gates
