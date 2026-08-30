@@ -23,8 +23,12 @@ Eight concise, source-linked briefs answer the questions needed before outreach:
 
 ## Supporting files
 
+- [Named contact plans and official routes](CONTACT-PLANS.md)
 - [Cross-account prioritization](PORTFOLIO-SYNTHESIS.md)
-- [Public professional role ledger](public-professional-role-map.csv) — 63 sourced people/role records\n- [Employee and event ledger](research/EMPLOYEE-EVENT-LEDGER.csv) — 29 dated appearances\n- [Project, supplier and technology ledger](research/PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv) — 35 scoped signals\n- [Deep-research synthesis](research/DEEP-RESEARCH-SYNTHESIS.md)
+- [Public professional role ledger](public-professional-role-map.csv) — 66 sourced people/role records
+- [Employee and event ledger](research/EMPLOYEE-EVENT-LEDGER.csv) — 29 dated appearances
+- [Project, supplier and technology ledger](research/PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv) — 35 scoped signals
+- [Deep-research synthesis](research/DEEP-RESEARCH-SYNTHESIS.md)
 - [Engagement playbook](ENGAGEMENT-PLAYBOOK.md)
 
 ## Reading rules
