@@ -38,5 +38,5 @@ gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest \
   -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS \
   -Pandroid.testInstrumentationRunnerArguments.screenshotPrefix="05-active-${target}"
 mkdir -p "build/emulator-screenshots/${target}"
-adb pull /sdcard/Android/data/com.atlasot.scout/files/screenshots "build/emulator-screenshots/${target}/"
+adb pull /sdcard/Pictures/AtlasOT "build/emulator-screenshots/${target}/"
 test -n "$(find "build/emulator-screenshots/${target}" -type f -name '*.png' -print -quit)"

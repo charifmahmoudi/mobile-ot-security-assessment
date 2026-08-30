@@ -1,10 +1,13 @@
 package com.atlasot.scout
 
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.SystemClock
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
@@ -16,8 +19,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.File
-import java.io.FileOutputStream
 
 @RunWith(AndroidJUnit4::class)
 class AssessmentJourneyTest {
@@ -118,13 +119,22 @@ class AssessmentJourneyTest {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         instrumentation.waitForIdleSync()
         SystemClock.sleep(200)
-        val directory = File(instrumentation.targetContext.getExternalFilesDir(null), "screenshots")
-        check(directory.mkdirs() || directory.isDirectory)
-        val output = File(directory, name + "-api" + Build.VERSION.SDK_INT + ".png")
+        val resolver = instrumentation.targetContext.contentResolver
+        val values = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, name + "-api" + Build.VERSION.SDK_INT + ".png")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+            put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/AtlasOT")
+            put(MediaStore.Images.Media.IS_PENDING, 1)
+        }
+        val output = checkNotNull(resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values))
         val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
-        FileOutputStream(output).use { stream ->
+        resolver.openOutputStream(output).use { nullableStream ->
+            val stream = checkNotNull(nullableStream)
             check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream))
         }
         bitmap.recycle()
+        values.clear()
+        values.put(MediaStore.Images.Media.IS_PENDING, 0)
+        resolver.update(output, values, null, null)
     }
 }
