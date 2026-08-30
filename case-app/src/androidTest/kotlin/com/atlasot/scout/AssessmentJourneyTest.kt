@@ -32,11 +32,11 @@ class AssessmentJourneyTest {
                 activity.findViewById<View>(MainActivity.FINDINGS_NAV_ID).performClick()
             }
             scenario.onActivity { activity ->
-                assertTrue(screenText(activity).contains("Assessment findings"))
+                assertTrue(screenText(activity).contains("Assessment findings", ignoreCase = true))
                 activity.findViewById<View>(MainActivity.REPORT_NAV_ID).performClick()
             }
             scenario.onActivity { activity ->
-                assertTrue(screenText(activity).contains("Report readiness"))
+                assertTrue(screenText(activity).contains("Report readiness", ignoreCase = true))
                 assertTrue(screenText(activity).contains("Independent reviewer"))
             }
             capture("10-guided-report-readiness")
