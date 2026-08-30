@@ -1,167 +1,111 @@
-# Evidence-grounded StoryBrand
+# Go-to-market narrative
 
-## Method
+## The story in one sentence
 
-StoryBrand normally includes internal feelings, aspirations and feared failure. Those elements require customer voice. No admissible Moroccan customer interviews, statements or behavioral dataset currently supports claims such as “plant engineers feel anxious,” “buyers want a phone,” or “customers are frustrated with enterprise platforms.”
+When an engineer has permission to assess an industrial site, Atlas OT Scout helps them leave with a reviewable asset record instead of scattered notes, screenshots and packet files.
 
-This version uses only documented duties, observable work and verifiable product boundaries. Unsupported emotional language is prohibited until evidence exists.
+## The customer
 
-## The character
+The first customer is not “every factory in a low-cost country.” It is an OT auditor, industrial integrator or multi-site operator that already has authority to inspect equipment but lacks a compact, consistent field-collection workflow.
 
-### Primary character
+In Morocco, the account research shows three especially relevant customer situations:
 
-A Moroccan provider qualified or seeking qualification to conduct industrial information-systems audits, or an industrial automation provider supporting authorized assessments.
+- a qualified audit provider must collect repeatable site evidence under DGSSI-related expectations;
+- an integrator is commissioning or maintaining equipment for an operator such as Stellantis, Safran, ONEE or Managem;
+- an operator's central security or digital team needs comparable observations from dispersed sites, such as OCP, Tanger Med, Cosumar or ONEE.
 
-Evidence:
+The user in the field is an automation, maintenance, industrial-IT or OT-security engineer. The economic buyer may be the audit provider's director, the operator's industrial/digital leader or a project manager. The approver is frequently security, operations, HSE and procurement together.
 
-- DGSSI defines industrial-systems audit as a distinct qualification domain.
-- DGSSI evaluates provider references, personnel, methods, tools, organization and security.
-- Three currently listed providers visibly hold the industrial-audit qualification.
-- Public Moroccan automation jobs show staff working with PLC, SCADA and heterogeneous industrial networks.
+## The problem they recognize
 
-What is not known: whether these firms prefer mobile tooling, which tools they use, or their procurement budgets.
+Industrial assessment data is gathered at awkward edges: inside cabinets, beside machines, at remote stations and during short maintenance windows. The engineer may need Ethernet, Wi-Fi and Bluetooth observations, an existing inventory export, photographs or labels, and a packet trace. Those records are easy to separate from their authorization and source context.
 
-## The problem
+The account research makes the stakes concrete:
 
-### External problem — proven
+- Renault describes a connected Tangier plant with a comprehensive, regularly audited cyber-defense program.
+- Tanger Med's digital strategy calls for cyber resilience across a multi-entity port ecosystem.
+- Managem is adding digital tooling at Tizert while safety and productivity remain the stated objectives.
+- Stellantis and Safran are commissioning major new Moroccan capacity, when asset handover records are being created.
+- ONEE procurements show geographically distributed automation and telemanagement work.
 
-Industrial audit and maintenance work must deal with heterogeneous operational systems and produce controlled evidence.
-
-Evidence chain:
-
-1. DGSSI requires periodic audits for applicable sensitive systems by qualified providers.
-2. DGSSI evaluates the adequacy of audit methods and tools.
-3. ONEE and ANP procure maintenance and telemanagement work for automata, water, lighting, VTS, surveillance and electrical/network systems.
-4. Renault Group Morocco and other Moroccan employers explicitly seek skills across PLC, HMI/SCADA, Modbus, PROFIBUS, PROFINET, EtherNet/IP, Siemens, Schneider and Rockwell.
-5. CISA's OT asset-inventory guidance treats asset inventory as a foundation for owners/operators.
-
-### Internal problem — unknown
-
-No evidence supports a statement about how Moroccan auditors or automation engineers feel. Do not write fear, frustration, lack of confidence or desire for simplicity as fact.
-
-### Philosophical problem — normative, not factual
-
-Possible principle for testing:
-
-> An industrial audit claim should be traceable to collected evidence and the method that produced it.
-
-This is a proposed standard consistent with audit traceability, not a quotation from customers.
+The external problem is fragmented collection. The internal problem is confidence: the reviewer cannot easily tell what was observed, where it came from, whether it was authorized and how reliable the identification is. The larger principle is that assessment evidence should be reproducible without making a production network absorb unnecessary risk.
 
 ## The guide
 
-The product cannot yet claim authority. It has no released binary, safety benchmark, supported hardware matrix, qualified-provider approval or field record.
+Atlas OT Scout does not present itself as the expert replacing the plant team. The plant team already owns the process and safety context. The product supplies a disciplined instrument:
 
-The guide position becomes usable only after it can show:
+- a recorded scope and authorization before collection;
+- passive Ethernet, Wi-Fi and Bluetooth observation where the device and policy allow it;
+- imported PCAP and inventory analysis when direct connection is not allowed;
+- narrowly signed, identity-only active profiles that cannot write to controls;
+- provenance and confidence attached to every device claim;
+- local encrypted storage and reviewer-controlled export.
 
-- exact packet behavior;
-- reproducible identity accuracy;
-- signed query profiles;
-- supported phone/NIC/TAP configurations;
-- evidence export accepted by a qualified auditor;
-- secure-development and license records.
+The credibility burden is demonstrated in a benchmark against a known environment. It is not created by saying “secure,” “proven” or “AI-powered.”
 
-Current honest formulation:
+## The plan offered to the customer
 
-> Atlas OT Scout is an open research effort to build a controlled mobile evidence instrument for industrial audit teams.
+### Before the site
 
-## The plan
+Choose one legal entity, one physical area and one authorized network. Agree on the reference inventory, capture point, permitted radios and query profiles, retention rules and success measures.
 
-The plan is derived from authorization and asset-inventory guidance, not invented customer preference:
+### During the work
 
-1. **Record authority and visibility.** Document scope, exclusions, interface, capture mode and retention.
-2. **Collect before querying.** Import or passively capture evidence; label what the interface could and could not see.
-3. **Use approved identity operations.** Run only signed, bounded profiles authorized for the case.
-4. **Review every identity claim.** Preserve source observations, confidence, conflicts and rule version.
-5. **Export into the existing audit method.** The product supports the provider; it does not replace qualified judgment.
+The engineer records the connection context, collects passive observations first, imports existing records, and requests an explicit approval if an active identity query is required. The application does not exploit, fuzz, brute-force credentials or write process values.
 
-## Calls to action by evidence stage
+### After the work
 
-### Now: research stage
+A reviewer receives the observed assets, source packets or record references, timestamps, interface details, confidence and unresolved items. They approve the export into the customer's existing workflow.
 
-**Review the evidence specification.**
+## The call to action
 
-This asks qualified professionals to evaluate a concrete artifact without pretending the product already delivers the outcome.
+The primary call is: **run a one-area inventory benchmark**.
 
-### After lab proof
+This is more credible than “book a demo.” The prospect supplies a controlled environment and reference list. The team compares its current collection method with Atlas OT Scout and records time, reconciliation accuracy, reviewer effort and policy exceptions.
 
-**Evaluate the controlled collector in your lab.**
+The transitional call is: **share a redacted inventory export**. This tests import and reconciliation value without connecting the phone to any operational network.
 
-### After qualified-provider acceptance
+## What success looks like
 
-**Scope a controlled field evaluation.**
+For the field engineer, one collection package replaces manual transfer between several tools. For the reviewer, each claim can be traced back to an observation and an approved scope. For the operator, the result can enter the existing CMDB, CMMS or audit file without adopting another permanent sensor platform.
 
-“Book an OT baseline” is premature until those gates pass.
+The first prototype earns continuation only if a benchmark shows a meaningful improvement in at least one of these measures without degrading the others:
 
-## Success
+- collection and report-preparation time;
+- correct reconciliation against the reference inventory;
+- number of manual transcription steps;
+- reviewer time to accept or reject device claims;
+- safety and policy exceptions.
 
-Evidence-supported success is not “peace of mind.” It is measurable:
+No target percentage is advertised before the benchmark.
 
-- authorized scope attached to the case;
-- captures and observations hashed and timestamped;
-- identity claims reproducible from evidence;
-- unsupported claims visibly unresolved;
-- no prohibited packet behavior;
-- export accepted into the auditor's workflow;
-- measured change in collection/reconciliation/report time.
+## What failure looks like
 
-## Failure
+The product should stop or remain an internal research tool if customers will not authorize mobile hardware, if passive collection cannot produce useful observations, if existing tools already make the workflow faster, or if the evidence package cannot enter customer systems. Discovering that early is a useful result.
 
-Only observable failure statements may be used:
+## Morocco launch sequence
 
-- incomplete visibility is not disclosed;
-- device identity cannot be reproduced;
-- evidence provenance is lost;
-- the tool sends traffic outside scope;
-- output cannot enter the audit method;
-- field support cost exceeds the value created.
+1. **Channel benchmark:** work with one DGSSI-qualified industrial-systems audit provider on a lab or training network.
+2. **Project benchmark:** use an approved integrator in a commissioning or maintenance context, where a reference inventory exists.
+3. **Operator benchmark:** approach one researched account through the workflow and roles in its dossier.
+4. **Repeatability:** reproduce the method at a second site with different hardware and measure the additional engineering effort.
 
-Claims about incidents, downtime or regulatory penalties require direct causal evidence and are not used.
+The country is the starting operating environment, not the product's permanent boundary. Expansion to another cost-sensitive market should happen only after checking local regulation, procurement behavior, language, Android hardware availability and industrial partner networks. “Low-cost country” is not a customer segment; the repeatable segment is an authorized field team with dispersed industrial assets and a costly evidence-collection workflow.
 
-## Message house
+## Message examples
 
-### Factual headline
+### For an audit provider
 
-**Collect traceable OT asset evidence in the field.**
+“Your engineers already know how to assess industrial systems. We are building a controlled Android field instrument that keeps authorization, passive capture, asset observations and report evidence together. We would like to compare it with your current method on a lab network, using your own acceptance criteria.”
 
-Support: this is the designed job; it remains a target claim until prototype proof.
+### For an operator
 
-### Factual subhead
+“During one approved maintenance or commissioning window, we can compare a portable evidence workflow with your current asset-record process. It runs passive-first, keeps data local and exports only after review. The exercise is limited to one area and does not include exploitation or control writes.”
 
-**An offline-first Android research platform for authorized Ethernet, Wi-Fi and Bluetooth collection, with explicit visibility limits and bounded identity profiles.**
+### For an integrator
 
-Each capability must be removed from production messaging until implemented and tested.
+“We want to reduce the manual work between line commissioning and the customer's accepted asset inventory. The benchmark uses the customer's reference list and produces a traceable exception package that you review before handover.”
 
-### Proof strip
+## Research basis
 
-- DGSSI industrial-audit workflow alignment — requires qualified-provider review.
-- Exact packets — requires published golden tests.
-- Hardware compatibility — requires test matrix.
-- Identification coverage — requires labeled corpus.
-- Evidence exports — requires downstream acceptance.
-
-## Prohibited marketing claims
-
-- exhaustive vendor coverage;
-- complete visibility;
-- zero-risk or non-intrusive active discovery;
-- compliance in a box;
-- DGSSI approved or qualified;
-- replaces a qualified audit;
-- proven time or cost savings;
-- Morocco's preferred tool;
-- AI-powered autonomous OT assessment;
-- any ROI, incident reduction or price advantage without observations.
-
-## Evidence-based acquisition plan
-
-1. Publish the evidence schema and packet-safety specification.
-2. Send it through public corporate routes to the three visibly industrial-qualified providers.
-3. Record formal corrections and acceptance criteria.
-4. Build only the lab collector needed to test those criteria.
-5. Publish measured results.
-6. Seek a paid controlled evaluation.
-7. Derive final StoryBrand language from written objections, acceptance decisions and observed use.
-
-## Message experiment ledger
-
-For every tested statement record: audience, exact copy, evidence cited, channel, exposure count, response, requested next step and decision. Clicks alone do not validate operational value; signed scope, accepted evidence or purchase behavior does.
+The organization-specific statements and current routes are documented in [the account intelligence index](../accounts/README.md). Regulatory, procurement, protocol and competitor sources remain in the wider diligence section. The narrative should be revised whenever account research or a benchmark changes the customer, workflow or approval path.
