@@ -24,4 +24,5 @@ identity = ModbusDeviceIdentification(
     }
 )
 
+print("ATLAS PyModbus 3.11.3 testbed listening on 0.0.0.0:502", flush=True)
 StartTcpServer(context=context, identity=identity, address=("0.0.0.0", 502))

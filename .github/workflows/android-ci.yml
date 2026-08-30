@@ -119,9 +119,8 @@ jobs:
       - name: Start OT emulator on TCP 502
         run: |
           if [ "${{ matrix.target }}" = "pymodbus" ]; then
-            python3 -m venv .ot-emulator-venv
-            .ot-emulator-venv/bin/pip install --disable-pip-version-check pymodbus==3.11.3
-            nohup sudo -E .ot-emulator-venv/bin/python -u tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
+            docker build --tag atlas-pymodbus:3.11.3 --file tools/pymodbus-ci.Dockerfile .
+            docker run --detach --name atlas-pymodbus --publish 502:502 atlas-pymodbus:3.11.3
           elif [ "${{ matrix.target }}" = "modbus-tk" ]; then
             python3 -m venv .ot-emulator-venv
             .ot-emulator-venv/bin/pip install --disable-pip-version-check modbus-tk==1.1.5
@@ -160,7 +159,9 @@ jobs:
       - name: Collect OT emulator log
         if: always()
         run: |
-          if [ "${{ matrix.target }}" = "conpot" ]; then
+          if [ "${{ matrix.target }}" = "pymodbus" ]; then
+            docker logs atlas-pymodbus >pymodbus.log 2>&1 || true
+          elif [ "${{ matrix.target }}" = "conpot" ]; then
             docker logs atlas-conpot >conpot.log 2>&1 || true
           fi
       - name: Publish active E2E evidence
