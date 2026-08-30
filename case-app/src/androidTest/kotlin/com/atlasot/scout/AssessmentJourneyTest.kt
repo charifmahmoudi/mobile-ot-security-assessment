@@ -8,9 +8,9 @@ import android.os.Build
 import android.os.Environment
 import android.os.SystemClock
 import android.provider.MediaStore
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -22,35 +22,84 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AssessmentJourneyTest {
-    @Test fun homeExplainsSafetyAndActiveAuthorizationBeforeScanning() {
+    @Test fun siteSelectionDashboardScanMenuAndInventoryFormOneJourney() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             scenario.onActivity { activity ->
-                val safety = activity.findViewById<TextView>(MainActivity.SAFETY_STATUS_ID)
-                assertTrue(safety.text.contains("No packet is sent"))
+                assertTrue(screenText(activity).contains("Choose a site"))
+                assertTrue(screenText(activity).contains("No packet is sent"))
             }
-            capture("01-home")
+            capture("01-site-selection")
+            scenario.onActivity { it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick() }
             scenario.onActivity { activity ->
-                activity.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
+                assertTrue(screenText(activity).contains("North Water Treatment Plant"))
+                assertTrue(activity.findViewById<View>(MainActivity.INVENTORY_ACTION_ID).isEnabled)
+            }
+            capture("03-site-dashboard")
+            scenario.onActivity { it.findViewById<View>(MainActivity.PRIMARY_ACTION_ID).performClick() }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Choose a method"))
+                assertTrue(screenText(activity).contains("Analyze PCAP / PCAPNG"))
+                assertTrue(screenText(activity).contains("Identify one known controller"))
+            }
+            capture("04-collection-methods")
+            scenario.onActivity { it.findViewById<View>(MainActivity.ACTIVE_SCAN_OPTION_ID).performClick() }
+            scenario.onActivity { activity ->
                 val active = activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
                 assertFalse(active.isEnabled)
-                assertTrue(activity.findViewById<TextView>(MainActivity.ACTIVE_LIMITS_ID).text.contains("no register writes"))
+                assertTrue(screenText(activity).contains("no register reads or writes"))
             }
-            capture("02-active-authorization")
+            capture("05-active-authorization")
+        }
+    }
+
+    @Test fun newSiteCapturesIndustryAndMultipleVendorContext() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity { it.findViewById<View>(MainActivity.NEW_SITE_ACTION_ID).performClick() }
+            capture("02-new-site")
+            scenario.onActivity { activity ->
+                activity.findViewById<EditText>(MainActivity.SITE_NAME_FIELD_ID).setText("Demo bottling line")
+                activity.findViewById<EditText>(MainActivity.SITE_LOCATION_FIELD_ID).setText("Casablanca · Packaging hall")
+                activity.findViewById<Spinner>(MainActivity.INDUSTRY_SPINNER_ID).setSelection(4)
+                val checks = descendants(activity.window.decorView).filterIsInstance<CheckBox>()
+                checks.take(2).forEach { it.isChecked = true }
+                assertTrue(checks.size >= 2)
+                activity.findViewById<View>(MainActivity.CREATE_SITE_ACTION_ID).performClick()
+                assertTrue(screenText(activity).contains("Demo bottling line"))
+                assertTrue(screenText(activity).contains("Food & beverage"))
+            }
+        }
+    }
+
+    @Test fun inventorySupportsSearchFilterAndEvidenceNavigation() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity {
+                it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
+                it.findViewById<View>(MainActivity.INVENTORY_ACTION_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Asset inventory"))
+                assertTrue(activity.findViewById<LinearLayout>(MainActivity.INVENTORY_LIST_ID).childCount >= 4)
+            }
+            capture("07-asset-inventory")
+            scenario.onActivity { activity ->
+                activity.findViewById<EditText>(MainActivity.INVENTORY_SEARCH_ID).setText("Siemens")
+                assertTrue(activity.findViewById<LinearLayout>(MainActivity.INVENTORY_LIST_ID).childCount >= 1)
+                activity.findViewById<Spinner>(MainActivity.INVENTORY_FILTER_ID).setSelection(1)
+            }
         }
     }
 
     @Test fun outOfScopeTargetIsStoppedBeforeBrokerContact() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            navigateToActiveSetup(scenario)
             scenario.onActivity { activity ->
-                activity.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
-                activity.findViewById<android.widget.EditText>(MainActivity.TARGET_FIELD_ID).setText("192.0.2.5")
+                activity.findViewById<EditText>(MainActivity.TARGET_FIELD_ID).setText("192.0.2.5")
                 activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
-                activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID).performClick()
-                val validation = activity.findViewById<TextView>(MainActivity.VALIDATION_MESSAGE_ID)
-                assertTrue(validation.text.contains("outside the authorized CIDR"))
-                assertTrue(activity.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID).text.contains("New authorized assessment"))
+                activity.findViewById<View>(MainActivity.ACTIVE_ACTION_ID).performClick()
+                assertTrue(screenText(activity).contains("outside the authorized CIDR"))
+                assertTrue(screenText(activity).contains("Identify one Modbus device"))
             }
-            capture("03-out-of-scope-blocked")
+            capture("06-out-of-scope-blocked")
         }
     }
 
@@ -62,28 +111,26 @@ class AssessmentJourneyTest {
             "bacnet.pcap" to "BACnet/IP",
         )
         fixtures.forEach { (file, protocol) ->
-            val intent = Intent(
-                InstrumentationRegistry.getInstrumentation().targetContext,
-                MainActivity::class.java,
-            ).setData(Uri.parse("content://com.atlasot.scout.testcaptures/$file"))
+            val intent = Intent(InstrumentationRegistry.getInstrumentation().targetContext, MainActivity::class.java)
+                .setData(Uri.parse("content://com.atlasot.scout.testcaptures/" + file))
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             ActivityScenario.launch<MainActivity>(intent).use { scenario ->
-                var title = ""
-                var summary = ""
+                var page = ""
+                var body = ""
                 var assetCount = 0
                 for (attempt in 0 until 80) {
                     scenario.onActivity { activity ->
-                        title = activity.findViewById<TextView?>(MainActivity.SCREEN_TITLE_ID)?.text?.toString().orEmpty()
-                        summary = activity.findViewById<TextView?>(MainActivity.RESULT_SUMMARY_ID)?.text?.toString().orEmpty()
-                        assetCount = activity.findViewById<android.widget.LinearLayout?>(MainActivity.ASSET_LIST_ID)?.childCount ?: 0
+                        page = activity.findViewById<TextView?>(MainActivity.SCREEN_TITLE_ID)?.text?.toString().orEmpty()
+                        body = screenText(activity)
+                        assetCount = activity.findViewById<LinearLayout?>(MainActivity.ASSET_LIST_ID)?.childCount ?: 0
                     }
-                    if (title.contains("Passive analysis complete")) break
+                    if (page.contains("assets observed")) break
                     SystemClock.sleep(100)
                 }
-                assertTrue("title was: $title", title.contains("Passive analysis complete"))
-                assertTrue("summary was: $summary", summary.contains(protocol))
+                assertTrue("page was: " + page, page.contains("assets observed"))
+                assertTrue("screen was: " + body, body.contains(protocol))
                 assertTrue(assetCount > 0)
-                capture("04-passive-" + file.substringBefore('.'))
+                capture("08-passive-" + file.substringBefore('.'))
             }
         }
     }
@@ -93,26 +140,40 @@ class AssessmentJourneyTest {
         assumeTrue(arguments.getString("activeTest") == "true")
         val expected = arguments.getString("expectedIdentity") ?: "MODBUS/TCP"
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
-            scenario.onActivity {
-                it.findViewById<Button>(MainActivity.PRIMARY_ACTION_ID).performClick()
-                it.findViewById<android.widget.EditText>(MainActivity.CASE_FIELD_ID).setText("E2E-WATER-001")
-                it.findViewById<android.widget.EditText>(MainActivity.SITE_FIELD_ID).setText("CI treatment cell")
-                it.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
-                val active = it.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
+            navigateToActiveSetup(scenario)
+            scenario.onActivity { activity ->
+                activity.findViewById<EditText>(MainActivity.CASE_FIELD_ID).setText("E2E-WATER-001")
+                activity.findViewById<EditText>(MainActivity.SITE_FIELD_ID).setText("CI treatment cell")
+                activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
+                val active = activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
                 assertTrue(active.isEnabled)
                 active.performClick()
             }
             var result = ""
             for (attempt in 0 until 60) {
-                scenario.onActivity { activity ->
-                    result = activity.findViewById<TextView?>(MainActivity.ACTIVE_RESULT_ID)?.text?.toString().orEmpty()
-                }
+                scenario.onActivity { result = screenText(it) }
                 if (result.contains(expected) || result.contains("ACTION REQUIRED")) break
                 SystemClock.sleep(250)
             }
-            assertTrue("active result was: $result", result.contains(expected))
-            capture(InstrumentationRegistry.getArguments().getString("screenshotPrefix") ?: "05-active-result")
+            assertTrue("active screen was: " + result, result.contains(expected))
+            capture(arguments.getString("screenshotPrefix") ?: "09-active-result")
         }
+    }
+
+    private fun navigateToActiveSetup(scenario: ActivityScenario<MainActivity>) {
+        scenario.onActivity {
+            it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
+            it.findViewById<View>(MainActivity.PRIMARY_ACTION_ID).performClick()
+            it.findViewById<View>(MainActivity.ACTIVE_SCAN_OPTION_ID).performClick()
+        }
+    }
+
+    private fun screenText(activity: MainActivity): String =
+        descendants(activity.window.decorView).filterIsInstance<TextView>().joinToString("\n") { it.text.toString() }
+
+    private fun descendants(root: View): List<View> = buildList {
+        add(root)
+        if (root is ViewGroup) for (index in 0 until root.childCount) addAll(descendants(root.getChildAt(index)))
     }
 
     private fun capture(name: String) {
@@ -128,13 +189,11 @@ class AssessmentJourneyTest {
         }
         val output = checkNotNull(resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values))
         val bitmap = checkNotNull(instrumentation.uiAutomation.takeScreenshot())
-        resolver.openOutputStream(output).use { nullableStream ->
-            val stream = checkNotNull(nullableStream)
-            check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream))
+        resolver.openOutputStream(output).use { stream ->
+            check(bitmap.compress(Bitmap.CompressFormat.PNG, 100, checkNotNull(stream)))
         }
         bitmap.recycle()
-        values.clear()
-        values.put(MediaStore.Images.Media.IS_PENDING, 0)
+        values.clear(); values.put(MediaStore.Images.Media.IS_PENDING, 0)
         resolver.update(output, values, null, null)
     }
 }
