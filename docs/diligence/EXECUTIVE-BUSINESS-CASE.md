@@ -1,91 +1,101 @@
-# Executive business case
+# Executive business case — evidence-only edition
 
-## Investment thesis
+## Decision
 
-Atlas OT Scout is not “Kali Linux on Android.” It is a portable, governed evidence-collection product for industrial asset discovery. Its initial wedge is the moment before an organization can justify or deploy permanent OT monitoring: brownfield baselines, site surveys, contractor handover, audit preparation, M&A/site onboarding and incident triage.
+There is sufficient public evidence to justify a **research prototype for qualified industrial auditors and automation service providers**. There is not yet sufficient evidence to forecast product revenue, claim plant-wide protocol coverage, or present a proven return on investment.
 
-The business case rests on six propositions:
+That distinction is the business case.
 
-1. **The asset-inventory problem is mandatory and persistent.** CISA and NIST place OT asset knowledge at the foundation of risk management.
-2. **Morocco has dense, export-oriented industrial clusters.** The Ministry of Industry reports MAD 898bn of 2024 industrial revenue, MAD 90bn investment and 1,038,133 industrial jobs. Tanger Med Zones reports 1,500 companies and 145,000 jobs.
-3. **The incumbent category is optimized for continuous enterprise visibility.** Claroty, Dragos and Nozomi are strong platforms, but a portable baseline is a distinct deployment and buying job.
-4. **General scanners are not an OT field workflow.** Nmap, Nessus and Wireshark lack the combined authorization, operational-safety, evidence-confidence and mobile case-management layer.
-5. **Android materially changes field economics.** A supported phone and standardized kit can replace travel with laptops/appliances for some survey work, but it cannot bypass network visibility physics.
-6. **A channel can reach the market more credibly than direct software sales alone.** Automation integrators, industrial service firms, MSSPs and auditors already possess site trust.
+## Demonstrated demand mechanism
 
-## What is proven
+Morocco's DGSSI states that entities and infrastructures of vital importance with sensitive information systems must undergo periodic audits by qualified audit providers. Its qualification framework includes a specific domain for **industrial systems audits** and evaluates the adequacy of the provider's methods and tools.
 
-| Claim | Status | Evidence |
-|---|---|---|
-| Morocco has a large industrial base | Verified | Ministry 2024 barometer |
-| Major automotive, phosphate, mining, port, food, cement and aerospace sites exist | Verified | operator and ministry sources |
-| Android exposes USB host, BLE and network APIs | Verified | Android documentation |
-| USB Ethernet alone does not yield all segment traffic | Engineering fact | switched Ethernet behavior; capture architecture |
-| Commercial platforms address OT asset inventory | Verified | vendor product pages |
-| Open libraries exist for Modbus, OPC UA and EtherNet/IP | Verified | original repositories |
-| Customers will pay proposed prices | Unproven | must be tested through offers/pilots |
-| Named Moroccan plants use specific PLC vendors | Mostly unknown | plant-specific evidence is sparse |
-| Phone workflow saves enough time to drive purchase | Unproven | prototype benchmark required |
+The current public DGSSI table names eight qualified audit providers in total. Three entries visibly carry the industrial-systems-audit qualification:
 
-## Strategic customer
+1. NEAR SECURE
+2. DATAPROTECT
+3. Techso Group
 
-The initial economic customer is not “every factory.” It is an organization that repeatedly needs baselines:
+This is a small, identifiable first channel with a documented duty and tool-quality requirement. It is stronger evidence than an assumed generic “plant manager” persona.
 
-- an automation integrator managing multiple client sites;
-- an MSSP/audit firm adding OT services;
-- a multi-site industrial owner without continuous coverage everywhere;
-- an industrial zone or group coordinating supplier/site assurance.
+Source: [DGSSI regulated providers and qualified auditors](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes).
 
-A one-site SME is a secondary customer unless sold through a fixed-scope service.
+## Demonstrated operational technology activity
 
-## Beachhead
+Public procurement and employment records show current maintenance, modernization and skills demand:
 
-Prioritize three clusters:
+- ONEE procurement record GN2107895 covers maintenance of automata at the Mohammedia 3×100 MW fuel-loading station.
+- Morocco's National Ports Agency published a 2024 tender for telemanagement of the drinking-water network at Essaouira port.
+- ANP published work for an exterior-lighting telemanagement system at Jorf Lasfar port.
+- ANP's 2026–2028 Agadir program includes automatic pumping pretreatment, video-surveillance modernization and future telemanagement for lighting and water.
+- ANP's Nador program includes control access, telemanagement, VTS maintenance, electrical systems, surveillance and network-room work.
+- A Renault Group Morocco automation job explicitly covers PLC, HMI/SCADA and industrial networks including Modbus, Profibus and EtherNet/IP.
+- Current Moroccan job evidence from Suprajit Morocco, Givaudan, OPmobility, Jibal and other manufacturers names Siemens, Schneider, Rockwell, TIA Portal, Step7, Modbus, PROFINET, PROFIBUS and EtherNet/IP.
 
-1. **Tangier/Kenitra automotive and supplier ecosystem:** concentrated plants, integrators and export assurance.
-2. **Jorf Lasfar/Safi/Khouribga phosphate, chemicals, power and port corridor:** complex process assets and large asset owners.
-3. **Casablanca/Nouaceur regulated and high-value manufacturing:** aerospace, pharmaceuticals, food and corporate buying centers.
+These sources demonstrate heterogeneous industrial automation and recurring maintenance/integration work. They do not prove that every named company uses every listed technology.
 
-## Commercial wedge
+## Demonstrated market context
 
-Sell an outcome before selling seats:
+- The Ministry of Industry reports MAD 898bn industrial revenue, MAD 90bn investment and 1,038,133 industrial jobs for 2024.
+- Tanger Med Zones reports 1,500 companies and 145,000 jobs.
+- Its industrial sector page cites more than 150 foreign automotive companies, about 150 aerospace companies nationally and 2,100 agribusiness companies.
 
-> “In one controlled visit, establish an evidence-backed OT/IoT baseline, identify what remains unknown, and export a remediation-ready inventory—without deploying a permanent sensor.”
+The company counts overlap and include organizations with no relevant buying need. They are not added together or converted into TAM.
 
-The first paid offer should be a partner-delivered baseline package. Software licensing follows repeat use.
+## Evidence-backed initial customer
 
-## Defensibility
+### Primary
 
-The defensible assets are not the port scanner:
+A DGSSI-qualified industrial audit provider or industrial automation/integration firm conducting repeated site work.
 
-- signed, safety-reviewed query profiles;
-- device identity knowledge with citations and confidence behavior;
-- packet/observation corpus and regression tests;
-- Android NIC/TAP compatibility evidence;
-- local sector and reporting packs;
-- integrator workflow and export connectors;
-- history of safe assessments and corrections.
+Documented reasons:
 
-## Principal risks
+- industrial audit is an explicit qualification domain;
+- methods and tools are evaluated in qualification;
+- providers need evidence and repeatability across engagements;
+- the product can be positioned as a controlled evidence instrument, not as an unqualified audit service.
 
-| Risk | Why it can kill the project | Mitigation/gate |
-|---|---|---|
-| Android capture limitations | product cannot see promised traffic | prove hardware matrix before UI scale-up |
-| OT safety incident | destroys trust and creates liability | passive-first; deterministic gate; lab and independent review |
-| Weak identity accuracy | inventory is not credible | evidence-linked claims and controlled corpus benchmarks |
-| Incumbent adds mobile collector | feature differentiation collapses | channel, price, offline workflow and local packs |
-| Support complexity | device/protocol matrix consumes margin | narrow certified matrix; tiered coverage; paid packs |
-| No willingness to pay | technical success without business | sell fixed-scope pilot before broad implementation |
-| Licensing conflict | cannot commercialize bundle | component boundary and legal review before adoption |
+### Secondary
 
-## Go/no-go criteria
+An industrial operator with a documented telemanagement, automation-maintenance, commissioning or inventory requirement, working under its own authorization and applicable audit rules.
 
-Proceed from design to prototype only if:
+## Product job supported by evidence
 
-- at least three protocol identity paths have documented, safe packet definitions;
-- an Android phone can ingest mirrored Ethernet evidence through at least two supported kit configurations;
-- target-account and channel analysis produces at least ten credible outreach routes;
-- a fixed-scope offer and report example are ready;
-- project licensing and dependency boundaries are decided.
+> Collect and organize authorized OT/IoT asset evidence across Ethernet, Wi-Fi and Bluetooth, preserve provenance, and export it into an auditor's or operator's existing assessment workflow.
 
-Proceed to field pilot only if at least two organizations sign a written pilot scope or pay for a lab/site baseline, and safety/legal gates pass.
+The following remain unproven:
+
+- that a phone is preferred to a laptop;
+- that the workflow saves a specific percentage of time;
+- that the customer accepts a specific price;
+- that Bluetooth is important in Moroccan industrial audits;
+- that passive capture is available at target sites;
+- that the product identifies enough current device families.
+
+These are prototype tests, not marketing statements.
+
+## Why a prototype is warranted
+
+A research prototype is warranted only to answer five unresolved economic questions:
+
+1. Can supported phone/NIC/TAP combinations collect the necessary evidence?
+2. Can the product correctly identify the technologies documented in Moroccan job/tender evidence?
+3. Do qualified auditors find the evidence bundle usable within their methodology?
+4. Does it reduce field equipment, reconciliation work or report preparation?
+5. Will an auditor/integrator issue a purchase order or binding pilot scope?
+
+## Commercial boundary
+
+The product must not claim to perform a legally required qualified audit unless used by an appropriately qualified provider and accepted within that provider's approved methodology. The credible commercial role is tooling for qualified professionals and authorized operators.
+
+## Go/no-go evidence
+
+Proceed to production design only after:
+
+- one DGSSI-qualified industrial audit provider approves the evidence format for a controlled evaluation;
+- two supported phone/NIC/TAP combinations pass capture tests;
+- Moroccan-evidence priority protocols pass a labeled lab corpus;
+- one paid or contractually binding prototype evaluation exists;
+- project and dependency licenses are approved.
+
+Until then, the opportunity is **credible but commercially unvalidated**.

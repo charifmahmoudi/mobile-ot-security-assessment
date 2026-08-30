@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atlas/query-profile.schema.json",
+  "title": "Signed OT identity query profile",
+  "type": "object",
+  "required": ["id", "version", "riskClass", "protocol", "operation", "transport", "limits", "preconditions", "stopConditions", "expectedEvidence", "signature"],
+  "properties": {
+    "id": {"type": "string"},
+    "version": {"type": "string"},
+    "riskClass": {"const": "A1-identity"},
+    "protocol": {"type": "string"},
+    "operation": {"type": "string"},
+    "transport": {
+      "type": "object",
+      "required": ["kind", "destinationPort"],
+      "properties": {
+        "kind": {"enum": ["tcp", "udp", "layer2"]},
+        "destinationPort": {"type": ["integer", "null"], "minimum": 1, "maximum": 65535},
+        "broadcastAllowed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "requestTemplateHash": {"type": "string"},
+    "allowedResponseFields": {"type": "array", "items": {"type": "string"}},
+    "limits": {
+      "type": "object",
+      "required": ["targets", "packetsPerTarget", "retries", "timeoutMs", "concurrency"],
+      "properties": {
+        "targets": {"type": "integer", "minimum": 1},
+        "packetsPerTarget": {"type": "integer", "minimum": 1},
+        "retries": {"type": "integer", "minimum": 0},
+        "timeoutMs": {"type": "integer", "minimum": 1},
+        "concurrency": {"type": "integer", "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "preconditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "stopConditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "excludedDeviceFamilies": {"type": "array", "items": {"type": "string"}},
+    "expectedEvidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "testCorpus": {"type": "array", "items": {"type": "string"}},
+    "reviewers": {"type": "array", "items": {"type": "string"}},
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": {"type": "string"},
+        "keyId": {"type": "string"},
+        "value": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,76 +1,66 @@
-# Technology and protocol evidence matrix
+# Morocco technology evidence matrix
 
-## Evidence layers
+## Evidence rules
 
-- **L1 plant-specific:** named facility and installed device/vendor/protocol from an operator, tender, OEM case study or authorized observation.
-- **L2 Morocco ecosystem:** Moroccan jobs, training, distributor or integrator evidence for a technology, without proving a named plant.
-- **L3 vendor-product:** official manufacturer documentation maps a family to a protocol.
-- **L4 sector hypothesis:** process knowledge suggests relevance; must not be marketed as installed base.
+- **P1 plant/account evidence:** official procurement, employer job description or OEM case tied to a named Moroccan operator/site.
+- **P2 Morocco employer evidence:** named Moroccan industrial employer and location, but not necessarily a specific production asset.
+- **E1 ecosystem evidence:** Moroccan integrator, training or labor-market signal.
+- **V1 vendor evidence:** official manual maps a product family to protocol.
+- **Unknown:** no admissible source.
 
-## Current evidence
+A job description proves required competence at its date. It does not enumerate the whole installed base.
 
-| Technology | Morocco signal | Product-family evidence | Plant-specific status | Product decision |
+## Account-linked evidence
+
+| Organization/site | Evidence | Technologies explicitly named | Grade | Product implication |
 |---|---|---|---|---|
-| Siemens S7/TIA | Moroccan public skills profiles and training show S7-300/400/1200/1500, TIA, WinCC, PROFINET/PROFIBUS | Siemens documents S7-1500 PROFINET and OPC UA | isolated CV/project references are weak; most target plants unknown | priority passive + DCP lab work |
-| Schneider Modicon | Schneider has Morocco operations; regional integrators advertise Schneider capability | M580 module officially supports EtherNet/IP and Modbus TCP | unknown by target facility | priority Modbus identity; evaluate EIP |
-| Rockwell/Allen-Bradley | Moroccan/region automation profiles mention Logix/PanelView; weaker local signal | Rockwell documents CIP/EtherNet/IP identity/communications | unknown | implement standard CIP identity after lab proof |
-| OPC UA | common Industry 4.0 integration and supported by multiple PLC families | IEC 62541; Siemens and open62541 evidence | unknown | high-value safe discovery candidate |
-| Modbus | Moroccan skills evidence and broad device support | open Schneider-origin specification and many OEMs | unknown | first active identity candidate, with strict limitations |
-| PROFINET | Moroccan training profiles mention it; strong automotive/manufacturing relevance | Siemens/PI ecosystem | unknown | passive/DCP identity; no cyclic-control interaction |
-| PROFIBUS | skills signal and legacy likelihood | PI standard/device catalogs | no mobile Ethernet visibility without gateway/accessory | catalog/import only initially |
-| EtherNet/IP/CIP | ecosystem signal weaker than Siemens but credible | Rockwell official documentation | unknown | CIP ListIdentity/Identity Object only |
-| BACnet/IP | building controls likely across large campuses | ASHRAE standard and vendor IDs | unknown | passive then bounded Who-Is |
-| IEC 60870-5-104 | relevant to regional electric SCADA architecture | IEC standard/vendor products | unknown | passive-only priority for utility pack |
-| IEC 61850 | relevant to substations | IEC standard and IED products | unknown | passive-only; MMS/GOOSE safety sensitivity |
-| DNP3 | common in some global utilities | DNP Users Group/specification | no Morocco-specific evidence found | lower priority |
-| BACnet MS/TP, Modbus RTU | building/field serial installed base plausible | standards and devices | phone needs USB serial and physical access | future accessory profile |
-| BLE GATT | Android supports scan/connect; industrial sensors/gateways increasing | Bluetooth SIG assignments | target installed base unknown | advertisement inventory first |
-| Wi-Fi 802.11 | universal enterprise/industrial infrastructure | Android Wi-Fi APIs | raw monitor mode not assured | connected-network metadata, imported captures |
-| SNMP/LLDP | common managed infrastructure | IETF/IEEE standards | highly plausible, not plant-proven | passive + authorized read-only system metadata |
-| ONVIF | camera systems in ports/plants | ONVIF profiles | target installed base unknown | passive/WS-Discovery metadata |
+| Renault Group Morocco | public Automation Engineer job | PLC, HMI, SCADA, Modbus, PROFIBUS, EtherNet/IP, PID | P2 | priority passive/identity coverage for these networks |
+| Stellantis Kenitra | official/public automation-technician recruitment | industrial automation maintenance/projects; no protocol named in accessible text | P2 | confirms automation role, not vendor |
+| ONEE Mohammedia 3×100 MW | procurement GN2107895 | maintenance of automata at fuel-loading station | P1 | confirms PLC maintenance target; protocol unknown |
+| ANP Essaouira port | tender 46/AOO/DPSR/ANP/2024 | drinking-water network telemanagement | P1 | water/telemanagement pack; protocol unknown |
+| ANP Jorf Lasfar port | public tender record | exterior-lighting telemanagement | P1 | building/utility OT evidence; protocol unknown |
+| ANP Agadir port | official 2026–2028 procurement program | automatic pumping pretreatment, surveillance modernization, electrical systems, future lighting/water telemanagement | P1 | multiple OT/IoT asset classes; protocol unknown |
+| ANP Nador | official 2026–2028 procurement program | VTS, surveillance, access control, electrical systems, network/technical rooms, water telemanagement | P1 | multi-system port assessment evidence |
+| Suprajit Morocco | public Automation Engineer job | Siemens Step7/TIA/LOGO, Schneider, Omron, Rockwell RSLogix; PROFINET, PROFIBUS, Modbus, EtherNet/IP | P2 | strongest multi-vendor catalog evidence |
+| Givaudan Morocco | public Automation Technician job | Siemens S7/TIA, Schneider EcoStruxure/Unity, Rockwell; PROFIBUS, PROFINET, Modbus, EtherNet/IP, SCADA | P2 | food/process multi-vendor coverage evidence |
+| OPmobility Morocco | public Site Manufacturing Professional job | Apriso MES, Grafana, Node-RED, Schneider EMS, Siemens TIA Portal/Step7, IoT/API | P2 | OT/IT correlation and Siemens/Schneider evidence |
+| Jibal Morocco | public automation-technician job | Modbus, PROFIBUS, EtherNet/IP, sensors, instruments, drives, CMMS documentation | P2 | food/process protocol and evidence-workflow relevance |
+| Adept Technology Morocco | public automation/robotics job | TIA Portal, WinCC, InTouch, ABB/KUKA/FANUC robots, PROFIBUS, PROFINET, EtherNet/IP | P2 | robotics/vendor identification priority |
+| APM Terminals Tangier | public Automation Expert listing | AS-i and PROFIBUS visible in accessible listing | P2 | port automation protocol evidence; verify full posting |
+| Elum Energy Morocco-linked roles | public SCADA project/support jobs | Modbus, IEC 104, OPC UA, IEC 61850, OCPP; PV/BESS SCADA | P2/E1 | renewable pack evidence; assignments may be international |
+| Riaya Industries Morocco | public automation-technician job | Siemens S7/TIA, Rockwell, Schneider; PROFINET, PROFIBUS, EtherNet/IP, Sercos | P2 | further multi-vendor ecosystem confirmation |
 
-## Safe identity operations under consideration
+## What can now be stated
 
-| Protocol | Candidate request | Identity returned | Primary risk | MVP status |
-|---|---|---|---|---|
-| EtherNet/IP | UDP ListIdentity | vendor/device/product/revision/serial where implemented | broadcast load or fragile stack | lab candidate |
-| Modbus/TCP | Encapsulated Interface Transport, Read Device Identification (43/14) | vendor/product/revision objects where implemented | unsupported function/fragile gateway | lab candidate, unicast only |
-| OPC UA | FindServers/GetEndpoints | application URI/name, endpoints, certificate | session/certificate edge cases | lab candidate |
-| PROFINET DCP | Identify | station name, vendor/device IDs, IP parameters | Layer-2 multicast and duplicate traffic | lab candidate |
-| BACnet/IP | Who-Is/I-Am | device instance, vendor ID, capabilities | broadcast amplification | later candidate |
-| mDNS/DNS-SD | passive browse or scoped query | service types and instance metadata | multicast traffic | passive preferred |
-| SSDP/WS-Discovery | passive or bounded probe | service/device URIs | multicast response burst | passive preferred |
-| SNMP | sysObjectID/sysDescr with provided credential | system/vendor identity | credential/privacy, agent load | later, explicit authorization |
-| IEC 104/61850 | none active | passive traffic metadata | critical control/protection sensitivity | passive only |
+Public evidence shows that Moroccan industrial employers and operators work with:
 
-## Catalog schema
+- PLC and SCADA systems;
+- Siemens, Schneider, Rockwell and Omron skills;
+- Modbus, PROFIBUS, PROFINET and EtherNet/IP;
+- automation in automotive, ports, utilities, food/process and renewable-energy contexts;
+- telemanagement, surveillance, VTS, access-control, electrical and pumping systems.
 
-Each device-family record needs:
+## What cannot be stated
 
-- canonical vendor and aliases;
-- manufacturer IDs/OUI ranges with source and dates;
-- product family/models;
-- device roles;
-- supported protocols by SKU/firmware;
-- passive fingerprints and ambiguity;
-- permitted identity profiles;
-- known fragile versions/advisories;
-- confidence rules;
-- licensing/copyright status of imported identifiers;
-- source URLs and last review;
-- test fixtures and expected observations.
+- market share of any vendor or protocol;
+- exact PLC model at Renault, Stellantis, OCP or most named sites;
+- that a job requirement maps to every line or site;
+- that IEC 61850/104 is installed at a specific Moroccan power facility from the Elum role;
+- that Bluetooth is widely deployed in Moroccan OT;
+- that an identity query is safe for a specific device without model/firmware testing.
 
-## Coverage metrics
+## Evidence-driven protocol order
 
-Do not count a protocol as “supported” because a port is recognized. Report:
+1. Modbus passive identification and carefully bounded device-identification lab profile.
+2. EtherNet/IP/CIP passive and ListIdentity lab profile.
+3. PROFINET passive/DCP lab profile; PROFIBUS through imported/gateway evidence.
+4. Siemens S7 passive family identification without control interaction.
+5. Common SCADA/OPC UA discovery in lab.
+6. SNMP/LLDP and standard network infrastructure evidence.
+7. IEC 104/61850 passive parsing for utility/renewable pack.
+8. Vendor robot/drive/HMI fingerprints only when sources and fixtures exist.
+9. BACnet/ONVIF/BLE remain evidence gaps for Morocco until tenders/jobs/site evidence is added.
 
-1. transport detection;
-2. protocol confirmation;
-3. vendor identity;
-4. product family;
-5. model;
-6. firmware/revision;
-7. asset role;
-8. vulnerability applicability confidence.
+## Sources
 
-Publish numerator/denominator against a versioned lab corpus.
+See [behavioral evidence ledger](data/behavioral-evidence.csv). Every catalog record must cite the exact source and observation date.

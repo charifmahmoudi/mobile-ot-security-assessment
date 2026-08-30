@@ -1,77 +1,59 @@
 # Atlas OT Scout
 
-> Offline-first mobile OT/IoT asset discovery and assessment—Morocco first, designed for industrial markets where permanent enterprise tooling is not always practical.
+> Research toward a controlled mobile evidence instrument for authorized industrial audit teams.
 
-Atlas OT Scout is a research-and-design project for turning an Android phone and an approved field kit into a governed workspace for wired Ethernet, Wi-Fi and Bluetooth evidence collection. It targets industrial teams, integrators and assessors who need a defensible baseline without deploying a server or exporting sensitive plant data to a cloud service.
+Atlas OT Scout explores whether an Android phone and approved capture hardware can collect traceable Ethernet, Wi-Fi and Bluetooth evidence for OT/IoT inventories. No production scanner exists.
 
-**Status:** due diligence, requirements, architecture and safety engineering. No production-ready scanner exists.
+## What public evidence supports
 
-## Decision corpus
+- Morocco's DGSSI recognizes industrial-systems audit as a qualification domain and publicly lists qualified providers.
+- Public ONEE and National Ports Agency records show automata maintenance, telemanagement, VTS, surveillance, electrical and network-system work.
+- Moroccan employer records from Renault Group, Suprajit, Givaudan, OPmobility, Jibal and others explicitly name PLC/SCADA platforms and protocols including Modbus, PROFIBUS, PROFINET and EtherNet/IP.
+- Android provides USB host and Bluetooth APIs, but a USB Ethernet adapter alone does not provide whole-segment visibility.
 
-The [due-diligence index](docs/diligence/README.md) is the primary starting point. It contains:
+## What remains unknown
 
-- [investment and product thesis](docs/diligence/EXECUTIVE-BUSINESS-CASE.md);
-- [bottom-up Morocco market, pricing and unit economics](docs/diligence/MARKET-AND-ECONOMIC-MODEL.md);
-- [competitive teardown](docs/diligence/COMPETITIVE-TEARDOWN.md);
-- [Morocco sector dossiers](docs/diligence/MOROCCO-SECTOR-DOSSIERS.md);
-- [priority-account dossiers](docs/diligence/ACCOUNT-DOSSIERS.md);
-- [customer organization and ethical outreach model](docs/diligence/CUSTOMER-ORGANIZATION-AND-OUTREACH.md);
-- [technology/protocol evidence matrix](docs/diligence/TECHNOLOGY-EVIDENCE-MATRIX.md);
-- [open-source and PentAGI due diligence](docs/diligence/OPEN-SOURCE-DUE-DILIGENCE.md);
-- [complete StoryBrand go-to-market plan](docs/diligence/STORYBRAND-GTM-PLAN.md);
-- [validation plan without interviews](docs/diligence/VALIDATION-WITHOUT-INTERVIEWS.md);
-- [global expansion scorecard](docs/diligence/GLOBAL-EXPANSION-FRAMEWORK.md);
-- [risk register](docs/diligence/RISK-REGISTER.md);
-- machine-readable [claim ledger](docs/diligence/data/claim-ledger.csv), [market model](docs/diligence/data/market-model.csv) and [library decisions](docs/diligence/data/protocol-library-decisions.csv).
+Market size, accepted price, customer preference for mobile tooling, time saving, Bluetooth demand, supported hardware combinations, identification accuracy and field safety are unproven. They are prototype questions, not product claims.
 
-## Business thesis
+## Start with the evidence
 
-The initial wedge is not continuous monitoring. It is the controlled field baseline used for brownfield inventory, contractor handover, site onboarding, audit preparation, incident triage and pre-deployment discovery.
+- [Evidence-only diligence index](docs/diligence/README.md)
+- [Executive business case](docs/diligence/EXECUTIVE-BUSINESS-CASE.md)
+- [Unsupported-assumption audit](docs/diligence/ASSUMPTION-AUDIT.md)
+- [Behavioral evidence ledger](docs/diligence/data/behavioral-evidence.csv)
+- [Morocco technology evidence matrix](docs/diligence/TECHNOLOGY-EVIDENCE-MATRIX.md)
+- [Evidence-grounded StoryBrand](docs/diligence/STORYBRAND-GTM-PLAN.md)
+- [Observable market evidence](docs/diligence/MARKET-AND-ECONOMIC-MODEL.md)
+- [Research dashboard](docs/diligence/RESEARCH-DASHBOARD.md)
 
-The best first customer is an integrator, MSSP, audit firm or multi-site industrial owner that repeats this work. The first commercial offer should be a fixed-scope paid baseline; software licensing follows demonstrated repeat use.
+## Evidence-backed initial customer
 
-The Morocco base scenario models MAD 13.33m in annual software opportunity from 350 serviceable sites and 30 partner organizations. This is explicitly a planning hypothesis—not a market-size fact—and every variable is exposed for replacement.
+The strongest first research set is the small group of providers visibly qualified by DGSSI for industrial-systems audits. The product would support their methodology; it would not claim to replace a qualified audit or to be DGSSI approved.
 
-## Product truth
-
-- USB-C Ethernet provides connectivity; it does **not** automatically expose third-party switched traffic. Mirrored capture requires TAP/SPAN or an approved accessory.
-- Ordinary Android applications do not have universal Wi-Fi monitor mode.
-- “Exhaustive OT vendor coverage” is a maintained evidence and testing program, not a credible one-time promise.
-- A verified Moroccan factory and a verified vendor protocol manual do not prove that factory uses that vendor.
-- Exploitation, credential attacks, fuzzing, control writes and autonomous pentesting are outside the product boundary.
-- An AI may propose or summarize. It never directly transmits OT traffic or bypasses the deterministic action gate.
-
-## Architecture boundary
+## Safety boundary
 
 ```mermaid
 flowchart TD
-  A[Authorized case] --> B[Passive collection]
-  B --> C[Evidence and identity confidence]
-  A --> D[Deterministic policy gate]
-  D --> E[Signed identity-only profile]
-  E --> C
-  C --> F[Inventory, findings and export]
+  A[Recorded authorization] --> B[Passive or imported evidence]
+  A --> C[Deterministic policy gate]
+  C --> D[Signed identity-only profile]
+  B --> E[Traceable identity claim]
+  D --> E
+  E --> F[Auditor-reviewed export]
 ```
 
-## Research evidence
-
-The initial account universe contains 30 named Moroccan organizations across nine OT-heavy sectors. Material facts are recorded in the claim ledger. Unknown installed technologies remain unknown until supported by tenders, OEM case studies, credible job evidence, lab devices or authorized observation.
-
-Primary references include Morocco's Ministry of Industry, DGSSI, CNDP, industrial operators, NIST, CISA, Android/OEM documentation and original open-source repositories.
+Exploitation, credential attacks, fuzzing, control writes and autonomous packet generation are outside scope. An AI may summarize evidence but cannot transmit OT traffic.
 
 ## Engineering and governance
 
 - [Requirements](docs/REQUIREMENTS.md)
-- [Requirements traceability](docs/diligence/REQUIREMENTS-TRACEABILITY.md)
-- [Technical architecture](docs/wiki/Technical-Architecture.md)
+- [Architecture](docs/wiki/Technical-Architecture.md)
 - [Safety and privacy](docs/wiki/Safety-and-Ethics.md)
 - [Secure development lifecycle](docs/wiki/SDLC.md)
 - [Roadmap](ROADMAP.md)
-- [Architecture decisions](docs/adr/)
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
-- [Governance](GOVERNANCE.md)
 
 ## License
 
-No project license has been selected. This remains a deliberate gate while the open-core/commercial model and dependency boundaries are evaluated. Until a license is added, normal copyright applies and reuse is not granted.
+No project license has been selected. Until one is added, normal copyright applies and reuse is not granted.

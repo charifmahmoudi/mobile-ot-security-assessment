@@ -1,36 +1,46 @@
 # Research dashboard
 
-Snapshot: 2026-08-30. Percentages describe the repository sample, not Morocco's population.
+Snapshot: 2026-08-30. Percentages describe repository records, not Morocco's population.
 
-## Coverage
+## Evidence inventory
 
-| Measure | Result | Interpretation |
+| Measure | Result | Meaning |
 |---|---:|---|
-| Named account sample | 30 | prospect universe seed |
-| OT-heavy sectors represented | 9 | automotive, extractive/process, utility, port, food, cement, aerospace, pharma, telecom |
-| Account rows marked Verified | 17/30 (56.7%) | primary/operator source supports the recorded footprint |
-| Account rows needing stronger verification | 12/30 (40.0%) | current source/site/legal-entity evidence incomplete |
-| Corroborated subsidiary row | 1/30 (3.3%) | evidence exists but buying-unit treatment unresolved |
-| Detailed account dossiers | 12 | priority accounts have buying hypotheses and entry wedges |
-| Named target plants with sufficiently proven current PLC/DCS stack | 0/30 (0%) | the central installed-base research gap |
-| Claim-ledger rows | 18 | initial material claims and unknowns |
-| Verified claim-ledger rows | 14/18 (77.8%) | scoped facts supported by cited sources |
-| Unknown commercial/technology rows | 3/18 (16.7%) | require offers, benchmarks or installed-base evidence |
-| Contradicted assumptions | 1/18 (5.6%) | USB Ethernet alone does not imply segment capture |
-| Protocol/technology families triaged | 16 | prioritization, not implementation coverage |
-| Open-source candidates explicitly assessed | 14 | no dependency approved yet |
+| Behavioral evidence records | 22 | regulator, procurement, employer, market and competitor observations |
+| DGSSI-qualified audit providers listed | 8 | public named provider universe |
+| Listed providers visibly qualified for industrial audit | 3 | strongest evidence-backed first research/channel set |
+| Official procurement records/programs captured | 5 evidence groups | ONEE automation and ANP telemanagement/port systems |
+| Named Morocco-linked employer technology records | 10 | job evidence tied to employers, with stated limitations |
+| Organizations/sites in technology matrix | 15 rows | some rows are multiple sites of the same operator |
+| Protocols explicitly named in Morocco-linked employer evidence | at least 9 | Modbus, PROFIBUS, PROFINET, EtherNet/IP, AS-i, Sercos, IEC 104, OPC UA, IEC 61850 |
+| Automation vendors explicitly named in employer evidence | at least 6 | Siemens, Schneider, Rockwell, Omron, ABB, KUKA/FANUC robotics |
+| Accepted product prices | 0 | pricing unknown |
+| Paid prototype evaluations | 0 | willingness to pay unknown |
+| Verified customer internal/emotional statements | 0 | emotional StoryBrand language prohibited |
+| Supported phone/NIC/TAP configurations | 0 | platform feasibility unproven |
+| Lab-validated protocol identity profiles | 0 | implementation has not started |
 
-## What the numbers do not prove
+## Evidence quality
 
-They do not establish market share, customer demand, protocol prevalence or identity accuracy. Most importantly, the installed automation stack at named plants remains unverified. Marketing must not convert sector hypotheses into customer facts.
+The behavioral ledger deliberately treats job descriptions as evidence of required competence, not a complete installed-base inventory. Procurement proves operational-system work, but most public notices do not name protocols or vendors.
 
-## Next dashboard targets
+## Removed pseudo-evidence
 
-- 50 named sites with verified operator/location.
-- 20 current public tenders, OEM cases or job descriptions with technology signals.
-- 10 qualified integrator/MSSP organizations.
-- 5 issued fixed-scope proposals.
-- 3 complete inventory schema samples.
-- 2 paid or contractually binding pilots.
-- 2 supported phone/NIC/TAP combinations.
-- 1 reproducible labeled device/PCAP benchmark.
+The following no longer count as research results:
+
+- hypothetical 150/350/700 site scenarios;
+- proposed MAD pricing;
+- assumed customer emotions;
+- assumed time saving;
+- assumed partner margin;
+- sector-to-protocol mappings without employer, tender or product evidence.
+
+## Next thresholds
+
+- written evidence-schema review from one industrial-qualified provider;
+- full technical documents for ten Moroccan automation/telemanagement tenders;
+- archive-quality copies of twenty current employer technology records;
+- two supported phone/NIC/TAP configurations;
+- three lab-validated identity profiles;
+- five real price observations or procurement responses;
+- one paid or binding controlled evaluation.

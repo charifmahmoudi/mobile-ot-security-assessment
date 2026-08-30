@@ -1,4 +1,11 @@
-scenario,serviceable_sites,site_arr_mad,partners,seats_per_partner,seat_price_mad,site_revenue_mad,partner_revenue_mad,total_annual_opportunity_mad,assumption_status
-conservative,150,20000,15,2,10000,3000000,300000,3300000,hypothesis
-base,350,35000,30,3,12000,12250000,1080000,13330000,hypothesis
-upside,700,50000,60,4,15000,35000000,3600000,38600000,hypothesis
+input,status,observed_value,source_or_test,why_required
+qualified_audit_providers,verified,8,https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes,channel universe
+industrial_audit_qualified_providers,verified,3,https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes,first research set
+serviceable_industrial_sites,unknown,,deduplicated site census,TAM denominator
+assessment_frequency,unknown,,procurement and provider records,annual demand
+accepted_price,unknown,,real quotes or purchase records,revenue conversion
+reachable_buyer_rate,unknown,,outreach and procurement outcomes,SAM constraint
+paid_evaluations,observed,0,project evidence,willingness to pay
+renewal_rate,not_applicable,,post-sale evidence,recurring value
+support_cost,unknown,,prototype and pilot time records,gross margin
+market_size,unknown,,requires all relevant inputs,no defensible TAM today

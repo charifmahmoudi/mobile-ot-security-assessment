@@ -1,157 +1,137 @@
-# Priority-account dossiers
+# Account evidence dossiers
 
-These are account-planning hypotheses based on public company information. They are not endorsements and do not assert installed technology without evidence.
+This document contains no assumed buyer structure, installed equipment or recommended sales wedge. Each dossier records public observations and missing evidence.
 
-## Scoring
+## OCP Group
 
-- **Footprint:** verified operational scale/sites.
-- **Trigger:** plausible audit, handover, expansion or multi-site inventory need.
-- **Access:** availability of public corporate routes and channel path.
-- **Fit:** relevance of portable/offline assessment.
-- **Evidence:** quality of source material.
+**Verified:** OCP publishes mining and integrated industrial operations including Jorf Lasfar and Safi. Jorf Lasfar reports 15m tonnes/year of plant-nutrition solution production.
 
-### 1. OCP Group — Tier A
+**Technology evidence found:** none sufficiently specific in this research pass.
 
-**Verified footprint:** mines and integrated industrial operations including Jorf Lasfar and Safi; Jorf Lasfar production capacity includes 15m tonnes/year of plant-nutrition solutions according to OCP.
+**Unknown:** current PLC/DCS vendors, protocols, audit workflow, inventory tools, site authorization structure and procurement price.
 
-**Buying structure hypothesis:** group cybersecurity/digital governance → industrial business unit → site operations/automation/maintenance → procurement/vendor onboarding. A site cannot be approached as if central and operational authorization were interchangeable.
+**Sources:** [industrial operations](https://www.ocpgroup.ma/en/what-we-do/industrial-operations), [public company page](https://www.linkedin.com/company/ocpgroup/).
 
-**Public routes:** [corporate site](https://www.ocpgroup.ma/), [industrial operations](https://www.ocpgroup.ma/en/what-we-do/industrial-operations), [LinkedIn company page](https://www.linkedin.com/company/ocpgroup/), corporate procurement/contact routes.
+## Renault Group Morocco
 
-**Best wedge:** imported/mirrored PCAP reconciliation or isolated-area contractor handover, delivered with an approved industrial partner.
+**Verified:** Tangier and SOMACA are operating Moroccan manufacturing sites. Renault's public Automation Engineer listing for Morocco names PLC, HMI/SCADA, Modbus, PROFIBUS and EtherNet/IP responsibilities.
 
-**Technology status:** process-control, electrical and telemetry relevance is certain; vendors/protocols at a named site remain unknown.
+**Evidence limit:** the job listing does not identify a site, model, quantity or complete installed base.
 
-**Risk:** strategic/critical environment, long qualification and zero tolerance for unsafe behavior.
+**Unknown:** current PLC vendor/model by site, inventory tooling, audit method and mobile-device policy.
 
-### 2. Renault Group Morocco — Tier A
+**Sources:** [Tangier](https://www.renaultgroup.com/en/group/locations/tangier-plant/), [SOMACA](https://www.renaultgroup.com/en/group/locations/casablanca-plant-somaca/), [automation role](https://www.linkedin.com/jobs/view/4209227623/).
 
-**Verified footprint:** Tangier assembly and SOMACA Casablanca. Renault says SOMACA exports two-thirds of production to 70 destinations and approached 100,000 vehicles in 2024.
+## Stellantis Kenitra
 
-**Buying structure hypothesis:** Morocco industrial leadership → plant director → manufacturing engineering/maintenance/automation → IT/OT cybersecurity → procurement. Group security and plant engineering both matter.
+**Verified:** Kenitra is an operating and expanding vehicle plant. A public Stellantis listing recruited an automation technician for Kenitra.
 
-**Public routes:** [Tangier plant](https://www.renaultgroup.com/en/group/locations/tangier-plant/), [SOMACA](https://www.renaultgroup.com/en/group/locations/casablanca-plant-somaca/), [LinkedIn](https://www.linkedin.com/company/renaultgroup/).
+**Technology evidence:** industrial automation role confirmed; no named protocol or PLC family in accessible posting text.
 
-**Best wedge:** supplier-facility baseline or production-equipment handover validation before approaching core assembly networks.
+**Unknown:** current control vendors/protocols, audit tools and assessment procurement.
 
-**Technology status:** automation/robots/conveyance are inherent to assembly; actual PLC/protocol mix unknown.
+**Sources:** [official expansion](https://www.stellantis.com/en/news/press-releases/2022/november/a-new-step-for-kenitra-site-to-support-growth-plans-for-middle-east-and-africa-region), [automation role](https://www.linkedin.com/jobs/view/3709369339/).
 
-### 3. Stellantis Kenitra — Tier A
+## ONEE Mohammedia
 
-**Verified footprint:** Stellantis announced an expansion path to 400,000 vehicles/year plus electric mobility objects and roughly 2,000 additional local positions.
+**Verified:** public procurement GN2107895 covers maintenance of automata at the fuel-loading station of the Mohammedia 3×100 MW plant.
 
-**Buying structure hypothesis:** regional manufacturing → Kenitra plant operations → maintenance/manufacturing engineering → cybersecurity/IT → purchasing.
+**Technology evidence:** automata/PLC class only.
 
-**Public routes:** [official expansion release](https://www.stellantis.com/en/news/press-releases/2022/november/a-new-step-for-kenitra-site-to-support-growth-plans-for-middle-east-and-africa-region), corporate contact and LinkedIn company page.
+**Unknown:** manufacturer, model, protocol, network topology, tender technical requirements and whether the system is still in service.
 
-**Best wedge:** expansion/handover evidence and supplier ecosystem, not production scanning.
+**Source:** [ONEE procurement record](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772).
 
-### 4. Tanger Med Group / port complex — Tier A
+## National Ports Agency — Essaouira
 
-**Verified footprint:** port, logistics and industrial platforms; Tanger Med Zones reports 1,500 companies and 145,000 jobs.
+**Verified:** ANP tender 46/AOO/DPSR/ANP/2024 covers implementation of telemanagement for the port drinking-water network.
 
-**Buying structure hypothesis:** group/port authority → terminal/operator engineering → operations and maintenance → cybersecurity → procurement. Terminals and subsidiaries may be separate buying units.
+**Unknown:** control vendor, protocol, device count, network arrangement and award.
 
-**Public routes:** [Tanger Med](https://www.tangermed.ma/), [Tanger Med Zones](https://www.tangermedzones.com/), [LinkedIn](https://www.linkedin.com/company/tanger-med/).
+**Source:** [ANP tender](https://www.anp.org.ma/fr/services/appels-offres/3836).
 
-**Best wedge:** one terminal subsystem or expansion/handover inventory with TAP/SPAN access.
+## National Ports Agency — Jorf Lasfar
 
-**Technology status:** cranes, gates, power, cameras and building systems are plausible asset classes; installed protocols unknown.
+**Verified:** ANP published work to install an exterior-lighting telemanagement system.
 
-### 5. Marsa Maroc — Tier A/B
+**Unknown:** technical architecture, protocol, current status and relationship to other port operators.
 
-**Verified footprint:** multi-port terminal operator and part of the broader Moroccan port ecosystem.
+**Source:** [ANP record](https://www.anp.org.ma/fr/services/appels-offres/3603).
 
-**Buying structure hypothesis:** central information/security → terminal director → equipment/maintenance → procurement.
+## National Ports Agency — Agadir
 
-**Public route:** [corporate site](https://www.marsamaroc.co.ma/).
+**Verified:** official 2026–2028 plan includes automatic pumping pretreatment, MAD 12m video-surveillance modernization, electrical infrastructure and future lighting/water telemanagement.
 
-**Best wedge:** repeatable multi-terminal baseline, making portability economically meaningful.
+**Evidence limit:** planned procurement can change and does not state protocols.
 
-### 6. Managem — Tier A/B
+**Source:** [ANP program PDF](https://www.anp.org.ma/fra/Lists/AppelOffres/Attachments/4307/Programme%20Pr%C3%A9visionnel%20Triennal%202026-2028_DPAR.pdf).
 
-**Verified footprint:** company reports 13 mining operations and 20 industrial units across Africa and lists multiple Moroccan mines.
+## National Ports Agency — Nador
 
-**Public organization evidence:** its governance page publicly identifies executive operations roles, including a Morocco operations executive. Titles must be checked at outreach time.
+**Verified:** official plan includes VTS maintenance, surveillance maintenance, access-control work, electrical systems, network technical-room work and future water telemanagement.
 
-**Public routes:** [operations](https://www.managemgroup.com/en/nos-operations-projets), [governance](https://www.managemgroup.com/en/who-we-are/governance), corporate procurement/contact routes.
+**Evidence limit:** program items do not identify control vendors or protocols.
 
-**Best wedge:** remote-site passive inventory and contractor handover; offline operation is a strong fit.
+**Source:** [ANP program PDF](https://www.anp.org.ma/fra/Lists/AppelOffres/Attachments/4342/PP%20DPNR%202026%2C%202027%20et%202028-signed.pdf).
 
-**Risk:** harsh/remote networks, safety and group/site authorization complexity.
+## Suprajit Morocco
 
-### 7. ONEE — Tier A/B
+**Verified through employer job evidence:** automation competence includes Siemens Step7/TIA/LOGO, Schneider, Omron and Rockwell RSLogix; networks include PROFINET, PROFIBUS, Modbus and EtherNet/IP.
 
-**Verified footprint:** national electricity and water operator.
+**Evidence limit:** required skills may include customer, legacy or planned equipment.
 
-**Buying structure hypothesis:** central security/IT → electricity or water branch → regional operations → SCADA/telecontrol/maintenance → public procurement.
+**Source:** [public job listing](https://ma.linkedin.com/jobs/view/ing%C3%A9nieur-automatisation-at-suprajit-morocco-4307891114).
 
-**Public route:** [ONEE](https://www.one.org.ma/).
+## Givaudan Morocco
 
-**Best wedge:** lab/imported-capture or non-protection auxiliary systems first.
+**Verified through employer job evidence:** Siemens S7/TIA, Schneider EcoStruxure/Unity, Rockwell, SCADA, PROFIBUS, PROFINET, Modbus and EtherNet/IP are named.
 
-**Technology status:** SCADA/RTU/IED/pumping are role-level expectations; protocols and vendors require tender/site evidence.
+**Evidence limit:** accessible text does not establish model quantities or site-wide deployment.
 
-### 8. Masen / Noor portfolio — Tier B
+**Source:** [public job listing](https://ma.linkedin.com/jobs/view/automation-technician-at-givaudan-4344308334).
 
-**Verified footprint:** renewable-project portfolio; Noor Ouarzazate I is 160 MW.
+## OPmobility Morocco
 
-**Buying structure hypothesis:** asset owner/developer → project company/operator → O&M provider → cybersecurity/engineering. The operator may be the real user and contracting party.
+**Verified through employer job evidence:** Apriso MES, Grafana, Node-RED, Schneider EMS, Siemens TIA Portal/Step7 and IoT/API work are named.
 
-**Public routes:** [projects](https://www.masen.ma/en/projects), [governance](https://www.masen.ma/en/governance-organisation).
+**Evidence limit:** a role specification is not an asset inventory.
 
-**Best wedge:** asset-handover inventory and O&M evidence exchange.
+**Source:** [public job listing](https://ma.linkedin.com/jobs/view/site-manufacturing-professional-at-opmobility-4290749732).
 
-### 9. Safran Morocco — Tier A/B
+## Jibal
 
-**Verified footprint:** Safran reports more than 4,800 employees and ten Moroccan sites.
+**Verified through employer job evidence:** role includes Modbus, PROFIBUS and EtherNet/IP, instruments, drives, technical-document updates and CMMS follow-up.
 
-**Buying structure hypothesis:** country leadership → legal entity/site director → industrial/maintenance → group cybersecurity → quality/procurement.
+**Source:** [public job listing](https://www.linkedin.com/jobs/view/4410157624/).
 
-**Public routes:** [Morocco page](https://www.safran-group.com/countries/morocco), [LinkedIn](https://www.linkedin.com/company/safran/).
+## APM Terminals Tangier
 
-**Best wedge:** supplier or facilities/utility network baseline with aerospace data controls.
+**Verified through accessible employer job evidence:** an Automation Expert listing exposes AS-i and PROFIBUS requirements.
 
-**Risk:** strict group tooling, supplier qualification and confidentiality.
+**Evidence limit:** full text must be archived and verified before external use; no complete stack is inferred.
 
-### 10. Cosumar — Tier B
+**Source:** [public listing](https://ma.linkedin.com/jobs/view/automation-expert-at-apm-terminals-4219014220).
 
-**Verified footprint:** sugar mills in five regions plus a Casablanca raw-sugar refinery.
+## Managem
 
-**Public routes:** [company footprint](https://www.cosumar.co.ma/en/who-we-are/).
+**Verified:** multiple Moroccan mining operations are publicly enumerated.
 
-**Buying structure hypothesis:** industrial group → site director → automation/maintenance → IT/security → procurement.
+**Technology evidence found:** none sufficiently specific in this pass.
 
-**Best wedge:** repeatable baseline across mills; strong multi-site story.
+**Unknown:** site networks, vendors, protocols, inventory method and audit procurement.
 
-### 11. Holcim Maroc — Tier B
+**Sources:** [operations](https://www.managemgroup.com/en/nos-operations-projets), [governance](https://www.managemgroup.com/en/who-we-are/governance).
 
-**Verified footprint:** the company identifies itself as national construction-materials leader with multiple industrial activities.
+## Safran Morocco
 
-**Public route:** [Holcim Maroc](https://www.holcim.ma/).
+**Verified:** Safran reports more than 4,800 employees across ten Moroccan sites.
 
-**Best wedge:** passive/isolated production-area inventory or quarry-to-plant communications mapping.
+**Technology evidence found:** no site-specific industrial-control stack in this pass.
 
-**Technology signal:** a public Moroccan CV refers to a Siemens S7-300 project at Lafarge, but that is old, individual and insufficient to claim current installed base. Record it as weak L1/L2 evidence only.
+**Unknown:** site legal entities, control/facility systems and tool procurement.
 
-### 12. Sothema — Tier B
+**Source:** [Safran Morocco](https://www.safran-group.com/countries/morocco).
 
-**Verified footprint:** Bouskoura pharmaceutical manufacturing including specialized cephalosporin and solution units.
+## Dossier rule
 
-**Public routes:** [manufacturing facilities](https://www.sothema.com/manufacturing-facilities/), corporate contact.
-
-**Buying structure hypothesis:** industrial/engineering → quality/validation → IT/security → site management. Quality approval is central.
-
-**Best wedge:** facilities/utilities and environmental-monitoring inventory, with passive evidence and validation controls.
-
-## Outreach priority
-
-| Wave | Accounts | Objective |
-|---|---|---|
-| 1 channel | industrial integrators, MSSPs, auditors | secure repeatable access and co-design |
-| 2 controlled end-user | Cosumar, cement, suppliers, selected terminals/mines | paid baseline with manageable scope |
-| 3 flagship | OCP, Renault, Stellantis, ONEE, Tanger Med core | credibility after independent safety proof |
-
-## Research gaps per account
-
-Before outreach, verify current legal entity, site list, relevant public procurement portal, group cybersecurity policy, current leadership titles, corporate contact route, recent automation/expansion tenders, local integrators and whether a continuous OT platform already exists.
+No outreach message may mention a vendor or protocol for an account unless it appears in that account's evidence above with the evidence limitation included.

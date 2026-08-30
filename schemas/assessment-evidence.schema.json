@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/atlas/assessment-evidence.schema.json",
+  "title": "Atlas assessment evidence",
+  "type": "object",
+  "required": ["schemaVersion", "case", "visibility", "observations", "identityClaims", "auditEvents"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "case": {
+      "type": "object",
+      "required": ["id", "authorizingEntity", "scope", "start", "end", "retention"],
+      "properties": {
+        "id": {"type": "string"},
+        "authorizingEntity": {"type": "string"},
+        "operator": {"type": "string"},
+        "scope": {"type": "array", "items": {"type": "string"}},
+        "exclusions": {"type": "array", "items": {"type": "string"}},
+        "start": {"type": "string", "format": "date-time"},
+        "end": {"type": "string", "format": "date-time"},
+        "retention": {"type": "string"},
+        "authorizationReference": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "visibility": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["interfaceId", "mode", "limitations"],
+        "properties": {
+          "interfaceId": {"type": "string"},
+          "mode": {
+            "enum": ["imported", "local-origin", "delivered-multicast", "tap-span", "connected-wifi", "raw-wifi", "ble-advertisement", "ble-connection"]
+          },
+          "limitations": {"type": "array", "items": {"type": "string"}},
+          "hardware": {"type": "string"},
+          "driver": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "observedAt", "interfaceId", "protocol", "evidenceHash", "parser"],
+        "properties": {
+          "id": {"type": "string"},
+          "observedAt": {"type": "string", "format": "date-time"},
+          "interfaceId": {"type": "string"},
+          "source": {"type": "string"},
+          "destination": {"type": "string"},
+          "protocol": {"type": "string"},
+          "field": {"type": "string"},
+          "value": {},
+          "evidenceHash": {"type": "string"},
+          "parser": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "identityClaims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "subject", "attribute", "value", "observationIds", "confidence", "rule", "reviewState"],
+        "properties": {
+          "id": {"type": "string"},
+          "subject": {"type": "string"},
+          "attribute": {"type": "string"},
+          "value": {},
+          "observationIds": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "rule": {"type": "string"},
+          "contradictions": {"type": "array", "items": {"type": "string"}},
+          "reviewState": {"enum": ["unreviewed", "accepted", "rejected", "needs-evidence"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "activeExecutions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["profileId", "profileHash", "target", "requestHash", "startedAt", "endedAt", "packetCount", "stopReason"],
+        "properties": {
+          "profileId": {"type": "string"},
+          "profileHash": {"type": "string"},
+          "target": {"type": "string"},
+          "requestHash": {"type": "string"},
+          "responseEvidenceIds": {"type": "array", "items": {"type": "string"}},
+          "startedAt": {"type": "string", "format": "date-time"},
+          "endedAt": {"type": "string", "format": "date-time"},
+          "packetCount": {"type": "integer", "minimum": 0},
+          "retryCount": {"type": "integer", "minimum": 0},
+          "stopReason": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "auditEvents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["at", "actor", "action", "object", "previousHash", "eventHash"],
+        "properties": {
+          "at": {"type": "string", "format": "date-time"},
+          "actor": {"type": "string"},
+          "action": {"type": "string"},
+          "object": {"type": "string"},
+          "previousHash": {"type": "string"},
+          "eventHash": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
