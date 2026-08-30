@@ -1,39 +1,38 @@
-# Morocco account intelligence
+# Morocco target-account briefs
 
-This section investigates the first eight potential enterprise accounts as operating organizations—not as logo lists. Each dossier maps legal/operating entities, sites, publicly visible people and functions, technology and procurement signals, suppliers, events, outside commentary, a reasoned decision path and the information that remains unavailable publicly.
+Eight concise, source-linked briefs answer the questions needed before outreach:
 
-## Portfolio view
+1. Is there a credible OT/mobile-assessment opening now?
+2. Which public roles belong in the buying group?
+3. Which named employees appear publicly, and where?
+4. What technologies are directly supported by sources?
+5. What is the smallest safe pilot and what could stop it?
 
-- [Cross-account synthesis and research priority](PORTFOLIO-SYNTHESIS.md)
-- [Public professional role ledger](public-professional-role-map.csv) — 58 sourced entries, including current, official and historical-role labels
+## Account decisions
+
+| Account | Recommended first offer | Best evidenced route |
+|---|---|---|
+| [OCP Group](OCP-GROUP.md) | OCP-MS assessment evidence kit | OCP-MS/INCIT, then OT Security and site operations |
+| [Renault Group Morocco](RENAULT-MOROCCO.md) | IFMIA benchmark or supplier handover | IFMIA/approved line builder, then plant IT and maintenance |
+| [Stellantis Kénitra](STELLANTIS-KENITRA.md) | New-line handover pack | Automotive Competitiveness Show supplier ecosystem |
+| [Tanger Med](TANGER-MED.md) | TMPA utility/commissioning pilot | Operational IS through TOC Africa, chainPORT or 1337 |
+| [ONEE](ONEE.md) | Project-specific SCADA/telemanagement handover | EPC/integrator plus the relevant electricity or water branch |
+| [Managem](MANAGEM.md) | Tizert digital-project handover | Reminex/Managem with the approved technology partner |
+| [Safran Morocco](SAFRAN-MOROCCO.md) | MidParc commissioning-evidence standard | Approved EPC/line builder and project quality/industrial IT |
+| [Cosumar](COSUMAR.md) | One-site pre-campaign reconciliation | Industrial Operations + IT/Digital + incumbent integrator |
+
+## Supporting files
+
+- [Cross-account prioritization](PORTFOLIO-SYNTHESIS.md)
+- [Public professional role ledger](public-professional-role-map.csv)
 - [Engagement playbook](ENGAGEMENT-PLAYBOOK.md)
 
-## Company dossiers
+## Reading rules
 
-| Account | Current public opening | Main organizational finding |
-|---|---|---|
-| [OCP Group](OCP-GROUP.md) | Industrial assessments and digitalization | The relevant ecosystem includes Group OT Security, OCP-MS, JESA and Teal—not only OCP corporate |
-| [Renault Group Morocco](RENAULT-MOROCCO.md) | IFMIA benchmark or supplier handover | Country, regional CIO, plant engineering, maintenance and purchasing must participate |
-| [Stellantis Kenitra](STELLANTIS-KENITRA.md) | Expansion commissioning and Smart Car ramp-up | Plant maintenance is visible; the current OT-security owner remains unresolved |
-| [Tanger Med Group](TANGER-MED.md) | Infrastructure maintenance or operator audit | Group, TMPA, PCS, terminals and industrial tenants are separate authorization domains |
-| [ONEE](ONEE.md) | Water telemanagement/training benchmark | Electricity SCADA/metering and Water Branch telemanagement are distinct buying groups |
-| [Managem Group](MANAGEM.md) | Tizert/Reminex handover workflow | Reminex and Mana Technology are central to engineering and digital transformation |
-| [Safran Morocco](SAFRAN-MOROCCO.md) | New MidParc facility handover standard | Multiple Safran legal entities and global aerospace controls shape approval |
-| [Cosumar](COSUMAR.md) | Pre-campaign inventory reconciliation | IT/Digital and Industrial Directors must jointly sponsor plant work |
-
-## Source and inference discipline
-
-Every dossier uses four labels implicitly or explicitly:
-
-- **Official current:** an official governance, company or regulator page names the person/activity.
-- **Public current:** a public professional profile presently identifies the role.
-- **Historical:** a past role or dated announcement is useful for capability history but must not be used as a current contact.
-- **Inferred path:** a commercial interpretation of how visible functions may participate; it is not presented as the company's official reporting line.
-
-LinkedIn is used to identify publicly declared professional functions and company activity. It is not used to infer private contact details. Titles, employers and event plans can change, so sources are dated and must be rechecked before use.
-
-## What this research can and cannot establish
-
-The material can identify plausible workflow owners, current capital projects, disclosed suppliers, public technology clues and credible introduction routes. It cannot show internal pain, budget, full installed base, approved mobile hardware, current incumbent products or willingness to pilot. Those require an authorized artifact exchange, procurement record or controlled benchmark.
+- A linked profile supports the stated public role only; it does not prove budget, reporting line or contact permission.
+- A named event appearance is recorded only when the source names the person. Company participation is not treated as employee attendance.
+- Vendor/protocol claims are scoped to the exact project or profile that disclosed them. They are not extrapolated across an enterprise.
+- A reconstructed approval path is explicitly marked as inference.
+- Titles and planned events must be rechecked before outreach.
 
 Research baseline: **30 August 2026**.
