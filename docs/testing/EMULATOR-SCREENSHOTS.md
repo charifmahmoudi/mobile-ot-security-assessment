@@ -1,6 +1,6 @@
 # Emulator acceptance screenshots
 
-These are Android 15 (API 35) instrumentation outputs from green [GitHub Actions run #28](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33335842915) at [`f9807de`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/f9807de7635656b2b5d4d86e585bdd515b9cf1ec), not design mockups. That run passed all six jobs: build/lint/unit/architecture/rooted capture, API 29, API 35, PyModbus, Modbus-TK and Conpot.
+These are Android 15 (API 35) instrumentation outputs from green [GitHub Actions run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900), not design mockups. That run passed all six jobs: build/lint/unit/architecture/rooted capture, API 29, API 35, PyModbus, Modbus-TK and Conpot.
 
 ## Site-centered assessment journey
 
@@ -60,4 +60,4 @@ The five-stage instrumentation journey opens **Overview**, **Collect**, **Assets
 
 ## Reproduction
 
-Instrumentation writes PNG checkpoints through Android MediaStore. `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them before emulator shutdown; CI retains the original screenshots, test reports and logs as artifacts. The documentation files above are the original run #28 PNGs.
+Instrumentation writes PNG checkpoints through Android MediaStore. `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them before emulator shutdown; CI retains the original screenshots, test reports and logs as artifacts. The documentation files above are the original run #32 PNGs.

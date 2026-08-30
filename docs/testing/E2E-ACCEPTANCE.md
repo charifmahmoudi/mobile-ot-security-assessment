@@ -28,7 +28,7 @@ This file defines what a green pipeline proves. It deliberately separates softwa
 | Privilege boundary | Static + Android | Case app has no Internet permission; broker service is signature-protected |
 | Guided assessor journey | Android API 29 and 35 | Site → Overview → Collect → Assets → Findings → blocked Report completes with stable navigation contracts |
 
-The current reference is green [run #28](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33335842915) at [`f9807de`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/f9807de7635656b2b5d4d86e585bdd515b9cf1ec).
+The current executable reference is [run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900).
 
 ## Not proven by this pipeline
 

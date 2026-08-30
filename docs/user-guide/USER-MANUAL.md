@@ -6,7 +6,7 @@ Atlas OT Scout is a site-centered OT discovery PoC. The working journey is:
 
 This manual covers the implemented passive PCAP/PCAPNG analysis and the explicitly authorized, single-target Modbus/TCP identity check. It does not describe an unrestricted scanner or a complete certification audit.
 
-Every screenshot below is an unmodified Android 15 emulator output from green [CI run #28](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33335842915) at commit [`f9807de`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/f9807de7635656b2b5d4d86e585bdd515b9cf1ec). That run also passed Android 10, PyModbus, Modbus-TK, Conpot, passive research captures and the rooted AF_PACKET zero-transmission gate.
+Every screenshot below is an unmodified Android 15 emulator output from green [CI run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at commit [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900). That run also passed Android 10, PyModbus, Modbus-TK, Conpot, passive research captures and the rooted AF_PACKET zero-transmission gate.
 
 ## 1. Start in the correct site
 
@@ -44,11 +44,10 @@ PoC note: site and inventory state is persisted locally using application prefer
 
 Use the dashboard as the assessment home:
 
-- **Assets** shows the working inventory count.
-- **Protocols** counts distinct protocols currently represented.
-- **To review** highlights observations needing analyst attention.
-- **Network picture** summarizes roles and the next priority.
-- **Recent assets** gives quick access to the latest evidence-backed records.
+- **Assessment outcome so far** separates known assets, protocols and open decisions.
+- **Recommended next action** directs the assessor to one unresolved decision instead of presenting a generic scan button.
+- **Evidence coverage** summarizes protocol, vendor and review coverage without overstating completeness.
+- **Deliverable in progress** shows what the assessment package will contain and why the next action matters.
 
 Tap **Open asset inventory** when you need to investigate the current model. Tap **Collect evidence** when you know what evidence gap you intend to close.
 
@@ -193,6 +192,6 @@ Use [the presenter script](../product/DEMO-SCRIPT.md) for a coherent customer de
 
 ## 11. Current PoC boundary
 
-Implemented and green in CI run #28: site onboarding, persisted local site/inventory state, five-stage guided shell, dashboard, passive PCAP/PCAPNG analysis, Modbus/DNP3/IEC-104/BACnet decoders, rooted capture-broker journey, constrained Modbus identity, inventory search/filter/detail, findings drafts and report-readiness blocking.
+Implemented and green in CI run #32: site onboarding, persisted local site/inventory state, five-stage guided shell, decision-led dashboard, passive PCAP/PCAPNG analysis, Modbus/DNP3/IEC-104/BACnet decoders, rooted capture-broker journey, constrained Modbus identity, inventory search/filter/detail, findings drafts and report-readiness blocking.
 
 Not yet implemented: physical rooted-device SPAN/TAP and USB-Ethernet qualification, general active scanning, encrypted multi-user case storage, durable merge/reject audit events, inventory connectors, reviewer signatures and final professional report export. The current Findings and Report destinations are guided PoC workflows, not completed audit issuance.

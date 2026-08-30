@@ -8,7 +8,7 @@ Atlas OT Scout helps an authorized assessor build a defensible view of one indus
 
 The first product pack is **P0-WATER**, a proof of concept for one water or wastewater control segment. It is deliberately not a general-purpose network scanner, exploitation tool, certification audit, or continuous-monitoring platform.
 
-> **Current status:** the guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, searchable inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #29](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33336430034). Physical phone, USB-NIC and TAP qualification remains a release gate.
+> **Current status:** the trust-focused guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, searchable inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093). Physical phone, USB-NIC and TAP qualification remains a release gate.
 
 ## The value in one field visit
 
@@ -157,7 +157,7 @@ flowchart LR
   EMULATORS --> EVIDENCE
 ```
 
-The current `main` result is [run #29](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33336430034):
+The current executable reference is [run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900):
 
 - package/permission isolation, unit tests, lint and all debug APKs;
 - Android 10 / API 29 and Android 15 / API 35 guided UI journeys;
