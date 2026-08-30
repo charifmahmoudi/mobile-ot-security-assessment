@@ -37,7 +37,7 @@ The implication is specific: the product should collect defensible evidence for 
 | Person/entity | Appearance | What it reveals | Source |
 |---|---|---|---|
 | Majda Moumni, CEO OCP Solutions | MoroccoAI Annual Conference, 4–5 Dec 2024; keynote on AI and industry transformation | OCP Solutions is publicly active in Morocco's transformation ecosystem | [Event announcement](https://www.linkedin.com/posts/ocp-solutions_ai-ocps-solutions-activity-7269304342376022017-oKs_) |
-| Majda Moumni | Morocco AI Forum 2025, panel “AI for Innovation and Industry Transformation” | Repeat participation, not a one-off appearance | [OCP Solutions](https://www.linkedin.com/posts/ocp-solutions_moroccoai-aiforum2025-ocpsolutions-activity-7391770938821726208-H_qk) |
+| Majda Moumni | Morocco AI Forum 2025, panel “AI for Innovation and Industry Transformation” | Repeat participation, not a one-off appearance | [OCP Solutions](https://www.linkedin.com/posts/ocp-solutions_moroccoai-aiforum2025-ocpsolutions-activity-7391770938821726208-H_qk) |\n| Imad Boumhi | UM6P Science Week 2025 | Publicly named among contributors providing talks/insights; exact talk topic remains unverified | [Participant account](https://www.linkedin.com/posts/serendalkiran_it-was-an-honour-to-join-the-annual-flagship-activity-7303537799205453825-P9ov) |
 | OCP-MS + INCIT | Formal cooperation announced Jan 2026 | Best documented assessment-channel entry | [INCIT](https://incit.org/newsroom/incit-and-ocp-maintenance-solutions-establish-strategic-cooperation-to-advance-industrial-transformation-in-morocco/) |
 
 No source found tying the named OT-security lead to a public conference. Do not imply attendance.
