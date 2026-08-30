@@ -235,7 +235,8 @@ class AssessmentJourneyTest {
         descendants(activity.window.decorView).filterIsInstance<TextView>().joinToString("\n") { it.text.toString() }
 
     private fun findText(activity: MainActivity, value: String): TextView =
-        descendants(activity.window.decorView).filterIsInstance<TextView>().first { it.text.toString() == value }
+        descendants(activity.window.decorView).filterIsInstance<TextView>()
+            .first { it.text.toString() == value && it.isClickable }
 
     private fun descendants(root: View): List<View> = buildList {
         add(root)
