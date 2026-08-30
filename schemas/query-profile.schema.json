@@ -1,55 +1,95 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/atlas/query-profile.schema.json",
-  "title": "Signed OT identity query profile",
+  "$id": "https://github.com/charifmahmoudi/mobile-ot-security-assessment/schemas/query-profile.schema.json",
+  "title": "Signed Atlas A1 identity query profile",
   "type": "object",
-  "required": ["id", "version", "riskClass", "protocol", "operation", "transport", "limits", "preconditions", "stopConditions", "expectedEvidence", "signature"],
+  "required": ["id", "version", "implementationId", "riskClass", "protocol", "operation", "transport", "requestSpec", "responseSpec", "limits", "preconditions", "stopConditions", "expectedEvidence", "approvalRoles", "validFrom", "validUntil", "testCorpus", "reviewers", "signature"],
   "properties": {
-    "id": {"type": "string"},
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]{2,127}$"},
     "version": {"type": "string"},
+    "implementationId": {"enum": ["modbus-read-device-id-basic-v1", "opcua-discovery-v1", "icmp-reachability-v1", "tcp-service-confirm-v1"]},
     "riskClass": {"const": "A1-identity"},
-    "protocol": {"type": "string"},
-    "operation": {"type": "string"},
+    "protocol": {"enum": ["modbus-tcp", "opcua", "icmp", "tcp"]},
+    "operation": {"enum": ["read-device-identification-basic", "findservers-getendpoints", "single-echo", "single-port-connect"]},
     "transport": {
       "type": "object",
-      "required": ["kind", "destinationPort"],
+      "required": ["kind", "destinationPort", "broadcastAllowed", "requiresBoundAndroidNetwork"],
       "properties": {
-        "kind": {"enum": ["tcp", "udp", "layer2"]},
+        "kind": {"enum": ["tcp", "udp", "icmp"]},
         "destinationPort": {"type": ["integer", "null"], "minimum": 1, "maximum": 65535},
-        "broadcastAllowed": {"type": "boolean"}
+        "broadcastAllowed": {"const": false},
+        "requiresBoundAndroidNetwork": {"const": true}
       },
       "additionalProperties": false
     },
-    "requestTemplateHash": {"type": "string"},
-    "allowedResponseFields": {"type": "array", "items": {"type": "string"}},
+    "requestSpec": {
+      "type": "object",
+      "required": ["templateVersion", "templateSha256", "variableFields", "maximumBytes"],
+      "properties": {
+        "templateVersion": {"type": "string"},
+        "templateSha256": {"$ref": "#/$defs/hash"},
+        "variableFields": {"type": "array", "items": {"enum": ["transaction-id", "message-id", "unit-id", "target-ip", "target-port", "endpoint-url"]}},
+        "maximumBytes": {"type": "integer", "minimum": 1, "maximum": 65536}
+      },
+      "additionalProperties": false
+    },
+    "responseSpec": {
+      "type": "object",
+      "required": ["parserId", "maximumBytes", "allowedFields"],
+      "properties": {
+        "parserId": {"type": "string"},
+        "maximumBytes": {"type": "integer", "minimum": 1, "maximum": 8388608},
+        "allowedFields": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
     "limits": {
       "type": "object",
-      "required": ["targets", "packetsPerTarget", "retries", "timeoutMs", "concurrency"],
+      "required": ["targets", "packetsPerTarget", "retries", "timeoutMs", "concurrency", "maximumResponseBytes"],
       "properties": {
-        "targets": {"type": "integer", "minimum": 1},
-        "packetsPerTarget": {"type": "integer", "minimum": 1},
-        "retries": {"type": "integer", "minimum": 0},
-        "timeoutMs": {"type": "integer", "minimum": 1},
-        "concurrency": {"type": "integer", "minimum": 1}
+        "targets": {"type": "integer", "minimum": 1, "maximum": 16},
+        "packetsPerTarget": {"type": "integer", "minimum": 1, "maximum": 4},
+        "retries": {"type": "integer", "minimum": 0, "maximum": 1},
+        "timeoutMs": {"type": "integer", "minimum": 100, "maximum": 5000},
+        "concurrency": {"const": 1},
+        "maximumResponseBytes": {"type": "integer", "minimum": 1, "maximum": 8388608}
       },
       "additionalProperties": false
     },
+    "requiresEvidenceBasis": {"type": "boolean", "default": true},
     "preconditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
     "stopConditions": {"type": "array", "minItems": 1, "items": {"type": "string"}},
     "excludedDeviceFamilies": {"type": "array", "items": {"type": "string"}},
     "expectedEvidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
-    "testCorpus": {"type": "array", "items": {"type": "string"}},
-    "reviewers": {"type": "array", "items": {"type": "string"}},
+    "approvalRoles": {"type": "array", "minItems": 2, "contains": {"const": "security"}, "items": {"enum": ["operational", "security"]}},
+    "validFrom": {"type": "string", "format": "date-time"},
+    "validUntil": {"type": "string", "format": "date-time"},
+    "testCorpus": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "reviewers": {"type": "array", "minItems": 2, "items": {"type": "string"}},
     "signature": {
       "type": "object",
-      "required": ["algorithm", "keyId", "value"],
+      "required": ["algorithm", "keyId", "signedAt", "value"],
       "properties": {
-        "algorithm": {"type": "string"},
+        "algorithm": {"const": "Ed25519"},
         "keyId": {"type": "string"},
-        "value": {"type": "string"}
+        "signedAt": {"type": "string", "format": "date-time"},
+        "value": {"type": "string", "minLength": 80}
       },
       "additionalProperties": false
     }
   },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"implementationId": {"const": "modbus-read-device-id-basic-v1"}}},
+      "then": {"properties": {"protocol": {"const": "modbus-tcp"}, "operation": {"const": "read-device-identification-basic"}, "transport": {"properties": {"kind": {"const": "tcp"}, "destinationPort": {"const": 502}}}}}
+    },
+    {
+      "if": {"properties": {"implementationId": {"const": "opcua-discovery-v1"}}},
+      "then": {"properties": {"protocol": {"const": "opcua"}, "operation": {"const": "findservers-getendpoints"}, "transport": {"properties": {"kind": {"const": "tcp"}}}}}
+    }
+  ],
   "additionalProperties": false
 }
