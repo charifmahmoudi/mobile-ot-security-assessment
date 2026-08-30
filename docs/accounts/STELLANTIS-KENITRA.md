@@ -46,7 +46,7 @@ The second quote identifies the practical access surface: suppliers and institut
 |---|---|---|
 | New lines and flexible production | Direct expansion/launch evidence | [Reuters](https://www.reuters.com/world/africa/stellantis-expands-production-capacity-morocco-plant-2025-07-17/), [launch](https://www.linkedin.com/posts/mounir-kharbouche-66255a113_fiatfastback-fiatgrizzly-stellantis-activity-7488178372452417536-SnXr) |
 | Industrial equipment/automation requirements | Public recruitment signal; not a complete installed-base inventory | [Job posting](https://www.linkedin.com/jobs/view/4246058489/) |
-| AMR activity | Individual-profile clue; validate site/current scope | [Public profile](https://ma.linkedin.com/in/achraffariss) |
+| AMR activity | Individual-profile clue; validate site/current scope | [Public profile](https://ma.linkedin.com/in/achraffariss) |\n| Edge/IoT/AI security-by-design and Plant Cybersecurity Leaders | Global Stellantis manufacturing role; governance signal, **not Kénitra-specific** | [2026 role](https://www.empregare.com/en-us/vaga-cybersecurity-manufacturing-edge-special_162384) |
 
 ## Entry route
 
