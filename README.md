@@ -1,77 +1,77 @@
 # Atlas OT Scout
 
-> A research-and-design project for an offline-first mobile OT/IoT asset discovery and security-assessment platform.
+> Offline-first mobile OT/IoT asset discovery and assessment—Morocco first, designed for industrial markets where permanent enterprise tooling is not always practical.
 
-Atlas OT Scout turns an Android phone and an approved field kit into a controlled workspace for Bluetooth, Wi-Fi and wired Ethernet assessments. It is designed for industrial teams, integrators and assessors who need defensible asset evidence without deploying a server or exporting plant data to the cloud.
+Atlas OT Scout is a research-and-design project for turning an Android phone and an approved field kit into a governed workspace for wired Ethernet, Wi-Fi and Bluetooth evidence collection. It targets industrial teams, integrators and assessors who need a defensible baseline without deploying a server or exporting sensitive plant data to a cloud service.
 
-**Current phase:** due diligence, requirements, architecture and safety engineering. There is no production-ready scanner in this repository.
+**Status:** due diligence, requirements, architecture and safety engineering. No production-ready scanner exists.
 
-## Why this project
+## Decision corpus
 
-Morocco is the first market case, not the limit. Its industrial base spans automotive, phosphate/chemicals, mining, power and water, ports, food, cement, aerospace and pharmaceuticals. The product thesis is that many industrial markets need a lower-cost, portable bridge between spreadsheets/general network utilities and permanent enterprise OT-monitoring platforms.
+The [due-diligence index](docs/diligence/README.md) is the primary starting point. It contains:
 
-The product is differentiated by:
+- [investment and product thesis](docs/diligence/EXECUTIVE-BUSINESS-CASE.md);
+- [bottom-up Morocco market, pricing and unit economics](docs/diligence/MARKET-AND-ECONOMIC-MODEL.md);
+- [competitive teardown](docs/diligence/COMPETITIVE-TEARDOWN.md);
+- [Morocco sector dossiers](docs/diligence/MOROCCO-SECTOR-DOSSIERS.md);
+- [priority-account dossiers](docs/diligence/ACCOUNT-DOSSIERS.md);
+- [customer organization and ethical outreach model](docs/diligence/CUSTOMER-ORGANIZATION-AND-OUTREACH.md);
+- [technology/protocol evidence matrix](docs/diligence/TECHNOLOGY-EVIDENCE-MATRIX.md);
+- [open-source and PentAGI due diligence](docs/diligence/OPEN-SOURCE-DUE-DILIGENCE.md);
+- [complete StoryBrand go-to-market plan](docs/diligence/STORYBRAND-GTM-PLAN.md);
+- [validation plan without interviews](docs/diligence/VALIDATION-WITHOUT-INTERVIEWS.md);
+- [global expansion scorecard](docs/diligence/GLOBAL-EXPANSION-FRAMEWORK.md);
+- [risk register](docs/diligence/RISK-REGISTER.md);
+- machine-readable [claim ledger](docs/diligence/data/claim-ledger.csv), [market model](docs/diligence/data/market-model.csv) and [library decisions](docs/diligence/data/protocol-library-decisions.csv).
 
-- offline, encrypted cases and reports;
-- USB-C Ethernet, Wi-Fi and BLE workflows;
-- passive observation before active discovery;
-- narrowly bounded, signed identity-query profiles;
-- evidence-linked identity confidence rather than unsupported certainty;
-- local language, regulation and integrator-channel fit;
-- imports from existing inventories and normalized exports.
+## Business thesis
 
-## Reality checks
+The initial wedge is not continuous monitoring. It is the controlled field baseline used for brownfield inventory, contractor handover, site onboarding, audit preparation, incident triage and pre-deployment discovery.
 
-- A USB-C Ethernet adapter provides a network interface; it does **not** automatically expose all segment traffic. Third-party wired capture requires a TAP, SPAN/mirror port or approved capture accessory.
-- Ordinary Android apps do not get universal Wi-Fi monitor mode.
-- “Exhaustive vendor coverage” is a maintained knowledge program, not a one-time feature.
-- The prototype excludes exploits, credential attacks, fuzzing, control writes and autonomous pentesting.
-- A named Moroccan factory plus a vendor's protocol manual does not prove that factory uses that vendor. The documentation keeps those evidence chains separate.
+The best first customer is an integrator, MSSP, audit firm or multi-site industrial owner that repeats this work. The first commercial offer should be a fixed-scope paid baseline; software licensing follows demonstrated repeat use.
 
-## Research baseline
+The Morocco base scenario models MAD 13.33m in annual software opportunity from 350 serviceable sites and 30 partner organizations. This is explicitly a planning hypothesis—not a market-size fact—and every variable is exposed for replacement.
 
-The initial target universe contains **30 named Moroccan organizations across nine OT-heavy sectors**. It is a transparent desk-research sample, not a market-share estimate. The source register includes Moroccan ministry/regulator material, operator and manufacturer pages, NIST/CISA guidance, Android documentation, OEM protocol documentation and original open-source repositories.
+## Product truth
 
-## Repository map
+- USB-C Ethernet provides connectivity; it does **not** automatically expose third-party switched traffic. Mirrored capture requires TAP/SPAN or an approved accessory.
+- Ordinary Android applications do not have universal Wi-Fi monitor mode.
+- “Exhaustive OT vendor coverage” is a maintained evidence and testing program, not a credible one-time promise.
+- A verified Moroccan factory and a verified vendor protocol manual do not prove that factory uses that vendor.
+- Exploitation, credential attacks, fuzzing, control writes and autonomous pentesting are outside the product boundary.
+- An AI may propose or summarize. It never directly transmits OT traffic or bypasses the deterministic action gate.
 
-- [Research and design wiki](docs/wiki/Home.md)
-- [Product vision](docs/wiki/Product-Vision.md)
-- [Business case and competition](docs/wiki/Business-Case.md)
-- [Morocco market and buying centers](docs/wiki/Morocco-Market.md)
-- [30-account research sample](docs/research/target-accounts.csv)
-- [Vendor/device/protocol catalog](docs/wiki/Device-Protocol-Catalog.md)
-- [Open-source and PentAGI assessment](docs/wiki/Open-Source-Assessment.md)
-- [Technical architecture](docs/wiki/Technical-Architecture.md)
-- [Safety, authorization and privacy](docs/wiki/Safety-and-Ethics.md)
-- [StoryBrand marketing plan](docs/wiki/StoryBrand-Marketing.md)
-- [Research method](docs/wiki/Research-Methodology.md)
-- [Source register](docs/research/Sources.md)
-- [Secure development lifecycle](docs/wiki/SDLC.md)
-- [Roadmap](ROADMAP.md)
-- [Architecture decisions](docs/adr/)
-
-## Proposed product boundary
+## Architecture boundary
 
 ```mermaid
 flowchart TD
   A[Authorized case] --> B[Passive collection]
   B --> C[Evidence and identity confidence]
-  A --> D[Deterministic action gate]
-  D --> E[Approved identity-only query]
+  A --> D[Deterministic policy gate]
+  D --> E[Signed identity-only profile]
   E --> C
   C --> F[Inventory, findings and export]
 ```
 
-An AI assistant may organize work and summarize evidence. It never bypasses the deterministic action gate or directly controls production OT traffic.
+## Research evidence
 
-## Candidate open-source building blocks
+The initial account universe contains 30 named Moroccan organizations across nine OT-heavy sectors. Material facts are recorded in the claim ledger. Unknown installed technologies remain unknown until supported by tenders, OEM case studies, credible job evidence, lab devices or authorized observation.
 
-Strong candidates for controlled evaluation include open62541, libmodbus and libplctag. PCAPdroid, Wireshark, Zeek/ICSNPP, Malcolm, Nmap and PentAGI are useful references or lab tools, but each has platform, safety, footprint or licensing implications. No dependency is approved until its pinned version passes license, security, ARM64, malformed-input and cancellation review.
+Primary references include Morocco's Ministry of Industry, DGSSI, CNDP, industrial operators, NIST, CISA, Android/OEM documentation and original open-source repositories.
 
-## How to contribute
+## Engineering and governance
 
-Research and design contributions are welcome through evidence-backed issues and pull requests. Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Do not publish customer captures, credentials, guessed emails or personal lead lists.
+- [Requirements](docs/REQUIREMENTS.md)
+- [Requirements traceability](docs/diligence/REQUIREMENTS-TRACEABILITY.md)
+- [Technical architecture](docs/wiki/Technical-Architecture.md)
+- [Safety and privacy](docs/wiki/Safety-and-Ethics.md)
+- [Secure development lifecycle](docs/wiki/SDLC.md)
+- [Roadmap](ROADMAP.md)
+- [Architecture decisions](docs/adr/)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Governance](GOVERNANCE.md)
 
 ## License
 
-No project license has been selected. That is deliberate during the product/open-core and dependency-license decision. Until a license is added, normal copyright applies and reuse is not granted.
+No project license has been selected. This remains a deliberate gate while the open-core/commercial model and dependency boundaries are evaluated. Until a license is added, normal copyright applies and reuse is not granted.
