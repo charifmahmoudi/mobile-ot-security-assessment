@@ -73,7 +73,8 @@ class BrokerService : Service() {
                     }.onSuccess { response ->
                         output.write(response)
                     }.onFailure { error ->
-                        output.write("ERROR:${error.javaClass.simpleName}".toByteArray())
+                        val detail = error.message.orEmpty().replace(Regex("[^A-Za-z0-9 .:_-]"), "?").take(160)
+                        output.write("ERROR:${error.javaClass.simpleName}:$detail".toByteArray())
                     }
                 }
                 writeFd.close()

@@ -119,7 +119,7 @@ jobs:
           if [ "${{ matrix.target }}" = "pymodbus" ]; then
             python3 -m venv .pymodbus-venv
             .pymodbus-venv/bin/pip install --disable-pip-version-check pymodbus==3.11.3
-            sudo -E .pymodbus-venv/bin/python tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
+            nohup sudo -E .pymodbus-venv/bin/python -u tools/pymodbus_testbed.py >pymodbus.log 2>&1 &
           else
             git clone --filter=blob:none https://github.com/mushorg/conpot.git conpot-upstream
             git -C conpot-upstream checkout 32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044
@@ -147,8 +147,15 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
+            adb shell 'toybox nc -z -w 5 10.0.2.2 502'
             gradle --no-daemon --stacktrace :network-broker:installDebug
             gradle --no-daemon --stacktrace :case-app:connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.activeTest=true -Pandroid.testInstrumentationRunnerArguments.expectedIdentity=MODBUS
+      - name: Collect OT emulator log
+        if: always()
+        run: |
+          if [ "${{ matrix.target }}" = "conpot" ]; then
+            docker logs atlas-conpot >conpot.log 2>&1 || true
+          fi
       - name: Publish active E2E evidence
         if: always()
         uses: actions/upload-artifact@v4
