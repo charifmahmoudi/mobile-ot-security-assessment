@@ -505,7 +505,7 @@ class MainActivity : Activity() {
         return EditText(this).apply {
             id = idValue; setText(value); this.hint = hint; textSize = 15f; setTextColor(NAVY)
             setHintTextColor(Color.rgb(148, 157, 166)); background = rounded(WHITE, 14, BORDER)
-            setPadding(dp(14), dp(11), dp(14), dp(11)); singleLine = true; content.addView(this, margins(0, 0, 0, 8))
+            setPadding(dp(14), dp(11), dp(14), dp(11)); setSingleLine(true); content.addView(this, margins(0, 0, 0, 8))
         }
     }
     private fun button(label: String, idValue: Int = View.NO_ID, primary: Boolean = true, action: () -> Unit): Button =
