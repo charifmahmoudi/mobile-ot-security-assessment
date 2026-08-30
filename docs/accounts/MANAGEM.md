@@ -1,118 +1,64 @@
-# Managem Group account map
+# Managem Group — account decision brief
 
-_Research baseline: 30 August 2026. Mine ownership, project entities and current executive roles must be confirmed for each site._
+_Public-source review: 30 August 2026. Mine/project entities and country operations require separate authorization._
 
-## Operating footprint
+## Decision
 
-Managem reports operations across seven African countries, 13 mining operations, 20 industrial units and about 5,000 employees. Its portfolio covers copper, cobalt, gold, silver, zinc and lead. In Morocco, relevant sites and projects include Tizert and other mining/processing operations supported by Reminex engineering and Mana Technology.
+**Pursue Tizert as a digital-project handover use case through Reminex/Managem and the technology partners.** The greenfield mine has direct, named digitalization evidence. Do not generalize one project's stack to all Managem mines.
 
-The group structure matters:
+## Why now
 
-| Entity/function | Published role | Relevance |
-|---|---|---|
-| Managem Group | Portfolio, investment, governance and operating strategy | Group sponsor and security/data policy |
-| Morocco Operations | Moroccan mines and plants | Asset and operational authority |
-| Reminex | Engineering, project delivery, automation and instrumentation | Technical design, commissioning and handover channel |
-| Mana Technology | Joint venture with ABA Technology created to accelerate Managem's digital transformation | Digital architecture, connected-mine and platform stakeholder |
-| Individual operating companies/projects | Site-level operations | Physical/network authorization and local procurement |
+- Managem reports 5,000 employees, seven African countries, 13 mining operations and 20 industrial units ([Managem](https://www.managemgroup.com/en)).
+- Epiroc says Tizert is a greenfield digitalized copper mine targeting 3.6 million tonnes/year and using real-time personnel/vehicle tracking, event automation and MQTT Sparkplug integration ([Epiroc, 26 Nov 2024](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco)).
+- Managem and ABA Technology created Mana Technology to accelerate industrial digital transformation ([Managem](https://www.managemgroup.com/en/managem-group-and-aba-technology-sign-joint-venture-dedicated-acceleration-digital-transformation)).
 
-## OT-relevant organization map
+## Relevant public organization
 
-| Public node | Person | Basis | Likely role |
+| Function | Public person | Evidence | Likely relevance — inference |
 |---|---|---|---|
-| Chairman and CEO | Imad Toumi | Official governance page | Group strategy and investment |
-| COO Morocco | Omar Naimi | Official governance page | Moroccan operating sponsorship |
-| Reminex Automation & Instrumentation Manager | Ayoub Halimi | Public LinkedIn profile | Controls, instrumentation and project standards |
-| Reminex C&I Project Manager | Zakaria Zahidi | Public LinkedIn profile | OT/IT networks, telecom and industrial digitalization delivery |
-| Reminex instrumentation/automation program leadership | Tarik Ouhmiz | Public LinkedIn profile | Engineering design and implementation |
-| Managem PMO / transformation and automation | Hamza El Habib | Public LinkedIn profile | Digitalization portfolio and governance |
-| Mana Technology digitalization/automation engineering | Public professional community | Public LinkedIn profiles | Connected-mine delivery; precise leadership to confirm |
-| Former Group CISO | Karim Reda Fakhir | Public profile describes former role | Demonstrates past enterprise security function; not a current contact |
+| Group executive | Imad Toumi, CEO | [Official governance](https://www.managemgroup.com/en/who-we-are/governance) | Sponsor |
+| Automation/instrumentation | [Ayoub Halimi](https://ma.linkedin.com/in/ayoub-halimi), Reminex | Public profile | Technical standards/evaluation |
+| C&I and OT/IT networks | [Zakaria Zahidi](https://ma.linkedin.com/in/zakaria-zahidi), Reminex | Public profile | Architecture and field scope |
+| Automation programs | [Tarik Ouhmiz](https://ma.linkedin.com/in/tarikouhmiz/en), Reminex | Public profile | Project delivery |
+| Transformation/automation PMO | [Hamza El Habib](https://ma.linkedin.com/in/hamza-el-habib-170510189) | Public profile | Program coordination |
 
-### Reconstructed working group
+No current public Managem OT-security owner was verified. A former CISO profile is historical and must not be used as a current route ([profile](https://ma.linkedin.com/in/karim-reda-fakhir-8945b638)).
 
-For Tizert, a plausible path is project/site operations → Reminex controls and project engineering → Mana Technology/digital architecture → current Group security → COO Morocco/procurement. Epiroc and other technology suppliers may join for interface and handover boundaries.
+## What is publicly said
 
-This is an inferred project governance model based on public entities and roles. The current project director, CISO and Tizert operating-company chart remain unresolved.
+> “Data integration through MQTT (Sparkplug)” — Epiroc's published Tizert solution description. ([Epiroc](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco))
 
-## LinkedIn and public professional surface
+> “state-of-the-art digitalized greenfield copper mine” — Epiroc describing Managem's Tizert intent. ([Epiroc](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco))
 
-- [Managem Group company page](https://www.linkedin.com/company/managem/) covers projects, employer activity and corporate news.
-- Public Reminex profiles explicitly name OT/IT networks, industrial digitalization, telecom, Siemens-related engineering experience and controls/instrumentation work.
-- The presence of Mana Technology means outreach only to a generic Managem IT function would miss the dedicated digital-transformation vehicle.
-- Former-role profiles should be used to understand function history, never presented as current employment.
+That supports an evidence/handover proposition around heterogeneous connected systems, not a speculative vulnerability pitch.
 
-## Current projects and technology signals
+## Employees and visible activity
 
-### Tizert
+| Person/entity | Appearance | Relevance | Source |
+|---|---|---|---|
+| Managem Group | Marrakech Mining Convention, 17–19 Apr 2019; exhibitor/participant | Local mining-government ecosystem route | [Managem](https://www.managemgroup.com/en/managem-participates-marrakech-mining-convention) |
+| Managem/Reminex teams | Hosted Belgian research and chemical-industry delegation at Guemassa | Shows site-visit and R&D partnership mechanism | [Managem](https://www.managemgroup.com/en/important-belgian-delegation-our-guemassa-site) |
+| Managem + Epiroc | Tizert digitalization announcement, 2024 | Direct technology-partner entry route | [Epiroc](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco) |
 
-Epiroc announced in November 2024 that Managem selected it to provide digital tools for safety and productivity at Tizert. Industry reporting describes Tizert as a greenfield project planned as the region's largest underground mining operation with a 3.6 million-tonne-per-year target. A public academic/project profile refers to Siemens PCS 7 and WinCC work at Tizert.
+Public sources reviewed did **not** name the Reminex technical people above as speakers/attendees at the mining convention. The repository must not imply they attended.
 
-These signals establish a live digitalization and commissioning context. They do not reveal the full control network or whether Epiroc's scope includes asset discovery.
+## Technology evidence
 
-### Mana Technology
-
-Managem and ABA Technology created Mana Technology as the vehicle for the group's digital roadmap and the “connected, efficient and resilient mine of the future.” This is a direct strategic signal: a mobile evidence tool would need to integrate with or be sponsored by this program, not operate as a parallel database.
-
-### Reminex
-
-Public roles show Reminex performing instrumentation/control engineering, OT/IT networking, telecom and industrial digitalization. This makes Reminex the strongest technical evaluation and channel candidate.
-
-## Events and outside discussion
-
-| Event/activity | Public record | Meaning |
+| Signal | Strength | Source |
 |---|---|---|
-| Marrakech Mining Convention | Managem participated; digitalization, safety and sustainability were central | Local mining relationship surface |
-| Mining Indaba | Managem is a major African operator; attendance/speakers must be checked by edition | High-value partner/investor ecosystem, not assumed attendance |
-| Epiroc project announcement | Mining press repeated the Tizert digitalization story | Supplier validation and potential integration conversation |
-| Mining cyber community / MM-ISAC | Relevant peer forum; no public Managem membership found | Potential future credibility/learning route, not an account fact |
+| MQTT Sparkplug, hardware tags, event automation, third-party planning integration | Direct partner statement for Tizert | [Epiroc](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco) |
+| Siemens PCS 7/WinCC at Tizert | Individual project-profile claim; validate contract/current deployment | [Public profile](https://ma.linkedin.com/in/el-mehdi-oukacha-383872247) |
+| Internal digital-transformation JV | Direct corporate statement | [Mana Technology](https://www.managemgroup.com/en/managem-group-and-aba-technology-sign-joint-venture-dedicated-acceleration-digital-transformation) |
 
-Outside mining commentary stresses that connected operations and third-party platforms increase shared cyber risk. That reinforces supply-chain evidence and offline control, but it should not be used to imply Managem has suffered an incident without a reliable primary source.
+## Entry route
 
-## Opportunity designs
+1. Ask Reminex/Tizert project controls where as-designed, commissioned and operational asset lists diverge.
+2. Position the app as an offline, signed evidence collector interoperable with MQTT-aware and conventional assets.
+3. Pilot on a training/commissioning segment with Epiroc or another approved supplier present.
 
-### Reminex commissioning kit
+## Stop/go questions
 
-Reminex imports the engineering asset list for one Tizert subsystem, records passive field evidence and issues a reviewed as-designed/as-built exception package.
-
-### Mana Technology integration experiment
-
-Use a nonproduction dataset to test whether portable observations can feed the connected-mine data model without becoming a separate source of truth.
-
-### Existing-site maintenance walkdown
-
-At an approved surface utility or processing auxiliary area, compare current field documentation with a passive/offline mobile workflow.
-
-## Product implications
-
-- Rugged deployment requirements: dust, heat, gloves, limited charging and offline work.
-- Radio/camera policies must be enforceable by signed site configuration.
-- Mine/site/project entity and location hierarchy are mandatory.
-- The application should import EPC/engineering tag lists and preserve tag-to-network-identity ambiguity.
-- Supplier evidence and handover sign-off are more important than a generic vulnerability dashboard.
-- Integration with Mana Technology's target architecture is a gate for scale.
-
-## Unknowns
-
-- Current Managem CISO/OT-security leadership.
-- Tizert project company, project director and operating model.
-- Exact Epiroc digital tools and their data/interface boundaries.
-- Current Siemens PCS 7/WinCC scope and other control vendors.
-- Reminex/Mana Technology ownership of the authoritative asset model.
-- Mine radio, mobile-device, explosive-area and data-export policies.
-
-## Sources
-
-- [Managem governance](https://www.managemgroup.com/en/who-we-are/governance)
-- [Managem operations and projects](https://www.managemgroup.com/en/nos-operations-projets)
-- [Managem group footprint](https://www.managemgroup.com/en)
-- [Mana Technology joint venture](https://www.managemgroup.com/en/managem-group-and-aba-technology-sign-joint-venture-dedicated-acceleration-digital-transformation)
-- [Epiroc–Managem Tizert digitalization](https://www.epiroc.com/en-hk/newsroom/2024/epiroc-partners-with-managem-for-digitalization-of-tizert-project-in-morocco)
-- [Tizert project scale — International Mining](https://im-mining.com/2024/11/26/epiroc-partners-with-managem-for-digitalisation-of-tizert-project-in-morocco/)
-- [Managem at Marrakech Mining Convention](https://www.managemgroup.com/en/managem-participates-marrakech-mining-convention)
-- [Reminex Automation & Instrumentation Manager](https://ma.linkedin.com/in/ayoub-halimi)
-- [Reminex C&I / OT-IT networks role](https://ma.linkedin.com/in/zakaria-zahidi)
-- [Reminex automation-program leadership](https://ma.linkedin.com/in/tarikouhmiz/en)
-- [Managem transformation/automation PMO](https://ma.linkedin.com/in/hamza-el-habib-170510189)
-- [Tizert PCS 7/WinCC signal](https://ma.linkedin.com/in/el-mehdi-oukacha-383872247)
-- [Former Managem CISO role](https://ma.linkedin.com/in/karim-reda-fakhir-8945b638)
+- Who owns Tizert's final OT asset repository and cyber approval?
+- Which systems are in Epiroc scope versus EPC/Managem scope?
+- Are intrinsically safe devices required underground?
+- Can Android/USB Ethernet/radios operate in the selected area?
