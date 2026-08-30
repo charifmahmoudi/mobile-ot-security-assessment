@@ -29,6 +29,8 @@ class AssessmentJourneyTest {
                 val body = screenText(activity)
                 listOf("Overview", "Collect", "Assets", "Findings", "Report").forEach { assertTrue(body.contains(it)) }
                 assertTrue(body.contains("Recommended next action"))
+                assertTrue(body.contains("Deliverable in progress"))
+                assertTrue(body.contains("Assessment package", ignoreCase = true))
                 activity.findViewById<View>(MainActivity.FINDINGS_NAV_ID).performClick()
             }
             scenario.onActivity { activity ->
@@ -48,6 +50,7 @@ class AssessmentJourneyTest {
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("Choose a site"))
                 assertTrue(screenText(activity).contains("No packet is sent"))
+                assertTrue(screenText(activity).contains("What the assessment produces"))
             }
             capture("01-site-selection")
             scenario.onActivity { it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick() }
@@ -59,6 +62,7 @@ class AssessmentJourneyTest {
             scenario.onActivity { it.findViewById<View>(MainActivity.PRIMARY_ACTION_ID).performClick() }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("Choose a method"))
+                assertTrue(screenText(activity).contains("What do you need to establish?"))
                 assertTrue(screenText(activity).contains("Analyze PCAP / PCAPNG"))
                 assertTrue(screenText(activity).contains("Identify one known controller"))
             }

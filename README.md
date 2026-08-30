@@ -10,27 +10,42 @@ The first product pack is **P0-WATER**, a proof of concept for one water or wast
 
 > **Current status:** the guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, searchable inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #29](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33336430034). Physical phone, USB-NIC and TAP qualification remains a release gate.
 
-## The assessment story
+## The value in one field visit
 
-The product is organized around the assessor's decisions—not around a list of scanner outputs.
+Industrial teams rarely need another device-count screen. They need to know what changed, which identities remain uncertain, how each claim was established, and whether the evidence is strong enough for an audit or handover decision.
+
+| Starting situation | Atlas decision support | Customer-facing outcome |
+|---|---|---|
+| Spreadsheet inventory may be stale | Compare imported records with passive and approved identity evidence | Assets corroborated, missing from evidence, unexpected or conflicting |
+| A switched segment is not visible from the phone | Use a supplied capture or receive-only SPAN/TAP path | Protocol and endpoint observations with capture limitations attached |
+| One critical controller remains unidentified | Authorize one exact Modbus identity request | Confirmed identity or conservative service-only result—never a guessed model |
+| Protocol presence is being mistaken for risk | Separate observation confidence from operational consequence | Reviewable finding drafts with required validation stated |
+| The assessment is incomplete | Make authorization, evidence and reviewer gaps visible | A blocked report with a precise completion checklist |
+
+The PoC demonstrates this outcome on one water-treatment segment: a site-centered inventory, an identity-review queue, a communication picture, evidence-linked draft findings and explicit report-readiness blockers.
+
+## A field assessor's journey
+
+The journey follows the questions an assessor must answer, with an observable output at every stage.
 
 ```mermaid
 flowchart TB
-  PREP["1 · Prepare<br/>Site, process area, authorization"]
-  COLLECT["2 · Collect<br/>Choose the least intrusive source"]
-  REVIEW["3 · Review<br/>Accept, reject or challenge observations"]
-  REASON["4 · Reason<br/>Assets, zones and evidence-linked findings"]
-  REPORT["5 · Report<br/>Readiness gates and controlled handoff"]
+  ARRIVE["Before the visit<br/>Select the site, process area and written scope"]
+  QUESTION["At the site<br/>Choose the uncertainty worth closing"]
+  EVIDENCE["Collect the least intrusive evidence<br/>Imported capture · SPAN/TAP · one identity request"]
+  DECIDE["Review each observation<br/>Accept · reject · merge · leave unresolved"]
+  MODEL["Build the assessment model<br/>Inventory delta · zones · protocols · evidence gaps"]
+  HANDOFF["Prepare the handoff<br/>Findings · limitations · readiness blockers"]
 
-  PREP --> COLLECT --> REVIEW --> REASON --> REPORT
-  REPORT -. "blocked if scope, review or evidence is incomplete" .-> REVIEW
+  ARRIVE --> QUESTION --> EVIDENCE --> DECIDE --> MODEL --> HANDOFF
+  HANDOFF -. "missing evidence or approval returns to a specific decision" .-> QUESTION
 
-  IMPORT["Imported PCAP / PCAPNG"] --> COLLECT
-  SPAN["Receive-only SPAN / TAP"] --> COLLECT
-  ACTIVE["One authorized identity request"] --> COLLECT
+  EVIDENCE --> OUT1["Output: immutable source + provenance"]
+  DECIDE --> OUT2["Output: reviewed asset changes"]
+  HANDOFF --> OUT3["Output: defensible completion checklist"]
 ```
 
-An assessor starts by selecting an existing site or creating one with industry, process area, expected vendors, report language and retention context. Inside the site, persistent **Overview**, **Collect**, **Assets**, **Findings** and **Report** destinations keep the work coherent.
+The application does not ask the user to “scan a network.” It asks what decision is needed, recommends the safest evidence source, and carries the result into the next review queue. Persistent **Overview**, **Collect**, **Assets**, **Findings** and **Report** destinations show where the assessor is and what remains.
 
 | Site context | Guided assessment | Evidence model |
 |---|---|---|

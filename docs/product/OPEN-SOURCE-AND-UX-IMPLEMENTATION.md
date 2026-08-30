@@ -54,16 +54,17 @@ The first-run path remains outside this shell: choose an existing site or create
 
 | Token | Value | Use |
 |---|---|---|
-| Navy | `#102A43` | Primary text and trust boundary |
-| Action blue | `#155EEF` | Primary actions and selected navigation |
-| Trusted teal | `#087E8B` | Passive/verified status |
-| Background | `#F5F7FA` | Field-friendly light background |
+| Deep navy | `#0B1F33` | Primary text, appliance identity and trust boundary |
+| Cobalt | `#2457D6` | Primary actions, focus and selected navigation |
+| Slate | `#334155` | Method labels, secondary hierarchy and technical context |
+| Verified green | `#167A5A` | Confirmed/passive status only—not decorative headings |
+| Background | `#F4F7FB` | Field-friendly neutral background |
 | Surface | `#FFFFFF` | Cards and controls |
-| Border | `#D8E1E8` | Structure without heavy shadows |
-| Review amber | `#B54708` | Analyst decision required |
-| Blocked red | `#B42318` | Invalid authorization or safe stop only |
+| Border | `#CDD8E4` | Structure without heavy shadows |
+| Review amber | `#AA5210` | Analyst decision required |
+| Blocked red | `#B0232D` | Invalid authorization or safe stop only |
 
-Color never carries status by itself. Status text, icons and evidence descriptions remain mandatory. Dynamic wallpaper colors are not used on the dedicated appliance.
+The palette deliberately avoids broad teal decoration: navy and cobalt carry institutional trust and navigation, while green is reserved for a verified state. Color never carries status by itself. Status text, icons and evidence descriptions remain mandatory. Dynamic wallpaper colors are not used on the dedicated appliance.
 
 ## Next engineering gates
 
@@ -73,4 +74,3 @@ Color never carries status by itself. Status text, icons and evidence descriptio
 - Add signed parser/advisory data packs and pack provenance.
 - Generate deterministic PDF/JSON/CSV packages with reviewer signatures.
 - Qualify the rooted Samsung/LineageOS/USB-NIC tuple on physical hardware.
-
