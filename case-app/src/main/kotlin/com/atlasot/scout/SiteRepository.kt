@@ -12,6 +12,8 @@ data class SiteProfile(
     val industry: String,
     val vendors: List<String>,
     val sample: Boolean = false,
+    val reportLanguage: String = "French",
+    val retentionDays: Int = 30,
 )
 
 data class InventoryAsset(
@@ -38,8 +40,16 @@ class SiteRepository(context: Context) {
         return parseSites(preferences.getString("sites", "[]") ?: "[]")
     }
 
-    fun addSite(name: String, location: String, industry: String, vendors: List<String>): SiteProfile {
-        val site = SiteProfile(UUID.randomUUID().toString(), name.trim(), location.trim(), industry, vendors.sorted())
+    fun addSite(
+        name: String,
+        location: String,
+        industry: String,
+        vendors: List<String>,
+        reportLanguage: String = "French",
+        retentionDays: Int = 30,
+    ): SiteProfile {
+        val site = SiteProfile(UUID.randomUUID().toString(), name.trim(), location.trim(), industry, vendors.sorted(),
+            reportLanguage = reportLanguage, retentionDays = retentionDays)
         writeSites(sites() + site)
         return site
     }
@@ -98,7 +108,8 @@ class SiteRepository(context: Context) {
                 add(SiteProfile(
                     item.getString("id"), item.getString("name"), item.getString("location"),
                     item.getString("industry"), buildList { for (i in 0 until vendors.length()) add(vendors.getString(i)) },
-                    item.optBoolean("sample", false),
+                    item.optBoolean("sample", false), item.optString("reportLanguage", "French"),
+                    item.optInt("retentionDays", 30),
                 ))
             }
         }
@@ -110,6 +121,7 @@ class SiteRepository(context: Context) {
             array.put(JSONObject().apply {
                 put("id", site.id); put("name", site.name); put("location", site.location); put("industry", site.industry)
                 put("vendors", JSONArray(site.vendors)); put("sample", site.sample)
+                put("reportLanguage", site.reportLanguage); put("retentionDays", site.retentionDays)
             })
         }
         preferences.edit().putString("sites", array.toString()).apply()
