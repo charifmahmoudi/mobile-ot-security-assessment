@@ -29,11 +29,11 @@ class AssessmentJourneyTest {
                 val body = screenText(activity)
                 listOf("Overview", "Collect", "Assets", "Findings", "Report").forEach { assertTrue(body.contains(it)) }
                 assertTrue(body.contains("Recommended next action"))
-                findText(activity, "Findings").performClick()
+                activity.findViewById<View>(MainActivity.FINDINGS_NAV_ID).performClick()
             }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("Assessment findings"))
-                findText(activity, "Report").performClick()
+                activity.findViewById<View>(MainActivity.REPORT_NAV_ID).performClick()
             }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("Report readiness"))
