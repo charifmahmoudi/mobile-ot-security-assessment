@@ -22,6 +22,27 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AssessmentJourneyTest {
+    @Test fun guidedShellExposesFiveProfessionalAssessmentStages() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity { it.findViewById<View>(MainActivity.SITE_CARD_ID).performClick() }
+            scenario.onActivity { activity ->
+                val body = screenText(activity)
+                listOf("Overview", "Collect", "Assets", "Findings", "Report").forEach { assertTrue(body.contains(it)) }
+                assertTrue(body.contains("Recommended next action"))
+                findText(activity, "Findings").performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Assessment findings"))
+                findText(activity, "Report").performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Report readiness"))
+                assertTrue(screenText(activity).contains("Independent reviewer"))
+            }
+            capture("10-guided-report-readiness")
+        }
+    }
+
     @Test fun siteSelectionDashboardScanMenuAndInventoryFormOneJourney() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             scenario.onActivity { activity ->
@@ -168,6 +189,10 @@ class AssessmentJourneyTest {
                 assertTrue("page was: " + page, page.contains("assets observed"))
                 assertTrue("screen was: " + body, body.contains(protocol))
                 assertTrue(assetCount > 0)
+                scenario.onActivity { activity ->
+                    assertFalse(activity.findViewById<Button>(MainActivity.SAVE_ASSETS_ID).isEnabled)
+                    assertTrue(screenText(activity).contains("explicitly accept"))
+                }
                 capture("08-passive-" + file.substringBefore('.'))
             }
         }
@@ -208,6 +233,9 @@ class AssessmentJourneyTest {
 
     private fun screenText(activity: MainActivity): String =
         descendants(activity.window.decorView).filterIsInstance<TextView>().joinToString("\n") { it.text.toString() }
+
+    private fun findText(activity: MainActivity, value: String): TextView =
+        descendants(activity.window.decorView).filterIsInstance<TextView>().first { it.text.toString() == value }
 
     private fun descendants(root: View): List<View> = buildList {
         add(root)
