@@ -1,35 +1,35 @@
 # Atlas OT Scout prospect pitch
 
-This deck is designed for a prospect conversation with one objective: **secure agreement to a no-fee, bounded P0-WATER field pilot**.
+This presentation is designed to secure agreement to a **free, bounded P0-WATER pilot** and make the commercial model unambiguous: Atlas delivers a configured appliance, guides the first assessment, leaves the device with the customer, and lets the customer decide from its own experience whether to acquire it or have it collected. Consulting and support packages are optional.
 
-It is not a feature catalogue. The presentation first explains the problem and the project, then shows what is implemented, how the assessment works, why the safety architecture is deliberately constrained, what the prototype proves today, and why a field pilot is the logical next step.
+## Narrative
 
-## Buyer narrative
+The 14-slide deck follows one customer from problem to improved operating state:
 
-1. **Free pilot proposition** - one bounded treatment or pumping segment, passive first, no control writes.
-2. **Why this project exists** - inventories drift, intrusive discovery is hard to justify, and scanner output alone is not a defensible handoff.
-3. **What Atlas OT Scout is** - an offline-first Android field instrument for authorized water/wastewater OT assessment.
-4. **What exists today** - Case App, Capture Broker, isolated parser, Network Broker, guided UI, passive evidence handling and one-target Modbus identity.
-5. **How an assessment works** - scope, collect, review, reconcile, close one evidence gap if necessary, then hand off with explicit limitations.
-6. **Passive-first workflow** - sealed evidence, isolated parsing and analyst acceptance before inventory changes.
-7. **Bounded active workflow** - exact target and CIDR, one compiled identity request, local fail-closed behavior and no discovery sweep.
-8. **Pilot output** - reconciled inventory, evidence provenance, draft findings and readiness/gap view.
-9. **Safety architecture** - least-authority separation prevents the general app from becoming an unrestricted network client.
-10. **Real workflow video** - the compatible MP4 is embedded directly in the PowerPoint; the PDF shows its cover frame.
-11. **Proven vs. field qualification** - software evidence is separated from the physical/operational questions the pilot must answer.
-12. **Proposed free pilot** - what the customer provides and what they receive.
-13. **Success criteria / close** - run one pilot, then decide from the evidence rather than from promises.
+1. **Offer:** try the appliance before deciding to buy it.
+2. **Current problem:** the customer has records, but not enough confidence that they still match field reality.
+3. **Desired state:** a defensible baseline, explicit limitations, prioritized next actions and a repeatable assessment method.
+4. **Commercial model:** deliver, use, decide, support.
+5. **Guided workflow:** scope, collect, review, reason and hand off.
+6. **Customer case:** one bounded water-treatment segment and one decision question.
+7. **Passive first:** select the least intrusive evidence method.
+8. **Review before mutation:** observations do not silently become inventory.
+9. **Reconciliation:** expected, observed, missing and conflicting identities become explicit.
+10. **Bounded active check:** one exact identity question, with out-of-scope rejection.
+11. **Honest handoff:** findings and readiness blockers stay linked to evidence.
+12. **Benefit:** move from “we have an inventory” to “we can show the evidence and know what to do next.”
+13. **What exists / what the pilot proves:** software behavior is separated from physical and operational field qualification.
+14. **Close:** select one bounded segment for the free pilot; acquire the appliance only after it proves useful.
 
 ## Files
 
-- [Atlas-OT-Scout-Pitch-and-Demo.pptx](Atlas-OT-Scout-Pitch-and-Demo.pptx) - editable prospect presentation with the actual user-story MP4 embedded on the demo slide.
-- [Atlas-OT-Scout-Pitch-and-Demo.pdf](Atlas-OT-Scout-Pitch-and-Demo.pdf) - portable 13-page export; video becomes a static cover frame.
-- [Live user-story screen recording](../demo/atlas-ot-scout-emulator-demo.mp4) - continuous Android API 35 screen capture of the running application.
-- [Video storyline and provenance](../demo/VIDEO-SCRIPT.md) - exact recorded behavior, proof boundary and reproduction workflow.
-- [`tools/build_pitch_deck.js`](../../tools/build_pitch_deck.js) - reproducible PptxGenJS source.
+- [PowerPoint](Atlas-OT-Scout-Pitch-and-Demo.pptx) — editable 14-slide prospect deck with the guided customer-story MP4 embedded.
+- [PDF](Atlas-OT-Scout-Pitch-and-Demo.pdf) — portable 14-page export.
+- [Guided customer-story video](../demo/atlas-ot-scout-emulator-demo.mp4) — real Android footage with explanatory captions, click indicators and paced holds.
+- [Video story and provenance](../demo/VIDEO-SCRIPT.md) — exact narrative, business model and proof boundary.
+- [`tools/build_pitch_deck.js`](../../tools/build_pitch_deck.js) — reproducible PptxGenJS source.
+- [`tools/compose_guided_customer_story.py`](../../tools/compose_guided_customer_story.py) — reproducible customer-story video composition.
 
 ## Claim boundary
 
-All application imagery comes from Android CI/emulation. The active identity screen is produced by the signed Case App to Network Broker journey against the controlled PyModbus target. CI also exercises modbus-tk and Conpot.
-
-The presentation does **not** claim physical Samsung/USB-Ethernet/SPAN-TAP qualification, production packet-rate performance, real-PLC compatibility, encrypted production case storage, reviewer signatures or a production signed-report package. Those are explicit field/release gates and are part of the rationale for the pilot.
+All application footage and screenshots come from Android CI/emulation. The active identity journey uses the signed Case App to Network Broker path against the controlled PyModbus target. The deck and video do not claim physical hardware, production-network or release qualification; the free pilot exists to test those field questions with the customer.

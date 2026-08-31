@@ -8,6 +8,7 @@ on:
       - "capture-broker/**"
       - "network-broker/**"
       - "tools/record_live_demo.sh"
+      - "tools/compose_guided_customer_story.py"
       - "tools/build_pitch_deck.js"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
@@ -17,6 +18,7 @@ on:
       - "capture-broker/**"
       - "network-broker/**"
       - "tools/record_live_demo.sh"
+      - "tools/compose_guided_customer_story.py"
       - "tools/build_pitch_deck.js"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
@@ -26,7 +28,7 @@ permissions:
 
 jobs:
   record:
-    name: Record water-assessment user story
+    name: Build guided prospect story
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -38,10 +40,16 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.13"
-      - name: Install media and document tools
+      - name: Install media, story-composition and document tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg libreoffice-impress poppler-utils
+          sudo apt-get install -y \
+            ffmpeg \
+            libreoffice-impress \
+            poppler-utils \
+            python3-numpy \
+            python3-opencv \
+            python3-pil
       - name: Fetch hash-pinned OT research captures
         run: bash tools/fetch_research_pcaps.sh
       - name: Build controlled PyModbus demo target
@@ -52,7 +60,7 @@ jobs:
             | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - name: Record actual Android user-story behavior
+      - name: Record actual Android application behavior
         uses: ReactiveCircus/android-emulator-runner@v2
         with:
           api-level: 35
@@ -61,10 +69,46 @@ jobs:
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash tools/record_live_demo.sh
+      - name: Build paced customer-story video
+        run: |
+          mkdir -p build/live-demo/deck-frames
+          cp docs/demo/atlas-ot-scout-emulator-demo.mp4 \
+            build/live-demo/atlas-ot-scout-app-capture.mp4
+
+          for spec in \
+            "06 6" "08 8" "10 10" "12 12" "16 16" \
+            "20 20" "22 22" "26 26" "28 28" "36 36"; do
+            set -- $spec
+            ffmpeg -hide_banner -loglevel error -y \
+              -ss "$2" \
+              -i build/live-demo/atlas-ot-scout-app-capture.mp4 \
+              -frames:v 1 \
+              "build/live-demo/deck-frames/f$1.png"
+          done
+
+          python3 tools/compose_guided_customer_story.py \
+            --input build/live-demo/atlas-ot-scout-app-capture.mp4 \
+            --output docs/demo/atlas-ot-scout-emulator-demo.mp4
+
+          ffmpeg -hide_banner -loglevel error -y \
+            -ss 2.0 \
+            -i docs/demo/atlas-ot-scout-emulator-demo.mp4 \
+            -frames:v 1 \
+            build/live-demo/video-poster.png
+
+          duration="$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 docs/demo/atlas-ot-scout-emulator-demo.mp4)"
+          python3 - "$duration" <<'PY'
+          import sys
+          duration = float(sys.argv[1])
+          if not 108.5 <= duration <= 109.5:
+              raise SystemExit(f"unexpected guided-story duration: {duration}")
+          PY
+
+          ffmpeg -v error -i docs/demo/atlas-ot-scout-emulator-demo.mp4 -f null -
       - name: Capture active-identity proof frame
         run: |
           ffmpeg -hide_banner -loglevel error -y \
-            -ss 29.0 \
+            -ss 72.0 \
             -i docs/demo/atlas-ot-scout-emulator-demo.mp4 \
             -frames:v 1 \
             docs/user-guide/screenshots/09-active-pymodbus-api35.png
@@ -72,7 +116,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Build prospect deck and PDF
+      - name: Build guided prospect deck and PDF
         run: |
           npm install --no-save --no-package-lock pptxgenjs@4.0.0
           node tools/build_pitch_deck.js
@@ -85,9 +129,9 @@ jobs:
           test -s docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           unzip -t docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx >/dev/null
           unzip -l docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx | grep -Eq 'ppt/media/.*\.mp4'
-          test "$(pdfinfo docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf | awk '/^Pages:/ {print $2}')" -eq 13
+          test "$(pdfinfo docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf | awk '/^Pages:/ {print $2}')" -eq 14
           python3 tools/verify_documentation.py
-      - name: Commit refreshed prospect assets
+      - name: Commit refreshed guided prospect assets
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
@@ -98,10 +142,10 @@ jobs:
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx \
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           if ! git diff --cached --quiet; then
-            git commit -m "Refresh prospect pitch and compatible user-story demo"
+            git commit -m "Refresh guided customer story and prospect pitch"
             git push origin HEAD:main
           fi
-      - name: Publish live demo, deck and provenance
+      - name: Publish guided story, deck and provenance
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -112,5 +156,6 @@ jobs:
             docs/user-guide/screenshots/09-active-pymodbus-api35.png
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
+            build/live-demo/atlas-ot-scout-app-capture.mp4
             build/live-demo/video-metadata.txt
             build/live-demo/pymodbus-demo.log
