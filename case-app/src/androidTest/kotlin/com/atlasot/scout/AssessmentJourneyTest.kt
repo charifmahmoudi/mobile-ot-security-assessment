@@ -85,9 +85,18 @@ class AssessmentJourneyTest {
                 activity.findViewById<EditText>(MainActivity.SITE_NAME_FIELD_ID).setText("Demo bottling line")
                 activity.findViewById<EditText>(MainActivity.SITE_LOCATION_FIELD_ID).setText("Casablanca · Packaging hall")
                 activity.findViewById<Spinner>(MainActivity.INDUSTRY_SPINNER_ID).setSelection(4)
+                assertTrue(screenText(activity).contains("Where are you assessing?"))
+                activity.findViewById<View>(MainActivity.CONTINUE_SETUP_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("What technology is expected?"))
                 val checks = descendants(activity.window.decorView).filterIsInstance<CheckBox>()
                 checks.take(2).forEach { it.isChecked = true }
                 assertTrue(checks.size >= 2)
+                activity.findViewById<View>(MainActivity.VENDORS_CONTINUE_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Review and create"))
                 activity.findViewById<View>(MainActivity.CREATE_SITE_ACTION_ID).performClick()
                 assertTrue(screenText(activity).contains("Demo bottling line"))
                 assertTrue(screenText(activity).contains("Food & beverage", ignoreCase = true))

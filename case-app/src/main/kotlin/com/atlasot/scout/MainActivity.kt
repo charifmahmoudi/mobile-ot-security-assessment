@@ -37,6 +37,14 @@ class MainActivity : Activity() {
     private var brokerConnection: ServiceConnection? = null
     private var captureConnection: ServiceConnection? = null
     private var backAction: (() -> Unit)? = null
+    private var siteDraft = SiteDraft()
+
+    private data class SiteDraft(
+        var name: String = "",
+        var location: String = "",
+        var industry: String = "Water & wastewater",
+        var vendors: List<String> = emptyList(),
+    )
 
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
@@ -87,12 +95,16 @@ class MainActivity : Activity() {
             contentDescription = "Back"; setOnClickListener { back() }
         }, LinearLayout.LayoutParams(dp(40), dp(48)))
         val titles = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
-        titles.addView(txt(kicker.uppercase(), 10f, BLUE, Typeface.BOLD).apply { letterSpacing = .12f })
+        titles.addView(txt(kicker.uppercase(), 11f, BLUE, Typeface.BOLD).apply { letterSpacing = .10f })
         titles.addView(txt(title, 25f, NAVY, Typeface.BOLD).apply { id = SCREEN_TITLE_ID })
         titles.addView(txt(subtitle, 14f, MUTED).apply { setPadding(0, dp(4), 0, 0) })
         header.addView(titles, LinearLayout.LayoutParams(0, -2, 1f))
         content.addView(header)
-        content.addView(space(20))
+        content.addView(space(14))
+        if (section != null) {
+            content.addView(stageRail(section))
+            content.addView(space(16))
+        }
         scroll.addView(content)
         if (section != null) root.addView(fieldSafetyBar())
         root.addView(scroll, LinearLayout.LayoutParams(-1, 0, 1f))
@@ -105,8 +117,8 @@ class MainActivity : Activity() {
         gravity = Gravity.CENTER_VERTICAL
         setPadding(dp(18), dp(9), dp(18), dp(9))
         setBackgroundColor(NAVY)
-        addView(txt("●  OFFLINE WORKSPACE", 10f, AQUA, Typeface.BOLD).apply { letterSpacing = .05f })
-        addView(txt("PASSIVE BY DEFAULT", 10f, WHITE, Typeface.BOLD).apply {
+        addView(txt("●  OFFLINE WORKSPACE", 11f, AQUA, Typeface.BOLD).apply { letterSpacing = .04f })
+        addView(txt("PASSIVE BY DEFAULT", 11f, WHITE, Typeface.BOLD).apply {
             gravity = Gravity.END
         }, LinearLayout.LayoutParams(0, -2, 1f))
         contentDescription = "Offline field mode. Passive collection is the safe default."
@@ -127,7 +139,7 @@ class MainActivity : Activity() {
                     WorkspaceSection.REPORT -> REPORT_NAV_ID
                 }
                 text = destination.label
-                textSize = 11f
+                textSize = 12f
                 gravity = Gravity.CENTER
                 setTypeface(Typeface.DEFAULT, if (destination == selected) Typeface.BOLD else Typeface.NORMAL)
                 setTextColor(if (destination == selected) BLUE else MUTED)
@@ -143,6 +155,27 @@ class MainActivity : Activity() {
                     }
                 }
             }, LinearLayout.LayoutParams(0, dp(50), 1f))
+        }
+    }
+
+    private fun stageRail(selected: WorkspaceSection): View = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.CENTER_VERTICAL
+        contentDescription = "Assessment progress: " + selected.label + " stage"
+        WorkspaceSection.entries.forEachIndexed { index, destination ->
+            val reached = destination.ordinal <= selected.ordinal
+            addView(LinearLayout(this@MainActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                gravity = Gravity.CENTER
+                addView(txt((index + 1).toString(), 12f, if (reached) WHITE else MUTED, Typeface.BOLD).apply {
+                    gravity = Gravity.CENTER
+                    background = rounded(if (reached) BLUE else WHITE, 40, if (reached) BLUE else BORDER)
+                }, LinearLayout.LayoutParams(dp(28), dp(28)))
+                addView(txt(destination.label, 11f, if (destination == selected) NAVY else MUTED,
+                    if (destination == selected) Typeface.BOLD else Typeface.NORMAL).apply {
+                    gravity = Gravity.CENTER; setPadding(0, dp(4), 0, 0)
+                })
+            }, LinearLayout.LayoutParams(0, -2, 1f))
         }
     }
 
@@ -171,35 +204,82 @@ class MainActivity : Activity() {
     }
 
     private fun renderNewSite() {
-        page("New workspace", "Create a site", "Record context once; use it throughout the assessment", ::renderSiteSelection)
-        content.addView(step("1", "Site identity"))
-        val name = field("Site name", "e.g. East pumping station", SITE_NAME_FIELD_ID, "")
-        val location = field("Location / process area", "e.g. Rabat · Booster station 3", SITE_LOCATION_FIELD_ID, "")
-        content.addView(step("2", "Industry"))
+        siteDraft = SiteDraft()
+        renderNewSiteBasics()
+    }
+
+    private fun renderNewSiteBasics() {
+        page("New site · 1 of 3", "Where are you assessing?", "Create the operating context before collecting evidence", ::renderSiteSelection)
+        content.addView(setupProgress(1))
+        content.addView(section("Site identity", "Use the exact location and process boundary from the authorization."))
+        val name = field("Site name", "e.g. East pumping station", SITE_NAME_FIELD_ID, siteDraft.name)
+        val location = field("Location / process area", "e.g. Rabat · Booster station 3", SITE_LOCATION_FIELD_ID, siteDraft.location)
+        content.addView(section("Industry", "This selects the assessment pack and terminology; it does not infer assets."))
         val industry = Spinner(this).apply {
             id = INDUSTRY_SPINNER_ID
             adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item, INDUSTRIES)
             background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
+            setSelection(INDUSTRIES.indexOf(siteDraft.industry).coerceAtLeast(0))
         }
-        content.addView(industry, margins(0, 4, 0, 18))
-        content.addView(step("3", "Main technology vendors"))
-        content.addView(txt("Select expected vendors. These become context and filters—not identification claims.", 13f, MUTED))
+        content.addView(industry, margins(0, 4, 0, 12))
+        val error = txt("", 13f, DANGER).apply { id = VALIDATION_MESSAGE_ID }
+        content.addView(error)
+        content.addView(button("Continue to technology context", CONTINUE_SETUP_ID) {
+            if (name.text.isBlank() || location.text.isBlank()) {
+                error.text = "Enter the authorized site name and process area to continue."
+                name.requestFocus()
+            } else {
+                siteDraft.name = name.text.toString().trim()
+                siteDraft.location = location.text.toString().trim()
+                siteDraft.industry = industry.selectedItem.toString()
+                renderNewSiteVendors()
+            }
+        })
+        content.addView(txt("Nothing is scanned or transmitted during site setup.", 12f, MUTED).apply {
+            gravity = Gravity.CENTER; setPadding(0, dp(10), 0, 0)
+        })
+    }
+
+    private fun renderNewSiteVendors() {
+        page("New site · 2 of 3", "What technology is expected?", siteDraft.name, ::renderNewSiteBasics)
+        content.addView(setupProgress(2))
+        content.addView(section("Known vendor context", "Optional. Select vendors from drawings, contracts or the existing inventory."))
+        content.addView(banner("CONTEXT, NOT DISCOVERY", "Selections improve filters and interview prompts. They never become identified assets without evidence."))
+        val grid = GridLayout(this).apply { columnCount = 2; useDefaultMargins = false }
         val checks = VENDORS.map { vendor ->
             CheckBox(this).apply {
-                text = vendor; textSize = 15f; setTextColor(NAVY)
+                text = vendor; textSize = 14f; setTextColor(NAVY); isChecked = vendor in siteDraft.vendors
                 buttonTintList = android.content.res.ColorStateList.valueOf(BLUE)
-                setPadding(0, dp(4), 0, dp(4)); content.addView(this)
+                setPadding(0, dp(6), dp(6), dp(6))
+                grid.addView(this, GridLayout.LayoutParams().apply {
+                    width = 0; height = -2; columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+                })
             }
         }
-        content.addView(step("4", "Field and report settings"))
-        content.addView(txt("Report language", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
+        content.addView(grid)
+        content.addView(button("Continue to workspace settings", VENDORS_CONTINUE_ID) {
+            siteDraft.vendors = checks.filter { it.isChecked }.map { it.text.toString() }
+            renderNewSiteSettings()
+        })
+        content.addView(button("Skip vendor context", primary = false) {
+            siteDraft.vendors = emptyList(); renderNewSiteSettings()
+        })
+    }
+
+    private fun renderNewSiteSettings() {
+        page("New site · 3 of 3", "Review and create", siteDraft.name, ::renderNewSiteVendors)
+        content.addView(setupProgress(3))
+        content.addView(card("OPERATING CONTEXT", siteDraft.industry + "\n" + siteDraft.location + "\n" +
+            if (siteDraft.vendors.isEmpty()) "Vendor context not recorded" else siteDraft.vendors.joinToString(" · "), accent = BLUE))
+        content.addView(section("Field and report settings", "Choose the working language and local evidence-retention window."))
+        content.addView(txt("Report language", 13f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
         val language = Spinner(this).apply {
             adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item,
                 listOf("French", "Arabic", "English"))
             background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
         }
         content.addView(language, margins(0, 0, 0, 10))
-        content.addView(txt("Local retention", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
+        content.addView(txt("Local retention", 13f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
         val retention = Spinner(this).apply {
             adapter = ArrayAdapter(this@MainActivity, android.R.layout.simple_spinner_dropdown_item,
                 listOf("7 days", "30 days", "90 days"))
@@ -207,18 +287,12 @@ class MainActivity : Activity() {
             background = rounded(WHITE, 14, BORDER); setPadding(dp(14), dp(8), dp(14), dp(8))
         }
         content.addView(retention, margins(0, 0, 0, 10))
-        val error = txt("", 13f, DANGER).apply { id = VALIDATION_MESSAGE_ID }
-        content.addView(error)
         content.addView(button("Create site workspace", CREATE_SITE_ACTION_ID) {
-            if (name.text.isBlank() || location.text.isBlank()) {
-                error.text = "Enter a site name and location or process area."
-            } else {
-                site = repository.addSite(name.text.toString(), location.text.toString(), industry.selectedItem.toString(),
-                    checks.filter { it.isChecked }.map { it.text.toString() }, language.selectedItem.toString(),
-                    retention.selectedItem.toString().substringBefore(' ').toInt())
-                renderWorkspace()
-            }
+            site = repository.addSite(siteDraft.name, siteDraft.location, siteDraft.industry, siteDraft.vendors,
+                language.selectedItem.toString(), retention.selectedItem.toString().substringBefore(' ').toInt())
+            renderWorkspace()
         })
+        content.addView(button("Back to vendor context", primary = false, action = ::renderNewSiteVendors))
     }
 
     private fun renderWorkspace() {
@@ -231,23 +305,6 @@ class MainActivity : Activity() {
             addView(txt(current.vendors.ifEmpty { listOf("Vendors not recorded") }.joinToString("  ·  "), 14f, WHITE).apply { setPadding(0, dp(6), 0, 0) })
         })
         val reviewCount = assets.count { it.reviewState == "Needs review" }
-        val completedStages = when {
-            assets.isEmpty() -> 1
-            reviewCount > 0 -> 2
-            else -> 3
-        }
-        content.addView(card("CURRENT DECISION · STAGE $completedStages OF 5",
-            when (completedStages) {
-                1 -> "Prepare complete  ·  Collect evidence next"
-                2 -> "Evidence collected  ·  Review $reviewCount observations next"
-                else -> "Inventory reconciled  ·  Review findings next"
-            }, accent = BLUE))
-        content.addView(section("Assessment outcome so far", "What is known, what is observed and what still needs an assessor decision."))
-        val metrics = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        metrics.addView(metric(assets.size.toString(), "Known assets"), weight(8))
-        metrics.addView(metric(assets.map { it.protocol }.distinct().size.toString(), "Protocols"), weight(8))
-        metrics.addView(metric(assets.count { it.reviewState == "Needs review" }.toString(), "Open decisions"), weight(0))
-        content.addView(metrics)
         val nextTitle = when {
             assets.isEmpty() -> "Begin passive collection"
             reviewCount > 0 -> "Review $reviewCount unresolved assets"
@@ -258,14 +315,18 @@ class MainActivity : Activity() {
             reviewCount > 0 -> "Resolve identity uncertainty before making risk conclusions."
             else -> "Turn the reconciled evidence model into defensible observations."
         }
-        content.addView(section("Recommended next action", "The application guides the assessment one decision at a time."))
+        content.addView(section("Do this next", "One recommended action keeps the assessment moving without expanding scope."))
         content.addView(LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             background = rounded(PALE_BLUE, 18, BLUE)
             setPadding(dp(18), dp(16), dp(18), dp(16))
             addView(txt(nextTitle, 18f, NAVY, Typeface.BOLD))
             addView(txt(nextBody, 14f, MUTED).apply { setPadding(0, dp(5), 0, dp(8)) })
-            addView(button("Continue assessment", CONTINUE_ACTION_ID) {
+            addView(button(when {
+                assets.isEmpty() -> "Choose an evidence method"
+                reviewCount > 0 -> "Open the review queue"
+                else -> "Review draft findings"
+            }, CONTINUE_ACTION_ID) {
                 when {
                     assets.isEmpty() -> renderScanMenu()
                     reviewCount > 0 -> renderInventory("Needs review")
@@ -273,12 +334,23 @@ class MainActivity : Activity() {
                 }
             })
         })
-        content.addView(button("Collect evidence", PRIMARY_ACTION_ID, false, ::renderScanMenu))
-        content.addView(button("Open asset inventory", INVENTORY_ACTION_ID, false, ::renderInventory))
+        content.addView(section("Assessment status", "A concise view of evidence already in the workspace."))
+        val metrics = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        metrics.addView(metric(assets.size.toString(), "Known assets"), weight(8))
+        metrics.addView(metric(assets.map { it.protocol }.distinct().size.toString(), "Protocols"), weight(8))
+        metrics.addView(metric(assets.count { it.reviewState == "Needs review" }.toString(), "To review"), weight(0))
+        content.addView(metrics)
+        content.addView(LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            addView(button("Collect evidence", PRIMARY_ACTION_ID, false, ::renderScanMenu),
+                LinearLayout.LayoutParams(0, dp(54), 1f).apply { marginEnd = dp(8) })
+            addView(button("Open inventory", INVENTORY_ACTION_ID, false, ::renderInventory),
+                LinearLayout.LayoutParams(0, dp(54), 1f))
+        })
         content.addView(section("Deliverable in progress", "The customer handoff is assembled from reviewed evidence, not raw scanner output."))
         content.addView(card("ASSESSMENT PACKAGE",
             "Inventory delta  ·  Identity review queue\nCommunication picture  ·  Findings with limitations\nAuthorization ledger  ·  Report-readiness status", accent = SLATE))
-        content.addView(section("Evidence coverage", "Use the current model to decide which uncertainty is worth closing next."))
+        content.addView(section("Evidence coverage", "Use the model to decide which uncertainty is worth closing next."))
         val roles = assets.groupingBy { it.role.substringBefore('/') }.eachCount().entries
             .sortedByDescending { it.value }.joinToString("  ·  ") { it.value.toString() + " " + it.key.lowercase() }
         val review = assets.count { it.reviewState == "Needs review" }
@@ -499,9 +571,10 @@ class MainActivity : Activity() {
         val current = requireNotNull(site)
         val all = repository.assets(current.id)
         page("Asset inventory", current.name, "Navigate, filter and reason about the current network model", ::renderWorkspace, WorkspaceSection.ASSETS)
-        content.addView(card("STEP 3 OF 5 · REVIEW",
-            "Confirm, merge or challenge observations before they become assessment conclusions.", accent = BLUE))
-        content.addView(card("NETWORK INSIGHT", networkInsight(all), NETWORK_INSIGHT_ID, TEAL))
+        val pending = all.count { it.reviewState == "Needs review" }
+        content.addView(card(if (pending > 0) "$pending DECISION" + if (pending == 1) " PENDING" else "S PENDING" else "REVIEW QUEUE CLEAR",
+            if (pending > 0) "Open each review item and decide whether to corroborate, merge or leave it unresolved."
+            else "No asset identity currently requires review. Continue validating coverage and expected changes.", accent = if (pending > 0) AMBER else SUCCESS))
         content.addView(LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             addView(button("List", primary = true, action = { }), LinearLayout.LayoutParams(0, dp(54), 1f).apply { marginEnd = dp(8) })
@@ -520,6 +593,7 @@ class MainActivity : Activity() {
         content.addView(filter, margins(0, 8, 0, 12))
         val count = txt("", 12f, MUTED, Typeface.BOLD)
         content.addView(count)
+        content.addView(card("EVIDENCE COVERAGE", networkInsight(all), NETWORK_INSIGHT_ID, SLATE))
         val list = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; id = INVENTORY_LIST_ID }
         content.addView(list)
         fun refresh() {
@@ -799,7 +873,7 @@ class MainActivity : Activity() {
         })
         addView(txt(item.location, 13f, MUTED).apply { setPadding(0, dp(5), 0, dp(10)) })
         val footer = (if (item.sample) "SAMPLE  ·  " else "") + item.industry + "  ·  " + repository.assets(item.id).size + " assets"
-        addView(txt(footer.uppercase(), 10f, if (item.sample) AMBER else SUCCESS, Typeface.BOLD).apply { letterSpacing = .05f })
+        addView(txt(footer.uppercase(), 11f, if (item.sample) AMBER else SUCCESS, Typeface.BOLD).apply { letterSpacing = .04f })
         layoutParams = margins(0, 0, 0, 12)
     }
 
@@ -807,7 +881,7 @@ class MainActivity : Activity() {
         LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; id = viewId; background = rounded(WHITE, 18, BORDER); elevation = dp(2).toFloat()
             setPadding(dp(18), dp(16), dp(18), dp(16)); setOnClickListener { action() }; layoutParams = margins(0, 0, 0, 12)
-            addView(txt(kicker, 10f, SLATE, Typeface.BOLD).apply { letterSpacing = .07f })
+            addView(txt(kicker, 11f, SLATE, Typeface.BOLD).apply { letterSpacing = .06f })
             addView(txt(title, 19f, NAVY, Typeface.BOLD).apply { setPadding(0, dp(5), 0, dp(6)) })
             addView(txt(body, 14f, MUTED)); addView(txt(footer + "   →", 12f, BLUE, Typeface.BOLD).apply { setPadding(0, dp(12), 0, 0) })
         }
@@ -849,14 +923,14 @@ class MainActivity : Activity() {
         LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL; id = idValue; background = rounded(WHITE, 16, BORDER); elevation = dp(1).toFloat()
             setPadding(dp(16), dp(14), dp(16), dp(14)); layoutParams = margins(0, 0, 0, 10)
-            addView(txt(title, 11f, accent, Typeface.BOLD).apply { letterSpacing = .07f })
+            addView(txt(title, 12f, accent, Typeface.BOLD).apply { letterSpacing = .05f })
             addView(txt(body, 14f, NAVY).apply { setPadding(0, dp(6), 0, 0); setLineSpacing(0f, 1.12f) })
         }
 
     private fun banner(title: String, body: String, idValue: Int = View.NO_ID): View = LinearLayout(this).apply {
         orientation = LinearLayout.VERTICAL; id = idValue; background = rounded(PALE_BLUE, 12, BORDER)
         setPadding(dp(16), dp(14), dp(16), dp(14)); layoutParams = margins(0, 0, 0, 12)
-        addView(txt(title, 10f, BLUE, Typeface.BOLD).apply { letterSpacing = .08f })
+        addView(txt(title, 11f, BLUE, Typeface.BOLD).apply { letterSpacing = .06f })
         addView(txt(body, 14f, NAVY).apply { setPadding(0, dp(5), 0, 0) })
     }
     private fun pill(value: String): View = txt(value.uppercase(), 11f, if (value.contains("confirmed", true)) SUCCESS else AMBER, Typeface.BOLD).apply {
@@ -873,6 +947,25 @@ class MainActivity : Activity() {
         addView(txt(number, 12f, WHITE, Typeface.BOLD).apply { gravity = Gravity.CENTER; background = rounded(BLUE, 40) },
             LinearLayout.LayoutParams(dp(28), dp(28)))
         addView(txt(title, 17f, NAVY, Typeface.BOLD).apply { setPadding(dp(10), 0, 0, 0) })
+    }
+    private fun setupProgress(active: Int): View = LinearLayout(this).apply {
+        orientation = LinearLayout.HORIZONTAL
+        gravity = Gravity.CENTER_VERTICAL
+        listOf("Site", "Technology", "Review").forEachIndexed { index, label ->
+            val number = index + 1
+            val reached = number <= active
+            addView(LinearLayout(this@MainActivity).apply {
+                orientation = LinearLayout.VERTICAL; gravity = Gravity.CENTER
+                addView(txt(number.toString(), 13f, if (reached) WHITE else MUTED, Typeface.BOLD).apply {
+                    gravity = Gravity.CENTER
+                    background = rounded(if (reached) BLUE else WHITE, 40, if (reached) BLUE else BORDER)
+                }, LinearLayout.LayoutParams(dp(32), dp(32)))
+                addView(txt(label, 12f, if (number == active) NAVY else MUTED,
+                    if (number == active) Typeface.BOLD else Typeface.NORMAL).apply {
+                    gravity = Gravity.CENTER; setPadding(0, dp(5), 0, 0)
+                })
+            }, LinearLayout.LayoutParams(0, -2, 1f))
+        }
     }
     private fun section(title: String, subtitle: String): View = LinearLayout(this).apply {
         orientation = LinearLayout.VERTICAL; setPadding(0, dp(20), 0, dp(10))
@@ -961,6 +1054,8 @@ class MainActivity : Activity() {
         const val ASSETS_NAV_ID = 0x41544C69
         const val FINDINGS_NAV_ID = 0x41544C6A
         const val REPORT_NAV_ID = 0x41544C6B
+        const val CONTINUE_SETUP_ID = 0x41544C6C
+        const val VENDORS_CONTINUE_ID = 0x41544C6D
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")
