@@ -1,69 +1,27 @@
-# Verified customer/channel landscape and outreach
+# Water-utility customer organization and outreach
 
-## The first identifiable channel
+## Customer organization
 
-DGSSI's current public qualification table lists eight audit providers:
+For Moroccan water utilities, separate the organization into:
 
-| Provider | Industrial-systems audit visibly marked | Evidence source |
-|---|---:|---|
-| NEAR SECURE | yes | DGSSI table |
-| CBI | no visible mark | DGSSI table |
-| DATAPROTECT | yes | DGSSI table |
-| Entreprise Services CDG (DXC Technology) | no visible mark | DGSSI table |
-| LMPS CONSULTING | no visible mark | DGSSI table |
-| Deloitte Morocco Cyber Center | no visible mark | DGSSI table |
-| SEKERA SERVICES | no visible mark | DGSSI table |
-| Techso Group | yes | DGSSI table |
+- corporate or regional executive sponsor;
+- water operations/production;
+- wastewater operations;
+- automation, instrumentation, SCADA and telemanagement;
+- maintenance and asset management;
+- information systems and cybersecurity;
+- projects, engineering and contractor management;
+- procurement and legal/compliance;
+- provincial or site management.
 
-Source: [DGSSI regulated and qualified providers](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes).
+## Outreach principle
 
-Status and marks must be rechecked before outreach. The table does not prove that a provider needs this product.
+Approach through official channels and ask for the owner of one bounded water or wastewater workflow. Do not market to unrelated industrial companies or electricity-only teams.
 
-## What DGSSI verifies
+## Safe request
 
-The qualification process considers provider references, human-resource qualifications, method/tool effectiveness and adequacy, work organization, ethics and security. It requires documentation of methods and tools and evaluation of auditors/processes.
+Request a review of a redacted inventory template, a representative topology or an emulator/lab demonstration. Production connectivity is not a prerequisite for qualification.
 
-Therefore the evidence-based outreach object is not a generic product pitch. It is a method-and-tool review package.
+## Named-person handling
 
-## Outreach request
-
-> We are researching a controlled Android evidence collector for authorized industrial-systems audits. Would your industrial-audit methodology accept the attached evidence schema, visibility declaration and signed packet profile? We are asking for documented corrections and acceptance criteria, not endorsement.
-
-This request relies on the published qualification domain and creates auditable product requirements.
-
-## Required attachment
-
-- data/evidence schema;
-- capture-mode declaration;
-- authorization record;
-- exact active-profile packet definitions;
-- audit-event format;
-- identity confidence and contradiction rules;
-- export example;
-- privacy/retention behavior;
-- hardware and test status;
-- explicit list of unimplemented capabilities.
-
-## Contact-data rule
-
-Use only the provider's current official corporate site, corporate contact form, published tender channel or official company page. Individual professional profiles may be used to verify a current role manually, subject to platform terms, but are not stored in this public repository. Do not guess email patterns.
-
-## End-user organization evidence
-
-Public sources show operators, plants and technical roles, but do not expose reliable approval chains. Previous generic organization charts were hypotheses and are withdrawn.
-
-For each real procurement or evaluation, record the actual participants and authority shown in documents:
-
-- contracting entity;
-- operational owner;
-- security/audit authority;
-- technical evaluator;
-- procurement signatory;
-- site authorization issuer;
-- data controller/retention approver.
-
-Do not convert common industry titles into asserted company structure.
-
-## Outreach measurement
-
-Record corporate entity, source, date, request sent, evidence package version, response, corrections, acceptance/rejection criterion, permission to retain, and next authorized action. Do not record unverified personal data.
+Include a person only when a current public source supports a relevant water-sector role. Recheck the title before use. Do not infer email addresses or treat a tender contact as a general sales contact.

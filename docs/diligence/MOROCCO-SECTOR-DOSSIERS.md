@@ -1,80 +1,41 @@
-# Morocco sector evidence dossiers
+# Morocco water-sector dossier
 
-The previous sector score and “likely asset/protocol” tables were assumptions and are withdrawn. This edition records only observable facilities, procurement and employer technology signals.
+## Scope decision
 
-## Automotive and suppliers
+The Morocco go-to-market scope is **water and wastewater only**. The previous automotive, aerospace, mining, phosphate, ports, food-processing and electricity target examples have been retired from the active business case.
 
-**Verified facilities/scale:** Renault Tangier, SOMACA Casablanca and Stellantis Kenitra. Tanger Med Zones reports more than 150 foreign automotive companies in the ecosystem.
+## Target operating environments
 
-**Behavioral technology evidence:**
+- raw-water intake and conveyance;
+- drinking-water treatment;
+- clear-water pumping and storage;
+- reservoirs and pressure-management zones;
+- district metering and leak-reduction programs;
+- remote boreholes and pumping stations;
+- wastewater lift stations, collection networks and treatment plants;
+- desalination and bulk-transfer projects where the operator authorizes a bounded assessment.
 
-- Renault Morocco automation role: PLC, HMI/SCADA, Modbus, PROFIBUS, EtherNet/IP.
-- Suprajit Morocco: Siemens, Schneider, Omron, Rockwell; PROFINET, PROFIBUS, Modbus, EtherNet/IP.
-- OPmobility Morocco: Apriso MES, Schneider EMS, Siemens TIA Portal/Step7 and IoT/API.
-- Adept Technology Morocco: SCADA environments, ABB/KUKA/FANUC robotics and industrial buses.
+## Target organizations
 
-**Not proven:** vendor market share, plant-level models, cybersecurity buying preference or mobile-tool demand.
+- ONEE Water Branch;
+- regional multiservice companies, limited to drinking-water and liquid-sanitation functions;
+- approved engineering, automation and maintenance contractors attached to a named water project;
+- training or representative lab environments operated for the water utility.
 
-## Ports and logistics
+## Economic buyer and technical buying group
 
-**Verified procurement:**
+The economic sponsor may sit in general management, operations or a project office. The technical buying group normally includes water operations, automation/telemanagement, maintenance and asset management, information systems/cybersecurity, project acceptance, procurement and the incumbent integrator.
 
-- Essaouira water telemanagement;
-- Jorf Lasfar exterior-lighting telemanagement;
-- Agadir surveillance, automatic pumping, electrical and future telemanagement work;
-- Nador VTS, surveillance, access-control, electrical/network and future telemanagement work.
+## First commercial offer
 
-**Employer evidence:** APM Terminals Tangier Automation Expert listing names AS-i and PROFIBUS in accessible text.
+A fixed-scope field evidence baseline for one area:
 
-**Not proven:** complete terminal system inventories, exact vendor stack or responsibility boundaries between ANP, Tanger Med entities and terminal operators.
+- import approved inventory and topology;
+- capture passive evidence;
+- reconcile identities and provenance;
+- optionally close one exact Modbus identity gap under written authorization;
+- deliver inventory changes, unresolved items, limitations and handover actions.
 
-## Electricity, water and renewables
+## Exclusions
 
-**Verified procurement:** ONEE automation maintenance at Mohammedia; ANP water telemanagement provides additional utility-system evidence.
-
-**Morocco-linked skills evidence:** Elum Energy SCADA roles name Modbus, IEC 104, OPC UA and IEC 61850 for solar/PV work, but projects may be international.
-
-**Not proven:** these protocols at a named ONEE or Masen facility.
-
-## Food and process manufacturing
-
-**Verified market context:** Ministry names major agro-food companies; Cosumar publishes operations in five regions plus Casablanca refinery.
-
-**Employer technology evidence:**
-
-- Givaudan Morocco names Siemens, Schneider, Rockwell, SCADA, PROFIBUS, PROFINET, Modbus and EtherNet/IP.
-- Jibal role names Modbus, PROFIBUS, EtherNet/IP, instrumentation, drives, documentation and CMMS.
-
-**Not proven:** the stack at Cosumar, Centrale Danone, Lesieur Cristal or any other account without direct evidence.
-
-## Mining, phosphate and chemicals
-
-**Verified operators:** OCP publishes mines and industrial operations; Managem enumerates Moroccan mines.
-
-**Technology evidence found:** no sufficiently specific current plant-linked source in this pass.
-
-**Result:** no protocol priority may be attributed to OCP or Managem yet. Procurement, OEM cases and current job evidence remain required.
-
-## Aerospace
-
-**Verified scale:** Safran reports ten Moroccan sites and more than 4,800 staff; US Commercial Service reported roughly 150 aerospace companies at end-2024.
-
-**Technology evidence found:** no sufficiently specific site-linked OT source in this pass.
-
-## Cement/materials
-
-**Verified operators:** Holcim Maroc, Ciments du Maroc and other manufacturers operate in Morocco.
-
-**Evidence found:** a historical public CV refers to a Siemens S7-300 project at Lafarge; this is too weak and old for current installed-base claims.
-
-**Result:** current employer/tender/OEM evidence required.
-
-## Pharmaceuticals
-
-**Verified facilities:** Sothema publishes specialized manufacturing units; Cooper Pharma identifies as a producer/exporter.
-
-**Technology evidence found:** no sufficiently specific current site-linked control source in this pass.
-
-## Sector prioritization rule
-
-Priority is determined by evidence volume and a real evaluation opportunity, not a speculative score. Current evidence density is strongest in automotive/suppliers, ports, and selected food/process employers. Regulatory channel evidence is strongest among DGSSI-qualified industrial audit providers.
+No regional estate scan, electricity-network assessment, credential testing, register reads/writes, vulnerability exploitation or safety-system interaction.

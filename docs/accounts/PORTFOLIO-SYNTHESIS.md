@@ -1,68 +1,49 @@
-# Priority-account portfolio synthesis
+# Morocco water-sector portfolio synthesis
 
-_Based on public research completed 30 August 2026. This is an account-selection tool, not a sales forecast._
+_Based on public research reviewed 31 August 2026. This is an account-selection tool, not a sales forecast._
 
-## What changed after deeper company research
+## Commercial thesis
 
-The eight accounts do not share one buyer. They fall into four different commercial motions:
+Atlas OT Scout should enter Morocco through a narrow water-utility workflow: create defensible asset evidence for one treatment, pumping, storage, distribution or wastewater area without introducing a broad scanner into an operational network.
 
-| Motion | Accounts | Best initial workflow | Strongest route |
-|---|---|---|---|
-| Internal assessment/service platform | OCP Group | OCP-MS/JESA assessment or handover kit | OCP-MS, JESA, Teal or approved auditor |
-| Automotive commissioning and maintenance | Renault Morocco, Stellantis Kenitra | Cell handover and inventory reconciliation | IFMIA, plant maintenance or approved line builder |
-| Critical distributed infrastructure | Tanger Med, ONEE | Controlled infrastructure/telemanagement collection | Port/utility engineering contractor and security owner |
-| Process/mining/aerospace modernization | Managem, Safran, Cosumar | Project handover or shutdown/campaign preparation | Reminex/Mana Technology, MidParc suppliers, automation integrators |
+The portfolio has two motions:
 
-## Research coverage
-
-The public-role ledger contains 63 sourced entries across the eight accounts. The supporting [employee/event ledger](research/EMPLOYEE-EVENT-LEDGER.csv) contains 29 appearances and the [project/supplier/technology ledger](research/PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv) contains 35 scoped signals. It includes official executives, current public professional roles, historical roles and role signals. Historical entries are deliberately retained and labeled because they reveal that a function existed without falsely presenting the person as a current employee.
-
-| Account | High-value public structure found | Important missing node |
+| Motion | Accounts | Best initial workflow |
 |---|---|---|
-| OCP | Group OT Security + Digital/AI + OCP-MS + JESA + Teal | Authoritative asset repository owner by SBU/site |
-| Renault | Country MD + regional CIO + plant engineering/maintenance/procurement | Current named plant OT-security owner |
-| Stellantis | Site GM + plant maintenance + project/data roles | Current Kenitra IT/OT-security owner and line-builder list |
-| Tanger Med | Group CDO/cyber + TMPA Technology & IT Security + PCS | Entity boundaries for each terminal/OT network |
-| ONEE | Separate electricity SCADA/metering and water telemanagement roles | Official current branch cyber/OT-security hierarchy |
-| Managem | COO Morocco + Reminex controls + Mana Technology digital vehicle | Current CISO and Tizert project organization |
-| Safran | Named Nacelles president + project/industrial IT roles + major greenfields | New-plant directors, EPCs and global manufacturing-IT chain |
-| Cosumar | Official IT/Digital and Industrial Directors + legacy controls clues | Current automation leadership and site vendor/version map |
+| National production and conveyance | ONEE Water Branch | Treatment/pumping/telemanagement evidence baseline |
+| Regional distribution and sanitation | SRM Casablanca–Settat, Rabat–Salé–Kénitra, Marrakech–Safi, Fès–Meknès and Tanger–Tétouan–Al Hoceïma | Reservoir, district-metering, leak-reduction, network-renewal or wastewater handover pack |
 
-## Event routes supported by public activity
+## Priority order
 
-| Event or network | Accounts with direct public relevance | Specific objective |
-|---|---|---|
-| Automotive Industry Competitiveness Show | Stellantis, Renault ecosystem, Tanger Med | Meet plant engineering, purchasing and line builders |
-| IFMIA | Renault and automotive suppliers; possible Kenitra training route | Obtain a safe representative cell and reference inventory |
-| TOC Africa / IPCSA / Tangier Logistics Days | Tanger Med and terminal operators | Identify network owners, port technology partners and maintenance workflows |
-| Marrakech Mining Convention | Managem, Reminex and mining suppliers | Validate Tizert/project governance and mine constraints |
-| Aerospace Meetings Casablanca / Marrakech Air Show | Safran and MidParc suppliers | Identify new-plant EPCs, line builders and project directors |
-| SIAM | Cosumar | Corporate introduction and campaign timing; then move to industrial teams |
-| Morocco Energy & Sustainability Week / Powering Africa | ONEE | Map EPCs, grid/water programs and procurement routes |
-| OCP innovation / INCIT–OCP-MS activity | OCP ecosystem | Test OCP-MS as assessment product/channel partner |
+1. **ONEE Water Branch training or representative telemanagement environment.** Strongest fit with the product's existing water-treatment demonstration and named public automation/training roles.
+2. **SRM Fès–Meknès project handover.** Current public signals include reservoir diagnostics and pipe-renewal work, creating a concrete evidence-and-acceptance workflow.
+3. **SRM Tanger–Tétouan–Al Hoceïma flow/pressure or leak-reduction project.** Active procurement signals support a bounded network-instrumentation use case.
+4. **SRM Casablanca–Settat water-quality, reservoir or wastewater area.** Official water and sanitation operations are clear; the exact buyer boundary must be confirmed.
+5. **SRM Marrakech–Safi treatment or pumping project.** Relevant regional scope, with technical ownership still requiring primary confirmation.
+6. **SRM Rabat–Salé–Kénitra pumping/reservoir handover.** Good fit after resolving the SRM/Redal perimeter boundary.
 
-See the [expanded coverage assessment](research/DEEP-RESEARCH-SYNTHESIS.md) for the evidence added after this synthesis and revised tiering.\n\n## Priority order for research prototypes
+## Standard pilot
 
-1. **OCP-MS/JESA lab or client-assessment simulation.** Best visible combination of OT-security, industrial digitalization and assessment capability.
-2. **IFMIA automotive training cell.** Safest place to measure the mobile workflow against a known inventory.
-3. **Reminex/Tizert handover simulation.** Strong greenfield digitalization signal and named controls engineering capability.
-4. **Cosumar pre-campaign utilities area.** Clear operational moment and specific legacy DCS/PLC clues.
-5. **Safran/MidParc supplier handover design.** Large future upside, but global aerospace qualification will be demanding.
-6. **Tanger Med infrastructure maintenance.** Strong digital/cyber organization, but entity/network ownership is complex.
-7. **ONEE Water Branch training/telemanagement.** Clear field fit, with longer public procurement and critical-infrastructure controls.
-8. **Stellantis production expansion.** Strong timing but no named public plant OT-security owner; enter through a line builder or training environment.
+- one named process area;
+- one approved inventory and topology;
+- imported PCAP or receive-only capture;
+- explicit review before inventory mutation;
+- optional single-target Modbus identity request under written authorization;
+- no credential testing, register access, exploit validation or broad discovery;
+- final output: inventory delta, evidence provenance, unresolved identities, limitations and acceptance checklist.
 
-The order reflects public accessibility and prototype safety, not total account value.
+## Qualification gates
 
-## Rules for using the role ledger
+A target advances only when all are true:
 
-- Recheck the profile and company page on the day of outreach.
-- Prefer an official introduction, procurement portal, event meeting or LinkedIn message.
-- Never infer an email address from a naming pattern.
-- Mention the public project or workflow, not a supposed vulnerability.
-- Ask the person to redirect the request if the responsibility is elsewhere.
-- Remove or relabel a person when their public role changes.
+- the opportunity is explicitly water or wastewater;
+- the operator and asset owner are known;
+- a technical reviewer is identified;
+- the customer accepts a passive-first workflow;
+- the pilot can be isolated to one area;
+- evidence handling and retention rules are agreed;
+- any active operation has exact target authorization and stop conditions.
 
-## What still requires primary confirmation
+## Named-person policy
 
-Public research cannot establish product demand, pricing, internal pain, approved hardware or the absence of incumbent tools. The next legitimate evidence is not more confident prose; it is a controlled artifact exchange or benchmark: a redacted inventory export, a lab topology, a procurement specification or a one-area test authorized by the account.
+Named people are included only when a current public source supports a water-sector role. Executives provide organizational context; they are not presumed to be technical approvers. Public procurement contacts are used only for that procurement process.

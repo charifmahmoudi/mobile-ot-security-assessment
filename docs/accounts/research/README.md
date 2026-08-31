@@ -1,11 +1,9 @@
-# Account research evidence
+# Water-sector account research
 
-This directory carries the detail that would make the decision briefs unreadable.
+This directory contains water- and wastewater-only evidence for the Morocco account portfolio.
 
-- [Employee and event ledger](EMPLOYEE-EVENT-LEDGER.csv): named public people, dated appearances and what the appearance actually establishes.
-- [Project, supplier and technology ledger](PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv): disclosed projects, vendors, protocols and procurement signals, scoped to the source.
-- [Deep-research synthesis](DEEP-RESEARCH-SYNTHESIS.md): account-by-account findings, evidence gaps and the next desk-research target.
+- [Deep research synthesis](DEEP-RESEARCH-SYNTHESIS.md)
+- [Public role and event ledger](EMPLOYEE-EVENT-LEDGER.csv)
+- [Project, supplier and technology signal ledger](PROJECT-SUPPLIER-TECHNOLOGY-LEDGER.csv)
 
-The ledgers do not contain guessed email addresses. A public profile is not consent to contact, and attendance at an event is not evidence of purchasing authority.
-
-Research baseline: **30 August 2026**.
+A source proves only the claim recorded in its row. Tender language does not prove an enterprise-wide installed base. A public professional profile does not prove budget, reporting line or authorization.

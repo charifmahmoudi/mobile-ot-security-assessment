@@ -1,13 +1,7 @@
-# Morocco market
+# Morocco water market
 
-This early market outline has been superseded. Generic buyer structures and sector-to-protocol assumptions were removed.
+Atlas OT Scout's Morocco business case is limited to drinking-water and wastewater operations.
 
-Use:
+The primary accounts are ONEE's Water Branch and regional multiservice companies in their water and liquid-sanitation scope. Relevant workflows include treatment, pumping, reservoirs, remote telemetry, district metering, leak reduction, wastewater collection and treatment, and contractor-to-operator handover.
 
-- [Morocco sector evidence](../diligence/MOROCCO-SECTOR-DOSSIERS.md)
-- [Account evidence dossiers](../diligence/ACCOUNT-DOSSIERS.md)
-- [Customer/channel evidence](../diligence/CUSTOMER-EVIDENCE-MAP.md)
-- [Technology evidence matrix](../diligence/TECHNOLOGY-EVIDENCE-MATRIX.md)
-- [Research dashboard](../diligence/RESEARCH-DASHBOARD.md)
-
-Company counts are not added into TAM. A protocol is attributed to an account only when account-linked evidence supports it.
+The entry offer is one bounded, passive-first asset-evidence baseline. Electricity, automotive, aerospace, mining, ports, phosphate and other industrial sectors are outside the active go-to-market scope.

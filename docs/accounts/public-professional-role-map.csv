@@ -1,67 +1,17 @@
 account,entity_or_site,person,public_title_or_signal,function,status,source_url,researched_on,outreach_use
-OCP Group,Group,Mostafa Terrab,Chairman and CEO,Executive,official current,https://www.ocpgroup.ma/en/who-we-are/our-leadership-and-governance,2026-08-30,Context only
-OCP Group,Group,Imad Boumhi,Chief Digital and AI Officer,Digital leadership,public current,https://ma.linkedin.com/in/iboumhi,2026-08-30,Potential sponsor
-OCP Group,Group,Amine Ait Ouarasse,Head OT Cyber Security / Head Cyber Sécurité Industrielle,OT security,public current,https://ma.linkedin.com/in/ait-ouarasse-amine,2026-08-30,Primary policy stakeholder
-OCP Group,Jorf Lasfar,Abdelaziz Majjad,Head of Security - Jorf Lasfar Industrial Platform,Site security,public current,https://ma.linkedin.com/in/abdelaziz-majjad-5017609b,2026-08-30,Site stakeholder
-OCP Group,JESA,Ayoub Taqi,Industrial Digitalization Engineering Manager,Industrial digitalization,public current,https://ma.linkedin.com/in/ayoubtaqi,2026-08-30,Technical evaluator/channel
-OCP Group,JESA,Abdelkader Ibn El Mehdi,Industrial Digitalization Project Management,OT-IT projects,public current,https://ma.linkedin.com/in/abdelkader-ibn-el-mehdi,2026-08-30,Technical evaluator
-OCP Group,Teal Technology Services,Jaouad Ajebli,Head of Engineering & Automation BU,Automation integration,public current,https://ma.linkedin.com/in/ajebli,2026-08-30,Implementation/channel
-OCP Group,OCP Maintenance Solutions,Amine Douihi,Consulting PMO,Assessment delivery,public current,https://ma.linkedin.com/in/amine-douihi-bab44226b,2026-08-30,Workflow/channel
-OCP Group,OCP Maintenance Solutions,Oussama Agounine,Predictive Maintenance & Industry 4.0 Solutions Engineer,Maintenance digitalization,public current,https://ma.linkedin.com/in/oussama-agounine,2026-08-30,User/evaluator
-OCP Group,OCP Solutions,Majda Moumni,CEO OCP Solutions,Digital consulting,public current,https://ma.linkedin.com/in/majda-moumni-82b59b15,2026-08-30,Strategic context
-Renault Group Morocco,Country,Mohamed Bachiri,Managing Director / CEO Renault Group Morocco,Executive,corporate current,https://www.linkedin.com/pulse/morocco-perspective-building-global-industrial-powerhouse-r4wte,2026-08-30,Executive sponsor
-Renault Group Morocco,Region,Nadia Tazi,Regional CIO,IT/digital/cyber,public current,https://fr.linkedin.com/in/nadia-tazi-10731013,2026-08-30,Architecture/policy stakeholder
-Renault Group Morocco,IT shared services,Hassan Elmoumen,IT SSC Manager,IT operations,public current title,https://ma.linkedin.com/in/elmoumenhassan,2026-08-30,Scope must be confirmed
-Renault Group Morocco,Tangier,Sidi Omar El Kettani,Engineering Process Manager,Plant engineering,public current,https://ma.linkedin.com/in/sidi-omar-el-kettani-3299a84b,2026-08-30,Operational evaluator
-Renault Group Morocco,Tangier,Aziz Nasset,CUET Maintenance,Maintenance,public current,https://ma.linkedin.com/in/nasset-aziz-7b94a9123,2026-08-30,Field workflow
-Renault Group Morocco,Morocco,Nihad Lahit,Morocco Procurement Manager - Facilities & Services,Procurement,public current,https://ma.linkedin.com/in/nihad-lahit-850a607b,2026-08-30,Supplier route
-Renault Group Morocco,Tangier,Malak Dayf,Product/Process Assembly Engineering Manager,Industrialization,public current,https://ma.linkedin.com/in/malak-dayf-47719311b,2026-08-30,Cell/project owner candidate
-Renault Group Morocco,Tangier,Mostafa Yaakoub,Automation and Robotics Specialist,Automation,public current,https://ma.linkedin.com/in/mostafa-yaakoub-b1a50a195,2026-08-30,Technical user
-Stellantis Kenitra,Kenitra,Mounir Kharbouche,VP General Manager Kenitra Automotive Industrial Complex,Site executive,public current,https://ma.linkedin.com/in/mounir-kharbouche-66255a113/fr,2026-08-30,Executive sponsor
-Stellantis Kenitra,Kenitra,Mohammed Amine Charef,Plant Maintenance Director,Maintenance leadership,public current,https://ma.linkedin.com/in/mohammed-amine-charef-592b0b18,2026-08-30,Primary operational stakeholder
-Stellantis Kenitra,Kenitra,Radwane Nassiri,Maintenance Group Manager,Maintenance execution,public current,https://ma.linkedin.com/in/radwane-nassiri-950ba96b,2026-08-30,Field workflow
-Stellantis Kenitra,Kenitra,Thibault Munyaneza,Industrial Project Leader EE,Industrial projects,public current,https://ma.linkedin.com/in/thibault-munyaneza-ba488611a/fr,2026-08-30,Commissioning evaluator
-Stellantis Kenitra,MEA,Said Elkhomri,Manufacturing Mainstream Plant Manager,Manufacturing,public current title,https://ma.linkedin.com/in/said-elkhomri-b153ab92,2026-08-30,Scope must be confirmed
-Stellantis Kenitra,Kenitra,Aymane N.,Data Champion / data governance role,Data governance,public current,https://ma.linkedin.com/in/nassriayman,2026-08-30,Integration stakeholder
-Tanger Med Group,Group,Fouad Brini,Chairman TMSA Supervisory Board,Governance,official current,https://www.tangermed.ma/en/governance/,2026-08-30,Context only
-Tanger Med Group,Group,Mehdi Tazi Riffi,CEO Tanger Med Group,Executive,corporate current,https://www.tocevents-africa.com/,2026-08-30,Executive sponsor
-Tanger Med Group,Group,Chawki Benouarrek,Chief Digital Officer,Digital leadership,project-source current,https://www.digitalizetrade.org/projects/tanger-med-rotterdam-digital-corridor,2026-08-30,Digital sponsor
-Tanger Med Group,Group,Toufik Airane,Cybersecurity Director,Cybersecurity,public current,https://ma.linkedin.com/in/toufik-airane,2026-08-30,Security stakeholder
-Tanger Med Group,TMPA,Mohamed Eddoujaji,Director Technology & IT Security,Technology/security,public current,https://ma.linkedin.com/in/mohamed-eddoujaji,2026-08-30,Primary TMPA gate
-Tanger Med Group,TMPA,Ridouan Boulaich,IT Director in 2021 PMIS announcement,IT/smart port,historical,https://www.tangermedport.com/en/wartsila-and-tanger-med-team-up-to-co-develop-next-generation-port-management-information-system/,2026-08-30,Do not treat as current
-Tanger Med Group,TMPA,Amina Bakkali Tahiri,Software Engineer,Platform engineering,public current,https://ma.linkedin.com/in/amina-bakkali-tahiri-536b68224,2026-08-30,Technical audience
-ONEE,Group,Tarik Hamane,Director General / Group CEO,Executive,public current,https://ma.linkedin.com/in/tarik-hamane-71bb37125,2026-08-30,Executive sponsor
-ONEE,Electricity Branch,Houssine Naji,Production Director,Generation operations,public current title,https://ma.linkedin.com/in/houssine-naji-b40766152,2026-08-30,Operational sponsor candidate
-ONEE,Electricity Branch,Omar Benemmane,Head of Technical Division,Technical/substation,public current title,https://ma.linkedin.com/in/omar-benemmane-8635bb45,2026-08-30,Technical stakeholder
-ONEE,Electricity Branch,Mohamed Bahid,AMI & Smart Metering Architect,Smart metering,public current,https://ma.linkedin.com/in/mohamed-bahid-00a78b31,2026-08-30,Architecture stakeholder
-ONEE,Electricity Branch,Ismail N.,SCADA System Administrator,SCADA operations,public current,https://ma.linkedin.com/in/inassereddine,2026-08-30,Technical user
-ONEE,Group,Mohamed-Yacine Chahdaoui,Network & Security Engineer,Network security,public current,https://ma.linkedin.com/in/chahdaoui,2026-08-30,Security evaluator
-ONEE,Water Branch,Abderrahim Samir,Automation Instrumentation & Telemanagement Team Lead,Water OT,public current,https://ma.linkedin.com/in/abderrahim-samir-a34a87140,2026-08-30,Primary field stakeholder
-ONEE,Water Branch,Sami Laknizi,Automation Instrumentation & SCADA Trainer,Training,public current,https://ma.linkedin.com/in/sami-laknizi-523b45b4,2026-08-30,Lab/training route
-Managem Group,Group,Imad Toumi,Chairman and CEO,Executive,official current,https://www.managemgroup.com/en/who-we-are/governance,2026-08-30,Executive sponsor
-Managem Group,Morocco Operations,Omar Naimi,COO Morocco,Operations,official current,https://www.managemgroup.com/en/who-we-are/governance,2026-08-30,Primary operating sponsor
-Managem Group,Reminex,Ayoub Halimi,Automation & Instrumentation Manager,Controls engineering,public current,https://ma.linkedin.com/in/ayoub-halimi,2026-08-30,Primary technical stakeholder
-Managem Group,Reminex,Zakaria Zahidi,C&I Project Manager,OT-IT networks/projects,public current,https://ma.linkedin.com/in/zakaria-zahidi,2026-08-30,Implementation evaluator
-Managem Group,Reminex,Tarik Ouhmiz,Instrumentation & Automation Program Leadership,Engineering projects,public career signal,https://ma.linkedin.com/in/tarikouhmiz/en,2026-08-30,Scope/current title confirm
-Managem Group,Group,Hamza El Habib,PMO Digital Transformation & Automation,Transformation portfolio,public current,https://ma.linkedin.com/in/hamza-el-habib-170510189,2026-08-30,Program stakeholder
-Managem Group,Group,Karim Reda Fakhir,Former CISO,Security,historical,https://ma.linkedin.com/in/karim-reda-fakhir-8945b638,2026-08-30,Do not contact as current Managem role
-Safran Morocco,Safran Nacelles Morocco,Wassima El Moutaouakil,President,Site executive,company-announced current,https://www.linkedin.com/posts/safran-equipment_appointments-teamsafran-leadership-activity-7449456975693692928-KPgK,2026-08-30,Existing-site sponsor
-Safran Morocco,Morocco,Abdelkrim Berrada,Industrial IT & Office Systems Administrator,Industrial IT,public current,https://ma.linkedin.com/in/abdelkrim-berrada-8791b874,2026-08-30,Technical stakeholder
-Safran Morocco,Morocco,Ayoub Bichichi,Senior Industrial Project Manager,Industrial projects,public current,https://ma.linkedin.com/in/bichichi-ayoub/en,2026-08-30,Greenfield project route
-Safran Morocco,Safran Nacelles Morocco,Mehdi Akabor,Methods & Industrialization Engineer,Industrialization/automation,public current,https://ma.linkedin.com/in/mehdi-akabor,2026-08-30,Technical evaluator
-Safran Morocco,Safran Engineering Services,Kamal Goumri,Business & Project Development Manager - Engineering & Digital Services,Engineering/digital,public current,https://ma.linkedin.com/in/kamalgoumri,2026-08-30,Channel/evaluator
-Cosumar,Group,Imad Ghammad,CEO,Executive,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Executive context not first contact
-Cosumar,Group,Amine Lahbichi,IT & Digital Transformation Director,Digital/IT,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Primary architecture/security gate
-Cosumar,Group,Kenza Tazi,Procurement Director,Procurement,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Supplier qualification and commercial route
-Cosumar,Casablanca Refinery,Abdelillah El Younoussi,Director in charge of Casablanca Refinery,Site operations,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Site sponsor candidate
-Cosumar,Gharb Sugar Factories,Abdelhadi El Hassnaoui,Director Gharb Sugar Factories and coordination of sugar factories,Multi-site operations,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Operating sponsor candidate
-Cosumar,Group,Abdelmotalib El Abbadi,Industrial Director,Industrial operations,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Primary operating sponsor
-Cosumar,Group,Anas Jamal Eddine,Commercial Marketing & Supply Chain Director,Supply chain,official current,https://www.cosumar.co.ma/en/the-group/governance/,2026-08-30,Business continuity stakeholder
-Cosumar,Group,Ayoub Halimi,Former Head Instrumentation Automation & Metrology,Automation,historical,https://ma.linkedin.com/in/ayoub-halimi,2026-08-30,Do not treat as current
-Cosumar,Industrial IT,Imame Bendarkaoui,Former OT Administrator / industrial IT experience,OT operations,historical/current employer elsewhere,https://nl.linkedin.com/in/imame-bendarkaoui-0080b074/en,2026-08-30,Capability signal only
-Cosumar,Production,Rachid Salih,Production Supervisor,Production,public current,https://ma.linkedin.com/in/rachid-salih-0a2b97141,2026-08-30,Field perspective
-Tanger Med Group,TMPA,Idriss Aarabi,Managing Director TMPA and Port Logistics Zone,Port authority operations,corporate current,https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/,2026-08-30,Operating sponsor
-Tanger Med Group,Marsa Maroc,Taoufik Chahir,Director Container Business Unit,Terminal operations,corporate current,https://www.tangermed.ma/en/organization-of-the-2nd-edition-of-toc-africa-in-partnership-with-tanger-med/,2026-08-30,Separate terminal-operator stakeholder
-Managem Group,Reminex,Naoual Zine,General Manager Reminex - Engineering R&D and Project Management,Engineering and projects,official current,https://www.managemgroup.com/en/who-we-are/governance,2026-08-30,Primary project sponsor
-Managem Group,Group,Youssef El Hajjam,General Director Marketing Sales Procurement and Supply Chain,Procurement and supply chain,official current,https://www.managemgroup.com/en/who-we-are/governance,2026-08-30,Procurement route
-Cosumar,SUTA Doukkala,Jibril Younes,Director Sucrerie Doukkala,Site operations,public current,https://ma.linkedin.com/in/jibril-younes-bab2847,2026-08-30,Site sponsor candidate
+ONEE,Group,Tarik Hamane,Director General,Executive,official/public current,https://www.onep.org.ma/,2026-08-31,Executive context only
+ONEE,Water Branch,Abderrahim Samir,Automation Instrumentation and Telemanagement Team Lead,Water OT,public professional current,https://ma.linkedin.com/in/abderrahim-samir-a34a87140,2026-08-31,Primary field-role signal; recheck title
+ONEE,Water Branch,Sami Laknizi,Automation Instrumentation and SCADA Trainer,Training,public professional current,https://ma.linkedin.com/in/sami-laknizi-523b45b4,2026-08-31,Lab and training route; recheck title
+SRM Marrakech-Safi,Regional,Abdellah Ilhami,Director General,Executive,public corporate current,https://www.linkedin.com/company/srm-marrakech-safi/,2026-08-31,Executive context; request water technical owner
+SRM Fes-Meknes,Regional,Mohamed Chaoui,Director General,Executive and project context,public corporate/current procurement signal,https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9ionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a/,2026-08-31,Executive/project context; do not assume technical approval
+SRM Casablanca-Settat,Water operations,,Water operations or provincial water director,Operations,role to identify,https://www.radeec.ma/,2026-08-31,Primary operating stakeholder
+SRM Casablanca-Settat,Water quality,,Water-quality or laboratory lead,Water quality,role to identify,https://www.radeec.ma/,2026-08-31,Process and evidence reviewer
+SRM Casablanca-Settat,Sanitation,,Wastewater operations lead,Sanitation,role to identify,https://www.radeec.ma/,2026-08-31,Wastewater pilot owner
+SRM Rabat-Sale-Kenitra,Regional,,Director General,Executive,official role page; name to verify,https://agence.rak.ma/rak/mot-directrice-general/,2026-08-31,Executive context only
+SRM Rabat-Sale-Kenitra,Water operations,,Regional or provincial water operations director,Operations,role to identify,https://agence.rak.ma/,2026-08-31,Primary operating stakeholder
+SRM Marrakech-Safi,Water operations,,Water operations director,Operations,role to identify,https://www.linkedin.com/company/srm-marrakech-safi/,2026-08-31,Primary operating stakeholder
+SRM Marrakech-Safi,Automation,,SCADA automation or telemanagement manager,Water OT,role to identify,https://www.linkedin.com/company/srm-marrakech-safi/,2026-08-31,Technical evaluator
+SRM Fes-Meknes,Provincial water operations,,Provincial water operations or project director,Operations/projects,role to identify,https://www.srm-fm.ma/,2026-08-31,Pilot owner
+SRM Fes-Meknes,Asset management,,Asset management or maintenance lead,Asset management,role to identify,https://www.srm-fm.ma/,2026-08-31,Inventory owner
+SRM Tanger-Tetouan-Al Hoceima,Water operations,,Provincial water operations director,Operations,role to identify,https://www.radeel.ma/cadre,2026-08-31,Primary operating stakeholder
+SRM Tanger-Tetouan-Al Hoceima,Network performance,,Leak reduction flow or pressure instrumentation lead,Network performance,role to identify,https://www.radeel.ma/cadre,2026-08-31,Project and commissioning evaluator
