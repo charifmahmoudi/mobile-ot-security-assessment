@@ -22,6 +22,11 @@ cleanup() {
 }
 trap cleanup EXIT
 
+if ! command -v ffmpeg >/dev/null 2>&1; then
+  echo "ffmpeg is required to produce the trimmed buyer demo" >&2
+  exit 1
+fi
+
 docker rm -f "$container_name" >/dev/null 2>&1 || true
 docker run --detach --name "$container_name" --publish 502:502 atlas-pymodbus:3.11.3 >/dev/null
 
@@ -72,14 +77,10 @@ adb shell test -s "$remote_video"
 adb pull "$remote_video" "$raw_video" >/dev/null
 test -s "$raw_video"
 
-if command -v ffmpeg >/dev/null 2>&1; then
-  ffmpeg -hide_banner -loglevel error -y \
-    -ss 11.5 -i "$raw_video" \
-    -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p -movflags +faststart \
-    -an "$final_video"
-else
-  install -m 0644 "$raw_video" "$final_video"
-fi
+ffmpeg -hide_banner -loglevel error -y \
+  -ss 11.5 -i "$raw_video" \
+  -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p -movflags +faststart \
+  -an "$final_video"
 
 test -s "$final_video"
 file "$final_video"
