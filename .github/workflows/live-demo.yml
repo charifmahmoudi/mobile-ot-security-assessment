@@ -75,19 +75,34 @@ jobs:
           cp docs/demo/atlas-ot-scout-emulator-demo.mp4 \
             build/live-demo/atlas-ot-scout-app-capture.mp4
 
+          # The deterministic Android interaction can vary by roughly one second
+          # across hosted runners. Preserve the untouched capture above, then make
+          # a 39-second story source by holding its final frame. The guided story
+          # uses source moments only through 38 seconds.
+          ffmpeg -hide_banner -loglevel error -y \
+            -i build/live-demo/atlas-ot-scout-app-capture.mp4 \
+            -vf "tpad=stop_mode=clone:stop_duration=3" \
+            -af "apad=pad_dur=3" \
+            -t 39.0 \
+            -c:v libx264 -profile:v baseline -level:v 4.0 -preset veryfast -crf 22 \
+            -pix_fmt yuv420p -tag:v avc1 \
+            -c:a aac -profile:a aac_low -b:a 96k \
+            -movflags +faststart \
+            build/live-demo/atlas-ot-scout-app-story-source.mp4
+
           for spec in \
             "06 6" "08 8" "10 10" "12 12" "16 16" \
             "20 20" "22 22" "26 26" "28 28" "36 36"; do
             set -- $spec
             ffmpeg -hide_banner -loglevel error -y \
               -ss "$2" \
-              -i build/live-demo/atlas-ot-scout-app-capture.mp4 \
+              -i build/live-demo/atlas-ot-scout-app-story-source.mp4 \
               -frames:v 1 \
               "build/live-demo/deck-frames/f$1.png"
           done
 
           python3 tools/compose_guided_customer_story.py \
-            --input build/live-demo/atlas-ot-scout-app-capture.mp4 \
+            --input build/live-demo/atlas-ot-scout-app-story-source.mp4 \
             --output docs/demo/atlas-ot-scout-emulator-demo.mp4
 
           ffmpeg -hide_banner -loglevel error -y \
