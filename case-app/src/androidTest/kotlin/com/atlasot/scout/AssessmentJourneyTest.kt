@@ -28,7 +28,7 @@ class AssessmentJourneyTest {
             scenario.onActivity { activity ->
                 val body = screenText(activity)
                 listOf("Overview", "Collect", "Assets", "Findings", "Report").forEach { assertTrue(body.contains(it)) }
-                assertTrue(body.contains("Recommended next action"))
+                assertTrue(body.contains("Do this next"))
                 assertTrue(body.contains("Deliverable in progress"))
                 assertTrue(body.contains("Assessment package", ignoreCase = true))
                 activity.findViewById<View>(MainActivity.FINDINGS_NAV_ID).performClick()
