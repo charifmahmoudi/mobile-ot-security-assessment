@@ -8,7 +8,17 @@ Atlas OT Scout helps an authorized assessor build a defensible view of one indus
 
 The first product pack is **P0-WATER**, a proof of concept for one water or wastewater control segment. It is deliberately not a general-purpose network scanner, exploitation tool, certification audit, or continuous-monitoring platform.
 
-> **Current status:** the guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, review-first inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673). Physical phone, USB-NIC and TAP qualification remains a release gate.
+> **Current status:** the guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, review-first inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #37](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33351078321). Physical phone, USB-NIC and TAP qualification remains a release gate.
+
+## Watch and present the PoC
+
+| Asset | Use |
+|---|---|
+| [Emulator demonstration video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | 3:42 captioned 720p repository preview built from the original Android 15 / API 35 emulator captures |
+| [Buyer pitch and demonstration deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) | Ten-slide editable presentation covering the decision problem, product journey, safeguards, proof boundary and pilot proposal |
+| [Presenter storyline and reproducible video build](docs/demo/VIDEO-SCRIPT.md) | Talk track, provenance statement and local build command |
+
+The video and deck state that the current evidence comes from a controlled emulator and CI environment. Neither asset presents emulation as proof of physical Samsung, USB-Ethernet, TAP, PLC or production-network compatibility.
 
 ## The value in one field visit
 
@@ -181,7 +191,7 @@ The shortest coherent demonstration takes 7–9 minutes:
 6. Run the PyModbus testbed to demonstrate one authorized identity result.
 7. Navigate the inventory, open **Findings**, then finish with the report-readiness blockers.
 
-Use the [guided user manual](docs/user-guide/USER-MANUAL.md) for operator steps and the [presenter script](docs/product/DEMO-SCRIPT.md) for audience-facing wording.
+Use the [guided user manual](docs/user-guide/USER-MANUAL.md) for operator steps, the [emulator video](docs/demo/atlas-ot-scout-emulator-demo.mp4) for a self-contained walkthrough, and the [pitch deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) for a buyer meeting.
 
 ## Build and verify
 
