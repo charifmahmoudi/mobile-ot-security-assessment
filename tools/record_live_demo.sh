@@ -39,12 +39,8 @@ done
 adb shell test -s "$remote_video"
 
 adb pull "$remote_video" "$raw_video"
-ffmpeg -hide_banner -loglevel error -y -i "$raw_video" \
-  -map 0:v:0 -c:v libx264 -preset medium -crf 21 -pix_fmt yuv420p \
-  -movflags +faststart -an "$final_video"
-
-ffprobe -v error \
-  -show_entries format=duration,size:stream=codec_name,width,height,r_frame_rate \
-  -of default=noprint_wrappers=1 "$final_video"
+install -m 0644 "$raw_video" "$final_video"
+test -s "$final_video"
+file "$final_video"
 
 exit "$test_status"
