@@ -2,18 +2,33 @@
 
 ## Current status
 
-No production-ready binary exists. Do not use research artifacts to scan systems without authorization.
+The repository produces executable debug builds for controlled research and CI, but no production-supported release exists. Do not deploy the prototype on operational systems or use it to generate traffic without explicit written authorization.
 
-## Reporting
+## Reporting a vulnerability
 
-Use GitHub private vulnerability reporting when enabled, or contact the repository owner through their GitHub profile without publishing exploit details. A dedicated security mailbox must be established before a release.
+Use GitHub private vulnerability reporting when available. Otherwise contact the repository owner through their GitHub profile without publishing exploit details.
 
-Include affected commit/version, impact, reproduction in a controlled environment and suggested mitigation. Do not include real customer data or attack public systems.
+Include:
+
+- affected commit or artifact;
+- security and operational impact;
+- reproduction in a controlled environment;
+- relevant logs or packet traces with secrets and customer data removed;
+- a proposed mitigation when known.
+
+Do not test against public or customer systems, publish credentials, or include real customer data.
 
 ## Supported versions
 
-None during research/design. This file will name supported release lines before the first binary.
+| Version | Support |
+|---|---|
+| `main` research prototype | Best-effort security review; not production supported |
+| Tagged production releases | None |
 
-## Safety issues
+A dedicated security mailbox, supported-version policy, release signing, and disclosure timeline must be established before the first production release.
 
-Treat unintended writes, unbounded traffic, scope escape, secret leakage, signature bypass, evidence tampering and parser memory-safety failures as security vulnerabilities.
+## Security and OT-safety issues
+
+Report unintended writes, unbounded or replayed traffic, scope escape, authorization bypass, signature or nonce failures, secret leakage, evidence tampering, parser memory-safety failures, privilege-boundary violations, or inaccurate safety-state reporting as security vulnerabilities.
+
+The active boundary is intentionally limited to one approved identity operation. Requests to add control functions, exploits, credential attacks, or broad discovery are outside the P0 security model.
