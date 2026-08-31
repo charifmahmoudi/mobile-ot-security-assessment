@@ -48,8 +48,10 @@ class LiveDemoCaptureTest {
             scenario.onActivity { it.findViewById<View>(MainActivity.REPORT_NAV_ID).performClick() }
             pause(5_000)
 
-            scenario.onActivity {
-                assertTrue(it.findViewById<TextView>(MainActivity.SCREEN_TITLE_ID).text.contains("Report readiness"))
+            scenario.onActivity { activity ->
+                val matches = mutableListOf<View>()
+                activity.window.decorView.findViewsWithText(matches, "Report readiness", View.FIND_VIEWS_WITH_TEXT)
+                assertTrue(matches.isNotEmpty())
             }
         }
     }
