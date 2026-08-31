@@ -31,6 +31,8 @@ jobs:
         run: bash tools/fetch_research_pcaps.sh
       - name: Verify package isolation
         run: python3 tools/verify_architecture.py
+      - name: Verify documentation structure
+        run: python3 tools/verify_documentation.py
       - name: Exercise AF_PACKET capture daemon on a virtual SPAN link
         run: bash tools/test_capture_daemon.sh
       - name: Unit tests, lint, and debug APKs

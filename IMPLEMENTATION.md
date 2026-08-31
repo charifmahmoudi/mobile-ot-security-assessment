@@ -25,7 +25,7 @@ This repository now contains the first deployable safety slice for **P0-WATER**.
 | Dedicated-appliance contract | Separate signature-protected Passive Capture Broker; interface capability attestation; bounded time/byte request; PCAP stream over file descriptor; no Android Internet permission | Static boundary checks + API 29/35 live-stream emulation |
 | Native live capture | `AF_PACKET` daemon bound to one interface; promiscuous receive; bounded mode-0600 PCAP; no packet-send calls | Native compile/static gate + virtual SPAN/veth capture and zero-TX assertion in CI |
 | Passive protocol coverage | Modbus/TCP, DNP3, IEC-104, BACnet/IP, EtherNet/IP, S7comm, IEC 61850 MMS candidate, OPC UA and PROFINET framing | Parser tests; four protocols have sourced CI fixtures |
-| Assessment UI | Explicit passive/active choice, visible field labels, three-step authorization, pre-broker scope validation, analyst-review guidance | API 29 + API 35 instrumentation |
+| Assessment UI | Three-step site setup, persistent five-stage orientation, one primary decision per screen, explicit passive/active choice, pre-broker scope validation and review-first inventory | API 29 + API 35 instrumentation |
 
 ## CI acceptance gate
 

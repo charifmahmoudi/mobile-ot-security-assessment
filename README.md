@@ -8,7 +8,7 @@ Atlas OT Scout helps an authorized assessor build a defensible view of one indus
 
 The first product pack is **P0-WATER**, a proof of concept for one water or wastewater control segment. It is deliberately not a general-purpose network scanner, exploitation tool, certification audit, or continuous-monitoring platform.
 
-> **Current status:** the trust-focused guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, searchable inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093). Physical phone, USB-NIC and TAP qualification remains a release gate.
+> **Current status:** the guided Android workflow, passive PCAP/PCAPNG analysis, rooted capture boundary, review-first inventory, and one-target Modbus/TCP identity operation are executable and green in [CI run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673). Physical phone, USB-NIC and TAP qualification remains a release gate.
 
 ## The value in one field visit
 
@@ -45,7 +45,7 @@ flowchart TB
   HANDOFF --> OUT3["Output: defensible completion checklist"]
 ```
 
-The application does not ask the user to “scan a network.” It asks what decision is needed, recommends the safest evidence source, and carries the result into the next review queue. Persistent **Overview**, **Collect**, **Assets**, **Findings** and **Report** destinations show where the assessor is and what remains.
+The application does not ask the user to “scan a network.” A three-step site wizard establishes context first; the workspace then asks what decision is needed, recommends the safest evidence source, and carries the result into the next review queue. A visible stage rail and persistent **Overview**, **Collect**, **Assets**, **Findings** and **Report** destinations show where the assessor is and what remains.
 
 | Site context | Guided assessment | Evidence model |
 |---|---|---|
@@ -55,7 +55,7 @@ The application does not ask the user to “scan a network.” It asks what deci
 
 | Capability | Executable behavior | Assurance |
 |---|---|---|
-| Site onboarding | Select or create a site; capture industry, process area, expected vendors, language and retention | Android API 29 and 35 journeys |
+| Site onboarding | Three short steps capture the process boundary, optional vendor context, then language and retention | Android API 29 and 35 journeys |
 | Guided workflow | Overview → Collect → Assets → Findings → Report, with one recommended next action | Stable navigation contracts and instrumentation tests |
 | Passive file analysis | Import bounded PCAP/PCAPNG through Android's document picker; hash, parse and review before inventory mutation | Modbus/TCP, DNP3, IEC-104 and BACnet research captures in CI |
 | Dedicated passive capture | Signature-protected Capture Broker streams a bounded native `AF_PACKET` capture over a file descriptor | Virtual SPAN test plus zero transmission-syscall trace |
@@ -157,7 +157,7 @@ flowchart LR
   EMULATORS --> EVIDENCE
 ```
 
-The current executable reference is [run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900):
+The full device, emulator and process topology is specified in the [end-to-end test architecture](docs/testing/E2E-ACCEPTANCE.md). The current reference is [run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673) at [`bd1860e`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/bd1860e9601b2433b41bf9ef42c9e09577c1aef0):
 
 - package/permission isolation, unit tests, lint and all debug APKs;
 - Android 10 / API 29 and Android 15 / API 35 guided UI journeys;
@@ -215,7 +215,8 @@ Start with the document matching the decision you need to make:
 | Use or demonstrate the application | [Guided user manual](docs/user-guide/USER-MANUAL.md) |
 | Understand processes, permissions and trust boundaries | [Architecture overview](docs/wiki/Technical-Architecture.md) |
 | Review exactly what P0-WATER must deliver | [P0-WATER product contract](docs/poc/WATER-WASTEWATER-POC.md) |
-| Audit what CI proves and does not prove | [End-to-end acceptance contract](docs/testing/E2E-ACCEPTANCE.md) |
+| Audit devices, emulators and what CI proves | [End-to-end test architecture](docs/testing/E2E-ACCEPTANCE.md) |
+| Review the interaction and visual rules | [Product UX contract](docs/product/OPEN-SOURCE-AND-UX-IMPLEMENTATION.md) |
 | Review rooted-image and hardware assumptions | [Dedicated Android appliance](docs/architecture/DEDICATED-ANDROID-APPLIANCE.md) |
 | See implemented versus deferred capability | [Implementation status](IMPLEMENTATION.md) |
 | Investigate Morocco target accounts and entry paths | [Account intelligence](docs/accounts/README.md) |

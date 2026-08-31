@@ -6,7 +6,7 @@ Atlas OT Scout is a site-centered OT discovery PoC. The working journey is:
 
 This manual covers the implemented passive PCAP/PCAPNG analysis and the explicitly authorized, single-target Modbus/TCP identity check. It does not describe an unrestricted scanner or a complete certification audit.
 
-Every screenshot below is an unmodified Android 15 emulator output from green [CI run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at commit [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900). That run also passed Android 10, PyModbus, Modbus-TK, Conpot, passive research captures and the rooted AF_PACKET zero-transmission gate.
+Every screenshot below is an unmodified Android 15 emulator output from green [CI run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673) at commit [`bd1860e`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/bd1860e9601b2433b41bf9ef42c9e09577c1aef0). That run also passed Android 10, PyModbus, Modbus-TK, Conpot, passive research captures and the native AF_PACKET zero-transmission gate.
 
 ## 1. Start in the correct site
 
@@ -20,19 +20,19 @@ The first screen establishes the operating context before any evidence is collec
 
 Confirm the site and process area before continuing. Evidence assigned to the wrong site can produce a misleading inventory.
 
-## 2. Create a site
+## 2. Create a site in three short steps
 
-![New-site guided form](screenshots/02-new-site-api35.png)
+| Site and industry | Technology context | Review and create |
+|---|---|---|
+| ![New-site identity step](screenshots/02-new-site-api35.png) | ![New-site vendor step](screenshots/02b-new-site-vendors-api35.png) | ![New-site review step](screenshots/02c-new-site-review-api35.png) |
 
-Enter the site information once so it remains visible throughout the assessment:
+The progress indicator separates required scope from optional context:
 
-1. Enter a distinctive **site name**.
-2. Enter the **location / process area** at the level covered by the authorization.
-3. Choose the **industry** from the dropdown.
-4. Select any known **main technology vendors**. Multiple vendors may be selected.
-5. Choose the report language: French, Arabic or English.
-6. Choose the local evidence-retention period.
-7. Tap **Create site workspace**.
+1. **Site:** enter the site name, authorized location/process area and industry, then tap **Continue to technology context**.
+2. **Technology:** select vendors supported by prior drawings, contracts or inventory. Select several, or explicitly tap **Skip vendor context**.
+3. **Review:** verify the operating-context summary, choose French, Arabic or English, set local retention, then tap **Create site workspace**.
+
+Back returns to the previous step without discarding the draft. No network operation occurs during setup.
 
 Vendor selections are context and filtering hints—not claims that equipment has been discovered. A vendor becomes an asset fact only when supported by evidence and analyst review.
 
@@ -42,10 +42,10 @@ PoC note: site and inventory state is persisted locally using application prefer
 
 ![Site assessment dashboard](screenshots/03-site-dashboard-api35.png)
 
-Use the dashboard as the assessment home:
+Use the dashboard as the assessment home. The stage rail shows where you are, while the bottom navigation provides stable access to all five work areas.
 
 - **Assessment outcome so far** separates known assets, protocols and open decisions.
-- **Recommended next action** directs the assessor to one unresolved decision instead of presenting a generic scan button.
+- **Do this next** presents one context-aware action instead of a generic scan button.
 - **Evidence coverage** summarizes protocol, vendor and review coverage without overstating completeness.
 - **Deliverable in progress** shows what the assessment package will contain and why the next action matters.
 
@@ -192,6 +192,6 @@ Use [the presenter script](../product/DEMO-SCRIPT.md) for a coherent customer de
 
 ## 11. Current PoC boundary
 
-Implemented and green in CI run #32: site onboarding, persisted local site/inventory state, five-stage guided shell, decision-led dashboard, passive PCAP/PCAPNG analysis, Modbus/DNP3/IEC-104/BACnet decoders, rooted capture-broker journey, constrained Modbus identity, inventory search/filter/detail, findings drafts and report-readiness blocking.
+Implemented and green in CI run #36: three-step site onboarding, persisted local site/inventory state, five-stage guided shell, decision-led dashboard, passive PCAP/PCAPNG analysis, Modbus/DNP3/IEC-104/BACnet decoders, capture-broker journey, constrained Modbus identity, inventory search/filter/detail, findings drafts and report-readiness blocking.
 
 Not yet implemented: physical rooted-device SPAN/TAP and USB-Ethernet qualification, general active scanning, encrypted multi-user case storage, durable merge/reject audit events, inventory connectors, reviewer signatures and final professional report export. The current Findings and Report destinations are guided PoC workflows, not completed audit issuance.

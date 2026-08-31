@@ -1,76 +1,109 @@
-# Open-source integration and guided UX implementation
+# Product UX and component-integration contract
 
-## Product rule
+Atlas OT Scout is a field-assessment instrument, not a generic scanner. The interface must help an authorized assessor close one uncertainty at a time while preserving scope, provenance and review state.
 
-Atlas owns the assessment workflow, safety policy, evidence model, inventory, findings and report semantics. Open-source components may implement bounded technical functions; they do not define the product or the assessor's conclusions.
+## UX audit and correction
 
-## Integration decisions
-
-| Capability | Project | Runtime decision | Boundary |
+| Severity | Observed usability failure | Product risk | Implemented correction |
 |---|---|---|---|
-| Rooted Ethernet capture | libpcap | Integrate into the system capture daemon | Daemon is SELinux-confined; Case App never receives root |
-| Android capture reference | PCAPdroid / pcapd | Study capture lifecycle and qualify reuse only after license review | Do not fork the complete app or expose generic controls |
-| Flow classification | nDPI | Evaluate as an optional, separately linked native worker | LGPL and dual-licensed dissectors require explicit review |
-| OT parser oracle | Zeek + CISA ICSNPP | CI only | Compare normalized observations; do not deploy Zeek on the phone |
-| Encrypted records | SQLCipher for Android | Planned replacement for SharedPreferences case storage | Key is wrapped by Android Keystore; capture services cannot read the database |
-| Modbus RTU transport | usb-serial-for-android | Planned restricted serial broker | Adapter, unit IDs, function codes, timing and byte limits are allowlisted |
-| Report rendering | Typst | Planned isolated offline renderer | Renderer receives a finalized read-only report model |
-| Offline vulnerability context | CISA KEV plus vendor advisories | Planned signed data pack | Matching creates a review candidate, never an automatic finding |
+| Critical | New-site setup was one long form | Abandonment, missed fields and accidental defaults | Three short steps: site → technology context → review |
+| Critical | Screens exposed functions before the decision they support | Users choose a tool instead of defining the evidence gap | Collection starts with “What do you need to establish?” |
+| High | Assessment progress existed only in prose cards | Users could not orient themselves after drilling into a task | Persistent five-stage rail plus bottom navigation |
+| High | Dashboard presented several actions at equal weight | Unclear next step and repeated collection | One context-aware primary action; secondary shortcuts grouped |
+| High | Inventory led with technical summaries | Review work was buried beneath counts and protocol text | Pending-decision state first, then search/filter and evidence coverage |
+| Medium | Ten- and eleven-point labels were overused | Poor field readability and weak hierarchy | Larger navigation, status, kicker and card labels |
+| Medium | Green appeared as both decoration and status | Confidence state could be misread | Navy/cobalt carry hierarchy; green means supported/confirmed only |
+| Medium | Blank first-frame screenshot could enter documentation | Misleading acceptance evidence | Instrumentation waits for a rendered compositor frame |
 
-## Runtime structure
+## Primary journey
 
-1. The unprivileged Case App creates and reviews the assessment.
-2. Signature-protected brokers accept narrow, typed requests.
-3. The rooted capture daemon opens only a qualified passive interface.
-4. Isolated parser workers convert bounded frames into observations.
-5. Observations remain separate from confirmed assets until assessor acceptance.
-6. Findings reference assets, observations and immutable evidence artifacts.
-7. Final reports are blocked until authorization, review and evidence-quality gates pass.
+```mermaid
+flowchart TB
+  SITE["Establish site and scope"]
+  GAP["Choose the uncertainty to close"]
+  METHOD["Use the least intrusive method"]
+  REVIEW["Review observations"]
+  MODEL["Reconcile inventory and findings"]
+  HANDOFF["Check report readiness"]
 
-## Guided workflow
+  SITE --> GAP --> METHOD --> REVIEW --> MODEL --> HANDOFF
+  HANDOFF -. "blocker identifies the exact missing decision" .-> GAP
+```
 
-The UI implements five persistent destinations inside a selected site:
+A user should always be able to answer:
 
-1. **Overview** — context, progress, coverage and one recommended next action.
-2. **Collect** — live passive, capture import, constrained active identity and future serial collection.
-3. **Assets** — explicit observation review, inventory search/filtering and a process-zone network model.
-4. **Findings** — evidence-linked draft conditions with confidence separate from consequence.
-5. **Report** — readiness gates and a clearly marked draft preview.
+1. Which site and process boundary am I working in?
+2. What decision am I trying to support?
+3. Will the next action transmit?
+4. What evidence was produced?
+5. What must I review before it changes the inventory?
+6. What blocks the professional handoff?
 
-The first-run path remains outside this shell: choose an existing site or create one with industry, expected vendors, report language and local retention.
+## Screen contracts
 
-## Implemented interaction rules
+| Screen | Primary question | Primary action | Must remain visible |
+|---|---|---|---|
+| Site selection | Which operating context is authorized? | Resume a site or create one | Sample status and offline statement |
+| Site setup 1 | Where is the assessment occurring? | Continue to technology context | Name, process area and industry |
+| Site setup 2 | What technology is expected from prior knowledge? | Continue or explicitly skip | “Context, not discovery” warning |
+| Site setup 3 | Is the workspace configuration correct? | Create workspace | Scope summary, language and retention |
+| Overview | What should I do next? | One context-aware continuation | Site, stage, evidence counts and open decisions |
+| Collect | What uncertainty needs evidence? | Select one method | Passive/active effect and prerequisite |
+| Passive result | What did this visibility sample support? | Accept selected observations | Source hash, limitations and review state |
+| Active authorization | Is one exact identity request approved? | Authorize once | Target, CIDR, unit, timeout and no-read/write limit |
+| Inventory | Which records need an assessor decision? | Open a review item | Review count, filters, provenance and confidence |
+| Findings | What condition is supported, and what remains unknown? | Review report readiness | Evidence, consequence, confidence and next validation |
+| Report | Can the assessment be issued professionally? | Resolve the named blocker | Authorization, evidence, reviewer and export gates |
 
-- Offline/passive state is persistent in the assessment shell.
-- Passive is labeled as the recommended default.
-- Active collection declares exactly what will be transmitted.
-- Parser observations cannot be promoted without explicit selection.
-- The network model starts with functional zones instead of an IP-node hairball.
-- Findings do not assign exploitability or business impact from protocol presence alone.
-- Report export is blocked while authorization, reviewer and encrypted-storage controls are incomplete.
-- Planned capabilities remain visually distinct from working functions.
+## Interaction rules
+
+- One primary filled button per screen; secondary actions use outlined treatment.
+- Destructive, transmitting or irreversible actions require an explicit review step.
+- Passive/active status is expressed in text, not color alone.
+- Forms use progressive disclosure; optional context never blocks required safety data.
+- Defaults may reduce effort but cannot silently broaden scope.
+- Every empty state explains why it is empty and gives one recovery action.
+- Errors preserve entered data and return the user to the exact field or decision that failed.
+- Raw observations cannot silently become assets, and assets cannot silently become findings.
+- Planned capabilities are disabled and visually separate from executable methods.
+- Touch targets are at least 48 dp; essential body text is at least 13 sp.
 
 ## Visual system
 
-| Token | Value | Use |
+| Token | Value | Meaning |
 |---|---|---|
-| Deep navy | `#0B1F33` | Primary text, appliance identity and trust boundary |
-| Cobalt | `#2457D6` | Primary actions, focus and selected navigation |
-| Slate | `#334155` | Method labels, secondary hierarchy and technical context |
-| Verified green | `#167A5A` | Confirmed/passive status only—not decorative headings |
-| Background | `#F4F7FB` | Field-friendly neutral background |
-| Surface | `#FFFFFF` | Cards and controls |
-| Border | `#CDD8E4` | Structure without heavy shadows |
-| Review amber | `#AA5210` | Analyst decision required |
-| Blocked red | `#B0232D` | Invalid authorization or safe stop only |
+| Deep navy | `#0B1F33` | Primary text, trusted workspace and security boundary |
+| Cobalt | `#2457D6` | Selected navigation and primary action |
+| Slate | `#334155` | Technical context and secondary hierarchy |
+| Verified green | `#167A5A` | Supported or confirmed state only |
+| Review amber | `#AA5210` | Human decision required |
+| Blocked red | `#B0232D` | Safe stop or invalid authorization |
+| Background | `#F4F7FB` | Low-glare field surface |
+| Card | `#FFFFFF` | Grouped content and controls |
+| Border | `#CDD8E4` | Structure without decorative shadows |
 
-The palette deliberately avoids broad teal decoration: navy and cobalt carry institutional trust and navigation, while green is reserved for a verified state. Color never carries status by itself. Status text, icons and evidence descriptions remain mandatory. Dynamic wallpaper colors are not used on the dedicated appliance.
+Status always includes a label or icon. Wallpaper-derived dynamic colors are disabled on the dedicated appliance.
 
-## Next engineering gates
+## Open-source component boundary
 
-- Migrate presentation from programmatic Android Views to Compose without changing broker IPC contracts.
-- Replace SharedPreferences records with SQLCipher and a versioned migration.
-- Persist accept, merge, reject and walkdown decisions as audit events.
-- Add signed parser/advisory data packs and pack provenance.
-- Generate deterministic PDF/JSON/CSV packages with reviewer signatures.
-- Qualify the rooted Samsung/LineageOS/USB-NIC tuple on physical hardware.
+| Capability | Candidate | Product boundary |
+|---|---|---|
+| Ethernet capture | libpcap / native `AF_PACKET` | SELinux-confined system daemon; no generic root UI |
+| Flow classification | nDPI, subject to license review | Optional isolated worker; classification is not a finding |
+| OT parser oracle | Zeek + CISA ICSNPP | CI comparison only, not a phone runtime dependency |
+| Encrypted records | SQLCipher | Case App only; brokers cannot read the database |
+| Serial transport | usb-serial-for-android | Future typed broker with allowlisted adapters and operations |
+| Report renderer | Typst | Future isolated renderer receiving a finalized read-only model |
+| Advisory context | CISA KEV and vendor advisories | Signed offline pack; match creates a review candidate only |
+
+Atlas owns the workflow, scope policy, evidence model, inventory decisions, finding semantics and report gates. Reused projects implement bounded technical functions; they do not define the assessment conclusion.
+
+## Remaining usability gates
+
+- Observe five independent assessors completing the demonstration without coaching.
+- Measure time to create a site, choose a passive method, review an observation and find a report blocker.
+- Verify French and Arabic layouts, including right-to-left behavior and terminology.
+- Add durable merge/reject/leave-unresolved actions with undo and an audit trail.
+- Replace the programmatic View layer with Compose while preserving IDs or equivalent semantic test contracts.
+- Test sunlight, gloves, one-handed use and accessibility scaling on the selected physical handset.
+

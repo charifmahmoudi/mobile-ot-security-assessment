@@ -1,12 +1,16 @@
 # Emulator acceptance screenshots
 
-These are Android 15 (API 35) instrumentation outputs from green [GitHub Actions run #32](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33337993093) at [`6b14a50`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/6b14a50ea3978b7ff69e5d60e03ec886e9602900), not design mockups. That run passed all six jobs: build/lint/unit/architecture/rooted capture, API 29, API 35, PyModbus, Modbus-TK and Conpot.
+These are Android 15 (API 35) instrumentation outputs from green [GitHub Actions run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673) at [`bd1860e`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/bd1860e9601b2433b41bf9ef42c9e09577c1aef0), not design mockups. That run passed all six jobs: build/lint/unit/architecture/native capture, API 29, API 35, PyModbus, Modbus-TK and Conpot.
 
 ## Site-centered assessment journey
 
-| Site selection | New-site onboarding | Site dashboard |
+| Site selection | New-site identity | Site dashboard |
 |---|---|---|
-| ![Site selection](../user-guide/screenshots/01-site-selection-api35.png) | ![New site](../user-guide/screenshots/02-new-site-api35.png) | ![Dashboard](../user-guide/screenshots/03-site-dashboard-api35.png) |
+| ![Site selection](../user-guide/screenshots/01-site-selection-api35.png) | ![New-site identity](../user-guide/screenshots/02-new-site-api35.png) | ![Dashboard](../user-guide/screenshots/03-site-dashboard-api35.png) |
+
+| Technology context | Review and create |
+|---|---|
+| ![Vendor-context step](../user-guide/screenshots/02b-new-site-vendors-api35.png) | ![Workspace review step](../user-guide/screenshots/02c-new-site-review-api35.png) |
 
 The instrumentation creates a site with an industry dropdown and multiple vendor selections, then reopens it from persisted application state.
 
@@ -60,4 +64,4 @@ The five-stage instrumentation journey opens **Overview**, **Collect**, **Assets
 
 ## Reproduction
 
-Instrumentation writes PNG checkpoints through Android MediaStore. `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them before emulator shutdown; CI retains the original screenshots, test reports and logs as artifacts. The documentation files above are the original run #32 PNGs.
+Instrumentation writes PNG checkpoints through Android MediaStore. `tools/run_ui_e2e.sh` and `tools/run_active_e2e.sh` pull them before emulator shutdown; CI retains the original screenshots, test reports and logs as artifacts. The documentation files above are the original run #36 PNGs.

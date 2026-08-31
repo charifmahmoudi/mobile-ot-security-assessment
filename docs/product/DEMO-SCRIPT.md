@@ -17,11 +17,11 @@ Open **North Water Treatment Plant**.
 
 Say: “OT discovery is only useful when evidence belongs to a known site and process area. We start with context, not a subnet sweep.”
 
-Point out the sample label, industry, asset count and **Create a new site** option. Briefly show onboarding: industry dropdown and multi-vendor selection.
+Point out the sample label, industry, asset count and **Create a new site** option. Open onboarding long enough to show the three-step structure—site, technology context and review—then return without creating duplicate data.
 
 ## 2. Resume and follow the recommendation — 60 seconds
 
-On **Overview**, explain the 4 assets, 3 protocols and 1 review item. Point to **Assessment progress** and **Recommended next action**.
+On **Overview**, explain the 4 assets, 3 protocols and 1 review item. Point to the stage rail and **Do this next** card.
 
 Say: “This is the working model. The app tells the assessor what is known and what still needs a decision.”
 
@@ -73,7 +73,7 @@ Say: “The product guides the assessor all the way to a defensible handoff, but
 
 | Question | Answer |
 |---|---|
-| Does the phone sniff the whole switched network? | No. Import PCAP/PCAPNG from an approved SPAN/TAP capture path. |
+| Does the phone sniff the whole switched network? | Only a qualified dedicated appliance attached to an approved SPAN/TAP can observe mirrored traffic. Imported PCAP remains the universal fallback; current live capture is emulator-validated, not hardware-qualified. |
 | Does active mode scan a subnet? | No. The PoC performs one identity request to one allowlisted Modbus target. |
 | Is this a finished professional audit product? | No. It is an emulator-tested discovery and inventory PoC; encrypted cases, findings and signed reports remain. |
 | Are inferred roles facts? | They are evidence-scoped candidates with confidence until corroborated. |

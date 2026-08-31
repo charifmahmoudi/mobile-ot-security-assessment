@@ -5,18 +5,19 @@
 **As an assessor, I need to choose an existing site or create a new one before collecting evidence, so observations cannot float without an operating context.**
 
 - Existing sites show name, location/process area, industry, asset count and sample status.
-- Creation requires site name, process area and industry; expected vendors support multiple selection.
+- Creation is a three-step wizard: required site/process/industry, optional multi-vendor context, then settings review.
 - Vendor choices are explicitly described as context, not discovery claims.
+- The user can skip vendor context without losing required site data.
 - The selected site remains visible through dashboard, collection and inventory screens.
 
 ## 2 — understand the current network picture
 
 **As an assessor resuming work, I need an immediate assessment snapshot, so I can choose the next action based on gaps rather than run another indiscriminate scan.**
 
-- Dashboard shows asset, protocol and review counts.
-- Network picture summarizes role distribution and priority observations.
-- Recent assets link to evidence detail.
-- Collection and inventory are separate, prominent actions.
+- Dashboard presents one context-aware primary action before technical summaries.
+- Status separates known assets, represented protocols and records awaiting review.
+- Evidence coverage summarizes role distribution and uncertainty without claiming completeness.
+- Collection and inventory remain grouped secondary shortcuts.
 
 ## 3 — choose a safe collection method
 
@@ -68,7 +69,7 @@
 
 | Story | JVM/corpus | Android API 29 + 35 | Live OT emulator |
 |---|---:|---:|---:|
-| Site onboarding/persistence | Repository model | Full UI journey | — |
+| Three-step site onboarding/persistence | Repository model | Site → technology → review → workspace | — |
 | Dashboard/inventory reasoning | Filtering/model tests | Search, filter and navigation | — |
 | Passive capture analysis | Four protocols + malformed corpus | Real content-URI import | — |
 | Active identity | Grant/policy/codec tests | Authorization → broker → result | PyModbus, modbus-tk, Conpot |

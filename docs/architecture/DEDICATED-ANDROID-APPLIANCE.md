@@ -11,6 +11,8 @@ The selected laboratory platform and exact Samsung/emulator compatibility are sp
 - `docs/appliance/ROOTED-ANDROID-POC.md`;
 - `docs/appliance/COMPATIBILITY-MATRIX.md`.
 
+Current GitHub CI uses stock Pixel 6 x86_64 AVDs on API 29 and 35 for application compatibility; it does not yet boot the proposed LineageOS image. The native daemon is tested separately on Linux virtual Ethernet. The [end-to-end test architecture](../testing/E2E-ACCEPTANCE.md) documents that boundary. Do not describe the split test as a hardware-qualified rooted-phone capture.
+
 ## Deployment profiles
 
 | Profile | Passive source | Active source | Claim permitted |
