@@ -49,7 +49,7 @@ adb shell rm -f "$remote_video"
 adb shell settings put system show_touches 1
 
 # Match the emulator's tall phone aspect ratio so the recording does not add
-# side bars. The first two seconds are trimmed below to remove launch-only UI.
+# side bars. Post-processing removes deterministic launcher/app-start frames.
 recorder_pid="$(adb shell "screenrecord --size 720x1600 --bit-rate 4000000 --time-limit 180 '$remote_video' >/dev/null 2>&1 & echo \$!" | tr -d '\r')"
 test -n "$recorder_pid"
 sleep 2
@@ -74,7 +74,7 @@ test -s "$raw_video"
 
 if command -v ffmpeg >/dev/null 2>&1; then
   ffmpeg -hide_banner -loglevel error -y \
-    -ss 2.0 -i "$raw_video" \
+    -ss 7.0 -i "$raw_video" \
     -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p -movflags +faststart \
     -an "$final_video"
 else
