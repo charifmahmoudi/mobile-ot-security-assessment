@@ -90,6 +90,9 @@ class AssessmentJourneyTest {
             }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("What technology is expected?"))
+            }
+            capture("02b-new-site-vendors")
+            scenario.onActivity { activity ->
                 val checks = descendants(activity.window.decorView).filterIsInstance<CheckBox>()
                 checks.take(2).forEach { it.isChecked = true }
                 assertTrue(checks.size >= 2)
@@ -97,6 +100,9 @@ class AssessmentJourneyTest {
             }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("Review and create"))
+            }
+            capture("02c-new-site-review")
+            scenario.onActivity { activity ->
                 activity.findViewById<View>(MainActivity.CREATE_SITE_ACTION_ID).performClick()
                 assertTrue(screenText(activity).contains("Demo bottling line"))
                 assertTrue(screenText(activity).contains("Food & beverage", ignoreCase = true))
