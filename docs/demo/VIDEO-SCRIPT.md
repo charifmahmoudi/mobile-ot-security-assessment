@@ -6,6 +6,8 @@
 
 The interaction is automated only so the same buyer story can be reproduced in GitHub Actions. Touch indicators are enabled during capture. The active identity step connects through the real signed app/broker path to a controlled PyModbus testbed exposed to the emulator at `10.0.2.2:502`.
 
+The final MP4 is normalized for broad playback compatibility: **H.264 constrained-baseline, constant 30 fps, `yuv420p`, AAC-LC audio and MP4 fast-start**. The PowerPoint deck embeds this file directly on its demo slide.
+
 ## User story captured on screen
 
 The recording follows one sample water-treatment assessment from evidence question to handoff decision:
@@ -26,7 +28,7 @@ The recording is deliberately fast enough for a buyer meeting, but every state t
 
 ## Reproduce it
 
-Prerequisites are Docker, JDK 17, Gradle 8.13, the Android SDK and a booted Android API 35 emulator reachable through `adb`.
+Prerequisites are Docker, JDK 17, Gradle 8.13, the Android SDK, `ffmpeg`/`ffprobe` and a booted Android API 35 emulator reachable through `adb`.
 
 From the repository root:
 
@@ -40,7 +42,9 @@ The script:
 - installs the Case App, Network Broker, Passive Capture Broker and instrumentation APK;
 - starts Android `screenrecord` at a tall phone aspect ratio;
 - executes `LiveDemoCaptureTest.recordWaterAssessmentUserStory`;
-- trims launch-only frames and writes an H.264 MP4;
+- trims launch-only frames without replacing application states;
+- transcodes to a conservative PowerPoint/browser-compatible H.264/AAC MP4;
+- validates codec, pixel format, constant frame rate, audio stream and fast-start ordering;
 - records video metadata and the PyModbus service log for provenance.
 
 Output:
@@ -49,7 +53,7 @@ Output:
 docs/demo/atlas-ot-scout-emulator-demo.mp4
 ```
 
-The [Live emulator demo workflow](../../.github/workflows/live-demo.yml) reproduces this process, rebuilds the buyer deck from the same evidence, and refreshes the generated MP4/PPTX/PDF assets on `main`.
+The [Live emulator demo workflow](../../.github/workflows/live-demo.yml) reproduces this process, rebuilds the prospect deck from the same evidence, and refreshes the generated MP4/PPTX/PDF assets on `main`.
 
 ## Proof boundary
 
@@ -65,4 +69,4 @@ It does not prove a physical Samsung image, USB-Ethernet adapter, physical SPAN/
 
 ## Suggested presenter introduction
 
-> This is not a screenshot reel. It is a continuous Android screen recording of one assessment story. Watch the application start with passive evidence, require an analyst decision before inventory changes, block an out-of-scope active target, identify one authorized Modbus device through the controlled broker path, and finish by showing exactly why the report is still blocked.
+> This is the actual Android workflow, not a screenshot reel. Watch it start with passive evidence, require an analyst decision before inventory changes, block an out-of-scope active target, identify one authorized Modbus device through the controlled broker path, and finish by showing exactly what still blocks a formal handoff.

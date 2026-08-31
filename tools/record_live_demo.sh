@@ -22,10 +22,12 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if ! command -v ffmpeg >/dev/null 2>&1; then
-  echo "ffmpeg is required to produce the trimmed buyer demo" >&2
-  exit 1
-fi
+for tool in ffmpeg ffprobe; do
+  if ! command -v "$tool" >/dev/null 2>&1; then
+    echo "$tool is required to produce and validate the buyer demo" >&2
+    exit 1
+  fi
+done
 
 docker rm -f "$container_name" >/dev/null 2>&1 || true
 docker run --detach --name "$container_name" --publish 502:502 atlas-pymodbus:3.11.3 >/dev/null
@@ -53,8 +55,9 @@ adb shell am force-stop com.atlasot.scout
 adb shell rm -f "$remote_video"
 adb shell settings put system show_touches 1
 
-# Keep the phone aspect ratio. Post-processing removes deterministic launcher
-# and instrumentation-start frames so the final MP4 begins on the user story.
+# Record the real phone UI at a native-like portrait ratio. Post-processing only
+# removes deterministic startup frames and normalizes the media profile; it does
+# not replace or synthesize application states.
 recorder_pid="$(adb shell "screenrecord --size 720x1600 --bit-rate 4000000 --time-limit 180 '$remote_video' >/dev/null 2>&1 & echo \$!" | tr -d '\r')"
 test -n "$recorder_pid"
 sleep 2
@@ -77,16 +80,48 @@ adb shell test -s "$remote_video"
 adb pull "$remote_video" "$raw_video" >/dev/null
 test -s "$raw_video"
 
+# Produce a deliberately conservative playback profile for PowerPoint, common
+# browsers and standard desktop players: H.264 constrained-baseline, constant
+# 30 fps, yuv420p, AAC-LC and the MP4 moov atom at the front of the file.
 ffmpeg -hide_banner -loglevel error -y \
   -ss 11.5 -i "$raw_video" \
-  -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p -movflags +faststart \
-  -an "$final_video"
+  -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=48000 \
+  -map 0:v:0 -map 1:a:0 \
+  -vf "fps=30,format=yuv420p" \
+  -c:v libx264 -profile:v baseline -level:v 4.0 -preset medium -crf 22 -tag:v avc1 \
+  -c:a aac -profile:a aac_low -b:a 96k \
+  -shortest -movflags +faststart \
+  "$final_video"
 
 test -s "$final_video"
 file "$final_video"
-if command -v ffprobe >/dev/null 2>&1; then
-  ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "$final_video" \
-    | tee "$work_dir/video-metadata.txt"
-fi
+
+video_codec="$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of default=nw=1:nk=1 "$final_video")"
+video_profile="$(ffprobe -v error -select_streams v:0 -show_entries stream=profile -of default=nw=1:nk=1 "$final_video")"
+pix_fmt="$(ffprobe -v error -select_streams v:0 -show_entries stream=pix_fmt -of default=nw=1:nk=1 "$final_video")"
+avg_rate="$(ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate -of default=nw=1:nk=1 "$final_video")"
+audio_codec="$(ffprobe -v error -select_streams a:0 -show_entries stream=codec_name -of default=nw=1:nk=1 "$final_video")"
+
+[ "$video_codec" = "h264" ]
+case "$video_profile" in *Baseline*) ;; *) echo "Unexpected H.264 profile: $video_profile" >&2; exit 1 ;; esac
+[ "$pix_fmt" = "yuv420p" ]
+[ "$avg_rate" = "30/1" ]
+[ "$audio_codec" = "aac" ]
+
+python3 - "$final_video" <<'PY'
+from pathlib import Path
+import sys
+p = Path(sys.argv[1])
+data = p.read_bytes()
+moov = data.find(b'moov')
+mdat = data.find(b'mdat')
+if moov < 0 or mdat < 0 or moov > mdat:
+    raise SystemExit('MP4 fast-start validation failed: moov atom is not before mdat')
+PY
+
+ffprobe -v error \
+  -show_entries format=duration,size,start_time:stream=index,codec_name,profile,codec_type,pix_fmt,width,height,avg_frame_rate \
+  -of default=noprint_wrappers=1 "$final_video" \
+  | tee "$work_dir/video-metadata.txt"
 
 exit "$test_status"

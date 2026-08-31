@@ -72,7 +72,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Build buyer deck and PDF
+      - name: Build prospect deck and PDF
         run: |
           npm install --no-save --no-package-lock pptxgenjs@4.0.0
           node tools/build_pitch_deck.js
@@ -84,9 +84,10 @@ jobs:
           test -s docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
           test -s docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           unzip -t docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx >/dev/null
-          pdfinfo docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf >/dev/null
+          unzip -l docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx | grep -Eq 'ppt/media/.*\.mp4'
+          test "$(pdfinfo docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf | awk '/^Pages:/ {print $2}')" -eq 13
           python3 tools/verify_documentation.py
-      - name: Commit refreshed buyer assets
+      - name: Commit refreshed prospect assets
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
@@ -97,7 +98,7 @@ jobs:
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx \
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           if ! git diff --cached --quiet; then
-            git commit -m "Refresh buyer pitch and live user-story demo"
+            git commit -m "Refresh prospect pitch and compatible user-story demo"
             git push origin HEAD:main
           fi
       - name: Publish live demo, deck and provenance
