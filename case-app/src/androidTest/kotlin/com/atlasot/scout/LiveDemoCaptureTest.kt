@@ -49,7 +49,7 @@ class LiveDemoCaptureTest {
             pause(5_000)
 
             scenario.onActivity { activity ->
-                val matches = mutableListOf<View>()
+                val matches = arrayListOf<View>()
                 activity.window.decorView.findViewsWithText(matches, "Report readiness", View.FIND_VIEWS_WITH_TEXT)
                 assertTrue(matches.isNotEmpty())
             }
