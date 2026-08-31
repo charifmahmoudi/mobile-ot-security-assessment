@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This four-minute walkthrough demonstrates the implemented P0-WATER user journey using screenshots captured from the Android API 35 emulator in GitHub Actions. It is intended for an industrial buyer, qualified audit provider or technical evaluator.
+This walkthrough demonstrates the implemented P0-WATER user journey as a continuous live screen recording of the Android API 35 emulator in GitHub Actions. It is intended for an industrial buyer, qualified audit provider or technical evaluator.
 
 The recording is deliberately labelled **emulated evidence**. It demonstrates application behaviour and the controlled CI testbed; it does not claim validation against physical PLC hardware, a production network or a flashed Samsung device.
 
@@ -22,13 +22,13 @@ The recording is deliberately labelled **emulated evidence**. It demonstrates ap
 
 ## Build
 
-Run from the repository root:
+Run from the repository root while an Android API 35 emulator is connected through `adb`:
 
 ```bash
-bash tools/build_demo_video.sh
+bash tools/record_live_demo.sh
 ```
 
-The output is `docs/demo/atlas-ot-scout-emulator-demo.mp4` (1920×1080, H.264/AAC). The build is deterministic and uses only versioned emulator screenshots. The copy committed to GitHub is a size-optimized 1280×720 preview; run the script to regenerate the 1080p master.
+The output is `docs/demo/atlas-ot-scout-emulator-demo.mp4` (720×1280, H.264, silent). It is a continuous `adb screenrecord` capture of the running application; it is not assembled from screenshots. The [Live emulator demo workflow](../../.github/workflows/live-demo.yml) reproduces and publishes the MP4 as a GitHub Actions artifact.
 
 ## Recommended live introduction
 

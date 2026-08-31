@@ -13,8 +13,9 @@ The editable ten-slide deck is designed for industrial buyers, qualified audit p
 ## Files
 
 - [Atlas-OT-Scout-Pitch-and-Demo.pptx](Atlas-OT-Scout-Pitch-and-Demo.pptx) — editable presentation with speaker notes and source references.
-- [Emulator demonstration video](../demo/atlas-ot-scout-emulator-demo.mp4) — 3:42 captioned 720p repository preview; the build script produces a 1080p master.
-- [Video storyline and build instructions](../demo/VIDEO-SCRIPT.md) — provenance, talk track and deterministic build command.
+- [Atlas-OT-Scout-Pitch-and-Demo.pdf](Atlas-OT-Scout-Pitch-and-Demo.pdf) — portable ten-page export of the same deck.
+- [Live emulator demonstration video](../demo/atlas-ot-scout-emulator-demo.mp4) — continuous Android API 35 screen recording, not a screenshot slideshow.
+- [Video storyline and live-capture instructions](../demo/VIDEO-SCRIPT.md) — provenance, talk track and reproducible `adb screenrecord` workflow.
 
 ## Claim boundary
 

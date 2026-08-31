@@ -14,9 +14,10 @@ The first product pack is **P0-WATER**, a proof of concept for one water or wast
 
 | Asset | Use |
 |---|---|
-| [Emulator demonstration video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | 3:42 captioned 720p repository preview built from the original Android 15 / API 35 emulator captures |
+| [Live emulator demonstration video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | Continuous Android 15 / API 35 `adb screenrecord` capture of the running application; not a screenshot slideshow |
 | [Buyer pitch and demonstration deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) | Ten-slide editable presentation covering the decision problem, product journey, safeguards, proof boundary and pilot proposal |
-| [Presenter storyline and reproducible video build](docs/demo/VIDEO-SCRIPT.md) | Talk track, provenance statement and local build command |
+| [PDF presentation](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf) | Portable ten-page export of the buyer deck |
+| [Presenter storyline and reproducible live capture](docs/demo/VIDEO-SCRIPT.md) | Talk track, provenance statement and local/CI recording workflow |
 
 The video and deck state that the current evidence comes from a controlled emulator and CI environment. Neither asset presents emulation as proof of physical Samsung, USB-Ethernet, TAP, PLC or production-network compatibility.
 
@@ -191,7 +192,7 @@ The shortest coherent demonstration takes 7–9 minutes:
 6. Run the PyModbus testbed to demonstrate one authorized identity result.
 7. Navigate the inventory, open **Findings**, then finish with the report-readiness blockers.
 
-Use the [guided user manual](docs/user-guide/USER-MANUAL.md) for operator steps, the [emulator video](docs/demo/atlas-ot-scout-emulator-demo.mp4) for a self-contained walkthrough, and the [pitch deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) for a buyer meeting.
+Use the [guided user manual](docs/user-guide/USER-MANUAL.md) for operator steps, the [live emulator video](docs/demo/atlas-ot-scout-emulator-demo.mp4) for a self-contained walkthrough, and the [PowerPoint](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) or [PDF deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf) for a buyer meeting.
 
 ## Build and verify
 
