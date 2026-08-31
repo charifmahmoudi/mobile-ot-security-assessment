@@ -64,7 +64,7 @@ jobs:
       - name: Capture active-identity proof frame
         run: |
           ffmpeg -hide_banner -loglevel error -y \
-            -ss 24.0 \
+            -ss 29.0 \
             -i docs/demo/atlas-ot-scout-emulator-demo.mp4 \
             -frames:v 1 \
             docs/user-guide/screenshots/09-active-pymodbus-api35.png

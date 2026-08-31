@@ -30,7 +30,9 @@ class LiveDemoCaptureTest {
     @Test
     fun recordWaterAssessmentUserStory() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
-            pause(2_000)
+            // Hold the real first screen long enough that CI startup variance cannot
+            // trim away the beginning of the buyer story.
+            pause(12_000)
 
             // User story 1: enter a bounded water-treatment workspace.
             click(scenario, MainActivity.SITE_CARD_ID)
