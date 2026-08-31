@@ -48,8 +48,8 @@ adb shell am force-stop com.atlasot.scout
 adb shell rm -f "$remote_video"
 adb shell settings put system show_touches 1
 
-# Match the emulator's tall phone aspect ratio so the recording does not add
-# side bars. Post-processing removes deterministic launcher/app-start frames.
+# Keep the phone aspect ratio. Post-processing removes deterministic launcher
+# and instrumentation-start frames so the final MP4 begins on the user story.
 recorder_pid="$(adb shell "screenrecord --size 720x1600 --bit-rate 4000000 --time-limit 180 '$remote_video' >/dev/null 2>&1 & echo \$!" | tr -d '\r')"
 test -n "$recorder_pid"
 sleep 2
@@ -74,7 +74,7 @@ test -s "$raw_video"
 
 if command -v ffmpeg >/dev/null 2>&1; then
   ffmpeg -hide_banner -loglevel error -y \
-    -ss 7.0 -i "$raw_video" \
+    -ss 11.5 -i "$raw_video" \
     -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p -movflags +faststart \
     -an "$final_video"
 else

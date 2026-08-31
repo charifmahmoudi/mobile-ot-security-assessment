@@ -8,6 +8,7 @@ on:
       - "capture-broker/**"
       - "network-broker/**"
       - "tools/record_live_demo.sh"
+      - "tools/build_pitch_deck.js"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
   pull_request:
@@ -16,17 +17,18 @@ on:
       - "capture-broker/**"
       - "network-broker/**"
       - "tools/record_live_demo.sh"
+      - "tools/build_pitch_deck.js"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   record:
     name: Record water-assessment user story
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -55,13 +57,59 @@ jobs:
           disable-animations: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash tools/record_live_demo.sh
-      - name: Publish live MP4 and provenance
+      - name: Capture active-identity proof frame
+        run: |
+          ffmpeg -hide_banner -loglevel error -y \
+            -ss 23.5 \
+            -i docs/demo/atlas-ot-scout-emulator-demo.mp4 \
+            -frames:v 1 \
+            docs/user-guide/screenshots/09-active-pymodbus-api35.png
+          test -s docs/user-guide/screenshots/09-active-pymodbus-api35.png
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build buyer deck and PDF
+        run: |
+          npm install --no-save --no-package-lock pptxgenjs@4.0.0
+          node tools/build_pitch_deck.js
+          if ! command -v libreoffice >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y libreoffice-impress
+          fi
+          rm -f docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
+          libreoffice --headless --nologo --nolockcheck \
+            --convert-to pdf \
+            --outdir docs/pitch \
+            docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
+          test -s docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
+          test -s docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
+          unzip -t docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx >/dev/null
+          pdfinfo docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf >/dev/null
+          python3 tools/verify_documentation.py
+      - name: Commit refreshed buyer assets
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            docs/demo/atlas-ot-scout-emulator-demo.mp4 \
+            docs/user-guide/screenshots/09-active-pymodbus-api35.png \
+            docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx \
+            docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "Refresh buyer pitch and live user-story demo"
+            git push origin HEAD:main
+          fi
+      - name: Publish live demo, deck and provenance
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: atlas-ot-scout-live-emulator-demo
+          name: atlas-ot-scout-buyer-demo
           if-no-files-found: error
           path: |
             docs/demo/atlas-ot-scout-emulator-demo.mp4
+            docs/user-guide/screenshots/09-active-pymodbus-api35.png
+            docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
+            docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
             build/live-demo/video-metadata.txt
             build/live-demo/pymodbus-demo.log
