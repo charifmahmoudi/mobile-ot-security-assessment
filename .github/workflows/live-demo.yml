@@ -9,6 +9,13 @@ on:
       - "network-broker/**"
       - "tools/record_live_demo.sh"
       - ".github/workflows/live-demo.yml"
+  pull_request:
+    paths:
+      - "case-app/**"
+      - "capture-broker/**"
+      - "network-broker/**"
+      - "tools/record_live_demo.sh"
+      - ".github/workflows/live-demo.yml"
 
 permissions:
   contents: read
