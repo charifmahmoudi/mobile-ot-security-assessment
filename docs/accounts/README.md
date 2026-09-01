@@ -14,7 +14,8 @@ The current universe contains **14 strategic accounts**: ONEE Water Branch, all 
 - [Legacy operators and transitions](LEGACY-OPERATORS-AND-TRANSITIONS.md) — Lydec, Redal and Amendis boundaries
 - [Water delivery ecosystem](ECOSYSTEM-MAP.md) — engineering, EPC, finance and integration participants
 - [Research source register](research/WEB-SOURCE-REGISTER.csv) — article, company, government and procurement sources
-- [Public professional role map](public-professional-role-map.csv) — functional roles and public routes; recheck before outreach
+- [Account universe dataset](account-universe.csv) — machine-readable account summary
+- [Public professional role map](public-professional-role-map.csv) — functional roles and public routes, without guessed contact data
 - [Engagement playbook](ENGAGEMENT-PLAYBOOK.md)
 
 ## National and industrial accounts
@@ -31,11 +32,11 @@ The current universe contains **14 strategic accounts**: ONEE Water Branch, all 
 | [SRM Casablanca–Settat](SRM-CASABLANCA-SETTAT.md) | Predecessor consolidation and ~MAD 61bn programme | Reservoir, pumping, sectorisation or transition inventory |
 | [SRM Souss–Massa](SRM-SOUSS-MASSA.md) | MAD 8.5bn 2025–2029 plan | Water-security or sanitation project handover |
 | [SRM de l’Oriental](SRM-ORIENTAL.md) | GIS field recognition, water rehabilitation and reuse | Evidence layer for one GIS-recognition lot |
-| [SRM Marrakech–Safi](SRM-MARRAKECH-SAFI.md) | ~MAD 4.7bn AEP projects and treated-water interface | Hydraulic project or reuse-transfer acceptance |
-| [SRM Rabat–Salé–Kénitra](SRM-RABAT-SALE-KENITRA.md) | >1.7m customers; Redal excluded from official perimeter | One project after operator boundary confirmation |
+| [SRM Marrakech–Safi](SRM-MARRAKECH-SAFI.md) | ~MAD 4.7bn drinking-water projects and treated-water interface | Hydraulic project or reuse-transfer acceptance |
+| [SRM Rabat–Salé–Kénitra](SRM-RABAT-SALE-KENITRA.md) | >1.7m customers; Redal excluded from official perimeter | One project after operator-boundary confirmation |
 | [SRM Fès–Meknès](SRM-FES-MEKNES.md) | Official telemanagement, sectorisation and leak-reduction tenders | Telemanagement or pressure-management evidence |
 | [SRM Tanger–Tétouan–Al Hoceïma](SRM-TANGER-TETOUAN-AL-HOCEIMA.md) | Awarded water-network works and Amendis transition | One work lot with confirmed operator |
-| [SRM Béni Mellal–Khénifra](SRM-BENI-MELLAL-KHENIFRA.md) | Treatment, sanitation and leak-repair projects | STEP commissioning or network-performance district |
+| [SRM Béni Mellal–Khénifra](SRM-BENI-MELLAL-KHENIFRA.md) | Treatment, sanitation and leak-repair projects | Treatment commissioning or network-performance district |
 | [SRM Drâa–Tafilalet](SRM-DRAA-TAFILALET.md) | Enterprise GIS and Ouarzazate sanitation renewal | Field evidence for GIS migration |
 | [SRM Guelmim–Oued Noun](SRM-GUELMIM-OUED-NOUN.md) | MAD 3.65bn 2026–2030 plan with rural emphasis | Offline rural or industrial-interface pilot |
 | [SRM Laâyoune–Sakia El Hamra](SRM-LAAYOUNE-SAKIA-EL-HAMRA.md) | MAD 2.74bn programme and digitalisation | New supply/pumping or sanitation project |

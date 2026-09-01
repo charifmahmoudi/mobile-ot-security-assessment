@@ -1,38 +1,44 @@
-# SRM Rabat–Salé–Kénitra account brief
+# SRM Rabat–Salé–Kénitra account dossier
 
-## Water-sector scope
+_Research baseline: **1 September 2026**. Qualification research only; no purchasing relationship or system access is implied._
 
-The relevant scope is regional drinking-water distribution and liquid sanitation outside the separately delegated Redal perimeter.
+## Account
 
-The electricity function of the multiservice company is expressly outside this account brief.
+| Priority | Status | Geography | Water scope |
+|---|---|---|---|
+| 2 — large account with an unresolved delegated perimeter | Public regional multiservice company operating across the region except the Redal delegated perimeter | Rabat–Salé–Kénitra region | Drinking-water distribution, liquid sanitation and electricity outside the current Redal contract area |
+
+## Verified public evidence
+
+- **Scale:** The official figures state more than 1.7m customers.
+- **Contract:** The official page gives a 40-year 2025–2065 management period and a MAD 42.7bn global investment programme.
+- **Boundary:** The same official page explicitly excludes the Redal delegated-management perimeter.
 
 ## Current public signals
 
-- The official management statement describes centralized regional responsibility for drinking water, electricity and liquid sanitation under Law 83-21.
-- The boundary with the Redal delegated perimeter must be resolved before any site discussion.
-- No individual should be treated as the technical owner solely because of an executive title.
+- **Two-operator reality:** Redal still appears as a procuring entity for sanitation works in 2026, so the legal and operational boundary cannot be assumed from regional branding.
+- **Large long-term programme:** The investment horizon creates many potential water, pumping, reservoir and sanitation projects.
+- **Handover potential:** Any future perimeter transfer would create a high-value asset- and evidence-reconciliation event.
 
-## Recommended first offer
+## Atlas entry wedge
 
-Start with a pumping/reservoir or wastewater-works handover pack: scope confirmation, approved inventory import, passive observation, identity review and a controlled completion checklist.
+Begin only after the exact commune, facility and operator are confirmed. Outside Redal, target a provincial water or sanitation project. Inside Redal, treat Redal as the current counterparty unless authoritative documents say otherwise.
 
-## Buying group to validate
+Keep the first engagement to one operator, one process area and one decision. Passive or imported evidence is the default; any packet-producing action requires exact written authorization.
 
-- water operations or provincial water director;
-- wastewater operations where applicable;
-- automation, instrumentation, SCADA or telemanagement owner;
-- maintenance and asset-management lead;
-- information-systems/cybersecurity representative;
-- project management and public procurement;
-- incumbent integrator or engineering contractor for the selected site.
+## Buying group and qualification
 
-## Pilot boundary
+**Roles to identify:** SRM regional/provincial water operations; Redal technical owner where in the delegated perimeter; asset management and GIS; sanitation operations; project acceptance; IS/cybersecurity; regional authority for boundary confirmation.
 
-Use one named treatment, pumping, storage, pressure-management, district-metering or wastewater area. Start with an approved inventory and passive evidence. Do not scan the regional estate, cross into electricity networks or infer installed products from public tender language.
+**Questions:** Is the exact asset inside or outside Redal's contract perimeter? Which entity holds the maintenance contract and authoritative inventory? Is there a planned transfer, renewal or project handover? Which organisation can issue written network authorization?
 
-## Source basis
+**Risks:** Do not market one regional pilot across both operators. Do not rely on secondary press to declare the Redal contract ended. Procurement contacts are transaction-specific and are not general marketing contacts.
 
-- Official SRM-RSK/RAK organization pages.
-- Current public procurement notices for the exact province and service area.
+Public sources do not prove installed vendors, protocols, topology, vulnerabilities, budget availability or permission to test.
 
-Public sources establish organizational and project relevance only. They do not prove technology versions, cyber posture, budget or buying authority.
+## Sources
+
+- [RSK-001 — SRM-RSK key figures](https://agence.rak.ma/rak/chiffres-cles/) — grade A; more than 1.7m customers, 40-year contract, MAD 42.7bn programme and Redal exclusion.
+- [RSK-002 — Redal sanitation works remain procured in 2026](https://cpmaroc.com/appels-offres/107996) — grade C; evidence that the delegated perimeter remains operationally relevant; verify the official notice.
+
+Return to the [account coverage matrix](ACCOUNT-COVERAGE-MATRIX.md) or [account index](README.md).
