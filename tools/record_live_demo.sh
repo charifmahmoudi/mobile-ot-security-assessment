@@ -64,6 +64,7 @@ sleep 2
 
 test_status=0
 adb shell am instrument -w \
+  -e recordLiveDemo true \
   -e class com.atlasot.scout.LiveDemoCaptureTest \
   com.atlasot.scout.test/androidx.test.runner.AndroidJUnitRunner || test_status=$?
 
