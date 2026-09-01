@@ -1,94 +1,74 @@
-# Atlas Evidence Baseline Pilot
+# Atlas device evaluation and services offer
 
-_Status: commercial hypothesis to validate with customers._
+## Free device evaluation
 
-## Customer outcome
+A suitable prospect may receive a configured Atlas OT Scout device for **30 calendar days free of charge**. The period may be extended once for another 30 days, making **60 days the maximum free evaluation period**.
 
-Produce a reviewed, evidence-linked baseline for **one named water or wastewater process area** so the customer can make one explicit decision:
+The purpose is to determine whether Atlas produces a useful result for one bounded water, wastewater or industrial OT area. Suitable cases include:
 
-- accept or challenge a project handover;
-- reconcile an inventory or GIS record;
-- establish a maintenance baseline;
-- document unresolved identities and evidence gaps;
-- prepare one bounded area for an internal review.
+- a telemanagement or remote-station group;
+- a pumping station, reservoir or lift station;
+- a treatment or desalination process area;
+- an EPC commissioning or handover package;
+- an inventory, GIS or maintenance-record reconciliation;
+- a bounded OT networking or security review.
 
-The offer is not a broad network scan, vulnerability assessment, certification audit or continuous-monitoring replacement.
+The evaluation scope, device custodian, permitted evidence and return arrangements are agreed before the device is handed over. The evaluation may begin with approved inventories, as-built material, configuration exports or imported PCAP/PCAPNG files; broad production-network access is not required.
 
-## Provisional scope
+## After the evaluation
 
-| Item | Included |
-|---|---|
-| Area | One treatment train, pumping station, reservoir, lift station, remote-station group, district or equivalent bounded area |
-| Duration | Ten business days from receipt of approved inputs to reviewed handoff |
-| Appliance | One configured Atlas device left with the customer for evaluation |
-| Inputs | One approved inventory or asset extract, available topology/as-built material and an approved evidence source |
-| Collection | Imported or passive evidence first; receive-only capture where approved |
-| Optional action | One exact identity request to one authorized target when passive evidence cannot close the agreed gap |
-| Review | One working session with the technical reviewer and evidence custodian |
-| Handoff | Inventory delta, evidence references, unresolved conflicts, limitations and next actions |
-| Decision | Acquire the appliance, extend under a separately agreed scope, or return it |
+### Build an independent device
 
-Any scope increase requires a new written decision boundary.
+The organisation may use [this public repository](../../README.md) to build and maintain its own implementation and purchase a compatible Samsung phone and peripherals independently.
 
-## Deliverables
+The repository currently identifies specific Galaxy S20 Exynos variants as candidates in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md). Exact model identity matters. These models remain proof-of-concept candidates until the physical hardware and receive-only acceptance tests documented in the repository are completed.
 
-1. agreed scope and authorization record;
-2. imported expected-asset baseline;
-3. reviewed observation and provenance ledger;
-4. accepted, rejected, conflicting and unresolved asset changes;
-5. evidence-linked findings limited to the agreed decision;
-6. report-readiness blockers and limitations;
-7. pilot outcome review and purchase/return decision.
+There is no software licence fee for the self-build option. The organisation is responsible for hardware sourcing, build, flashing, testing and maintenance unless it separately requests assistance.
 
-## Customer prerequisites
+### Keep the evaluation device
 
-The customer must provide:
+The organisation may keep the supplied device by paying:
 
-- the legal operator and asset owner for the selected area;
-- a named operational sponsor;
-- a named technical reviewer and evidence custodian;
-- approved inventory or project records;
-- an approved passive capture, representative lab or authorized receive-only connection;
-- retention, export and deletion requirements;
-- written authorization for any packet-producing operation;
-- stop conditions and an escalation contact.
+- the actual cost of the phone and supplied accessories; and
+- a small installation, preparation and configuration fee.
 
-A missing prerequisite pauses the pilot rather than silently widening the scope.
+Any additional integration or consulting is agreed separately. The commercial value is the prepared hardware and service, not a compulsory proprietary licence.
 
-## Success measures
+### Arrange setup on a customer-owned device
 
-The pilot is successful only when the customer agrees that at least one decision improved. Record:
+The organisation may supply a compatible, dedicated Samsung device and schedule an on-site setup session. The session may cover model verification, operating-system installation, Atlas installation, configuration and a basic functional check.
 
-- number of expected records reviewed;
-- corroborated, missing, unexpected and conflicting records;
-- unresolved items assigned to an owner;
-- time required from the customer’s technical reviewers;
-- unsafe or out-of-scope actions blocked;
-- handoff package accepted or challenged;
-- willingness to retain the appliance;
-- preferred commercial structure and acceptable budget range.
+This setup requires bootloader unlocking and flashing a custom operating-system image. The process erases the device. Samsung also documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), after which Samsung Pay, Secure Folder and other Knox-dependent functions may stop working. The device should therefore be dedicated to Atlas rather than used as a personal or enterprise-managed phone.
 
-Asset count alone is not a success measure.
+LineageOS publishes [Galaxy S20 `x1s` build instructions](https://lineageos.github.io/lineage_wiki/devices/x1s/build/), while this repository defines the narrower model and acceptance requirements used by Atlas.
 
-## Commercial experiment
+## OT networking and security consulting
 
-No final price is published until hardware, travel, support and liability costs are approved. Test one of these structures in discovery and record the response in `pipeline.csv`:
+The team is available for consulting requested directly by a prospect, with or without a device evaluation. Relevant services include:
 
-| Model | Purpose |
-|---|---|
-| Free pilot with fixed purchase/return date | Tests the current try-before-buy proposition |
-| Credited pilot fee | Tests willingness to pay while reducing evaluation risk |
-| Paid evidence workshop before field work | Tests demand where production access is not yet possible |
+- OT network architecture and segmentation;
+- passive visibility and packet-capture planning;
+- SCADA, PLC, RTU and industrial-protocol review;
+- asset inventory and evidence governance;
+- commissioning and handover support;
+- remote-site and telemanagement architecture;
+- OT cybersecurity risk assessment;
+- incident readiness and evidence preservation;
+- vendor, integrator and project technical review;
+- Atlas deployment, integration and training.
 
-Every proposal must state the pilot end date, appliance return method, acquisition decision date, included support and out-of-scope work.
+Consulting scope and commercial terms are agreed separately from the free device evaluation.
 
-## Conversion decision
+## End of the free period
 
-The closeout meeting must produce one of four outcomes:
+At the end of 30 days, or at the end of the approved extension, the prospect selects one of these outcomes:
 
-- **Acquire** — commercial terms and support are agreed.
-- **Extend** — a new paid or explicitly approved scope is defined.
-- **Return** — the appliance is retrieved and data-handling obligations are completed.
-- **No decision** — record the blocker and a dated follow-up; do not leave the pilot open indefinitely.
+- return the device;
+- build an independent implementation;
+- keep the prepared evaluation device;
+- arrange setup on a compatible device;
+- request consulting services.
 
-Return to the [business-development dashboard](README.md).
+A free evaluation ends after a maximum of 60 days unless the device has been purchased or another separately agreed engagement has begun.
+
+Return to the [business-development guide](README.md).
