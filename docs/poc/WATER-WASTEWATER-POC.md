@@ -336,7 +336,7 @@ These enter later only through a new threat review, protocol specification, test
 
 ## 14. Implementation documents
 
-- [Technical architecture index](../wiki/Technical-Architecture.md)
+- [Architecture index](../architecture/README.md)
 - [System and deployment architecture](../architecture/SYSTEM-AND-DEPLOYMENT.md)
 - [Network execution architecture](../architecture/NETWORK-EXECUTION.md)
 - [Component contracts](../architecture/COMPONENT-CONTRACTS.md)

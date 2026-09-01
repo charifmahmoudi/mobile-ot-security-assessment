@@ -1,57 +1,47 @@
-# Business development
+# Morocco water-sector business development
 
 _Research baseline: **1 September 2026**._
 
-This section converts the Morocco water-sector account research into an actionable business-development map. It presents the target companies, the publicly identifiable people most relevant to Atlas OT Scout, their likely functional relevance, direct professional-profile links, evidence confidence, and the next question to ask.
+This is the authoritative commercial-research section for Atlas OT Scout in Morocco. It combines the target-company universe, company dossiers, public employee profiles, engagement method, delivery ecosystem and source provenance in one maintained location.
 
-The current map covers **14 target organisations** and **51 public professional profiles** across water operations, wastewater operations, automation, SCADA, telemanagement, instrumentation, maintenance, asset management, GIS, hydraulic engineering, project delivery, quality, QHSE, programme control and internal referral routes.
+The active universe contains **14 operating organisations**: ONEE Water Branch, all 12 regional multiservice companies, and OCP Green Water. Legacy operators and delivery partners are kept as qualification context and are not silently counted as current buyers.
 
 ## Start here
 
-- [Company and people map](COMPANY-AND-PEOPLE-MAP.md) — account-by-account business context and curated public profiles
-- [Employee contact dataset](employee-contact-map.csv) — machine-readable research ledger
-- [Morocco account portfolio](../accounts/README.md) — company facts, projects, procurement signals and account dossiers
-- [Contact plans](../accounts/CONTACT-PLANS.md) — approved role-based engagement routes
-- [Engagement playbook](../accounts/ENGAGEMENT-PLAYBOOK.md) — qualification and pilot-development process
+- [Account coverage and priority matrix](ACCOUNT-COVERAGE-MATRIX.md) — complete company universe, priorities, public scope and entry wedges
+- [Company and people map](COMPANY-AND-PEOPLE-MAP.md) — 51 relevant public professional profiles with confidence and first-contact questions
+- [Engagement playbook](ENGAGEMENT-PLAYBOOK.md) — qualification, outreach, pilot design and safe messaging
+- [Ecosystem and transition map](ECOSYSTEM-MAP.md) — legacy operators, engineering/EPC participants, integrators and financing context
+- [Employee contact dataset](employee-contact-map.csv) — machine-readable public-profile ledger
+- [Research index](research/README.md) — source register, project signals, public events and account-universe data
 
-## Priority model
+## Company dossiers
 
-| Priority | Use |
-|---|---|
-| A | Strong first-contact candidate: the public profile shows a directly relevant operational, engineering, project, asset, quality or programme role |
-| B | Technical evaluator or referral route: relevant expertise is visible, but current authority or exact title must be confirmed |
-| C | Discovery-only route: current employer is visible, but the relevant function is not sufficiently public |
+| Company | Primary Atlas trigger | Dossier |
+|---|---|---|
+| ONEE — Water Branch | Treatment, pumping, conveyance and telemanagement evidence | [ONEE](ONEE.md) |
+| OCP Green Water | Desalination, reuse and EPC-to-operator handover | [OCP Green Water](OCP-GREEN-WATER.md) |
+| SRM Casablanca–Settat | Operator consolidation, sanitation works and network modernisation | [Casablanca–Settat](SRM-CASABLANCA-SETTAT.md) |
+| SRM Souss–Massa | Water-security and sanitation investment programme | [Souss–Massa](SRM-SOUSS-MASSA.md) |
+| SRM de l’Oriental | GIS recognition, rehabilitation, sanitation and reuse | [Oriental](SRM-ORIENTAL.md) |
+| SRM Marrakech–Safi | GIS/SCADA/GMAO convergence and hydraulic projects | [Marrakech–Safi](SRM-MARRAKECH-SAFI.md) |
+| SRM Fès–Meknès | Telemanagement, sectorisation and pressure management | [Fès–Meknès](SRM-FES-MEKNES.md) |
+| SRM Rabat–Salé–Kénitra | Network performance and operator-boundary qualification | [Rabat–Salé–Kénitra](SRM-RABAT-SALE-KENITRA.md) |
+| SRM Tanger–Tétouan–Al Hoceïma | Water works, sanitation projects and operator transition | [Tanger–Tétouan–Al Hoceïma](SRM-TANGER-TETOUAN-AL-HOCEIMA.md) |
+| SRM Béni Mellal–Khénifra | Treatment, sanitation and leak-repair programme | [Béni Mellal–Khénifra](SRM-BENI-MELLAL-KHENIFRA.md) |
+| SRM Drâa–Tafilalet | GIS migration and hydromechanical maintenance | [Drâa–Tafilalet](SRM-DRAA-TAFILALET.md) |
+| SRM Guelmim–Oued Noun | Rural expansion, pumping and sanitation works | [Guelmim–Oued Noun](SRM-GUELMIM-OUED-NOUN.md) |
+| SRM Laâyoune–Sakia El Hamra | New-operator digitalisation and treatment/sanitation operations | [Laâyoune–Sakia El Hamra](SRM-LAAYOUNE-SAKIA-EL-HAMRA.md) |
+| SRM Dakhla–Oued Ed-Dahab | Treatment-station and network-renewal programme | [Dakhla–Oued Ed-Dahab](SRM-DAKHLA-OUED-ED-DAHAB.md) |
 
-## Confidence model
+## Evidence and outreach rules
 
-| Confidence | Meaning |
-|---|---|
-| High | Current employer and relevant function are explicit in the public profile or corroborated public material |
-| Medium | Current employer is public and relevant expertise or activity is visible, but the exact current title or remit is incomplete |
-| Discovery | The profile can help identify the correct stakeholder, but should not be treated as a technical or commercial decision-maker |
-
-## Outreach rules
-
-- Recheck the current employer, title and operating perimeter on the day of outreach.
-- Use the professional-profile link or an official company route; do not infer personal email addresses or telephone numbers.
-- Ask for redirection to the responsible function rather than assuming that a visible employee owns budget or authorization.
-- Refer only to public company programmes or the person's publicly stated professional scope.
-- Do not imply that public infrastructure information exposes a vulnerability.
-- Begin with a redacted artifact, representative topology or lab demonstration—not a request for production access.
-- Any field activity requires written authorization, one named process area, named evidence custodians and explicit stop conditions.
-
-## Intended buying group
-
-A qualified Atlas opportunity normally requires several functions, not one contact:
-
-1. water or wastewater operations;
-2. automation, SCADA, telemanagement or instrumentation;
-3. maintenance or asset management;
-4. project delivery, commissioning or contractor management;
-5. cybersecurity or information systems;
-6. quality, QHSE or technical performance;
-7. procurement, programme control or an executive sponsor.
-
-A public profile establishes a research lead only. It does not establish consent to contact, buying authority, security authorization or permission to assess any system.
+- Recheck company status, operator perimeter, project status and employee role on the day of use.
+- Treat a public profile as a research lead, not proof of budget, authority, consent or permission to assess a system.
+- Use official company routes or public professional profiles; do not infer personal email addresses or telephone numbers.
+- Anchor outreach in a named public project, handover, maintenance or asset-data problem—not a generic cybersecurity pitch.
+- Preserve the distinction between verified facts, corroborated reporting, procurement signals, hypotheses and unknowns.
+- Never infer installed vendors, protocols, topology, vulnerabilities or credentials from sector-level public information.
+- Any field activity requires written authorization, an exact process-area boundary, named evidence custodians and explicit stop conditions.
 
 Return to the [documentation index](../README.md).

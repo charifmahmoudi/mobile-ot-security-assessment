@@ -228,4 +228,4 @@ No collection automatically resumes after process/device restart. Authorization 
 | Customer PoC | Authorized H1/H2 only | Customer controlled |
 | Production | Blocked until PoC release gates | Customer controlled |
 
-The [Technical Architecture](../wiki/Technical-Architecture.md) is the architecture index. Component and data contracts are defined in adjacent documents.
+The [architecture index](README.md) is the canonical route to component, data, security and deployment contracts.

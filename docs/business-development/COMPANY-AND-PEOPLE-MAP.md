@@ -2,30 +2,9 @@
 
 _Research baseline: **1 September 2026**. Public profiles and titles can change; verify them before use._
 
-This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-MATRIX.md) to publicly identifiable people whose visible professional scope is relevant to Atlas OT Scout. It is a business-development research tool, not an assertion of reporting lines, purchasing authority or assessment authorization.
+This map contains publicly identifiable people whose visible professional scope is relevant to Atlas OT Scout. Company facts, projects, priorities and source IDs are maintained in the [account coverage matrix](ACCOUNT-COVERAGE-MATRIX.md) and the linked company dossiers. A profile is a business-development research lead—not proof of reporting line, purchasing authority, consent or assessment authorization.
 
-## Company portfolio
-
-| Company | Primary Atlas business trigger | Functions to assemble |
-|---|---|---|
-| [ONEE — Water Branch](../accounts/ONEE.md) | Treatment, pumping, conveyance and telemanagement evidence | Water operations, automation, SCADA training, maintenance, cybersecurity, procurement |
-| [OCP Green Water](../accounts/OCP-GREEN-WATER.md) | Desalination, reuse and EPC-to-operator handover | Programme leadership, process engineering, operations performance, QHSE, project controls |
-| [SRM Casablanca–Settat](../accounts/SRM-CASABLANCA-SETTAT.md) | Operator consolidation, wastewater works and network modernisation | Water and sanitation operations, GIS, hydraulics, maintenance, project delivery |
-| [SRM Souss–Massa](../accounts/SRM-SOUSS-MASSA.md) | Water-security and sanitation investment programme | Hydraulic projects, operations, maintenance, asset management, programme control |
-| [SRM de l’Oriental](../accounts/SRM-ORIENTAL.md) | GIS recognition, rehabilitation, sanitation and reuse | Water engineering, sanitation, network performance, GIS and projects |
-| [SRM Marrakech–Safi](../accounts/SRM-MARRAKECH-SAFI.md) | GIS/SCADA/GMAO convergence and major hydraulic projects | Digital programmes, water operations, sanitation, network performance, automation |
-| [SRM Fès–Meknès](../accounts/SRM-FES-MEKNES.md) | Telemanagement, sectorisation and pressure-management procurement | Water operations, pumping, hydraulics, telemanagement, asset acceptance |
-| [SRM Rabat–Salé–Kénitra](../accounts/SRM-RABAT-SALE-KENITRA.md) | Network sectorisation, leak reduction and regional consolidation | Asset management, hydraulics, provincial operations, project delivery, technical performance |
-| [SRM Tanger–Tétouan–Al Hoceïma](../accounts/SRM-TANGER-TETOUAN-AL-HOCEIMA.md) | Water-network works, sanitation projects and operator transition | Hydraulic engineering, wastewater operations, maintenance, quality and projects |
-| [SRM Béni Mellal–Khénifra](../accounts/SRM-BENI-MELLAL-KHENIFRA.md) | Treatment, sanitation and leak-repair programme | Hydraulic engineering, programme control, operations and maintenance |
-| [SRM Drâa–Tafilalet](../accounts/SRM-DRAA-TAFILALET.md) | GIS migration, demineralisation and hydromechanical maintenance | Water operations, electromechanics, automation, GIS and projects |
-| [SRM Guelmim–Oued Noun](../accounts/SRM-GUELMIM-OUED-NOUN.md) | Rural service expansion and pumping/sanitation works | Engineering, automation, instrumentation, hydraulics and programme delivery |
-| [SRM Laâyoune–Sakia El Hamra](../accounts/SRM-LAAYOUNE-SAKIA-EL-HAMRA.md) | New-operator digitalisation, treatment and sanitation operations | Sanitation, treatment, electromechanics, automation and technical management |
-| [SRM Dakhla–Oued Ed-Dahab](../accounts/SRM-DAKHLA-OUED-ED-DAHAB.md) | Treatment-station and network-renewal programme | Water operations, QHSE, electromechanics, projects and programme governance |
-
-## Curated public profiles
-
-### ONEE — Water Branch
+## ONEE — Water Branch
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -35,7 +14,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Youssef ABDELJEBAR](https://ma.linkedin.com/in/youssef-abdeljebar-b8b279317) | Automation and industrial-instrumentation specialisation | Field-level reviewer for PLC, HMI, RTU and gateway evidence | B / High | What evidence is currently accepted when field identities disagree with records? |
 | [Abdessamad ASKLOU](https://ma.linkedin.com/in/abdessamad-asklou-023a15181/en) | SOFREL S550 telemanagement work for pumping and reservoir contexts | Technical referral and protocol/workflow feedback | B / Medium | Who reviews remote-site telemanagement assets before handover? |
 
-### OCP Green Water
+## OCP Green Water
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -44,7 +23,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Ilyas Hallouqui](https://ma.linkedin.com/in/ilyas-hallouqui-b0b92a216) | Industrial-process engineering | Treatment-process technical evaluator | B / High | Could one treatment train be used to review the Atlas evidence model? |
 | [Iliass Termone](https://ma.linkedin.com/in/iliass-termone-26a8572a1) | Desalination and process-technology activity | Process-engineering referral | B / Medium | Who owns control-system inventory and commissioning evidence for the relevant process area? |
 
-### SRM Casablanca–Settat
+## SRM Casablanca–Settat
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -54,13 +33,13 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Mohcine Houizi](https://ma.linkedin.com/in/mohcine-houizi-6a5552355) | Water-network maintenance and service-continuity signals | Maintenance and operational referral | B / Medium | Who owns the inventory used for maintenance planning in one network zone? |
 | [Amine Sadmi](https://ma.linkedin.com/in/amine-sadmi-217591323) | Public association with water and sanitation planning/project activity | Project-owner referral | B / Medium | Which project team owns asset-data acceptance for a bounded renewal lot? |
 
-### SRM Souss–Massa
+## SRM Souss–Massa
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
 | [Anas ERRAGALA](https://ma.linkedin.com/in/aerragala) | Civil engineer specialising in hydraulic projects, drinking-water and sanitation infrastructure | Project-to-operations evidence owner or evaluator | A / High | Which water-security or sanitation project has an upcoming acceptance milestone? |
 
-### SRM de l’Oriental
+## SRM de l’Oriental
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -68,7 +47,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Meryem Barik](https://ma.linkedin.com/in/meryembarik) | Water, environment, sanitation and wastewater-treatment background | Treatment and environmental technical evaluator | B / Medium | Who reviews process and asset evidence for one wastewater area? |
 | [Nisrine Lamrabet](https://ma.linkedin.com/in/nisrine-lamrabet) | Public visibility around network-performance activity | Leak-reduction and pressure-management referral | B / Medium | Who owns the current network-performance workstream and its asset records? |
 
-### SRM Marrakech–Safi
+## SRM Marrakech–Safi
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -77,7 +56,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Mohamed Radiane](https://ma.linkedin.com/in/radiane-m) | Public water-network performance activity | Network-performance referral | B / Medium | Who owns evidence and acceptance for pressure, leakage or renewal work? |
 | [Mouad Naamsari](https://ma.linkedin.com/in/mouad-naamsari-490512302) | Automation, SCADA and OT-security technical activity | Technical reviewer for passive-first and one-target controls | B / Medium | Would the architecture team review the grant, isolation and evidence workflow in a lab? |
 
-### SRM Fès–Meknès
+## SRM Fès–Meknès
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -86,7 +65,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Abderahim LAALLA](https://ma.linkedin.com/in/abderahim-laalla-9640409a) | Management and operations context | Management referral to the correct technical owner | B / Medium | Who owns water operations, telemanagement and project acceptance for the target province? |
 | [Soumia RGUIBI](https://ma.linkedin.com/in/soumia-rguibi-246ba5304) | Water engineering, treatment, hydraulics and sanitation background | Technical workflow reviewer | B / Medium | Could you review whether the evidence taxonomy matches field-engineering practice? |
 
-### SRM Rabat–Salé–Kénitra
+## SRM Rabat–Salé–Kénitra
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -96,7 +75,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Samira Bouzoubaa](https://ma.linkedin.com/in/samira-bouzoubaa-152032153) | Public engagement with sectorisation, leak-detection and network-optimisation activity | Discovery route to the performance team | C / Discovery | Who owns the current sectorisation and leak-reduction programme? |
 | [Yasmina Guermouche](https://ma.linkedin.com/in/yasmina-guermouche-2b5083268) | Public engagement around drinking-water network projects and service operations | Provincial/project referral | C / Discovery | Who is responsible for water-network project delivery in the relevant province? |
 
-### SRM Tanger–Tétouan–Al Hoceïma
+## SRM Tanger–Tétouan–Al Hoceïma
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -106,7 +85,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Salma Baissa](https://ma.linkedin.com/in/salma-baissa-008a78164) | Quality standardisation and technical-performance-indicator leadership signal | Quality, repeatability and acceptance governance | A / Medium | Which technical indicators and sign-offs determine report readiness? |
 | [MOHAMMED JKARII](https://ma.linkedin.com/in/mohammed-jkarii-b3b96a190) | Water-hydraulics and network technical activity | Hydraulic technical reviewer | B / Medium | Who owns the approved topology and inventory for the selected network area? |
 
-### SRM Béni Mellal–Khénifra
+## SRM Béni Mellal–Khénifra
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -114,16 +93,16 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [ESSAID Radouan](https://ma.linkedin.com/in/essaid-radouan-3256a2ab) | Civil and hydraulic infrastructure background | Hydraulic project evaluator | B / High | Which treatment or network-renewal lot needs a defensible field baseline? |
 | [Azeddine Ourrach](https://ma.linkedin.com/in/azeddine-ourrach-245109177) | Current SRM engineering profile | Internal engineering referral | C / Discovery | Who owns treatment, sanitation or asset-management acceptance? |
 
-### SRM Drâa–Tafilalet
+## SRM Drâa–Tafilalet
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
 | [Omar BARMAKI](https://ma.linkedin.com/in/omar-barmaki-07701579) | Project engineering covering hydraulics, pumps, electrical systems, regulation and automation | Strong electromechanical/project route | A / Medium | Which hydromechanical or pumping-station maintenance scope needs evidence reconciliation? |
 | [Mohamed El Bazi](https://ma.linkedin.com/in/mohamed-el-bazi-217159204) | Electromechanics and automated-systems signal | Automation and maintenance evaluator | A / Medium | Who owns automation and asset identity for pumping, treatment or demineralisation sites? |
 | [Hajar Ouzizi](https://ma.linkedin.com/in/hajar-ouzizi-a40baa155) | Civil-engineering profile with water-treatment and hydraulics interests | Technical evaluator or GIS-migration referral | B / Medium | Which team validates field observations before GIS or inventory updates? |
-| [Redouane Khebbi](https://ma.linkedin.com/in/redouane-khebbi-8ba27433b) | Current SRM Drâa–Tafilalet profile | Internal referral | C / Discovery | Who leads Direction Exploitation Eau Potable, sanitation or automation? |
+| [Redouane Khebbi](https://ma.linkedin.com/in/redouane-khebbi-8ba27433b) | Current SRM Drâa–Tafilalet profile | Internal referral | C / Discovery | Who leads drinking-water operations, sanitation or automation? |
 
-### SRM Guelmim–Oued Noun
+## SRM Guelmim–Oued Noun
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -132,7 +111,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [Safa Boughaleb](https://ma.linkedin.com/in/safa-boughaleb) | Hydraulics, drainage and monitoring interests | Sanitation/hydraulic technical referral | B / Medium | Who owns the selected sanitation or network-monitoring project? |
 | [ABDELHAFID ID YOUSS](https://ma.linkedin.com/in/abdelhafid-id-youss) | Current SRM profile | Internal engineering referral | C / Discovery | Who is responsible for water operations, asset management or project acceptance? |
 
-### SRM Laâyoune–Sakia El Hamra
+## SRM Laâyoune–Sakia El Hamra
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -140,7 +119,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 | [BRAHIM DAOUD](https://ma.linkedin.com/in/brahim-daoud) | Electrical-engineering and systems background with visibility into sanitation and treatment operations | Electrical, systems and automation referral | B / High | Who owns automation and maintenance for the treatment or sanitation process area? |
 | [Youness ELGHAZOUANI](https://ma.linkedin.com/in/youness-elghazouani) | Electrical engineer with electromechanical and automated-systems background | Pumping/treatment automation evaluator | B / High | Could one pumping or treatment area be used to validate the field evidence workflow? |
 
-### SRM Dakhla–Oued Ed-Dahab
+## SRM Dakhla–Oued Ed-Dahab
 
 | Person | Public professional signal | Atlas relevance | Priority / confidence | First question |
 |---|---|---|---|---|
@@ -148,7 +127,7 @@ This map joins the [14-account Morocco portfolio](../accounts/ACCOUNT-COVERAGE-M
 
 ## First outreach cohort
 
-The strongest first cohort is deliberately cross-functional rather than executive-only:
+The first cohort should be cross-functional rather than executive-only:
 
 1. Hicham IDOUHCINE, Sami LAKNIZI and Abderrahim Samir — ONEE automation and telemanagement;
 2. Abousselham Otmane and Fatima Ezzahra AKHRIF — OCP Green Water programme and acceptance governance;
@@ -163,15 +142,10 @@ The strongest first cohort is deliberately cross-functional rather than executiv
 11. Omar BARMAKI and Mohamed El Bazi — Drâa–Tafilalet electromechanics and automation;
 12. Ahmed Ait Ali — Guelmim–Oued Noun maintenance and instrumentation.
 
-## Coverage gaps
+## Coverage gaps and use rules
 
-Public employee coverage remains weakest for SRM Dakhla–Oued Ed-Dahab and for senior water-specific owners in several newly formed SRMs. The correct next step is not to guess titles. Use the official company channel or a verified employee profile to request the named owner of:
+Public employee coverage remains weakest for SRM Dakhla–Oued Ed-Dahab and for senior water-specific owners in several newly formed SRMs. Do not guess missing titles. Use an official company route or a verified employee profile to request the current owner of water/wastewater operations, automation/SCADA, maintenance and asset management, project acceptance, cybersecurity, procurement or programme control.
 
-- water or wastewater operations;
-- automation, SCADA or telemanagement;
-- maintenance and asset management;
-- project acceptance and commissioning;
-- cybersecurity or information systems;
-- procurement or programme control.
+Recheck every profile before outreach. Use the public professional context only, ask for redirection when authority is unclear, and do not infer personal contact details. The machine-readable version is [employee-contact-map.csv](employee-contact-map.csv).
 
-The machine-readable version of this map is [employee-contact-map.csv](employee-contact-map.csv). Return to the [business-development index](README.md).
+Return to the [business-development index](README.md).
