@@ -2,50 +2,71 @@
 
 _Operating baseline: **1 September 2026**._
 
-This section is the working sales system for Atlas OT Scout in Morocco. It separates **commercial execution** from **public-source research**.
+This section is the working sales system for Atlas OT Scout in Morocco. It separates commercial execution from public-source research.
 
 ## Current objective
 
-Create one customer-validated, bounded pilot opportunity. Do not expand the active list until at least one of the current accounts reaches qualified discovery.
+Complete the **1–14 September 2026 customer-validation sprint** and obtain one of these evidence-based outcomes:
 
-## Active accounts
+- a customer-confirmed, bounded problem and an agreed discovery follow-up;
+- a useful referral to the functional owner;
+- a documented reason to park or disqualify the account.
 
-| Account | Stage | Why it is active | Immediate next action |
-|---|---|---|---|
-| SRM Fès–Meknès | Targeted outreach | Public telemanagement, sectorisation and pressure-management activity creates a specific acceptance hypothesis | Verify the current project owner and request a 30-minute problem-validation conversation |
-| SRM de l’Oriental | Targeted outreach | Public GIS-recognition and water/sanitation programmes create a field-to-record reconciliation hypothesis | Confirm the responsible GIS or programme owner and test the problem statement |
-| OCP Green Water | Targeted outreach | Desalination, reuse and EPC delivery create a commissioning and evidence-handover hypothesis | Identify the commissioning or operations sponsor for one treatment train or pumping node |
+Preparation is complete. Six primary/backup public profiles were rechecked on 1 September 2026. Their current public company affiliation was visible; buying authority, consent, project ownership and willingness to engage remain unconfirmed. No outbound interaction has been recorded.
 
-These are **research-selected targets**, not qualified opportunities. No champion, economic buyer, procurement path or willingness to pay has yet been confirmed.
+## Active sprint
+
+| Account | Owner | Stage | Primary route | Next action |
+|---|---|---|---|---|
+| SRM Fès–Meknès | Charif Mahmoudi | Targeted outreach | Yassine Ouahbi; backup Mohamed Amine Chadli | Send the Taza telemanagement problem-validation message on 2 September |
+| SRM de l’Oriental | Charif Mahmoudi | Targeted outreach | Yasser Moufid; backup Nisrine Lamrabet | Send the field-to-record reconciliation message on 2 September |
+| OCP Green Water | Charif Mahmoudi | Targeted outreach | Abousselham Otmane; backup Fatima Ezzahra Akhrif | Send the 2026 Safi–Gantour commissioning message on 2 September |
+
+These remain research-selected targets, not qualified opportunities. No champion, economic buyer, procurement path, pilot access or willingness to pay has been confirmed.
+
+## Sprint success measures
+
+By the close of 14 September:
+
+- three initial outreach attempts are logged;
+- each account has a completed primary, follow-up and backup/official-route sequence unless a response changes the plan;
+- at least one problem-validation conversation or useful referral is obtained;
+- every response, objection and non-response is recorded;
+- every account is advanced, parked or disqualified;
+- no active account has an unowned or undated next action.
 
 ## Operating files
 
-- [Pipeline](pipeline.csv) — the only source of truth for account stage, ownership, activity and next action
-- [Contacts](contacts.csv) — the only source of truth for people, stakeholder role and relationship status
-- [Active account plans](ACTIVE-ACCOUNT-PLANS.md) — detailed plans for the three accounts currently being pursued
-- [Pilot offer](OFFER.md) — the concrete outcome, scope, deliverables, prerequisites and commercial decision
-- [Sales playbook](SALES-PLAYBOOK.md) — stage gates, scoring, outreach, discovery and update rules
-- [Research archive](research/README.md) — public evidence, source provenance and background context
+- [Pipeline](pipeline.csv) — current account stage, commercial state, ownership and next action
+- [Contacts](contacts.csv) — current stakeholder and relationship state
+- [Activity log](activity-log.csv) — append-only history of verification, outreach, response and discovery activity
+- [Outreach sprint](OUTREACH-SPRINT.md) — dated execution plan and approved messages
+- [Active account plans](ACTIVE-ACCOUNT-PLANS.md) — account-specific hypotheses, selected routes and advancement gates
+- [Evidence-package sample](EVIDENCE-PACKAGE-SAMPLE.md) — representative follow-up asset with no customer data
+- [Pilot offer](OFFER.md) — proposed outcome, scope, deliverables and commercial decision
+- [Sales playbook](SALES-PLAYBOOK.md) — stable stage gates, scoring and qualification rules
+- [Research archive](research/README.md) — public evidence, provenance and background context
 
 ## Operating rules
 
-1. Update `pipeline.csv` after every material interaction.
-2. Update `contacts.csv` after every contact attempt, response, referral or role verification.
-3. Keep no separate account summary in the operating layer. Public facts belong in `research/`; commercial state belongs in `pipeline.csv`.
-4. An account is not an opportunity until a named person confirms a problem, timing event and next step.
-5. Do not assign probability or estimated value before qualified discovery.
-6. Keep only three active account plans. Park or replace an account when its next-action deadline is repeatedly missed or the hypothesis is disproved.
-7. Treat public profiles as research leads, not evidence of authority or consent.
+1. Record every material action in `activity-log.csv`.
+2. Update `contacts.csv` after a contact attempt, response, referral or role verification.
+3. Update `pipeline.csv` whenever the current stage, score, owner, risk or next action changes.
+4. Public facts belong in `research/`; commercial state belongs in the operating files.
+5. A public profile confirms only the visible public signal recorded. It does not prove authority, consent or a relationship.
+6. An account is not an opportunity until a named person confirms a problem, consequence, timing event and next step.
+7. Do not assign probability or estimated value before qualified discovery.
+8. Keep only three active accounts. Park or replace one only after the sequence is completed or the hypothesis is disproved.
 
-## Weekly review
+## Daily control
 
-Review the following in order:
+During the sprint, review in this order:
 
-1. overdue next actions;
-2. accounts with no named champion;
-3. contacts awaiting response;
-4. discovery evidence that changes the problem hypothesis;
-5. pilot prerequisites and procurement blockers;
-6. accounts to advance, park or disqualify.
+1. actions due today;
+2. responses requiring a same-day reply;
+3. role or referral corrections;
+4. discovery evidence that changes the hypothesis;
+5. overdue actions;
+6. advance, park or disqualify decisions.
 
 Return to the [documentation index](../README.md).

@@ -1,116 +1,123 @@
 # Active account plans
 
-Only three accounts are active. All facts below are public research unless explicitly marked as customer-confirmed. No customer interaction has yet been recorded.
+Only three accounts are active. All company and project facts are public research unless explicitly marked as customer-confirmed. The six selected primary/backup public profiles were rechecked on 1 September 2026. No customer interaction has yet been recorded.
+
+Execution dates and approved messages are maintained in the [outreach sprint](OUTREACH-SPRINT.md). Current commercial state remains in `pipeline.csv` and `contacts.csv`.
 
 ## 1. SRM Fès–Meknès
 
+**Owner:** Charif Mahmoudi  
 **Stage:** Targeted outreach  
-**Pipeline hypothesis:** A telemanagement, sectorisation or pressure-management project may need a clearer field-to-record acceptance package.
+**Pipeline hypothesis:** A current telemanagement delivery may need a clearer field-to-record acceptance package.
 
 ### Evidence versus hypothesis
 
 | Type | Statement |
 |---|---|
-| Public evidence | Official procurement activity includes telemanagement, pressure reduction, sectorisation, leak detection, pumping maintenance and sanitation work |
-| Hypothesis | A project owner experiences asset-identity, as-built or acceptance-evidence friction |
-| Not yet known | Current award status, project milestone, incumbent handover method, budget, sponsor, procurement owner or pilot access |
+| Public evidence | The [official 2026 procurement page](https://www.radeef.ma/appel-offres/avis) lists AO 54/2026 for drinking-water telemanagement equipment in Taza and AO 98/2026 for upgrading the existing central telemanagement system |
+| Hypothesis | A project or operations owner experiences asset-identity, as-built or acceptance-evidence friction |
+| Not yet known | Award/implementation state, acceptance milestone, incumbent handover method, sponsor, procurement owner, budget or pilot access |
 
-### Initial stakeholder coverage
+### Selected route
 
-- [Yassine Ouahbi](https://ma.linkedin.com/in/yassine-ouahbi-056544b2) — potential operations champion or referral route
-- [Mohamed Amine Chadli](https://ma.linkedin.com/in/amine-chadli) — potential pumping/reservoir technical evaluator
-- [Abderahim Laalla](https://ma.linkedin.com/in/abderahim-laalla-9640409a) — potential management referral
-- [Soumia Rguibi](https://ma.linkedin.com/in/soumia-rguibi-246ba5304) — potential water-engineering evaluator
+| Sequence | Person | Current public signal | Validation objective |
+|---|---|---|---|
+| Primary | [Yassine Ouahbi](https://ma.linkedin.com/in/yassine-ouahbi-056544b2) | Current public affiliation with SRM Fès–Meknès (ex-RADEEF) | Confirm the functional owner and whether handover reconciliation is a real problem |
+| Backup | [Mohamed Amine Chadli](https://ma.linkedin.com/in/amine-chadli) | Current public affiliation with SRM Fès–Meknès S.A in Taza | Seek a technical or project-owner referral for the Taza scope |
 
-Missing: confirmed project owner, economic buyer, procurement owner, security/data approver and evidence custodian.
+Reserve leads remain in `contacts.csv`; they are not part of the first sequence.
 
-### Opening question
+### Problem-validation question
 
-> For the current telemanagement or sectorisation work, how will the team reconcile commissioned field equipment against the approved asset and acceptance record before operational handover?
+> Pour les équipements de télégestion d’eau potable à Taza et la mise à niveau du système central, comment l’équipe rapproche-t-elle les équipements réellement mis en service, l’inventaire approuvé et les preuves de réception avant acceptation ?
 
-### Next three actions
+### Dated actions
 
-1. Verify the current roles and identify the official project or procurement owner.
-2. Request a 30-minute problem-validation conversation or referral.
-3. Test whether one station or project package could support a document/lab review before field access.
+1. **2 Sep:** contact the primary route.
+2. **7 Sep:** send one evidence-sample follow-up if unanswered.
+3. **9 Sep:** use the backup or official company route.
+4. **14 Sep:** advance, park or disqualify.
 
 ### Advance only when
 
-A named person confirms the problem, a dated project milestone and a technical review path. Park the account when the procurement signal is no longer current or no bounded acceptance problem exists.
+A named person confirms a bounded acceptance problem, a consequence, a dated event and a technical review path. Park when the procurements are no longer operationally relevant, the existing process is sufficient or no functional owner accepts a next step.
 
 ---
 
 ## 2. SRM de l’Oriental
 
+**Owner:** Charif Mahmoudi  
 **Stage:** Targeted outreach  
-**Pipeline hypothesis:** GIS-recognition, network rehabilitation or sanitation work may require reviewed field-to-record evidence.
+**Pipeline hypothesis:** Field recognition and network-data work may require reviewed field-to-record evidence.
 
 ### Evidence versus hypothesis
 
 | Type | Statement |
 |---|---|
-| Public evidence | Public programmes reference GIS field recognition, network work, sanitation and reuse |
-| Hypothesis | The programme has unresolved record reconciliation or acceptance work that Atlas can support |
-| Not yet known | Current implementation status, GIS owner, contractor handoff method, data model, sponsor, budget or pilot route |
+| Public evidence | Public signals include field recognition/GIS capture across utility networks, current water works and regional network-performance activity |
+| Hypothesis | The operator has unresolved record reconciliation or acceptance work that Atlas can support |
+| Not yet known | Current GIS implementation state, authoritative data owner, contractor handoff method, sponsor, procurement owner, budget or pilot route |
 
-### Initial stakeholder coverage
+### Selected route
 
-- [Yasser Moufid](https://ma.linkedin.com/in/yasser-moufid-44114965) — potential water/sanitation technical evaluator
-- [Meryem Barik](https://ma.linkedin.com/in/meryembarik) — potential wastewater/environmental evaluator
-- [Nisrine Lamrabet](https://ma.linkedin.com/in/nisrine-lamrabet) — potential network-performance referral
+| Sequence | Person | Current public signal | Validation objective |
+|---|---|---|---|
+| Primary | [Yasser Moufid](https://ma.linkedin.com/in/yasser-moufid-44114965) | Current public affiliation with SRM Oriental and water/sanitation engineering signal | Validate the problem or obtain the GIS/asset-owner referral |
+| Backup | [Nisrine Lamrabet](https://ma.linkedin.com/in/nisrine-lamrabet) | Current public affiliation with SRM Oriental | Obtain an internal referral without inferring technical or buying authority |
 
-Missing: confirmed GIS/asset owner, programme sponsor, economic buyer, procurement owner and data-governance approver.
+### Problem-validation question
 
-### Opening question
+> Lorsqu’une observation terrain contredit l’inventaire, le SIG ou le dossier d’un prestataire, quelles preuves et quel circuit de revue déterminent l’état d’actif accepté ?
 
-> When a field observation conflicts with the approved GIS or contractor record, what evidence and review process determines the accepted asset state?
+### Dated actions
 
-### Next three actions
-
-1. Confirm which current programme owns GIS recognition or field validation.
-2. Ask the visible technical contacts for the functional owner rather than proposing production access.
-3. Offer a review of a redacted inventory delta or representative field-verification package.
+1. **2 Sep:** contact the primary route.
+2. **7 Sep:** send one evidence-sample follow-up if unanswered.
+3. **9 Sep:** use the backup or official company route.
+4. **14 Sep:** advance, park or disqualify.
 
 ### Advance only when
 
-The customer confirms a repeatable reconciliation problem, a bounded lot and an accountable reviewer. Park the account when the GIS work is complete, outsourced without operator demand or unrelated to control-system evidence.
+A named person confirms a repeatable reconciliation problem, a bounded lot, a consequence and an accountable reviewer. Park when the work is complete, purely administrative, fully outsourced without operator demand or unrelated to the evidence Atlas can produce.
 
 ---
 
 ## 3. OCP Green Water
 
+**Owner:** Charif Mahmoudi  
 **Stage:** Targeted outreach  
-**Pipeline hypothesis:** EPC-to-operator commissioning for desalination, reuse, pumping or transfer infrastructure may benefit from an evidence-linked asset handover.
+**Pipeline hypothesis:** A 2026 commissioning or EPC-to-operations handover may benefit from an evidence-linked asset baseline.
 
 ### Evidence versus hypothesis
 
 | Type | Statement |
 |---|---|
-| Public evidence | OCP Green Water operates a large desalination, treated-water and transfer programme with engineering and financing partners |
-| Hypothesis | A programme team needs a more reviewable control-system inventory and commissioning evidence package |
-| Not yet known | Current commissioning milestone, EPC handoff process, incumbent tools, sponsor, economic buyer, procurement route or acceptable environment |
+| Public evidence | OCP's [current water-programme page](https://www.ocpgroup.ma/en/taxonomy/term/26) reports the Jorf Lasfar–Khouribga pipeline in service and identifies the Safi–Gantour pipeline and associated Safi infrastructure as a 2026 commissioning milestone |
+| Hypothesis | A commissioning team needs a more reviewable control-system inventory and evidence package for one bounded process area |
+| Not yet known | Exact commissioning gate, EPC handoff process, incumbent tools, sponsor, economic buyer, procurement route, data owner or acceptable environment |
 
-### Initial stakeholder coverage
+### Selected route
 
-- [Abousselham Otmane](https://ma.linkedin.com/in/abousselham-%D8%A3%D8%A8%D9%88%D8%B3%D9%84%D9%87%D8%A7%D9%85-otmane-%D8%B9%D8%AB%D9%85%D8%A7%D9%86-04653618) — potential programme sponsor
-- [Fatima Ezzahra Akhrif](https://ma.linkedin.com/in/fatima-ezzahra-akhrif-3940b296/en) — potential project-control, QHSE or acceptance stakeholder
-- [Ilyas Hallouqui](https://ma.linkedin.com/in/ilyas-hallouqui-b0b92a216) — potential process technical evaluator
-- [Iliass Termone](https://ma.linkedin.com/in/iliass-termone-26a8572a1) — potential process-engineering referral
+| Sequence | Person | Current public signal | Validation objective |
+|---|---|---|---|
+| Primary | [Abousselham Otmane](https://ma.linkedin.com/in/abousselham-%D8%A3%D8%A8%D9%88%D8%B3%D9%84%D9%87%D8%A7%D9%85-otmane-%D8%B9%D8%AB%D9%85%D8%A7%D9%86-04653618) | Current public affiliation with OCP Green Water and desalination programme leadership | Confirm the commissioning/exploitation owner for one bounded area |
+| Backup | [Fatima Ezzahra Akhrif](https://ma.linkedin.com/in/fatima-ezzahra-akhrif-3940b296/en) | Current public affiliation with OCP Green Water and project-management/QHSE signal | Seek the acceptance, governance or commissioning-owner referral |
 
-Missing: confirmed commissioning owner, automation/SCADA evaluator, economic buyer, procurement/legal owner and data/security approver.
+Reserve process-engineering leads remain in `contacts.csv`; they are not part of the first sequence.
 
-### Opening question
+### Problem-validation question
 
-> At EPC-to-operations handover, which evidence proves that the accepted control-system asset record matches the commissioned treatment train or pumping node?
+> Pour une mise en service comme Safi–Gantour, comment l’équipe vérifie-t-elle avant acceptation que l’inventaire des équipements, les éléments de contrôle et les preuves de commissioning correspondent à la zone réellement livrée ?
 
-### Next three actions
+### Dated actions
 
-1. Verify the current programme and commissioning responsibilities of the visible contacts.
-2. Seek a referral to the owner of one current treatment-train, pumping-node or transfer-corridor handover.
-3. Offer an isolated evidence-package review with no request for production access.
+1. **2 Sep:** contact the primary route.
+2. **7 Sep:** send one evidence-sample follow-up if unanswered.
+3. **9 Sep:** use the backup or official company route.
+4. **14 Sep:** advance, park or disqualify.
 
 ### Advance only when
 
-A programme owner confirms a commissioning-evidence problem and a representative review route. Park the account when existing EPC acceptance tooling is sufficient or no operator-owned decision exists.
+A programme or operations owner confirms a commissioning-evidence problem, consequence, dated gate and representative review route. Park when existing EPC acceptance tooling is sufficient, the decision belongs entirely to another party or no operator-owned problem is confirmed.
 
 Return to the [business-development dashboard](README.md).
