@@ -12,7 +12,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -29,6 +31,14 @@ import org.junit.runner.RunWith
 class LiveDemoCaptureTest {
     @Test
     fun recordWaterAssessmentUserStory() {
+        val recordLiveDemo = InstrumentationRegistry.getArguments()
+            .getString("recordLiveDemo")
+            ?.equals("true", ignoreCase = true) == true
+        assumeTrue(
+            "Recording-only journey requires tools/record_live_demo.sh and its controlled PyModbus target",
+            recordLiveDemo,
+        )
+
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             // Hold the real first screen long enough that CI startup variance cannot
             // trim away the beginning of the buyer story.
