@@ -1,49 +1,56 @@
 # Morocco water-sector portfolio synthesis
 
-_Based on public research reviewed 31 August 2026. This is an account-selection tool, not a sales forecast._
+_Research baseline: **1 September 2026**. This is an account-selection tool, not a sales forecast._
 
-## Commercial thesis
+## Portfolio conclusion
 
-Atlas OT Scout should enter Morocco through a narrow water-utility workflow: create defensible asset evidence for one treatment, pumping, storage, distribution or wastewater area without introducing a broad scanner into an operational network.
+The addressable Morocco P0-WATER account universe contains **14 current strategic organisations**:
 
-The portfolio has two motions:
+- ONEE Water Branch;
+- all 12 Société Régionale Multiservices operators;
+- OCP Green Water.
 
-| Motion | Accounts | Best initial workflow |
+Lydec, Redal and Amendis are maintained separately as transition intelligence. Engineering firms, integrators and development-finance institutions are mapped as ecosystem participants rather than silently counted as customers.
+
+## Prioritisation
+
+| Priority | Accounts | Evidence-backed reason to engage |
 |---|---|---|
-| National production and conveyance | ONEE Water Branch | Treatment/pumping/telemanagement evidence baseline |
-| Regional distribution and sanitation | SRM Casablanca–Settat, Rabat–Salé–Kénitra, Marrakech–Safi, Fès–Meknès and Tanger–Tétouan–Al Hoceïma | Reservoir, district-metering, leak-reduction, network-renewal or wastewater handover pack |
+| **Tier 1** | ONEE Water Branch; OCP Green Water; SRM Casablanca–Settat; Souss–Massa; Oriental; Marrakech–Safi; Fès–Meknès | Large or visible investment programmes, treatment/transfer estates, direct telemanagement/GIS signals, or strong project-handover fit |
+| **Tier 2** | SRM Rabat–Salé–Kénitra; Tanger–Tétouan–Al Hoceïma; Béni Mellal–Khénifra; Drâa–Tafilalet; Guelmim–Oued Noun; Laâyoune–Sakia El Hamra; Dakhla–Oued Ed-Dahab | Clear water/sanitation mandate and current projects, with additional operator-boundary, maturity, logistics or qualification work |
+| **Transition watch** | Redal; Amendis; Lydec records | Relevant to ownership, data migration and handover; not a universal current-buyer assumption |
 
-## Priority order
+## Strongest entry wedges
 
-1. **ONEE Water Branch training or representative telemanagement environment.** Strongest fit with the product's existing water-treatment demonstration and named public automation/training roles.
-2. **SRM Fès–Meknès project handover.** Current public signals include reservoir diagnostics and pipe-renewal work, creating a concrete evidence-and-acceptance workflow.
-3. **SRM Tanger–Tétouan–Al Hoceïma flow/pressure or leak-reduction project.** Active procurement signals support a bounded network-instrumentation use case.
-4. **SRM Casablanca–Settat water-quality, reservoir or wastewater area.** Official water and sanitation operations are clear; the exact buyer boundary must be confirmed.
-5. **SRM Marrakech–Safi treatment or pumping project.** Relevant regional scope, with technical ownership still requiring primary confirmation.
-6. **SRM Rabat–Salé–Kénitra pumping/reservoir handover.** Good fit after resolving the SRM/Redal perimeter boundary.
+1. **Project acceptance and handover:** reconcile design/as-built inventory, passive evidence and unresolved identities before a reservoir, pumping station, treatment asset, reuse line or telemanagement package is accepted.
+2. **GIS and asset-data migration:** support one controlled field-verification lot for SRM Oriental or Drâa–Tafilalet without replacing the enterprise GIS.
+3. **Telemanagement evidence:** use SRM Fès–Meknès or an ONEE representative environment to validate one exact control-system asset set.
+4. **Operator transition:** reconcile predecessor and successor records for a bounded area in Casablanca, Rabat or the North.
+5. **Non-conventional water:** validate one treatment skid, pumping node or transfer corridor for OCP Green Water or a southern SRM.
+6. **Water-loss and sectorisation:** link field asset identity to pressure, district and maintenance evidence without claiming leakage causality from protocol data.
 
-## Standard pilot
+## Account-scoring rules
 
-- one named process area;
-- one approved inventory and topology;
-- imported PCAP or receive-only capture;
-- explicit review before inventory mutation;
-- optional single-target Modbus identity request under written authorization;
-- no credential testing, register access, exploit validation or broad discovery;
-- final output: inventory delta, evidence provenance, unresolved identities, limitations and acceptance checklist.
+An account advances only when:
 
-## Qualification gates
+- the current operator and asset owner are confirmed;
+- a specific project, site or operational problem is named;
+- the decision supported by the pilot is explicit;
+- a technical reviewer and evidence custodian are identified;
+- a passive/imported evidence source exists;
+- any active identity operation has exact written authorization;
+- data retention and export constraints are agreed;
+- the customer accepts that unknowns and limitations remain visible.
 
-A target advances only when all are true:
+## Research limits
 
-- the opportunity is explicitly water or wastewater;
-- the operator and asset owner are known;
-- a technical reviewer is identified;
-- the customer accepts a passive-first workflow;
-- the pilot can be isolated to one area;
-- evidence handling and retention rules are agreed;
-- any active operation has exact target authorization and stop conditions.
+The source register contains official publications, company pages, established press and public-tender mirrors. It intentionally does not claim:
 
-## Named-person policy
+- installed vendors or protocols;
+- vulnerabilities;
+- named internal champions without a current public source;
+- budgets available for Atlas;
+- award status where only a tender notice is available;
+- authority from a procurement contact to access production systems.
 
-Named people are included only when a current public source supports a water-sector role. Executives provide organizational context; they are not presumed to be technical approvers. Public procurement contacts are used only for that procurement process.
+See the [coverage matrix](ACCOUNT-COVERAGE-MATRIX.md), [source register](research/WEB-SOURCE-REGISTER.csv), [transition map](LEGACY-OPERATORS-AND-TRANSITIONS.md) and [ecosystem map](ECOSYSTEM-MAP.md).
