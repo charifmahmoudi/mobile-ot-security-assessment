@@ -1,47 +1,51 @@
 # Morocco water-sector business development
 
-_Research baseline: **1 September 2026**._
+_Operating baseline: **1 September 2026**._
 
-This is the authoritative commercial-research section for Atlas OT Scout in Morocco. It combines the target-company universe, company dossiers, public employee profiles, engagement method, delivery ecosystem and source provenance in one maintained location.
+This section is the working sales system for Atlas OT Scout in Morocco. It separates **commercial execution** from **public-source research**.
 
-The active universe contains **14 operating organisations**: ONEE Water Branch, all 12 regional multiservice companies, and OCP Green Water. Legacy operators and delivery partners are kept as qualification context and are not silently counted as current buyers.
+## Current objective
 
-## Start here
+Create one customer-validated, bounded pilot opportunity. Do not expand the active list until at least one of the current accounts reaches qualified discovery.
 
-- [Account coverage and priority matrix](ACCOUNT-COVERAGE-MATRIX.md) — complete company universe, priorities, public scope and entry wedges
-- [Company and people map](COMPANY-AND-PEOPLE-MAP.md) — 51 relevant public professional profiles with confidence and first-contact questions
-- [Engagement playbook](ENGAGEMENT-PLAYBOOK.md) — qualification, outreach, pilot design and safe messaging
-- [Ecosystem and transition map](ECOSYSTEM-MAP.md) — legacy operators, engineering/EPC participants, integrators and financing context
-- [Employee contact dataset](employee-contact-map.csv) — machine-readable public-profile ledger
-- [Research index](research/README.md) — source register, project signals, public events and account-universe data
+## Active accounts
 
-## Company dossiers
+| Account | Stage | Why it is active | Immediate next action |
+|---|---|---|---|
+| SRM Fès–Meknès | Targeted outreach | Public telemanagement, sectorisation and pressure-management activity creates a specific acceptance hypothesis | Verify the current project owner and request a 30-minute problem-validation conversation |
+| SRM de l’Oriental | Targeted outreach | Public GIS-recognition and water/sanitation programmes create a field-to-record reconciliation hypothesis | Confirm the responsible GIS or programme owner and test the problem statement |
+| OCP Green Water | Targeted outreach | Desalination, reuse and EPC delivery create a commissioning and evidence-handover hypothesis | Identify the commissioning or operations sponsor for one treatment train or pumping node |
 
-| Company | Primary Atlas trigger | Dossier |
-|---|---|---|
-| ONEE — Water Branch | Treatment, pumping, conveyance and telemanagement evidence | [ONEE](ONEE.md) |
-| OCP Green Water | Desalination, reuse and EPC-to-operator handover | [OCP Green Water](OCP-GREEN-WATER.md) |
-| SRM Casablanca–Settat | Operator consolidation, sanitation works and network modernisation | [Casablanca–Settat](SRM-CASABLANCA-SETTAT.md) |
-| SRM Souss–Massa | Water-security and sanitation investment programme | [Souss–Massa](SRM-SOUSS-MASSA.md) |
-| SRM de l’Oriental | GIS recognition, rehabilitation, sanitation and reuse | [Oriental](SRM-ORIENTAL.md) |
-| SRM Marrakech–Safi | GIS/SCADA/GMAO convergence and hydraulic projects | [Marrakech–Safi](SRM-MARRAKECH-SAFI.md) |
-| SRM Fès–Meknès | Telemanagement, sectorisation and pressure management | [Fès–Meknès](SRM-FES-MEKNES.md) |
-| SRM Rabat–Salé–Kénitra | Network performance and operator-boundary qualification | [Rabat–Salé–Kénitra](SRM-RABAT-SALE-KENITRA.md) |
-| SRM Tanger–Tétouan–Al Hoceïma | Water works, sanitation projects and operator transition | [Tanger–Tétouan–Al Hoceïma](SRM-TANGER-TETOUAN-AL-HOCEIMA.md) |
-| SRM Béni Mellal–Khénifra | Treatment, sanitation and leak-repair programme | [Béni Mellal–Khénifra](SRM-BENI-MELLAL-KHENIFRA.md) |
-| SRM Drâa–Tafilalet | GIS migration and hydromechanical maintenance | [Drâa–Tafilalet](SRM-DRAA-TAFILALET.md) |
-| SRM Guelmim–Oued Noun | Rural expansion, pumping and sanitation works | [Guelmim–Oued Noun](SRM-GUELMIM-OUED-NOUN.md) |
-| SRM Laâyoune–Sakia El Hamra | New-operator digitalisation and treatment/sanitation operations | [Laâyoune–Sakia El Hamra](SRM-LAAYOUNE-SAKIA-EL-HAMRA.md) |
-| SRM Dakhla–Oued Ed-Dahab | Treatment-station and network-renewal programme | [Dakhla–Oued Ed-Dahab](SRM-DAKHLA-OUED-ED-DAHAB.md) |
+These are **research-selected targets**, not qualified opportunities. No champion, economic buyer, procurement path or willingness to pay has yet been confirmed.
 
-## Evidence and outreach rules
+## Operating files
 
-- Recheck company status, operator perimeter, project status and employee role on the day of use.
-- Treat a public profile as a research lead, not proof of budget, authority, consent or permission to assess a system.
-- Use official company routes or public professional profiles; do not infer personal email addresses or telephone numbers.
-- Anchor outreach in a named public project, handover, maintenance or asset-data problem—not a generic cybersecurity pitch.
-- Preserve the distinction between verified facts, corroborated reporting, procurement signals, hypotheses and unknowns.
-- Never infer installed vendors, protocols, topology, vulnerabilities or credentials from sector-level public information.
-- Any field activity requires written authorization, an exact process-area boundary, named evidence custodians and explicit stop conditions.
+- [Pipeline](pipeline.csv) — the only source of truth for account stage, ownership, activity and next action
+- [Contacts](contacts.csv) — the only source of truth for people, stakeholder role and relationship status
+- [Active account plans](ACTIVE-ACCOUNT-PLANS.md) — detailed plans for the three accounts currently being pursued
+- [Pilot offer](OFFER.md) — the concrete outcome, scope, deliverables, prerequisites and commercial decision
+- [Sales playbook](SALES-PLAYBOOK.md) — stage gates, scoring, outreach, discovery and update rules
+- [Research archive](research/README.md) — public evidence, source provenance and background context
+
+## Operating rules
+
+1. Update `pipeline.csv` after every material interaction.
+2. Update `contacts.csv` after every contact attempt, response, referral or role verification.
+3. Keep no separate account summary in the operating layer. Public facts belong in `research/`; commercial state belongs in `pipeline.csv`.
+4. An account is not an opportunity until a named person confirms a problem, timing event and next step.
+5. Do not assign probability or estimated value before qualified discovery.
+6. Keep only three active account plans. Park or replace an account when its next-action deadline is repeatedly missed or the hypothesis is disproved.
+7. Treat public profiles as research leads, not evidence of authority or consent.
+
+## Weekly review
+
+Review the following in order:
+
+1. overdue next actions;
+2. accounts with no named champion;
+3. contacts awaiting response;
+4. discovery evidence that changes the problem hypothesis;
+5. pilot prerequisites and procurement blockers;
+6. accounts to advance, park or disqualify.
 
 Return to the [documentation index](../README.md).
