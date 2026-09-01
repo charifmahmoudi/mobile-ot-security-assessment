@@ -35,7 +35,7 @@ Every maintained section has one landing page. A documentation change is incompl
 | [Architecture decisions](adr/README.md) | Numbered decisions, status and consequences |
 | [Appliance](appliance/README.md) | Rooted proof-of-concept boundary and physical compatibility evidence |
 | [Architecture](architecture/README.md) | Deployment, component contracts, evidence model, network execution, protocol catalog and threat model |
-| [Business development](business-development/README.md) | Morocco target companies, public employee profiles, outreach method, ecosystem and source data |
+| [Business development](business-development/README.md) | Morocco market context, prospect motivations, target organisations, public channels, marketing approach and evaluation offer |
 | [Demo](demo/README.md) | Guided customer-story video, script and provenance |
 | [Diligence](diligence/README.md) | Evidence controls, market assumptions, competition, risks and validation |
 | [Pitch](pitch/README.md) | Prospect deck, PDF, video linkage and claim boundary |
@@ -58,7 +58,7 @@ Every maintained section has one landing page. A documentation change is incompl
 
 - Keep current capability statements in `IMPLEMENTATION.md`; link to them instead of copying mutable status into multiple overview documents.
 - Keep planned capability in `ROADMAP.md` and the P0 backlog; never describe a roadmap item as executable.
-- Keep all company, employee and outreach material in `docs/business-development/`.
+- Keep Morocco market and marketing material in `docs/business-development/`.
 - Add every document to its nearest section `README.md`, and add every new section to this page.
 - Use stable workflow links in overview documents. Pin an individual run only in a provenance document that explains why that snapshot matters.
 - Use relative links for repository files and place citations next to external factual claims.
