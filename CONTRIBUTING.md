@@ -1,15 +1,16 @@
 # Contributing
 
-Atlas OT Scout is an executable research prototype with safety-critical OT boundaries. Contributions must preserve evidence integrity, authorization controls, and conservative claims.
+Atlas OT Scout is an executable research prototype with safety-critical OT boundaries. Contributions must preserve evidence integrity, authorization controls, conservative claims, and the documentation graph.
 
 ## Workflow
 
 1. Open an issue for a material defect, claim, design decision, or feature.
 2. Use a focused branch and a descriptive commit.
 3. Add or update tests for behavioral changes.
-4. Update the canonical status, requirements, architecture, or roadmap document affected by the change.
-5. Run the relevant verification commands.
-6. Submit a pull request using the repository template.
+4. Update the canonical status, requirements, architecture, ADR, or roadmap document affected by the change.
+5. Add every new or renamed document to its nearest section `README.md`.
+6. Run the relevant verification commands.
+7. Submit a pull request using the repository template.
 
 Repository-owner documentation maintenance may be committed directly, but packet-producing behavior, authorization policy, parser trust boundaries, cryptography, or release controls require independent technical and safety review.
 
@@ -30,11 +31,13 @@ gradle --no-daemon \
 
 ## Documentation and research rules
 
-- Use [docs/README.md](docs/README.md) to identify the canonical document before adding a new file.
+- Start at [docs/README.md](docs/README.md) to identify the canonical document and section index.
+- Every documentation directory containing Markdown must have a `README.md` that links its Markdown files and child documentation sections.
+- ADR numbers must be unique, and the filename number must match the first heading.
 - Mark external claims as verified, corroborated, inferred, unknown, or contradicted.
 - Cite primary sources near the claim and update the source register when appropriate.
 - Keep current capability in `IMPLEMENTATION.md` and planned capability in `ROADMAP.md`.
-- Prefer stable workflow links over hard-coded CI run numbers in overview pages.
+- Use stable workflow links in overview pages. Pin an individual run only in a provenance document.
 - Never publish credentials, packet payloads, customer data, private contact details, guessed email addresses, or unverified vulnerabilities.
 
 ## Active OT behavior

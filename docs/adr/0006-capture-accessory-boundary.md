@@ -1,4 +1,4 @@
-# ADR 0003: Explicit capture accessory boundary
+# ADR 0006: Explicit capture accessory boundary
 
 - Status: proposed
 - Date: 2026-08-30

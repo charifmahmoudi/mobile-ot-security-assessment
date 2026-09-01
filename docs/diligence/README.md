@@ -1,6 +1,6 @@
 # Evidence-only due-diligence index
 
-This corpus separates verified observations, normative product choices and unknowns. Unsupported revenue, pricing, customer-emotion and installed-base claims have been withdrawn.
+This corpus separates verified observations, normative product choices, and unknowns. Unsupported revenue, pricing, customer-emotion, and installed-base claims are not accepted as facts.
 
 ## Read first
 
@@ -15,7 +15,7 @@ This corpus separates verified observations, normative product choices and unkno
 
 - [Customer evidence map](CUSTOMER-EVIDENCE-MAP.md)
 - [Evidence-grounded StoryBrand](STORYBRAND-GTM-PLAN.md)
-- [Verified customer/channel landscape](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
+- [Verified customer and channel landscape](CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
 - [Account evidence dossiers](ACCOUNT-DOSSIERS.md)
 
 ## Market and technical evidence
@@ -26,6 +26,7 @@ This corpus separates verified observations, normative product choices and unkno
 - [Source notes](SOURCE-NOTES.md)
 - [Claim ledger](data/claim-ledger.csv)
 - [Market evidence inputs](data/market-model.csv)
+- [Protocol-library decisions](data/protocol-library-decisions.csv)
 
 ## Product decisions and validation
 
@@ -39,10 +40,12 @@ This corpus separates verified observations, normative product choices and unkno
 
 ## Evidence hierarchy
 
-1. Moroccan regulator, law, operator procurement or official report.
+1. Moroccan regulator, law, operator procurement, or official report.
 2. Named employer job specification tied to Morocco.
 3. OEM manual or original project repository.
 4. Credible independent research.
 5. Ecosystem signal used only to create a research question.
 
 A vendor manual plus a factory name never proves that vendor is installed at the factory.
+
+Return to the [documentation index](../README.md).

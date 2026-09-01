@@ -5,44 +5,45 @@
 [![Android safety CI](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml)
 [![Documentation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml)
 
-Atlas OT Scout helps an authorized assessor move from an uncertain asset picture to a defensible operating baseline. It guides the user to establish scope, collect the least intrusive useful evidence, review observations before changing inventory, reconcile expected and observed assets, close a specific identity gap only when authorized, and hand off findings with explicit limitations.
+Atlas OT Scout guides an authorized assessor from an uncertain asset picture to a defensible operating baseline. The workflow establishes scope, collects the least intrusive useful evidence, requires review before inventory changes, reconciles expected and observed assets, permits one exact identity check only when authorized, and preserves limitations at handoff.
 
 The first product pack is **P0-WATER**, limited to one drinking-water or wastewater control segment. It is not a general-purpose scanner, exploitation framework, certification audit, or continuous-monitoring platform.
 
-> **Status:** executable research prototype. The guided Android workflow, passive PCAP/PCAPNG analysis, emulated receive-only capture path, and one-target Modbus/TCP identity operation are exercised in CI. Physical appliance, USB-Ethernet, SPAN/TAP, encrypted case storage, signed report export, and production release qualification remain open gates.
+> **Status:** executable research prototype. The guided Android workflow, passive PCAP/PCAPNG analysis, emulated receive-only capture path, and one-target Modbus/TCP identity operation are exercised in CI. Physical appliance qualification, USB-Ethernet and SPAN/TAP validation, encrypted case storage, reviewer signatures, deterministic report export, and production release qualification remain open gates.
+
+## Read the right document
+
+| Need | Authoritative route |
+|---|---|
+| Navigate the complete documentation set | [Documentation index](docs/README.md) |
+| See what executes today | [Executable baseline](IMPLEMENTATION.md) |
+| Understand the first product pack | [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md) |
+| Operate or demonstrate the application | [User guide](docs/user-guide/README.md) |
+| Review architecture and safety boundaries | [Architecture index](docs/architecture/README.md) |
+| Review verification evidence | [Testing index](docs/testing/README.md) |
+| Present the commercial offer | [Prospect pitch](docs/pitch/README.md) and [guided demo](docs/demo/README.md) |
 
 ## Commercial model
 
 Atlas is offered as a try-before-you-buy appliance:
 
-1. We deliver and configure a device for one agreed, bounded segment.
-2. We guide the first assessment and leave the appliance with the customer for a free pilot.
+1. Atlas delivers and configures a device for one agreed, bounded segment.
+2. Atlas guides the first assessment and leaves the appliance with the customer for a free pilot.
 3. The customer uses it and judges the value in its own environment.
-4. If it is useful, the customer acquires it and keeps the capability on site.
-5. If it is not useful, we collect it.
-6. Consulting and support packages are available when specialist help is needed.
+4. If useful, the customer acquires the appliance and keeps the capability on site.
+5. If it is not useful, Atlas collects it.
+6. Consulting and support packages remain optional.
 
 ## Decision supported
 
-The product is designed to answer a narrow field question: **is the available evidence strong enough to support an inventory, risk, remediation, or handover decision for this exact process area?**
+The product is designed to answer one field question: **is the available evidence strong enough to support an inventory, risk, remediation, or handover decision for this exact process area?**
 
 | Starting condition | Guided product action | Customer outcome |
 |---|---|---|
-| The spreadsheet inventory may be stale | Compare imported records with passive and approved identity evidence | A current baseline with corroborated, missing, unexpected and conflicting assets |
-| The phone cannot observe a switched segment | Explain the approved capture options and use a receive-only SPAN/TAP path | Useful visibility without broad discovery |
-| One controller remains unidentified | Authorize one exact Modbus device-identification request | A specific uncertainty is resolved without widening the scope |
-| Evidence is incomplete | Preserve gaps, approvals and reviewer blockers | A defensible next-action list instead of a false final report |
-
-## Prospect assets
-
-| Asset | Purpose |
-|---|---|
-| [Guided customer-story video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | Real Android footage with explanatory captions, click indicators, pacing and the commercial model |
-| [Editable prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) | Fourteen-slide current-state → guided-action → desired-state and free-pilot narrative |
-| [PDF prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf) | Portable presentation export |
-| [Video story and provenance](docs/demo/VIDEO-SCRIPT.md) | Exact storyline, reproducible composition and proof boundary |
-
-These assets describe emulator and CI evidence accurately; they do not claim physical hardware or production-network qualification.
+| The spreadsheet inventory may be stale | Compare imported records with passive and approved identity evidence | A baseline with corroborated, missing, unexpected, and conflicting assets |
+| The phone cannot observe a switched segment | Explain approved capture options and use a receive-only SPAN/TAP path | Useful visibility without broad discovery |
+| One controller remains unidentified | Authorize one exact Modbus device-identification request | A specific uncertainty is resolved without widening scope |
+| Evidence is incomplete | Preserve gaps, approvals, and reviewer blockers | A defensible next-action list instead of a false final report |
 
 ## Executable baseline
 
@@ -54,12 +55,23 @@ These assets describe emulator and CI evidence accurately; they do not claim phy
 | Active identity | One signed, short-lived, non-replayable Modbus FC 43 / MEI 14 request to one authorized target | PyModbus, Modbus-TK, and Conpot journeys |
 | Evidence reasoning | Provenance, confidence, conflicts, findings, and report-readiness blockers remain visible | Unit and guided-stage tests |
 
-Detailed implemented-versus-deferred status is maintained in [IMPLEMENTATION.md](IMPLEMENTATION.md).
+Detailed implemented-versus-deferred status is maintained only in [IMPLEMENTATION.md](IMPLEMENTATION.md). Planned work belongs in [ROADMAP.md](ROADMAP.md).
 
-## Safety architecture
+## Prospect assets
+
+| Asset | Purpose |
+|---|---|
+| [Guided customer-story video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | Android emulator footage with explanatory captions, click indicators, pacing, and the commercial model |
+| [Editable prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) | Fourteen-slide current-state → guided-action → desired-state narrative |
+| [PDF prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf) | Portable presentation export |
+| [Video story and provenance](docs/demo/VIDEO-SCRIPT.md) | Reproducible composition, storyline, and proof boundary |
+
+These assets describe emulator and CI evidence accurately; they do not claim physical hardware or production-network qualification.
+
+## Safety boundary
 
 - The Case App does not request Android `INTERNET` permission.
-- Network access is isolated in a signature-protected broker with a compiled, bounded operation.
+- Network access is isolated in a signature-protected broker with compiled, bounded operations.
 - Active execution requires a signed one-use grant containing the exact target, scope, interface, expiry, and resource ceilings.
 - Untrusted capture parsing runs in an isolated process.
 - Passive capture is receive-only and bound to an allowlisted interface.
@@ -72,7 +84,7 @@ See the [technical architecture](docs/wiki/Technical-Architecture.md), [security
 
 The prototype is not yet a professional field release. In particular:
 
-- no qualified physical appliance/USB-Ethernet/TAP combination;
+- no qualified physical appliance, USB-Ethernet adapter, or TAP combination;
 - no production case vault, reviewer signature, or deterministic final report package;
 - no subnet, port, unit-ID, credential, or vulnerability sweep;
 - no register read/write or control operation;
@@ -98,3 +110,11 @@ gradle --no-daemon \
 ```
 
 Device and emulator acceptance paths are defined in [.github/workflows/android-ci.yml](.github/workflows/android-ci.yml).
+
+## Repository policy
+
+- [Requirements baseline](docs/REQUIREMENTS.md)
+- [Roadmap](ROADMAP.md)
+- [Contributing](CONTRIBUTING.md)
+- [Governance](GOVERNANCE.md)
+- [Security policy](SECURITY.md)

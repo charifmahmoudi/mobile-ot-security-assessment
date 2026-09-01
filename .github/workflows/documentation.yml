@@ -4,15 +4,15 @@ on:
   push:
     paths:
       - "**/*.md"
-      - "**/*.csv"
-      - "**/*.json"
+      - "docs/**"
+      - "schemas/**"
       - "tools/verify_documentation.py"
       - ".github/workflows/documentation.yml"
   pull_request:
     paths:
       - "**/*.md"
-      - "**/*.csv"
-      - "**/*.json"
+      - "docs/**"
+      - "schemas/**"
       - "tools/verify_documentation.py"
       - ".github/workflows/documentation.yml"
   workflow_dispatch:
@@ -22,10 +22,12 @@ permissions:
 
 jobs:
   verify:
-    name: Links and structure
+    name: Navigation, links, and structure
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Compile documentation verifier
+        run: python3 -m py_compile tools/verify_documentation.py
       - name: Verify documentation
         run: python3 tools/verify_documentation.py

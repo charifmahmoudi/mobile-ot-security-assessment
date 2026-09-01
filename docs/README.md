@@ -1,18 +1,19 @@
 # Documentation index
 
-This page is the canonical map for Atlas OT Scout documentation. The root [README](../README.md) is the product landing page; this index routes readers to the authoritative document for each decision.
+This page is the canonical map for Atlas OT Scout documentation. The root [README](../README.md) is the product landing page; this index routes each reader to the authoritative document and then to the complete section index.
 
-## Start here
+## Choose by audience
 
-| Goal | Read first | Then |
+| Audience or decision | Start here | Supporting section |
 |---|---|---|
-| Understand the product and its limits | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Requirements baseline](REQUIREMENTS.md) |
-| See what is executable today | [Implementation status](../IMPLEMENTATION.md) | [End-to-end acceptance](testing/E2E-ACCEPTANCE.md) |
-| Understand the security architecture | [Technical architecture](wiki/Technical-Architecture.md) | [Threat model](architecture/SECURITY-AND-THREAT-MODEL.md) |
-| Use or demonstrate the application | [User manual](user-guide/USER-MANUAL.md) | [Demo script](demo/VIDEO-SCRIPT.md) |
-| Plan engineering work | [Roadmap](../ROADMAP.md) | [Implementation backlog](poc/IMPLEMENTATION-BACKLOG.md) |
-| Review Morocco commercial research | [Water-sector accounts](accounts/README.md) | [Evidence-only diligence](diligence/README.md) |
-| Contribute safely | [Contributing](../CONTRIBUTING.md) | [Governance](../GOVERNANCE.md) and [Security policy](../SECURITY.md) |
+| Customer or prospect | [Prospect pitch](pitch/README.md) | [Guided demo](demo/README.md) |
+| Assessor or presenter | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
+| Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Product design index](product/README.md) |
+| Engineer or reviewer | [Executable baseline](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) and [ADRs](adr/README.md) |
+| Test or release reviewer | [Testing and evidence](testing/README.md) | [Roadmap](../ROADMAP.md) |
+| Appliance integrator | [Appliance index](appliance/README.md) | [Dedicated Android appliance](architecture/DEDICATED-ANDROID-APPLIANCE.md) |
+| Commercial researcher | [Morocco accounts](accounts/README.md) | [Evidence-only diligence](diligence/README.md) |
+| New contributor | [Contributing](../CONTRIBUTING.md) | [Governance](../GOVERNANCE.md) and [Security](../SECURITY.md) |
 
 ## Document authority
 
@@ -22,60 +23,45 @@ When documents overlap, use this order:
 2. [Requirements baseline](REQUIREMENTS.md) for stable normative requirements.
 3. [Implementation status](../IMPLEMENTATION.md) for current executable behavior.
 4. [Roadmap](../ROADMAP.md) for planned work; it must not be read as implemented capability.
-5. Architecture decision records in [adr/](adr/) for accepted design decisions.
-6. Research and diligence documents for evidence, hypotheses, and commercial context.
+5. Accepted decisions in the [ADR index](adr/README.md).
+6. Section-specific research and diligence documents for evidence, hypotheses, and commercial context.
+7. The [wiki orientation layer](wiki/README.md) for navigation and summaries, not authority.
 
-The `docs/wiki/` directory is an orientation layer. Detailed architecture, product, testing, and diligence documents remain canonical in their dedicated directories.
+## Section map
 
-## Product and operator documentation
+Every section has a landing page. A documentation change is not complete until the relevant landing page links the new or renamed document.
 
-- [P0-WATER professional assessment specification](poc/WATER-WASTEWATER-POC.md)
-- [Assessment method](poc/ASSESSMENT-METHOD.md)
-- [Test and acceptance criteria](poc/TEST-AND-ACCEPTANCE.md)
-- [Implementation backlog](poc/IMPLEMENTATION-BACKLOG.md)
-- [Capture accessory design](poc/CAPTURE-ACCESSORY.md)
-- [User manual](user-guide/USER-MANUAL.md)
-- [Product UX and open-source implementation](product/OPEN-SOURCE-AND-UX-IMPLEMENTATION.md)
-- [User stories](product/USER-STORIES.md)
-- [Product demonstration script](product/DEMO-SCRIPT.md)
+| Section | Scope |
+|---|---|
+| [Accounts](accounts/README.md) | Morocco water-sector target accounts, contact routes, and account evidence |
+| [Architecture](architecture/README.md) | Deployment, component contracts, evidence model, network execution, and threat model |
+| [Architecture decisions](adr/README.md) | Numbered decisions, status, and consequences |
+| [Appliance](appliance/README.md) | Rooted proof-of-concept boundary and physical compatibility evidence |
+| [Demo](demo/README.md) | Guided customer-story video, script, and provenance |
+| [Diligence](diligence/README.md) | Evidence-only business, market, technical, and risk analysis |
+| [Pitch](pitch/README.md) | Prospect deck, PDF, video linkage, and claim boundary |
+| [P0 product pack](poc/README.md) | Water/wastewater scope, method, capture accessory, backlog, and acceptance |
+| [Product design](product/README.md) | User stories, UX implementation, and presenter script |
+| [Research sources](research/README.md) | Source register and target-account data |
+| [Testing](testing/README.md) | End-to-end architecture, testbeds, screenshots, and evidence retention |
+| [User guide](user-guide/README.md) | Operator workflow and screenshot-backed manual |
+| [Wiki orientation](wiki/README.md) | Lightweight summaries and redirects to canonical documents |
 
-## Architecture and security
+## Top-level documents
 
-- [System and deployment](architecture/SYSTEM-AND-DEPLOYMENT.md)
-- [Component contracts](architecture/COMPONENT-CONTRACTS.md)
-- [Network execution](architecture/NETWORK-EXECUTION.md)
-- [Evidence data model](architecture/EVIDENCE-DATA-MODEL.md)
-- [Security and threat model](architecture/SECURITY-AND-THREAT-MODEL.md)
-- [Dedicated Android appliance](architecture/DEDICATED-ANDROID-APPLIANCE.md)
-- [Rooted Android proof of concept](appliance/ROOTED-ANDROID-POC.md)
-- [Hardware compatibility matrix](appliance/COMPATIBILITY-MATRIX.md)
-- [Architecture decision records](adr/)
+- [Requirements baseline](REQUIREMENTS.md)
+- [Executable baseline](../IMPLEMENTATION.md)
+- [Roadmap](../ROADMAP.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Governance](../GOVERNANCE.md)
+- [Security policy](../SECURITY.md)
 
-## Verification and evidence
+## Maintenance contract
 
-- [End-to-end acceptance architecture](testing/E2E-ACCEPTANCE.md)
-- [Research testbeds](testing/RESEARCH-TESTBEDS.md)
-- [Emulator screenshot provenance](testing/EMULATOR-SCREENSHOTS.md)
-- [Assessment evidence schema](../schemas/assessment-evidence.schema.json)
-- [Signed query-profile schema](../schemas/query-profile.schema.json)
-- [Research sources](research/Sources.md)
-
-## Morocco water-sector business research
-
-- [Target-account index](accounts/README.md)
-- [Portfolio synthesis](accounts/PORTFOLIO-SYNTHESIS.md)
-- [Contact plans](accounts/CONTACT-PLANS.md)
-- [Engagement playbook](accounts/ENGAGEMENT-PLAYBOOK.md)
-- [Evidence-only diligence index](diligence/README.md)
-- [Morocco water-sector dossiers](diligence/MOROCCO-SECTOR-DOSSIERS.md)
-- [Customer organization and outreach](diligence/CUSTOMER-ORGANIZATION-AND-OUTREACH.md)
-- [Source register](research/Sources.md)
-
-## Maintenance rules
-
-- Keep current capability statements in `IMPLEMENTATION.md`; link to them instead of copying them into multiple documents.
-- Keep planned capability in `ROADMAP.md` and the backlog; never describe a roadmap item as executable.
-- Prefer stable workflow links and badges over hard-coded CI run numbers in overview pages.
+- Keep current capability statements in `IMPLEMENTATION.md`; link to them instead of copying mutable status into multiple overview documents.
+- Keep planned capability in `ROADMAP.md` and the P0 backlog; never describe a roadmap item as executable.
+- Add every document to its nearest section `README.md`, and add every new section to this page.
+- Use stable workflow links in overview documents. Pin an individual run only in a provenance document that explains why that snapshot matters.
 - Use relative links for repository files and place citations next to external factual claims.
 - Label commercial evidence as verified, corroborated, inferred, unknown, or contradicted.
 - Run `python3 tools/verify_documentation.py` before committing documentation changes.
