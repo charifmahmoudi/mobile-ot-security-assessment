@@ -6,8 +6,11 @@ This directory is the customer and account intelligence layer for Atlas OT Scout
 
 The current universe contains **14 strategic accounts**: ONEE Water Branch, all 12 regional multiservice companies, and OCP Green Water. Legacy operators and delivery partners are classified separately so historical mentions are not mistaken for current buying authority.
 
+Employee and stakeholder research is maintained in the [business-development section](../business-development/README.md) so mutable people data is not duplicated across account dossiers.
+
 ## Start here
 
+- [Business-development company and people map](../business-development/COMPANY-AND-PEOPLE-MAP.md) — relevant public employee profiles, confidence and outreach questions
 - [Account coverage matrix](ACCOUNT-COVERAGE-MATRIX.md) — all current accounts, tiers and evidence coverage
 - [Portfolio synthesis](PORTFOLIO-SYNTHESIS.md) — prioritisation and entry wedges
 - [Contact plans](CONTACT-PLANS.md) — public, role-based engagement routes
@@ -15,7 +18,7 @@ The current universe contains **14 strategic accounts**: ONEE Water Branch, all 
 - [Water delivery ecosystem](ECOSYSTEM-MAP.md) — engineering, EPC, finance and integration participants
 - [Research source register](research/WEB-SOURCE-REGISTER.csv) — article, company, government and procurement sources
 - [Account universe dataset](account-universe.csv) — machine-readable account summary
-- [Public professional role map](public-professional-role-map.csv) — functional roles and public routes, without guessed contact data
+- [Legacy public professional role map](public-professional-role-map.csv) — earlier functional-role research retained for provenance; use the business-development map for current outreach research
 - [Engagement playbook](ENGAGEMENT-PLAYBOOK.md)
 
 ## National and industrial accounts

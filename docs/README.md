@@ -7,6 +7,7 @@ This page is the canonical map for Atlas OT Scout documentation. The root [READM
 | Audience or decision | Start here | Supporting section |
 |---|---|---|
 | Customer or prospect | [Prospect pitch](pitch/README.md) | [Guided demo](demo/README.md) |
+| Business developer | [Business development](business-development/README.md) | [Morocco accounts](accounts/README.md) |
 | Assessor or presenter | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
 | Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Product design index](product/README.md) |
 | Engineer or reviewer | [Executable baseline](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) and [ADRs](adr/README.md) |
@@ -33,7 +34,8 @@ Every section has a landing page. A documentation change is not complete until t
 
 | Section | Scope |
 |---|---|
-| [Accounts](accounts/README.md) | Morocco water-sector target accounts, contact routes, and account evidence |
+| [Accounts](accounts/README.md) | Morocco water-sector target accounts, company facts, projects and account evidence |
+| [Business development](business-development/README.md) | Target companies, relevant public employee profiles, outreach priorities and qualification routes |
 | [Architecture](architecture/README.md) | Deployment, component contracts, evidence model, network execution, and threat model |
 | [Architecture decisions](adr/README.md) | Numbered decisions, status, and consequences |
 | [Appliance](appliance/README.md) | Rooted proof-of-concept boundary and physical compatibility evidence |
