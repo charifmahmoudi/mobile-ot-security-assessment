@@ -96,7 +96,9 @@ int main(int argc, char **argv) {
     int output_fd = open(output_path, O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC | O_NOFOLLOW, 0600);
     if (output_fd < 0) { perror("open output"); close(packet_fd); return 7; }
     const struct pcap_header header = {0xa1b2c3d4U, 2, 4, 0, 0, SNAPLEN, 1};
-    if (write_all(output_fd, &header, sizeof(header)) != 0) { perror("write header"); close(output_fd); close(packet_fd); return 8; }
+    if (write_all(output_fd, &header, sizeof(header)) != 0 || fsync(output_fd) != 0) {
+        perror("publish header"); close(output_fd); close(packet_fd); return 8;
+    }
 
     signal(SIGINT, stop_capture); signal(SIGTERM, stop_capture);
     uint8_t *buffer = malloc(SNAPLEN);
