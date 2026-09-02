@@ -1,296 +1,339 @@
 # Morocco prospect intelligence directory
 
-_Reviewed: 1 September 2026._
+_Reviewed: 2 September 2026._
 
-This page owns **account- and person-level public sales intelligence** for Atlas OT Scout in Morocco. It is not just a list of companies. For each account, keep the current public trigger, relevant technology/operating signals, named professionals where they can be verified, why those people matter, and the safest public route for starting a conversation.
+This page owns **account- and person-level public sales intelligence** for Atlas OT Scout in Morocco. A company is not sufficiently researched merely because its Director General is known. The useful unit is the **buying and evaluation group**: who can sponsor an evaluation, who can judge the technical result, who owns the operational problem, who controls security or governance, and who can connect the conversation to the right team.
 
-The [commercial diligence summary](DILIGENCE-SUMMARY.md) owns the cross-market evidence and conclusions. The [market guide](MOROCCO-MARKET-GUIDE.md) owns segmentation and entry situations. The [marketing playbook](MARKETING-PLAYBOOK.md) owns message construction. This directory answers: **which organization, which person, why now, and what public evidence supports the approach?**
+The [commercial diligence summary](DILIGENCE-SUMMARY.md) owns cross-market evidence and conclusions. The [market guide](MOROCCO-MARKET-GUIDE.md) owns segmentation and entry situations. The [marketing playbook](MARKETING-PLAYBOOK.md) owns message construction. This directory answers: **which organization, which people, why each person matters, why now, and what public evidence supports the approach?**
 
-## Directory schema
+## How to read the people maps
 
-Every maintained account should answer these questions:
+### Stakeholder classes
 
-| Field | Required content |
-|---|---|
-| Organization | Current public organization name and sector |
-| Why Atlas may matter | One account-specific assessment, commissioning, reconciliation or service-delivery problem |
-| Current trigger | Recent project, procurement, transition, hiring, investment, public technical activity or organizational change |
-| Technology/operating signals | Publicly evidenced SCADA, automation, telemanagement, instrumentation, GIS, CMMS, industrial-network or water-process signals |
-| Named people | Public professionals relevant as decision-maker, evaluator, champion, influencer or route into the account |
-| Why this person matters | Connection between the person's public role/activity and a plausible Atlas evaluation |
-| Public profile/source | Company bio, LinkedIn, conference page, press release or other public professional source |
-| Public contact route | Organization website, published business address/form, or the person's public professional profile; never infer a private address |
-| Last verified | Date the person/account signal was checked |
-| Confidence | `verified`, `probable`, `stale-check-required`, or `research-needed` |
+| Class | Meaning | Typical Atlas role |
+|---|---|---|
+| **T1 — technical evaluator / problem owner** | Owns the relevant engineering, operations, automation, asset-data or security problem | Best first contact for validating whether Atlas is useful |
+| **T2 — sponsor / governance** | Executive, director or business leader who can authorize attention, resources or a bounded evaluation | Sponsor after a concrete technical use case exists |
+| **T3 — practitioner / connector** | Technically relevant practitioner with useful field context but unclear purchasing authority | Discovery, technical feedback or route into the correct team |
 
-A person should not be added merely because LinkedIn lists them as an employee. There must be a plausible relationship to operations, engineering, automation, asset management, cybersecurity, commissioning, maintenance, procurement or executive sponsorship.
+### Evidence grades
+
+- **V1:** current official organization source, official event/program or direct organization publication.
+- **V2:** current public professional profile with employer/role or strong role-specific activity.
+- **V3:** current secondary professional directory or third-party post. Use as a lead, then reverify before outreach.
+
+No personal email address or phone number is inferred or copied from people-data brokers. A named person's LinkedIn/public professional profile is a valid public route. A direct corporate email is included only when the organization itself publishes it.
+
+### Account readiness
+
+- **A — outreach-ready:** current trigger plus at least one T1 and one T2 person with usable public evidence.
+- **B — partially mapped:** relevant account and trigger exist, but an important stakeholder layer is still missing or relies on V3 evidence.
+- **C — research queue:** organization is relevant but the current person map is insufficient.
+
+---
 
 ## Priority operators
 
 ### ONEE — Office National de l'Electricité et de l'Eau Potable
 
-**Why Atlas may matter.** ONEE operates national electricity and water infrastructure and maintains a large pipeline of investment and modernization work. ONEE's water technical library uses telemanagement, automation, pumping and treatment terminology that directly matches Atlas's bounded evidence/reconciliation use cases.
+**Readiness: A.**
 
-**Current public trigger.** In July 2026 ONEE's board adopted a 2026–2030 equipment plan exceeding MAD 248 billion, presented by Director General Tarik Hamane. The plan is broader than Atlas's water focus, but it establishes a major ongoing infrastructure program and an active executive agenda around network development and modernization.
+**Why Atlas may matter.** ONEE's water activity spans production, treatment, pumping, desalination and geographically distributed infrastructure. Its technical material explicitly uses telemanagement and automation/regulation terminology. The strongest Atlas entry is therefore not generic cybersecurity; it is one bounded commissioning, maintenance or evidence-reconciliation question around a water asset group.
 
-Sources: [ONEE technical clauses](https://www.onep.org.ma/Espace-Achats-ONEE-BO/Cahiers-Clauses-Techniques_dispo-Generales/Cahiers-Clauses-Techniques_dispo-Generales.htm) and [SNRT/MAP on the 2026–2030 equipment plan](https://snrtnews.com/fr/article/conseil-dadministration-lonee-adopte-le-plan-dequipement-2026-2030-de-plus-de-248-mmdh).
+**Current trigger.** ONEE is executing a major 2026–2030 investment program while expanding non-conventional-water capacity. Public professional profiles also show active desalination project leadership.
 
-**Technology/operating signals.** Telemanagement, automation/regulation, pumping, water production/treatment and geographically distributed infrastructure are explicitly present in ONEE public material.
+**People map**
 
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
 |---|---|---|---|---|---|
-| **Tarik Hamane** | Director General of ONEE; presented the 2026–2030 equipment plan | Executive sponsor/influencer for modernization and investment; not the first technical cold-contact target, but important for account mapping | [SNRT/MAP](https://snrtnews.com/fr/article/conseil-dadministration-lonee-adopte-le-plan-dequipement-2026-2030-de-plus-de-248-mmdh) | 2026-09-01 | verified |
+| **Youssef BENSAID** | Senior project manager — seawater desalination, ONEE-Branche Eau; 10+ years' experience | **T1** | Strong project-side evaluator for commissioning, accepted equipment baselines and EPC-to-operator handoff in desalination | [Public profile](https://ma.linkedin.com/in/youssef-bensaid-a309a827) | 2026-09-02 · V2 |
+| **Faissal EL HANOUCH** | Project manager, ONEE-Branche Eau; public profile states 12 years' experience | **T1/T3** | Potential project-engineering route for a bounded water infrastructure evaluation; exact current project portfolio should be established before tailoring | [Public profile](https://www.linkedin.com/in/faissal-el-hanouch-87b6a848) | 2026-09-02 · V2 |
+| **Tarik Hamane** | Director General; publicly presented the 2026–2030 equipment plan | **T2** | Executive sponsor/influencer for modernization and investment; not the preferred first cold contact | [SNRT/MAP](https://snrtnews.com/fr/article/conseil-dadministration-lonee-adopte-le-plan-dequipement-2026-2030-de-plus-de-248-mmdh) | 2026-09-02 · V1 |
 
-**People still to identify.** Current public holders of water-branch automation/télégestion, exploitation, maintenance, OT/industrial cybersecurity, information-systems security, project/engineering and regional technical leadership roles. These are higher-priority technical evaluators than the Director General and should be added only when a current public profile/source establishes the role.
+**Still worth identifying.** Named current holders of water-branch télégestion/automation, exploitation, maintenance, industrial cybersecurity and regional technical-management roles. These would improve the map beyond project leadership.
 
-**Public channels.** [ONEE Branche Eau website](https://www.onep.org.ma/), [LinkedIn](https://www.linkedin.com/company/onep), and the published organization route `contact@onep.ma` listed by the [National Electricity Regulatory Authority](https://anre.ma/liens-utiles/).
+**Recommended contact order.** Youssef Bensaid or another project/operations T1 → relevant automation/exploitation owner once identified → executive sponsor only after a concrete use case exists.
 
-**Best opening.** Ask how one telemanagement/pumping/treatment package is reconciled against accepted project records and field/network evidence during commissioning or maintenance.
+**Public routes.** [ONEE Branche Eau](https://www.onep.org.ma/), [ONEE Branche Eau LinkedIn](https://www.linkedin.com/company/onep), and the organization route `contact@onep.ma` published by the [National Electricity Regulatory Authority](https://anre.ma/liens-utiles/).
+
+---
 
 ### OCP Green Water
 
-**Why Atlas may matter.** OCP Green Water operates a fast-moving desalination, transfer and water-resilience program where commissioning, handover, integrated operations and evidence ownership are concrete concerns.
+**Readiness: A — strongest person map in the operator set.**
 
-**Current public trigger.** Public OCP Green Water material describes an integrated ecosystem involving OCP, JESA and more than 100 partners, with desalination capacity delivered on accelerated timelines. In 2026 public activity continued to emphasize industrial operations, desalination, the water-energy nexus and cross-sector collaboration.
+**Why Atlas may matter.** OCP Green Water is executing desalination, reuse and transfer programs through a large partner ecosystem. That creates concrete commissioning, operations, performance and handover questions where an evidence-linked bounded baseline can be tested.
 
-Sources: [OCP Green Water](https://www.ocpgroup.ma/en/who-we-are/our-strategic-entities-and-partners), [OCP water programme](https://www.ocpgroup.ma/en/taxonomy/term/26), [OCP Green Water LinkedIn](https://www.linkedin.com/company/ocpgreenwater), and [JESA/OCP water-program post](https://www.linkedin.com/posts/jesa-s-a_jesa-wateremergencyprogram-fastrackmode-activity-7093320484833878016-8R2b).
+**Current trigger.** Public 2026 activity continues around desalination, water reuse, the water-energy nexus and rapid project delivery. OCP Green Water personnel are speaking publicly in role-specific technical forums, providing unusually strong targeting evidence.
 
-**Technology/operating signals.** Desalination, industrial water, transfer infrastructure, commissioning/start-up, integrated operations and large partner ecosystems.
+**People map**
 
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
 |---|---|---|---|---|---|
-| **Ahmed Znibar** | CEO, OCP Green Water; public project contact in IFC disclosure and frequent executive voice on desalination/water resilience | Executive sponsor and route to evaluation governance; relevant to strategic value and partner ecosystem | [IFC disclosure](https://disclosures.ifc.org/project-detail/SII/49203/ocp-green-water), [OCP Green Water public activity](https://www.linkedin.com/posts/ocpgreenwater_ocpgreenwater-desalination-sustainability-activity-7329083745431396353-0NFI) | 2026-09-01 | verified |
-| **Abousselham Otmane** | Publicly identified as Head of Industrial Operations / operations leader at OCP Green Water; publishes on desalination, system integration and water-energy operations | Strong technical/operational evaluator for commissioning, integrated infrastructure and field evidence workflows | [2026 IWRI recognition post](https://www.linkedin.com/posts/adambouchta_honored-to-receive-on-behalf-of-our-head-activity-7458878333498507265-Fqsm), [public LinkedIn activity](https://www.linkedin.com/posts/abousselham-%D8%A3%D8%A8%D9%88%D8%B3%D9%84%D9%87%D8%A7%D9%85-otmane-%D8%B9%D8%AB%D9%85%D8%A7%D9%86-04653618_ocp-ocpgreenwater-waterenergynexus-activity-7433903428797407232-T1FL) | 2026-09-01 | verified |
-| **Hanane Mourchid** | OCP Group executive responsible for sustainability/green-utility themes; publicly associated with water-energy transition | Executive influencer where Atlas is framed around resilient infrastructure and evidence governance rather than a scanner | [OCP leadership](https://www.ocpgroup.ma/en/who-we-are/our-leadership-and-governance) | 2026-09-01 | verified |
+| **Abousselham Otmane** | Head of Industrial Operations / operations leader; public content around desalination, integrated infrastructure and water-energy operations | **T1** | Best operations-side evaluator for whether Atlas helps reconcile equipment/control evidence through commissioning and operations | [Public profile/activity](https://ma.linkedin.com/in/abousselham-%D8%A3%D8%A8%D9%88%D8%B3%D9%84%D9%87%D8%A7%D9%85-otmane-%D8%B9%D8%AB%D9%85%D8%A7%D9%86-04653618) | 2026-09-02 · V2 |
+| **Mohammed Amine El Farah** | Head of Green Industrial Development | **T1/T2** | Relevant to industrial-development programs where desalination/reuse packages cross project, partner and operating boundaries | [OCP Green Water World Water Congress post](https://www.linkedin.com/posts/ocpgreenwater_xixworldwatercongress-ocpgreenwater-waterdesalination-activity-7402018715409616896-pBaM) | 2026-09-02 · V1 |
+| **Abdessamad Chatabi** | Head of WWTS Program | **T1** | Direct program-level fit for wastewater-treatment/reuse commissioning, asset acceptance and handover evidence | [OCP Green Water World Water Congress post](https://www.linkedin.com/posts/ocpgreenwater_xixworldwatercongress-ocpgreenwater-waterdesalination-activity-7402018715409616896-pBaM) | 2026-09-02 · V1 |
+| **Lamia Housni** | Director, Business Development, OCP Green Water; speaker on desalination and reuse | **T2** | Commercial/partnership route when a technical evaluation has a clear program use case | [EuroMed 2026 program](https://congress.edsoc.com/program-2/) | 2026-09-02 · V1 |
+| **Ahmed Znibar** | CEO / Managing Director; public project contact and executive voice on water resilience | **T2** | Executive sponsor and partner-ecosystem route; appropriate after technical value is demonstrated | [IFC disclosure](https://disclosures.ifc.org/project-detail/SII/49203/ocp-green-water) | 2026-09-02 · V1 |
+| **Hanane Mourchid** | OCP Group executive associated with sustainability and green utilities | **T2** | Parent-group influencer where Atlas is framed around resilient infrastructure/evidence governance rather than discovery alone | [OCP leadership](https://www.ocpgroup.ma/en/who-we-are/our-leadership-and-governance) | 2026-09-02 · V1 |
 
-**Public channels.** [OCP Green Water LinkedIn](https://www.linkedin.com/company/ocpgreenwater), [OCP Group contact](https://www.ocpgroup.ma/en/contact-ocp), and the named people's public professional pages/sources above. Do not infer individual email patterns.
+**Recommended contact order.** Otmane / Chatabi / El Farah depending the project → Housni for partnership/commercial routing → Znibar or broader OCP sponsorship after evidence of fit.
 
-**Best opening.** For Otmane/operations: ask how the accepted equipment and control baseline is reconciled across EPC, commissioning and operations for one desalination or transfer package. For executive contacts: lead with reducing unresolved handover/evidence questions across a fast-moving partner ecosystem.
+**Best public hook.** Ask how one desalination, reuse or transfer package moves from EPC/commissioning evidence into the accepted operations baseline, and how unresolved identity or asset-record conflicts are handled.
+
+**Public routes.** [OCP Green Water](https://www.linkedin.com/company/ocpgreenwater), [OCP Group contact](https://www.ocpgroup.ma/en/contact-ocp), and the public professional profiles above.
+
+---
 
 ### SRM Casablanca–Settat
 
-**Why Atlas may matter.** The operator inherited services/assets from Lydec, RADEEJ, RADEEC and ONEE regional branches. That makes predecessor-record reconciliation, network modernization and accepted baselines legitimate account problems.
+**Readiness: A.**
 
-**Current public trigger.** The SRM continues large-scale organizational and workforce integration. Its June 2025 public onboarding communication described 172 new recruits and an executive-led transformation agenda. Public organization material also describes the transition and service-continuity mandate.
+**Why Atlas may matter.** SRM Casablanca–Settat inherited services and records from several predecessor operators. It also has active modernization, resilience, cybersecurity and asset-management concerns. This produces two distinct Atlas entry paths: **field/asset reconciliation** and **authorized security/evidence review**.
 
-Sources: [official launch/creation material](https://srm.radeec.ma/creation-de-la-srm-cs/), [official launch press release](https://www.radeec.ma/gralteku/2024/09/240930-CP-Lancement-SRM-CS.pdf), [SRM LinkedIn](https://www.linkedin.com/company/srm-casablanca-settat).
+**People map**
 
-**Technology/operating signals.** Multi-operator asset transition, regional exploitation, investment programs, water/electricity/sanitation networks and distributed technical directorates.
-
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
 |---|---|---|---|---|---|
-| **Youssef Ettazi** | Director General; public statements emphasize operational excellence, continuity and sustainable resource management | Executive sponsor for a bounded transition/reconciliation evaluation | [official SRM launch PDF](https://www.radeec.ma/gralteku/2024/09/240930-CP-Lancement-SRM-CS.pdf), [SRM LinkedIn](https://fr.linkedin.com/posts/srm-casablanca-settat_bienvenue-aux-172-nouvelles-recrues-de-la-activity-7341027183223570432-E7G-) | 2026-09-01 | verified |
+| **Rachid Nefsi** | RSSI, SRM Casablanca–Settat; public 2026 profile emphasizes continuity of service and data protection | **T1** | High-value security evaluator for authorization, evidence handling, offline architecture and whether a bounded field tool fits SRM security governance | [TelQuel profile, June 2026](https://telquel.ma/sponsors/rachid-nefsi-rssi-a-la-srm-casa-settat-aux-aguets-en-permanence_1994818) | 2026-09-02 · V1 |
+| **Hamza FILALI** | GIS engineer specialized in water and sanitation asset management; publicly represented SRM-CS in critical-infrastructure resilience work | **T1** | Strong asset/patrimony champion for GIS-to-field reconciliation and evidence-backed updates | [Public profile](https://ma.linkedin.com/in/filali-hamza2020/en) | 2026-09-02 · V2 |
+| **Rachid Taki** | Publicly identified as maintenance service head in a recent SRM-CS technical internship report | **T3** | Maintenance practitioner/connector; useful for maintenance-reliability discovery, but the public evidence is secondary and electricity-focused | [Public professional post](https://fr.linkedin.com/posts/bader-elberkaoui-6641bb26b_mon-stage-au-sein-de-srm-casablanca-settat-activity-7363134137618030592-lK1h) | 2026-09-02 · V3 |
+| **Youssef Ettazi** | Director General | **T2** | Executive sponsor for transition, continuity and regional transformation | [Official launch material](https://www.radeec.ma/gralteku/2024/09/240930-CP-Lancement-SRM-CS.pdf) | 2026-09-02 · V1 |
 
-**People still to identify.** Current leaders for water exploitation, investments/projects, asset/patrimony/GIS, information systems/cybersecurity, maintenance and provincial technical operations. A historical/secondary organizational chart is not enough; verify against current public SRM material before adding names.
+**Recommended contact order.** For security use cases: Nefsi → technical operations owner → Ettazi only if sponsorship is needed. For inventory/GIS use cases: Filali → relevant exploitation/maintenance owner → executive sponsor.
 
-**Public channels.** [Official website/contact](https://srm.radeec.ma/contact/), [LinkedIn](https://www.linkedin.com/company/srm-casablanca-settat), organization email `contact@srm-cs.ma`.
+**Still worth identifying.** Named water-exploitation, telemanagement/automation and investment/project leaders.
 
-**Best opening.** Ask how inherited records from predecessor operators become an accepted baseline for one pumping, reservoir, sanitation or telemanagement scope.
+**Public routes.** [SRM-CS](https://www.linkedin.com/company/srm-casablanca-settat), [official contact](https://srm.radeec.ma/contact/), organization email `contact@srm-cs.ma`.
 
-### SRM Fès–Meknès
-
-**Why Atlas may matter.** Public procurement and operator activity include telemanagement and infrastructure modernization. The SRM is still scaling as a regional operator and managing major investment programs.
-
-**Current public trigger.** In June 2026 the operator reported its first complete financial year and continuing structural projects; its board and public communications emphasize multi-year investment, service continuity and technical field operations.
-
-Sources: [SRM LinkedIn](https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9gionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a), [procurement page](https://www.radeef.ma/appel-offres/avis), [June 2026 public report](https://fr.mcg24.com/48953.html).
-
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
-|---|---|---|---|---|---|
-| **Mohamed Chaoui** | Director General; current SRM posts and 2026 reporting identify him in the role | Executive sponsor for modernization/continuity and route to the technical organization | [SRM LinkedIn](https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9gionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a), [2026 report](https://fr.mcg24.com/48953.html) | 2026-09-01 | verified |
-
-**People still to identify.** Télégestion/automation, exploitation eau/assainissement, investments, maintenance, asset/GIS and security/IT leaders.
-
-**Public channels.** [SRM site](https://www.srm-fm.ma/), [LinkedIn](https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9gionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a), organization email `contact@srm-fm.ma`.
-
-**Best opening.** Use a current telemanagement or central-system project and ask how remote-station records and commissioning evidence are accepted into the operating baseline.
-
-### SRM Rabat–Salé–Kénitra
-
-**Why Atlas may matter.** The operator publicly emphasizes continuity, modernization, investment, sustainable resource management and technical expertise.
-
-**Current public trigger.** The operator is building its regional model and public investment program while integrating service responsibility across the region.
-
-Sources: [official operator page](https://agence.rak.ma/rak/srm-rsk/) and [SRM site](https://srm-rsk.ma/).
-
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
-|---|---|---|---|---|---|
-| **Fatima Guennouni** | Directrice Générale; official operator page states her name and priorities around continuity, investment, innovation and resilient service | Executive sponsor and route to transformation/technical leaders | [official DG message](https://agence.rak.ma/rak/mot-directrice-general/), [SRM LinkedIn activity](https://fr.linkedin.com/posts/srm-rsk_un-pas-de-plus-vers-un-maroc-durable-et-innovant-activity-7383865436674781184-00q2) | 2026-09-01 | verified |
-
-**People still to identify.** Water exploitation, investments/projects, asset/GIS, OT/IT security, automation/telemanagement and maintenance leadership.
-
-**Public channels.** [Official website](https://srm-rsk.ma/), [LinkedIn](https://www.linkedin.com/company/srm-rsk), organization email `contact@srm-rsk.ma`.
-
-**Best opening.** Link the conversation to one modernization/investment scope and ask how accepted asset evidence is maintained through transition and field changes.
+---
 
 ### SRM Souss-Massa
 
-**Why Atlas may matter.** The region combines water stress, desalination, major infrastructure and a new regional operator with explicit efficiency and sustainability programs.
+**Readiness: A-/B+.**
 
-**Current public trigger.** In 2026 SRM Souss-Massa publicly discussed its first carbon inventory and integration of environmental/efficiency considerations into governance and investment decisions. Current procurement also includes information-system/security work.
+**Why Atlas may matter.** Souss-Massa combines water stress, desalination, regional asset operations and an active digital/information-systems agenda. Public people data now gives both executive and information/asset-system routes, although a named water-automation owner is still missing.
 
-Sources: [SRM site](https://www.srm-sm.ma), [2026 interview](https://www.lebrief.ma/tribunes/de-linventaire-carbone-a-la-transition-environnementale-la-srm-souss-massa-traduit-les-engagements-climatiques-en-pratiques-institutionnelles/).
+**People map**
 
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
 |---|---|---|---|---|---|
-| **Mohamed Amerzag** | Director General; publicly signs SRM recruitment/procurement material and discussed governance/efficiency priorities in 2026 | Executive sponsor for modernization, water-efficiency and governance conversations | [public SRM recruitment PDF](https://econcours.brainman.ma/DisplayDoc/ShowPDF/?l=%2Fimages%2Fcampaigns%2Ff174e065-df95-469a-9331-85feade99de2.pdf), [2026 interview](https://www.lebrief.ma/tribunes/de-linventaire-carbone-a-la-transition-environnementale-la-srm-souss-massa-traduit-les-engagements-climatiques-en-pratiques-institutionnelles/) | 2026-09-01 | verified |
+| **Serhane Rachid** | Current SRM Souss Massa professional; public profile describes project leadership for a new version of the SIGID information system | **T1** | Strong digital/asset-information evaluator for evidence integration, record provenance and accepted inventory workflows | [Public profile](https://ma.linkedin.com/in/serhane-rachid-b4bb0720) | 2026-09-02 · V2 |
+| **Abdelali AbouAhmed** | Current SRM Souss Massa professional with topography/geomatics background | **T3** | Useful GIS/field-data practitioner for understanding how field observations become asset records; exact current title is not public | [Public profile](https://ma.linkedin.com/in/abdelali-abouahmed) | 2026-09-02 · V2 |
+| **Mohamed Amerzag** | Director General; public 2026 material emphasizes governance, efficiency and transition | **T2** | Executive sponsor for modernization and water-efficiency initiatives | [SRM public material/interview](https://www.lebrief.ma/tribunes/de-linventaire-carbone-a-la-transition-environnementale-la-srm-souss-massa-traduit-les-engagements-climatiques-en-pratiques-institutionnelles/) | 2026-09-02 · V1 |
 
-**People still to identify.** Water exploitation, desalination interface, telemanagement/automation, investment/projects, maintenance, GIS/patrimony and cybersecurity/IT leaders.
+**Recommended contact order.** Serhane for data/evidence workflow → named exploitation/automation owner once identified → Amerzag for sponsorship.
 
-**Public channels.** [Official site](https://www.srm-sm.ma), [LinkedIn](https://www.linkedin.com/company/srmsoussmassa), organization email `contact@srm-sm.ma` published in official recruitment material.
+**Still worth identifying.** Télégestion/automation, water exploitation, desalination interface, maintenance and security leadership.
 
-**Best opening.** Use one pumping/treatment/desalination interface or regional-network modernization project and ask how evidence is reconciled before maintenance or acceptance decisions.
+**Public routes.** [Official site](https://www.srm-sm.ma), [LinkedIn](https://www.linkedin.com/company/srmsoussmassa), organization email `contact@srm-sm.ma` where published by the operator.
+
+---
 
 ### SRM Marrakech–Safi
 
-**Why Atlas may matter.** Public activity shows active water-network performance work, infrastructure modernization and region-wide service integration.
+**Readiness: A-/B+.**
 
-**Current public trigger.** In 2026 the SRM publicly described work on improving drinking-water network performance under the Director General with technical managers present. That is a direct timing signal for asset-state, maintenance and evidence-quality conversations.
+**Why Atlas may matter.** The SRM has active water-network performance work and a technically visible SCADA/central-control environment. Public people evidence is stronger on electricity/SCADA than on water automation, so the first use case must match the person's domain rather than force a water pitch.
 
-Sources: [SRM LinkedIn](https://www.linkedin.com/company/srmmarrakech-safi), [2026 water-network performance post](https://fr.linkedin.com/posts/srmmarrakech-safi_srmms-marrakechsafi-eau-activity-7453456496765550593-wlRc).
+**People map**
 
-#### Named people and public professional signals
-
-| Person | Public role/signal | Why this person matters | Public source | Last verified | Confidence |
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
 |---|---|---|---|---|---|
-| **Abdellah Ilhami** | Director General in current SRM public communications | Executive sponsor for network performance, digitalization and service continuity | [SRM interview post](https://fr.linkedin.com/posts/srmmarrakech-safi_srmms-interview-direction-activity-7316142946750201857-gCpw), [2026 water-network post](https://fr.linkedin.com/posts/srmmarrakech-safi_srmms-marrakechsafi-eau-activity-7453456496765550593-wlRc) | 2026-09-01 | verified |
+| **Tariq Sougtani** | SRM Marrakech–Safi technical practitioner; public work covers automated systems, central-control operations, SCADA, maintenance and a PFE on optimizing the SRM SCADA environment | **T1/T3** | Strong practitioner for testing Atlas's evidence model against real SCADA/maintenance workflows; not assumed to hold buying authority | [Public profile](https://ma.linkedin.com/in/tariq-sougtani-74432018a), [SCADA project](https://fr.linkedin.com/posts/tariq-sougtani-74432018a_pfe-soutenance-licenceprofessionnelle-activity-7413943289890050048-GQ1H) | 2026-09-02 · V2 |
+| **Abdellah Ilhami** | Director General in current SRM public communications | **T2** | Executive sponsor for network performance, digitalization and continuity initiatives | [SRM public page](https://www.linkedin.com/company/srmmarrakech-safi) | 2026-09-02 · V1 |
 
-**People still to identify.** Current water exploitation, sanitation, investments, automation/telemanagement, asset/GIS and IT/security managers. Historical organization notes can guide research but should not be treated as current without verification.
+**Recommended contact order.** Technical practitioner/SCADA owner for a technically aligned proof → named water/telemanagement manager once identified → DG sponsorship if the problem is material.
 
-**Public channels.** [LinkedIn](https://www.linkedin.com/company/srmmarrakech-safi) and organization contact routes published by the SRM.
+**Still worth identifying.** Water exploitation, sanitation, water telemanagement, GIS/patrimony and IT/security managers.
 
-**Best opening.** Ask how the technical team validates one network-performance or rehabilitation scope against field evidence, maintenance records and accepted asset data.
+**Public routes.** [SRM Marrakech–Safi](https://www.linkedin.com/company/srmmarrakech-safi).
+
+---
 
 ### SRM L'Oriental
 
-**Why Atlas may matter.** Public account signals include regional water/sanitation/electricity operations and field-recognition/GIS work, making field-to-record reconciliation a strong entry theme.
+**Readiness: A-/B+ because two important titles rely partly on secondary current sources.**
 
-**Current public trigger.** Regional transition and asset/investment organization remain active; public tender/organization material indicates GIS, patrimoine and investments functions.
+**Why Atlas may matter.** Public material shows a formal investment/patrimony structure and field/GIS activity. This is one of the clearest SRM accounts for **field-to-record reconciliation**.
 
-Sources: [official website](https://www.srm-ori.ma/), [LinkedIn](https://ma.linkedin.com/company/srmloriental), and the secondary [field-recognition/GIS tender listing](https://www.hubforas.com/ao/1db466e6-1195-4ac6-aefc-33063926d6c0-reconnaissance-terrain-des-reseaux-restitution-et-saisie-dan).
+**People map**
 
-#### Named people and public professional signals
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Ayoub Azzouzi** | Chef de Département Gestion du Patrimoine; previously SIG/patrimony. Current-title evidence is secondary but recent and consistent with published organization material | **T1** | Very strong target for asset/GIS reconciliation, provenance and accepted changes to patrimony records | [Public profile](https://ma.linkedin.com/in/ayoub-azzouzi-0a2a7164), [organization note](https://fr.scribd.com/document/799355678/Note-d-Organisation-de-La-Direction-Des-Investissements) | 2026-09-02 · V2/V3 |
+| **Yassine Bakhtaoui** | Current SRM L'Oriental IT professional with 10+ years' public-sector IT experience and visible security/SOC interest | **T3** | Useful IT/security connector for device policy, evidence handling and routing to the current security owner; exact title should be confirmed | [Public profile](https://ma.linkedin.com/in/yassine-bakhtaoui-3123b6127) | 2026-09-02 · V2 |
+| **Mounir OUKHOUYA** | Director General; 2026 SRM service note is signed in that capacity | **T2** | Executive sponsor for regional transition and operating-governance questions | [2026 service note](https://www.scribd.com/document/1019415376/NOTE-DE-SERVICE-N-29-2026) | 2026-09-02 · V3, document appears to reproduce SRM note |
 
-No current named technical or executive prospect is retained here until verified from a sufficiently authoritative current public source. Earlier organizational material names individuals, but this directory prefers a research gap over a stale contact.
+**Recommended contact order.** Azzouzi → relevant investment/exploitation owner → IT/security as needed → DG only after a defined reconciliation use case.
 
-**People to identify.** Director General/current executive sponsor; investments; GIS/patrimony; exploitation eau/assainissement; automation/telemanagement; maintenance; IT/security.
+**Still worth identifying.** Named télégestion/automation, exploitation eau/assainissement and maintenance leaders from current first-party sources.
 
-**Public channels.** [Official website](https://www.srm-ori.ma/), [LinkedIn](https://ma.linkedin.com/company/srmloriental), organization email `contact@srm-ori.ma`.
+**Public routes.** [Official site](https://www.srm-ori.ma/), [LinkedIn](https://ma.linkedin.com/company/srmloriental), organization email `contact@srm-ori.ma`.
 
-**Best opening.** Lead with field-to-GIS evidence reconciliation for one defined network/project area.
+---
+
+### SRM Fès–Meknès
+
+**Readiness: B.**
+
+**Why Atlas may matter.** The operator has current water infrastructure, demineralization, network-maintenance and investment activity. The account is strategically relevant, but the public person map is still insufficient at the exact technical-decision level.
+
+**People map**
+
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Mohamed Chaoui** | Director General; current SRM publications identify him in the role | **T2** | Executive sponsor for modernization, continuity and investment | [SRM company page](https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9gionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a) | 2026-09-02 · V1 |
+| **Abderahim LAALLA** | Current SRM Fès–Meknès professional with visible engagement around field operations, water/security-hydrique programs and organizational transformation; exact title is not exposed publicly | **T3** | Potential internal connector, but not yet a sufficiently defined first target | [Public profile](https://ma.linkedin.com/in/abderahim-laalla-9640409a) | 2026-09-02 · V2 |
+
+**Research priority.** Identify by name the current water exploitation, télégestion/automation, investments, GIS/patrimony, maintenance and security/IT managers. Do not promote this account to A until at least one role-specific T1 is verified.
+
+**Public routes.** [SRM Fès–Meknès](https://www.linkedin.com/company/soci%C3%A9t%C3%A9-r%C3%A9gionale-multiservices-f%C3%A8s-mekn%C3%A8s-s-a), [official site](https://www.srm-fm.ma/), organization email `contact@srm-fm.ma`.
+
+---
+
+### SRM Rabat–Salé–Kénitra
+
+**Readiness: B.**
+
+**Why Atlas may matter.** The operator has active modernization and non-conventional-water projects, including monobloc desalination/demineralization stations. Publicly identifiable technical leadership is still weak.
+
+**People map**
+
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Fatima Guennouni** | Directrice Générale; official operator material emphasizes continuity, investment, innovation and resilient service | **T2** | Executive sponsor and route to transformation/technical leadership | [Official DG message](https://agence.rak.ma/rak/mot-directrice-general/) | 2026-09-02 · V1 |
+| **Hamza EL YAZIDI** | Current SRM-RSK professional with visible cybersecurity/network-security interest; exact current role is not public | **T3** | Possible technical connector for IT/security discovery only; insufficient evidence to treat as security decision-maker | [Public profile](https://ma.linkedin.com/in/hamza-el-yazidi-548b45175) | 2026-09-02 · V2 |
+
+**Research priority.** Identify the named provincial/technical leaders supervising water projects, desalination/demineralization, asset/GIS, automation and cybersecurity. The account is not T1-ready yet.
+
+**Public routes.** [SRM-RSK](https://www.linkedin.com/company/srm-rsk), [official site](https://srm-rsk.ma/), organization email `contact@srm-rsk.ma`.
+
+---
 
 ## Engineering, EPC and service partners
 
 ### JESA
 
-**Why Atlas may matter.** JESA provides end-to-end engineering, project delivery, operations/maintenance and asset-management services across water and industry. Public JESA material specifically describes feasibility through commissioning/start-up on OCP's emergency water/desalination program.
+**Readiness: A — high-priority partner account.**
 
-Sources: [JESA LinkedIn](https://www.linkedin.com/company/jesa-s-a), [JESA water-program post](https://www.linkedin.com/posts/jesa-s-a_jesa-wateremergencyprogram-fastrackmode-activity-7093320484833878016-8R2b).
+**Why Atlas may matter.** JESA publicly describes work from engineering through commissioning/start-up on water/desalination programs. The relevant question is whether Atlas can become a repeatable evidence/reconciliation deliverable inside commissioning, acceptance or OT-security work.
 
-#### Named people and public professional signals
+**People map**
 
-The public company page exposes employee names but not enough role context in the reviewed results to justify targeting those individuals. Do not turn a generic employee list into a prospect list.
+| Person | Current public role / signal | Class | Why relevant to Atlas | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Abdelaziz OUHADI** | Executive Director, Water & Environment | **T2/T1** | Senior sponsor with direct water-program responsibility; can judge partner/deliverable fit | [OCP Green Water congress panel](https://www.linkedin.com/posts/ocpgreenwater_xixworldwatercongress-ocpgreenwater-waterdesalination-activity-7402018715409616896-pBaM) | 2026-09-02 · V1 |
+| **Mohamed Amine Rabiateddine** | Senior Process Design Engineering Manager | **T1** | Strong engineering evaluator for how evidence fits design, process and acceptance work | [OCP Green Water congress panel](https://www.linkedin.com/posts/ocpgreenwater_xixworldwatercongress-ocpgreenwater-waterdesalination-activity-7402018715409616896-pBaM) | 2026-09-02 · V1 |
+| **Said HAJJAMI** | 14+ years in completion/commissioning; public projects include mobile desalination and automation/electrical engineering, FAT/SAT and validation | **T1** | Excellent practitioner for testing whether Atlas improves commissioning and handover evidence | [Public profile](https://ma.linkedin.com/in/said-hajjami) | 2026-09-02 · V2 |
+| **Basma Lazaar** | JESA cybersecurity/digitalization professional specializing publicly in OT cybersecurity | **T1/T3** | Strong security evaluator for OT architecture, safe collection, network visibility and evidence constraints | [Public profile](https://ma.linkedin.com/in/basma-lazaar) | 2026-09-02 · V2 |
 
-**People to identify next.** Water/desalination project director, commissioning/start-up leader, instrumentation/control lead, asset-management lead, digital/OT cybersecurity lead, and account/project managers working on OCP Green Water or comparable water programs.
+**Recommended contact order.** Hajjami/Rabiateddine for commissioning evidence → Lazaar for OT-security review → Ouhadi for partner sponsorship.
 
-**Best opening.** Ask whether an evidence-linked inventory delta and provenance package could become a repeatable commissioning/handover deliverable across projects.
+---
 
 ### NOVEC
 
-**Why Atlas may matter.** NOVEC's public profile covers water resources, drinking-water supply, sanitation, dams, infrastructure, energy and environment.
+**Readiness: A.**
 
-Source: [NOVEC LinkedIn](https://www.linkedin.com/company/novec-sa/).
+**Why Atlas may matter.** NOVEC officially covers drinking-water supply, pumping, desalination, network digitization, sanitation and technical assistance. Its own website publishes senior water leadership and direct corporate contacts.
 
-**People to identify next.** Directors/project managers in water resources, drinking-water/sanitation, asset/infrastructure supervision, digital/automation and commissioning.
+| Person | Current public role | Class | Why relevant to Atlas | Official source | Verified |
+|---|---|---|---|---|---|
+| **Said Assanfe** | Directeur Eau potable et Assainissement | **T1/T2** | Direct owner of the water/sanitation engineering domain; strong partner/evaluator for commissioning and field-verification use cases | [NOVEC official page](https://www.novec.ma/novec_activites/eau-potable-assainissement-epuration/) | 2026-09-02 · V1 |
+| **Jihad Elamrani** | Directeur Pôle Aménagement et environnement | **T2** | Senior sponsor across water/environment programs | [NOVEC official page](https://www.novec.ma/novec_activites/eau-potable-assainissement-epuration/) | 2026-09-02 · V1 |
 
-**Best opening.** Position Atlas as a bounded field-verification/evidence package that complements engineering supervision and acceptance work.
+**Published corporate routes.** NOVEC itself publishes `ASSANFE@novec.ma` and `elamrani@novec.ma` on the official page above. These are organization-published business addresses, not inferred patterns.
+
+**Best opening.** Ask whether an evidence-linked field verification package would strengthen study supervision, commissioning or acceptance without replacing NOVEC's engineering process.
+
+---
 
 ### Waterplus Morocco
 
-**Why Atlas may matter.** Waterplus publicly lists pumping, wastewater, electrical installations, instrumentation, automation, supervision and telemanagement—one of the most directly aligned technical-channel profiles in the directory.
+**Readiness: B.**
 
-Source: [Waterplus LinkedIn](https://www.linkedin.com/company/waterplus-maroc).
+**Why Atlas may matter.** Waterplus publicly works in pumping, treatment, instrumentation, automation, supervision and telemanagement, making it technically aligned as an integration/service channel.
 
-**Public employee names surfaced by the company page:** Ayoub Ziani and Mohamed Nabil Fiach are among the visible employees, but the reviewed source does not establish role/title strongly enough to classify them as prospects. Add them only after role verification.
+| Person | Public role / signal | Class | Why relevant | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Oussama El Moatassim Billah** | Current Waterplus affiliation; public technical activity around water-treatment automation, Siemens TIA Portal, SIMATIC HMI, pumps and instrumentation | **T3** | Useful technical practitioner/connector for understanding integration and commissioning workflows; exact seniority is not public | [Public profile](https://ma.linkedin.com/in/oussama-el-moatassim-billah-132301235) | 2026-09-02 · V2 |
 
-**People to identify next.** Technical director, automation/télégestion manager/engineer, instrumentation/electrical project manager, commissioning lead and commercial/project director.
+**Research priority.** Identify the technical director, automation/télégestion lead and commissioning/project manager before calling the account outreach-ready.
 
-**Best opening.** Ask whether Atlas could provide the operator-facing evidence/reconciliation handoff around Waterplus automation/telemanagement packages.
+---
 
 ### Aquatech Services des Eaux Maroc
 
-**Why Atlas may matter.** Aquatech publicly specializes in water/wastewater operations, treatment, leakage, GIS, meters, CMMS and EPCM. This makes it relevant both as an operator/service partner and as a potential user of reconciliation evidence.
+**Readiness: B.**
 
-Sources: [Aquatech LinkedIn](https://www.linkedin.com/company/aquatech-services-des-eaux-maroc/), [Aquatech website](https://aquatech.ma/).
+**Why Atlas may matter.** Aquatech works across water/wastewater operations, treatment, leakage, GIS, CMMS and EPCM. It could be both a user and a service-channel partner.
 
-#### Named people and public professional signals
-
-| Person | Public signal | Why this person may matter | Public source | Last verified | Confidence |
+| Person | Public signal | Class | Why relevant | Source | Verified |
 |---|---|---|---|---|---|
-| **Ayoub El Grine** | Public profile shows current Aquatech affiliation and visible interest/activity around industrial networks, variable-speed drives and related automation training | Potential technical researcher/evaluator; role seniority is not established, so do not treat as a buyer | [LinkedIn profile](https://ma.linkedin.com/in/ayoub-el-grine/en) | 2026-09-01 | probable |
-| **Yousra Yettefti Ouzekhti** | Public profile shows Aquatech affiliation and wastewater-treatment/operations context | Relevant to operational water/wastewater workflows; exact buying role requires verification | [LinkedIn profile](https://ma.linkedin.com/in/yousra-yettefti-ouzekhti-phd-a51b3b75) | 2026-09-01 | probable |
+| **Ayoub El Grine** | Current Aquatech affiliation; public interest/activity around industrial networks, drives and automation | **T3** | Technical discovery/evaluator candidate; role seniority still needs verification | [Public profile](https://ma.linkedin.com/in/ayoub-el-grine/en) | 2026-09-02 · V2 |
+| **Yousra Yettefti Ouzekhti** | Current Aquatech affiliation with wastewater-treatment/operations context | **T3** | Operational discovery route for water/wastewater workflows; buying role not established | [Public profile](https://ma.linkedin.com/in/yousra-yettefti-ouzekhti-phd-a51b3b75) | 2026-09-02 · V2 |
 
-The company page also surfaces Safaa El Koraichi, Imad Bouchallikh and Mohamed Amine Asderne, but the reviewed source does not provide enough role context to classify them as current Atlas prospects.
+**Research priority.** Operations director, CMMS/maintenance lead, GIS/asset-management lead, automation/instrumentation lead and project/EPCM director.
 
-**People to identify next.** Operations director, maintenance/CMMS lead, GIS/asset-management lead, automation/instrumentation lead, project/EPCM director and IT/OT-security contact.
-
-**Best opening.** Ask how Aquatech reconciles field observations, GIS/CMMS records and accepted equipment state during operation, maintenance or takeover of a facility.
+---
 
 ## Industrial-audit and cybersecurity channel
 
-The diligence identifies DGSSI-qualified industrial-systems auditors as a high-value validation/channel set. Qualification status is time-sensitive, so verify it against the live [DGSSI regulated-services source](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes) before outreach.
+DGSSI industrial-systems-audit qualification is time-sensitive. Verify current provider qualification against the live [DGSSI source](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes) before outreach.
 
 ### DATAPROTECT
 
-**Public signal.** DATAPROTECT publicly describes audit, consulting, SOC/MSSP, integration, cyberdefense and a large multidisciplinary cybersecurity team. Public employee activity also references a Critical Infrastructure Cybersecurity business unit and SCADA/OT audit exposure.
+**Readiness: A.**
 
-Sources: [DATAPROTECT LinkedIn](https://www.linkedin.com/company/dataprotect), [public employee profile discussing Critical Infrastructure Cybersecurity work](https://ma.linkedin.com/in/oussamaabdelfattah).
+**Why Atlas may matter.** DATAPROTECT has visible Critical Infrastructure Cybersecurity and OT/ICS capability. This is an ideal methodology-review account: the question is whether Atlas's bounded collection, provenance and review model adds value inside an existing professional audit workflow.
 
-**Named people surfaced publicly.** The company page lists Mohamed El Ouahdoudi, M'hamed Amine Arahou, Naoufal Fellam and others, but the reviewed company result does not establish the exact industrial-audit decision role for each. Research titles before targeting.
+| Person | Current public role / signal | Class | Why relevant | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Ayoub Hachimi Alaoui** | DATAPROTECT professional with explicit ICS/OT cybersecurity consulting signal and industrial-OT training/certification activity | **T1** | Direct technical evaluator for OT collection safety, protocol evidence and audit usability | [Public profile](https://ma.linkedin.com/in/ayoub-hachimi-alaoui-5283b9212) | 2026-09-02 · V2; title cross-checked by public org directories |
+| **Soufiane EL ADNANI** | Cyber Resilience Business Unit Director | **T1/T2** | Senior methodology/business owner for resilience and professional-service fit | [African Cybersecurity Summit profile](https://www.linkedin.com/posts/anca-cert_africancybersecuritysummit2025-dataprotect-activity-7287057867382095873-5pj1) | 2026-09-02 · V1/V2 |
+| **Ali El Azzouzi** | Founder / Director General | **T2** | Executive sponsor and partnership decision-maker | [TelQuel 2026 profile](https://telquel.ma/2026/03/24/whos-who-gitex-2026-whos-who-gitex-2026-ali-el-azzouzi-vigie-de-la-cybersecurite-africaine_1980174) | 2026-09-02 · V1 |
+| **Abdelmoughite Naoumi** | OT cybersecurity engineering work inside DATAPROTECT's Critical Infrastructure Cybersecurity BU; 2026 cyber-range work used OPC UA, IT/OT segmentation and passive detection | **T3** | Useful hands-on technical reviewer/connector, but not a buyer or senior sponsor | [Public profile](https://fr.linkedin.com/in/abdelmoughite-naoumi) | 2026-09-02 · V2 |
 
-**People to identify next.** Industrial-systems audit lead, Critical Infrastructure Cybersecurity lead, GRC/audit director, OT/ICS security lead and partnership/business-development lead.
+**Recommended contact order.** Hachimi Alaoui / El Adnani for methodology and technical review → El Azzouzi if partnership or formal evaluation sponsorship becomes relevant.
 
-**Best opening.** Ask for a methodology review: would Atlas's provenance, bounded active operation, evidence review and export fit an existing qualified industrial-audit workflow?
+---
 
 ### NearSecure
 
-**Public signal.** NearSecure publicly describes security audit, penetration testing, investigation and work with organizations of vital interest. Its current LinkedIn activity includes GRC/audit recruiting and public offensive-security leadership content.
+**Readiness: A-/B+.**
 
-Source: [NearSecure LinkedIn](https://www.linkedin.com/company/nearsecure/).
+| Person | Current public role / signal | Class | Why relevant | Evidence | Verified |
+|---|---|---|---|---|---|
+| **Youssef Bencharhi** | CEO & co-founder; public activity includes audit/GRC recruiting and cyber-resilience partnerships | **T2** | Executive sponsor for a methodology-validation or channel discussion | [Public profile](https://ma.linkedin.com/in/youssef-bencharhi-435b7863), [NearSecure](https://www.linkedin.com/company/nearsecure/) | 2026-09-02 · V2; executive title corroborated by current secondary directories |
+| **Mohamed Boutaleb** | Offensive Security Team Lead | **T1/T3** | Technical reviewer for packet-safety, attack-surface and bounded-operation claims; not assumed to own industrial audit | [NearSecure public activity](https://www.linkedin.com/company/nearsecure/) | 2026-09-02 · V1 |
+| **Sidi Ahmad Outaguerouine** | Current NearSecure affiliation; current secondary directories identify Vice President Business | **T2/T3** | Commercial/partnership connector once a credible technical use case is established | [Public profile](https://ma.linkedin.com/in/sidi-ahmad-outaguerouine-752aa219) | 2026-09-02 · V2/V3 |
 
-**Named people surfaced publicly.** Sidi Ahmad Outaguerouine, Youssef Bencharhi, Abdessamad Tafraouti and Mohamed Boutaleb appear in public company/activity material; exact current industrial-audit responsibilities should be verified before outreach.
+**Research priority.** Identify the current named GRC/audit leader and any industrial/critical-infrastructure audit lead before treating the account as fully mapped for Atlas's primary audit-channel hypothesis.
 
-**People to identify next.** Industrial audit/GRC lead, OT/critical-infrastructure lead, technical director and managing partner/executive sponsor.
-
-**Best opening.** Lead with independent review of the evidence method and packet-safety model, not with end-user product marketing.
+---
 
 ### TECHSO GROUP
 
-**Public signal.** TECHSO GROUP positions itself around cybersecurity for regulated organizations and critical infrastructure, including risk, GRC, infrastructure security, threat intelligence and SOC work.
+**Readiness: A.**
 
-Source: [TECHSO GROUP LinkedIn](https://www.linkedin.com/company/techsogroup).
+TECHSO's official website publishes its leadership and positions the firm around regulated cybersecurity and critical infrastructure.
 
-**Named people surfaced publicly.** Khalid Azeddine, Othmane Chafchaouni, Mouad Kssiou and others appear on the public company page; titles/industrial-audit responsibility require verification before targeting.
+| Person | Official role | Class | Why relevant | Source | Verified |
+|---|---|---|---|---|---|
+| **Hamza Waraki** | Co-Founder & CTO — cybersecurity architecture and technology leadership | **T1/T2** | Best technical executive for evaluating Atlas architecture, bounded execution and critical-infrastructure fit | [TECHSO official site](https://techsogroup.com/en/home/) | 2026-09-02 · V1 |
+| **Othmane Chafchaouni** | Co-Founder & COO — cybersecurity governance | **T1/T2** | Governance/methodology and delivery fit; useful for qualified-audit workflow discussion | [TECHSO official site](https://techsogroup.com/en/home/) | 2026-09-02 · V1 |
+| **Daouda SOW** | Co-Founder & CEO — cybersecurity strategy and executive leadership | **T2** | Executive sponsor / partnership decision-maker | [TECHSO official site](https://techsogroup.com/en/home/) | 2026-09-02 · V1 |
 
-**People to identify next.** Industrial-systems audit lead, critical-infrastructure consulting lead, GRC director and executive sponsor.
+**Recommended contact order.** Waraki or Chafchaouni for a concrete methodology/architecture review → Sow for sponsorship/partnership.
 
-**Best opening.** Ask whether Atlas can be evaluated as a constrained field evidence instrument inside an existing audit methodology.
+**Public route.** TECHSO publishes `contact@techsogroup.com` on its official site.
 
-## Research queue for the remaining SRMs
+---
 
-The national program covers all twelve regions. These accounts remain in the directory but are not considered researched until both a current trigger and a current person map exist:
+## Research queue: accounts not yet person-mapped enough
+
+The following remain relevant but are **C** until both a current trigger and a usable stakeholder map are established:
 
 - SRM Tanger–Tétouan–Al Hoceïma;
 - SRM Béni Mellal–Khénifra;
@@ -299,28 +342,37 @@ The national program covers all twelve regions. These accounts remain in the dir
 - SRM Laâyoune–Sakia El Hamra;
 - SRM Dakhla–Oued Ed-Dahab.
 
-For each, find at minimum one executive sponsor and two technical/evaluator roles before declaring the account outreach-ready.
+For each account, the minimum research target is:
 
-## People research rules
+1. one T1 technical/problem owner;
+2. one T2 sponsor;
+3. one additional T1 or T3 practitioner who exposes how work is actually performed;
+4. one current public project/hiring/procurement/technical trigger;
+5. one public route for reaching the organization or professional.
 
-1. Prefer official company bios, official press releases, event/conference programs and current public professional profiles.
-2. Record the exact role and verification date. If the title is not visible, say so.
-3. Do not infer personal email addresses, phone numbers or private contact details.
-4. A publicly listed employee is not automatically a prospect. Explain why the role/activity is relevant.
-5. Distinguish **executive sponsor**, **technical evaluator**, **practitioner/champion**, **procurement/governance**, and **connector/influencer**.
-6. Keep public activity that gives a legitimate conversation hook: project delivery, commissioning, automation, OT/security, asset management, maintenance, GIS/CMMS, water operations, audit methodology or investment transition.
-7. Recheck people before outreach. Job titles and SRM structures are changing quickly.
-8. Never turn a public project into a claim that Atlas is needed. The directory records a reason to investigate and a person to ask.
+## People-research rules
 
-## Outreach readiness
+1. **Relevance beats seniority.** A named automation, asset-management or operations engineer can be a better first prospect than a Director General.
+2. Prefer official company bios, official event programs, current organization posts and direct public professional profiles.
+3. Record the role, stakeholder class, evidence grade and verification date.
+4. A public employee list is only a discovery source. Do not promote a name to the directory without role/activity evidence.
+5. If a current title comes only from a people-data directory, mark it V3 and reverify before outreach.
+6. Do not infer personal email patterns, personal phone numbers or private contact details.
+7. Keep public professional activity only when it creates a legitimate business hook: project delivery, commissioning, automation, OT/security, asset management, maintenance, GIS/CMMS, water operations, audit methodology or infrastructure transition.
+8. Separate technical usefulness from buying authority. The directory should say when someone is a practitioner rather than a buyer.
+9. Recheck roles before outreach; SRM structures and personnel are changing quickly.
+10. Never turn a public project into a claim that Atlas is needed. It is a reason to investigate and a context for asking a precise question.
 
-An account is **ready for tailored outreach** only when the directory has:
+## Outreach-readiness gate
 
-- one current public trigger;
-- one specific Atlas-relevant question;
-- at least one named person with a verified relevant role, or an explicit reason why only an organization route is currently available;
-- a public source/profile;
-- a safe public contact route;
-- a verification date.
+Do not call an account **A / outreach-ready** unless the directory contains:
 
-Use [MARKETING-PLAYBOOK.md](MARKETING-PLAYBOOK.md) to convert this intelligence into the actual message and [OFFER.md](OFFER.md) for the commercial terms.
+- a current public trigger;
+- a specific Atlas-relevant operational/project question;
+- at least one role-specific T1 person;
+- at least one T2 sponsor or governance route;
+- a public source for each retained person;
+- a safe public contact/profile route;
+- a recent verification date.
+
+Use [MARKETING-PLAYBOOK.md](MARKETING-PLAYBOOK.md) to turn this intelligence into outreach and [OFFER.md](OFFER.md) for commercial terms.
