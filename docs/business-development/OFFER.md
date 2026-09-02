@@ -1,74 +1,120 @@
-# Atlas device evaluation and services offer
+# Atlas evaluation and services offer
 
-This file is the **canonical commercial-terms document** for the Atlas evaluation, adoption choices, setup service and optional consulting. Other business-development, pitch and demo documents should link here rather than maintain their own duration or purchase-flow wording.
+Atlas can be evaluated as a prepared field device, independently built from the public repository, installed on compatible customer-owned hardware, or supported through a separately scoped technical engagement.
 
-## Free device evaluation
+The recommended starting point for a new organization is a bounded evaluation around one real OT evidence question.
 
-A suitable prospect may receive a configured Atlas OT Scout device for **30 calendar days free of charge**. The evaluation may be extended once for another 30 days, making **60 days the maximum free evaluation period**.
+## Device evaluation
 
-The evaluation is intended to answer whether Atlas produces a useful result for one bounded, authorized water/wastewater or industrial OT question. The scope, device custodian, permitted evidence, authorization conditions and return arrangements are agreed before handoff.
+A suitable prospect may receive a configured Atlas OT Scout device for **30 calendar days free of charge**. The evaluation can be extended once by mutual agreement for a further 30 days, making **60 days the maximum free evaluation period**.
 
-An evaluation may start from approved documents or imported evidence; network collection is used only where the agreed method and current product capability permit it. Current technical capability is authoritative only in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
+The purpose is to determine whether Atlas produces useful, defensible evidence for one authorized water, wastewater or industrial OT workflow. Typical evaluation questions include:
 
-## End-of-evaluation choices
+- reconciling an expected asset list with field/network evidence;
+- reviewing evidence around commissioning or handover;
+- establishing a bounded working baseline before maintenance;
+- assessing whether imported/passive evidence is sufficient for an inventory or architecture question;
+- testing the Atlas evidence/provenance model inside an audit or engineering methodology.
 
-At the end of the agreed free period, the prospect selects one of these outcomes:
+Before the device is handed over, the parties agree the evaluation scope, responsible custodian, permitted evidence sources, authorization conditions, data-handling expectations and return arrangements.
+
+Network collection is used only where the agreed method, site authorization and current product capability permit it. Approved documents or imported packet evidence may be used when they are sufficient for the evaluation question.
+
+## Evaluation outcome
+
+At the end of the agreed evaluation period, the organization may:
 
 1. return the evaluation device;
-2. build and maintain an independent implementation from the public repository;
-3. keep the prepared evaluation device and pay the agreed hardware/preparation cost;
-4. arrange setup on a compatible dedicated customer-owned device;
-5. request a separately scoped consulting or support engagement.
+2. build and maintain Atlas independently from the public repository;
+3. keep the prepared device and pay the agreed hardware and preparation cost;
+4. request setup on a compatible dedicated customer-owned device;
+5. agree a separate support, integration or consulting engagement.
 
-The free evaluation ends after a maximum of 60 days unless a purchase or separately agreed engagement has begun.
+A successful evaluation does not create an automatic subscription or proprietary software-license obligation.
 
 ## Independent self-build
 
-The organization may use [this public repository](../../README.md) to build and maintain its own implementation and source its own compatible hardware.
+Atlas is available through the [public repository](../../README.md). An organization can source compatible hardware, build the software and maintain its own implementation.
 
-There is no compulsory proprietary software-license fee for the self-build option. The organization is responsible for hardware sourcing, build, installation, testing, updates and maintenance unless assistance is separately contracted.
+There is no compulsory proprietary software-license fee for this option. The organization is responsible for:
 
-Hardware represented as currently supported must match the evidence in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md); this offer does not create a hardware-support claim.
+- hardware sourcing;
+- operating-system and application build;
+- installation and configuration;
+- compatibility testing;
+- updates and maintenance;
+- internal security and deployment approval.
 
-## Keep the supplied evaluation device
+Support can be contracted separately if required.
 
-If both parties agree that the prospect keeps the device, the price consists of:
+## Prepared Atlas device
 
-- the actual agreed phone/accessory cost; and
-- an agreed installation, preparation and configuration fee.
+If the organization chooses to keep a supplied evaluation device, the commercial price is based on:
 
-Additional integration, training, support or consulting is separate unless explicitly included in the commercial agreement.
+- the agreed phone and accessory cost; and
+- an agreed preparation, installation and configuration fee.
 
-## Setup on a customer-owned device
+Any integration, training, support or consulting beyond the prepared-device scope is quoted separately unless it is explicitly included in the agreement.
 
-A customer may supply a compatible **dedicated** device for an agreed setup session. Setup may include model verification, operating-system installation, Atlas installation/configuration and a basic functional check.
+Hardware represented as supported should match the evidence in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md).
 
-Bootloader unlocking and custom-image installation can erase the device and alter vendor security/warranty features. Samsung documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), after which Knox-dependent services may stop working. For that reason, a personal or normally managed employee phone is not an appropriate setup target.
+## Setup on customer-owned hardware
 
-Exact laboratory/platform restrictions and supported-hardware evidence are maintained under [Appliance integration](../appliance/README.md), not duplicated here.
+Atlas can be prepared on a compatible **dedicated** customer-owned device.
 
-## OT networking and security consulting
+A setup engagement may include:
 
-Consulting may be requested with or without a device evaluation. Possible scopes include:
+- hardware/model verification;
+- operating-system installation where appropriate;
+- Atlas installation and configuration;
+- accessory configuration;
+- basic functional verification;
+- handover of the prepared device.
 
-- OT network architecture and segmentation;
+A personal or normally managed employee phone is not an appropriate target. Bootloader unlocking and custom-image installation can erase the device and may permanently alter vendor security or warranty features. Samsung, for example, documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), after which Knox-dependent services may stop working.
+
+Current platform and hardware restrictions are described in the [appliance documentation](../appliance/README.md).
+
+## Technical services
+
+Technical services can be contracted independently of a device evaluation.
+
+Possible engagements include:
+
+- OT network architecture and segmentation review;
 - passive visibility and packet-capture planning;
-- SCADA/PLC/RTU and industrial-protocol review;
-- asset inventory and evidence governance;
+- SCADA, PLC, RTU and industrial-protocol review;
+- asset inventory and evidence-governance design;
 - commissioning and handover support;
 - remote-site and telemanagement architecture;
 - OT cybersecurity risk assessment;
-- incident readiness and evidence preservation;
-- vendor/integrator/project technical review;
+- incident-readiness and evidence-preservation planning;
+- vendor, integrator or project technical review;
 - Atlas deployment, integration and training.
 
-Consulting scope, deliverables, authorization and commercial terms are agreed separately from the free evaluation.
+Each service engagement is scoped separately with agreed objectives, deliverables, authorization, responsibilities and commercial terms.
 
-## Commercial boundaries
+## What Atlas is not sold as
 
-- The public repository allows independent implementation; payment is for agreed hardware/preparation/services rather than an unavoidable proprietary license.
-- This offer does not represent Atlas as a legally qualified audit provider or certification service.
-- Product capability claims come from [IMPLEMENTATION.md](../../IMPLEMENTATION.md), not from this commercial document.
-- Market evidence and unvalidated economic assumptions are documented in [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md).
+Atlas is not offered as:
 
-Return to the [business-development index](README.md).
+- a legally qualified industrial-audit provider;
+- a certification service;
+- a penetration-testing or exploitation platform;
+- a guarantee of complete network visibility;
+- a replacement for SCADA, GIS, CMMS or engineering systems;
+- a claim of field capability beyond the current tested implementation.
+
+For technical due diligence, use the [current implementation](../../IMPLEMENTATION.md), [P0 product contract](../poc/WATER-WASTEWATER-POC.md) and [architecture documentation](../architecture/README.md).
+
+## Starting an evaluation
+
+A useful evaluation begins with five points:
+
+1. the operational or professional question to answer;
+2. the exact site/process scope;
+3. the people responsible for technical evaluation and authorization;
+4. the evidence/collection methods that are permitted;
+5. the result that would justify continuing, changing or stopping the use of Atlas.
+
+The goal is a controlled decision about usefulness, not a broad technology trial without an owner or success criterion.

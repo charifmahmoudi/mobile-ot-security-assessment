@@ -1,195 +1,198 @@
-# Morocco market guide
+# Morocco market strategy
 
-This page turns the evidence and conclusions in the [commercial diligence summary](DILIGENCE-SUMMARY.md) into a Morocco go-to-market strategy. It does not repeat the full source case, competitor analysis, market-size limitations or commercial terms. It **does** retain the stakeholder and buying-context detail needed to decide where to focus.
+## Strategic objective
 
-## Market thesis
+Establish Atlas as a credible professional tool for **OT evidence and asset reconciliation** in Morocco, beginning with water infrastructure, regional utilities, engineering partners and industrial-audit practitioners.
 
-Use Morocco as a focused proving ground for **bounded OT evidence and reconciliation**, especially where infrastructure change creates a concrete decision rather than a generic desire for “more cybersecurity.”
+The near-term objective is not broad market penetration. It is to win a small number of technically credible evaluations, prove that the workflow solves a real professional problem, and develop repeatable routes through operators, integrators and audit/security partners.
 
-The most useful entry situations are:
+## Where Atlas fits
+
+Atlas is best suited to situations where a team needs to decide whether the accepted record of an OT environment is supported by the available evidence.
+
+Priority situations are:
 
 - commissioning and EPC-to-operations handover;
-- telemanagement or automation modernization;
-- inherited asset records after operator/service consolidation;
-- discrepancies between field evidence, GIS, project files and maintenance inventories;
-- planned maintenance or architecture/security review with a clearly authorized scope.
+- telemanagement, SCADA or automation modernization;
+- inherited asset records following operator transition;
+- maintenance preparation for a bounded process area;
+- GIS, patrimony, maintenance-record and field-evidence reconciliation;
+- authorized OT inventory, architecture or security assessment.
 
-These situations are supported by the public evidence summarized in the diligence analysis. They are prospecting signals, not proof that an organization will buy Atlas.
+These are stronger commercial entry points than generic “asset discovery” because they are tied to a decision, an accountable stakeholder and a defined scope.
 
-## Market participants
+## Priority market segments
 
-### Qualified auditors and industrial-security practitioners
+### 1. Water and multiservice operators
 
-Use qualified industrial-audit providers, OT/critical-infrastructure cybersecurity firms and GRC/audit practitioners as the first **method-validation and channel** set. They can answer whether Atlas evidence fits a professional methodology and whether the safety/provenance model is strong enough for real engagements.
+**Priority:** high
 
-Primary question: **would a practitioner trust and reuse the evidence package inside an existing audit method?**
+ONEE, the SRMs and other water operators manage distributed infrastructure, inherited records and continuing modernization programs. Atlas should be introduced around a bounded operational question rather than as an enterprise platform replacement.
 
-### Water and multiservice operators
+Best-fit opportunities include:
 
-ONEE, SRMs and other water operators are bounded end-user candidates when a current project or asset-data problem is visible.
+- one pumping, treatment, desalination or wastewater area;
+- one remote-station or telemanagement group;
+- one new or upgraded automation package;
+- one disputed or inherited asset baseline;
+- one approved inventory/security review.
 
-Strong entry cases:
+### 2. Industrial water and major infrastructure programs
 
-- one remote-station/telemanagement group;
-- one pumping/treatment/desalination process area;
-- one new or upgraded package entering service;
-- one inherited or disputed asset baseline;
-- one approved OT evidence/security review.
+**Priority:** high
 
-### Industrial water and major infrastructure operators
+Desalination, reuse, water-transfer and major infrastructure programs create repeated interfaces between EPCs, commissioning teams, operators and asset owners. The strongest proposition is evidence quality at handover and during operational acceptance.
 
-Organizations with integrated water production, desalination, transfer or large industrial estates are relevant where commissioning, continuity and asset-governance questions are concrete.
+### 3. Engineering, EPC and automation partners
 
-### Engineering/EPC/integration partners
+**Priority:** very high for channel development
 
-Engineering and automation partners can embed a reviewed evidence package into commissioning, acceptance or asset-governance work. This route may be more scalable than direct operator outreach because one partner can apply the workflow across several projects.
+Engineering and integration firms can apply Atlas across several projects. The partner proposition is not replacement of engineering tools; it is a repeatable, reviewable evidence package that strengthens commissioning, acceptance and asset handover.
 
-Named organizations, people and current public signals are maintained in the [prospect intelligence directory](PROSPECT-DIRECTORY.md).
+A successful partner route could produce more leverage than direct sales to individual sites.
 
-## Buying situation and stakeholder map
+### 4. Industrial-audit and OT-security practitioners
 
-The same account can require different Atlas conversations depending on the situation.
+**Priority:** very high for validation and channel development
 
-| Situation | Operational owner | Technical evaluator | Governance/gatekeeper | Executive/procurement interest |
-|---|---|---|---|---|
-| Commissioning / handover | Operations / project owner | Automation, SCADA, commissioning, engineering | Cybersecurity/QHSE/project assurance | acceptance quality, schedule, rework, contractor closeout |
-| Operator transition / inherited records | Regional operations | GIS/patrimony, maintenance, technical directorate | Governance, audit, IT/security | continuity, data quality, integration risk |
-| Telemanagement modernization | Exploitation / remote operations | Automation/télégestion/SCADA | OT/IT security | modernization risk, service continuity |
-| Maintenance campaign | Maintenance owner | Electromechanical/automation engineer | Site authorization / safety | preparation time, revisits, asset confidence |
-| Security/architecture review | Security/risk owner | OT security / automation / network engineer | Qualified auditor, governance | defensibility, scope control, audit readiness |
-| Engineering/EPC delivery | Project/commissioning manager | Control/instrumentation/asset engineer | Client acceptance/security | differentiated deliverable, fewer punch-list ambiguities |
+Qualified practitioners can test whether Atlas's authorization, evidence, provenance and reconciliation model is professionally defensible. They may also use Atlas as a field instrument inside existing assessment methodologies.
 
-This table is strategic. The actual named people for each account belong in [PROSPECT-DIRECTORY.md](PROSPECT-DIRECTORY.md).
+The key question is whether Atlas improves their workflow enough to become a reusable tool rather than a demonstration artifact.
 
 ## Positioning
 
-### Recommended category
+### Category
 
-**Portable, offline OT evidence and reconciliation appliance for one bounded operational area.**
+**Portable, offline OT evidence and reconciliation tool for a bounded operational area.**
 
-### Lead with
+### Core proposition
 
-- operational/project decisions rather than abstract cybersecurity maturity;
-- evidence reconciliation before handover or maintenance;
-- explicit unknowns rather than a celebratory device count;
-- low-disruption passive/imported evidence where possible;
-- local/offline control and reviewability;
-- a bounded evaluation instead of a platform replacement.
+Atlas helps an authorized practitioner bring together expected asset records and field/network evidence, preserve provenance, review identity claims and produce an explicit reconciliation of what is confirmed, conflicting, unexpected, not observed or unresolved.
 
-### Do not lead with
+### What to emphasize
+
+- a clearly bounded operational question;
+- passive or imported evidence before active methods where appropriate;
+- explicit authorization and scope control;
+- analyst review instead of automatic inventory mutation;
+- reconciliation between expected and observed state;
+- provenance and retained evidence;
+- explicit limitations and unknowns;
+- offline/local operation for sensitive environments;
+- professional handoff rather than another raw scan export.
+
+### What not to lead with
 
 - “mobile scanner”;
-- “complete network discovery”;
-- vulnerability or exploit claims;
-- certification/compliance claims;
-- protocol count as the primary value proposition;
-- generic fear-based cybersecurity messaging.
+- complete network visibility;
+- protocol count;
+- vulnerability scanning or exploitation;
+- certification or compliance guarantees;
+- the phone form factor as the primary differentiator.
 
-The evidence basis for these boundaries is in [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md). Exact evaluation/adoption terms are in [OFFER.md](OFFER.md).
+## Buying situations
 
-## Problem framing by situation
+| Buying situation | Typical problem | Likely first stakeholder | Atlas outcome to demonstrate |
+|---|---|---|---|
+| Commissioning / handover | As-built records and delivered equipment do not reconcile cleanly | project / commissioning / automation | reviewed evidence delta before acceptance |
+| Operator transition | inherited records need to become a trusted new baseline | operations / GIS / patrimony | explicit confirmation, conflict and unresolved states |
+| Telemanagement modernization | remote assets and control identities need bounded verification | exploitation / automation / SCADA | evidence-linked baseline for the exact modernization scope |
+| Maintenance preparation | team needs a reliable working picture before intervention | maintenance / operations | bounded baseline plus follow-up list |
+| Security / architecture review | inventory or communication conclusions need defensible evidence | RSSI / OT security / auditor | reviewed evidence with scope and visibility limitations |
+| EPC / integration delivery | client handover needs stronger evidence and fewer ambiguities | commissioning / engineering / project manager | reusable evidence package alongside engineering deliverables |
 
-### Commissioning and handover
+## Stakeholder model
 
-Question: **Do the accepted project records, observed evidence and delivered equipment describe the same bounded scope?**
+A serious opportunity is usually multi-threaded. The account should be understood across these functions:
 
-Outcome to demonstrate: a reviewed delta with corroborated, conflicting and unresolved items before acceptance.
+**Technical evaluator.** Automation, commissioning, SCADA, asset-information, maintenance or OT-security professional who can judge whether Atlas is technically useful.
 
-Useful public triggers:
+**Operational owner.** Person accountable for the process area, maintenance program, project acceptance or asset baseline affected by the problem.
 
-- commissioning/start-up announcement;
-- EPC completion or new facility entering service;
-- desalination/pumping/treatment capacity expansion;
-- automation/SCADA package delivery;
-- job posts for commissioning, control or project engineers.
+**Security/governance gatekeeper.** Controls device connection, network authorization, evidence custody, cyber policy or audit methodology.
 
-### Operator transition / inherited records
+**Executive sponsor.** Can authorize an evaluation, partner discussion or wider deployment once the problem is established.
 
-Question: **Which inherited records are adequately supported, and which need verification before becoming the new baseline?**
+**Procurement/finance.** Defines how a successful evaluation becomes an approved purchase or service engagement.
 
-Outcome to demonstrate: evidence-linked reconciliation without silently treating predecessor records as current fact.
+**Partner/champion.** Auditor, engineer or integrator who can reuse Atlas across multiple engagements.
 
-Useful triggers:
+The [target account directory](PROSPECT-DIRECTORY.md) maps these roles to named public individuals where evidence is available.
 
-- SRM consolidation;
-- asset/personnel/contract transfer;
-- regional organizational changes;
-- new GIS/patrimony programs;
-- modernization of legacy networks.
+## Account prioritization
 
-### Telemanagement and automation maintenance
+Prioritize accounts based on commercial readiness, not company size alone.
 
-Question: **What evidence is available for the exact remote group or process area being maintained, and what remains uncertain?**
-
-Outcome to demonstrate: a bounded working baseline and explicit follow-up list.
-
-Useful triggers:
-
-- télégestion, automatisme, supervision/SCADA tender;
-- remote-station upgrade;
-- PLC/RTU/instrumentation hiring;
-- maintenance contract or outage work.
-
-### GIS / asset-data reconciliation
-
-Question: **When GIS, maintenance records, project files and field/network evidence disagree, what should be accepted and why?**
-
-Outcome to demonstrate: provenance-backed review decisions rather than another isolated inventory export.
-
-Useful triggers:
-
-- reconnaissance terrain;
-- GIS digitization/data cleanup;
-- CMMS or patrimony modernization;
-- network-performance or loss-reduction programs.
-
-### Security/architecture review
-
-Question: **Is the available evidence sufficient to support the requested architecture or inventory conclusion without disruptive discovery?**
-
-Outcome to demonstrate: explicit evidence limits, reviewed identities/communications and a list of questions that still require authorized verification.
-
-Useful triggers:
-
-- industrial cybersecurity audit qualification/activity;
-- critical-infrastructure security programs;
-- OT/SCADA cybersecurity recruitment;
-- regulatory/homologation preparation.
-
-## Account selection scorecard
-
-Do not rank only by organization size. A stronger target has more of the following:
-
-| Signal | Weight in prioritization |
+| Signal | Priority effect |
 |---|---|
-| Current bounded project/transition trigger | very high |
-| Named technical person with public role/activity | very high |
-| Evidence of automation/telemanagement/GIS/maintenance work | high |
-| Clear professional or operational owner | high |
-| Public route to technical conversation | high |
-| Partner can reuse Atlas across multiple clients/projects | high |
-| Large organization with no visible trigger/person | low |
-| Generic “industrial company” fit only | very low |
+| Current commissioning, transition, maintenance or modernization trigger | very high |
+| Named technical evaluator/problem owner | very high |
+| Strong automation, telemanagement, GIS, maintenance or security evidence | high |
+| Clear operational owner | high |
+| Credible public route to a technical conversation | high |
+| Potential partner reuse across many projects | high |
+| Executive name but no technical route | low |
+| Large organization with only generic industrial fit | very low |
 
-An account should move from research to tailored outreach only when the [prospect directory](PROSPECT-DIRECTORY.md) has enough person-level intelligence to make the approach specific.
+### Recommended account tiers
 
-## Communication style
+**Tier 1 — pursue now.** Strong technical stakeholder map plus a current trigger and a plausible evaluation question.
 
-- Use French by default for technical/procurement outreach where appropriate.
-- Use Arabic where institutional/public-service communication benefits from it.
-- Use English for international engineering/technology organizations where it is the normal business language.
-- Reference a real public project, professional activity or operating theme, then ask one precise process question.
-- Avoid implying knowledge of a site's installed assets unless the public source explicitly establishes it.
-- Distinguish what the organization publicly says from the interpretation used to choose an outreach angle.
+**Tier 2 — develop.** Relevant account with partial stakeholder coverage; continue research and use public activity to identify the missing technical owner.
 
-## Initial execution priorities
+**Tier 3 — monitor.** Strategic organization without enough person-level or project-level evidence for tailored outreach.
 
-1. Build a named-person map for every priority account, not merely a company list.
-2. Validate the evidence schema/method with qualified practitioners.
-3. Run bounded evaluations tied to a real operator/project decision.
-4. Measure the workflow variables identified by the diligence analysis.
-5. Compare Atlas with the tools the practitioner already uses.
-6. Build partner relationships with engineering, automation and audit/service providers.
-7. Publish practical French-language material around handover evidence, asset reconciliation and safe passive OT work.
+## Market-entry motions
 
-For named accounts and people use [PROSPECT-DIRECTORY.md](PROSPECT-DIRECTORY.md). For outreach execution use [MARKETING-PLAYBOOK.md](MARKETING-PLAYBOOK.md). For exact evaluation/adoption terms use [OFFER.md](OFFER.md).
+### Practitioner validation
+
+Approach industrial-audit and OT-security practitioners with the evidence model and a synthetic or controlled example. Ask them to challenge the methodology, authorization model, provenance, review process and report usefulness.
+
+Success means more than positive feedback: the practitioner should be willing to use or formally evaluate Atlas within a professional workflow.
+
+### Project and commissioning motion
+
+Target engineering, EPC and operator stakeholders around a real project boundary. Demonstrate how Atlas separates expected records, observed evidence, conflicts and unresolved items before handover.
+
+### Asset-reconciliation motion
+
+Target GIS, patrimony, maintenance and operations teams where records from predecessor organizations, project files and field evidence must be reconciled. The value proposition is evidence-backed acceptance of changes—not automatic replacement of the existing system of record.
+
+### Authorized assessment motion
+
+Target security teams and qualified auditors with a bounded evidence-collection workflow. Emphasize scope, authorization, provenance, explicit visibility limits and human review.
+
+## Geographic focus
+
+Initial effort should follow account quality and project activity rather than attempt national coverage evenly. Strong clusters include:
+
+- Casablanca–Settat;
+- Rabat–Salé–Kénitra;
+- Tanger–Tétouan–Al Hoceïma;
+- Souss-Massa;
+- Marrakech–Safi;
+- major ONEE and OCP Green Water project locations.
+
+Tanger Med and other industrial zones are useful secondary hunting grounds when a concrete engineering, water or OT-assessment trigger is present.
+
+## Communication approach
+
+Use the recipient's professional vocabulary and the language normal to the account:
+
+- French for most technical, engineering and procurement conversations;
+- Arabic where public/institutional communication benefits from it;
+- English for international engineering, technology and group-level environments.
+
+The first conversation should reference a legitimate public context and ask one precise process question. Avoid implying knowledge of a site's installed assets unless the source actually establishes it.
+
+## Commercial priorities
+
+1. Convert the strongest person-mapped accounts into technical conversations.
+2. Secure practitioner review from qualified industrial-audit or OT-security firms.
+3. Run evaluations tied to a defined operational or project decision.
+4. Measure reconciliation, field and reporting effort against the current method.
+5. Develop at least one engineering/integration partner capable of repeated use.
+6. Build French-language technical material around commissioning evidence, reconciliation and passive-first OT assessment.
+7. Use evaluation results to refine product priorities, pricing and the partner model.
+
+Supporting market evidence is in [Market evidence and commercial assumptions](DILIGENCE-SUMMARY.md). Named accounts and individuals are in [Target accounts and partners](PROSPECT-DIRECTORY.md). Outreach execution is covered in the [Sales and marketing playbook](MARKETING-PLAYBOOK.md).

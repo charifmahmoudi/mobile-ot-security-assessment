@@ -1,161 +1,148 @@
-# Commercial diligence summary
+# Morocco market evidence and commercial assumptions
 
-_Reviewed: 1 September 2026._
+_Reviewed: 2 September 2026._
 
-This page is the retained commercial diligence synthesis. It owns the **source-backed facts, analysis, commercial conclusions, risks and unknowns** that business-development material may rely on. The market guide, prospect directory and marketing playbook should consume these conclusions rather than reproduce this evidence case.
+Atlas is initially positioned for OT asset verification and evidence reconciliation in water, industrial infrastructure and professional assessment workflows. Morocco is a practical entry market because it combines visible infrastructure investment, distributed automation environments and an identifiable ecosystem of operators, engineering firms and qualified cybersecurity practitioners.
 
-## Bottom line
+The opportunity is credible, but the commercial model is still being validated. The evidence below supports where Atlas should look first and what should be tested with practitioners and customers.
 
-Atlas has a **credible problem space but an unvalidated commercial proposition**.
+## Market signals
 
-Public evidence establishes all of the following:
+### Industrial audit and cybersecurity
 
-- Morocco has a formal cybersecurity/audit framework that includes industrial-systems audit and identifiable qualified providers;
-- Morocco is investing heavily in water infrastructure, regional service consolidation and non-conventional water;
-- public procurement and employer evidence show continuing PLC/SCADA, telemanagement and multi-vendor industrial automation work;
-- the discovery/OT-visibility category is not empty: commercial and free alternatives already exist.
+Morocco has a formal cybersecurity framework that includes industrial-systems audit. DGSSI publishes regulated services and qualified providers, creating an identifiable professional ecosystem for methodology review and channel development. The reviewed qualification material included NEAR SECURE, DATAPROTECT and TECHSO GROUP among providers visibly associated with industrial-systems audit qualification.
 
-What public evidence does **not** establish is equally important: an accepted Atlas price, a defensible TAM/SAM/SOM, a measured ROI, customer preference for a phone-based workflow, or unique product superiority.
+Relevant sources:
 
-The correct commercial posture is therefore to run bounded evaluations with qualified practitioners and evidence-rich operators, measure usefulness and procurement outcomes, and avoid converting market activity into claimed demand.
+- [DGSSI — regulated services and qualified providers](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes)
+- [Law 05-20 relative to cybersecurity](https://www.dgssi.gov.ma/fr/loi-ndeg-0520-relative-la-cybersecurite)
 
-## 1. Audit and assurance channel
+**Commercial implication.** Qualified audit and OT-security practitioners are attractive early validators because they can judge whether Atlas evidence, provenance and collection controls fit an existing professional methodology. Atlas should support their work rather than position itself as the legally qualified audit provider.
 
-DGSSI treats industrial-systems audit as a qualification domain and evaluates qualified providers on their methods and tools. The reviewed public DGSSI table listed eight qualified audit providers, with three visibly carrying industrial-systems-audit qualification: NEAR SECURE, DATAPROTECT and Techso Group. Morocco's Law 05-20 and related framework create cybersecurity obligations for applicable vital entities and sensitive information systems.
+### Water infrastructure and regional utility transition
 
-Sources: [DGSSI regulated services and qualified providers](https://www.dgssi.gov.ma/fr/prestations-et-produits-reglementes) and [Law 05-20](https://www.dgssi.gov.ma/fr/loi-ndeg-0520-relative-la-cybersecurite).
+Morocco's **Programme National d’Approvisionnement en Eau Potable et d’Irrigation 2020–2027** announced MAD 115.4 billion for water security, diversification, rural service, demand management and treated-wastewater reuse. [Ministry of Economy and Finance](https://www.finances.gov.ma/fr/Pages/detail-actualite.aspx?fiche=4680).
 
-**Analysis:** this creates a small, identifiable professional validation/channel set. It is stronger evidence for first practitioner research than an invented generic “plant manager” persona. Atlas should be evaluated as tooling that can fit an authorized or qualified methodology, not presented as the entity performing a legally qualified audit.
+In 2025, the government described a combined **MAD 253 billion investment programme** for the twelve Sociétés Régionales Multiservices (SRMs), alongside the transfer of assets, contracts, personnel and operating responsibilities from predecessor organizations. [Maroc.ma](https://www.maroc.ma/fr/actualites/les-srm-mettent-en-place-un-programme-dinvestissement-de-253-milliards-de-dh).
 
-## 2. Water-sector investment and transition
+OCP Green Water is developing large-scale desalination, water-transfer and reuse activities. [OCP strategic entities](https://www.ocpgroup.ma/en/who-we-are/our-strategic-entities-and-partners) and [OCP water programme](https://www.ocpgroup.ma/en/taxonomy/term/26).
 
-Morocco's **Programme National d’Approvisionnement en Eau Potable et d’Irrigation 2020–2027** announced MAD 115.4 billion for drinking-water security, diversification, demand management, rural service and treated-wastewater reuse. Source: [Ministry of Economy and Finance](https://www.finances.gov.ma/fr/Pages/detail-actualite.aspx?fiche=4680).
+**Commercial implication.** Commissioning, operator transition, maintenance and asset-record reconciliation are more promising entry points than generic cybersecurity awareness. These investment figures describe adjacent market activity; they are not an Atlas market-size calculation.
 
-In June 2025, the government described a combined **MAD 253 billion investment programme** for the twelve Sociétés Régionales Multiservices (SRMs), alongside transfer of assets, contracts, personnel and operating responsibilities from predecessor organizations. Source: [Maroc.ma SRM programme](https://www.maroc.ma/fr/actualites/les-srm-mettent-en-place-un-programme-dinvestissement-de-253-milliards-de-dh).
+### Automation, telemanagement and OT engineering activity
 
-OCP Green Water reports large-scale non-conventional water activity covering desalination, drinking-water supply and transfer infrastructure. Sources: [OCP strategic entities](https://www.ocpgroup.ma/en/who-we-are/our-strategic-entities-and-partners) and [OCP water programme](https://www.ocpgroup.ma/en/taxonomy/term/26).
+Public procurement and employer material show recurring work around automata maintenance, telemanagement, pumping, surveillance, electrical systems, remote operations and industrial networking.
 
-**Analysis:** water is a defensible first product context because the market has visible investment, asset transition, commissioning and distributed operational infrastructure. These spending figures are **not Atlas market size**. They identify environments and project events where evidence reconciliation may matter.
-
-## 3. Observable OT and automation work
-
-Public procurement shows current or planned work around automata maintenance, telemanagement, pumping, surveillance, VTS, access control, electrical systems and network infrastructure. Examples include:
+Examples include:
 
 - ONEE automata maintenance at the Mohammedia fuel-loading station;
 - ANP drinking-water telemanagement at Essaouira port;
-- ANP exterior-lighting telemanagement at Jorf Lasfar;
-- ANP Agadir programmes involving pumping, surveillance, electrical systems and future telemanagement;
-- ANP Nador programmes involving VTS, surveillance, access control, network rooms and water telemanagement.
+- exterior-lighting telemanagement at Jorf Lasfar;
+- Agadir programs involving pumping, surveillance, electrical systems and telemanagement;
+- Nador programs involving VTS, access control, network rooms and water telemanagement.
 
 Sources include [ONEE procurement](https://www.one.org.ma/FR/pages/aofiche.asp?id=18772), [ANP Essaouira](https://www.anp.org.ma/fr/services/appels-offres/3836), [ANP Agadir programme](https://www.anp.org.ma/fra/Lists/AppelOffres/Attachments/4307/Programme%20Pr%C3%A9visionnel%20Triennal%202026-2028_DPAR.pdf) and [ANP Nador programme](https://www.anp.org.ma/fra/Lists/AppelOffres/Attachments/4342/PP%20DPNR%202026%2C%202027%20et%202028-signed.pdf).
 
-Morocco-linked employer listings also name PLC/HMI/SCADA work and technologies including Siemens, Schneider, Rockwell and Omron environments plus Modbus, PROFIBUS, PROFINET and EtherNet/IP. The current public-account evidence is maintained in the [prospect directory](PROSPECT-DIRECTORY.md).
+Public professional and employer material also references Siemens, Schneider, Rockwell and Omron environments together with Modbus, PROFIBUS, PROFINET and EtherNet/IP. Account-level examples are maintained in the [target account directory](PROSPECT-DIRECTORY.md).
 
-**Analysis:** a multi-vendor, protocol-aware evidence tool is justified as a product hypothesis. A job description or tender does not prove an entire installed base, protocol market share or purchase intent.
+**Commercial implication.** A multi-vendor evidence workflow is justified. Product priorities should follow recurring customer/site evidence and safe testability rather than protocol breadth for its own sake.
 
-## 4. Industrial scale is context, not TAM
+## Market scale and concentration
 
-The Ministry of Industry reported MAD 898 billion in industrial revenue, MAD 90 billion in investment and 1,038,133 industrial jobs for 2024. Tanger Med Zones reports roughly 1,500 companies and 145,000 jobs across its platform.
+The Ministry of Industry reported MAD 898 billion in industrial revenue, MAD 90 billion in investment and 1,038,133 industrial jobs for 2024. [Ministry of Industry](https://www.mcinet.gov.ma/fr/actualites/barometre-de-lindustrie-nationale-lindustrie-marocaine-franchit-un-nouveau-cap-en-2024).
 
-Sources: [Ministry of Industry 2024 barometer](https://www.mcinet.gov.ma/fr/actualites/barometre-de-lindustrie-nationale-lindustrie-marocaine-franchit-un-nouveau-cap-en-2024) and [Tanger Med Zones](https://www.tangermedzones.com/).
+Tanger Med Zones reports roughly 1,500 companies and 145,000 jobs across its industrial platform. [Tanger Med Zones](https://www.tangermedzones.com/).
 
-**Analysis:** these figures establish industrial density and useful prospecting geographies. They do not provide the number of addressable sites, assessment frequency or accepted price. A defensible TAM/SAM/SOM therefore remains unknown.
+These figures confirm industrial density and useful prospecting geographies. A defensible TAM/SAM/SOM still requires data on addressable sites, assessment frequency, procurement behavior and accepted price.
 
-## 5. Route-to-market conclusion
+## Competitive landscape
 
-### First validators and channel candidates
+Atlas enters an existing discovery and OT-visibility category.
 
-**Qualified industrial-audit providers** and **automation/integration/service firms** are the strongest first practitioner groups because they can judge evidence quality across repeated engagements. The decisive test is whether Atlas evidence fits an existing professional workflow and reduces meaningful work—not whether a practitioner simply likes the concept.
+- [Claroty Edge](https://claroty.com/platform/edge) offers one-time, agentless CPS visibility.
+- [runZero Community Edition](https://www.runzero.com/platform/community-edition/) provides a free discovery option for smaller environments.
+- [Tenable Nessus Professional](https://www.tenable.com/buy) provides a visible professional-scanner pricing reference.
+- Wireshark, Nmap and other open tools already give expert users inexpensive packet analysis and network-discovery capability.
 
-### End-user evaluation candidates
+The defensible proposition is therefore not simply “portable,” “mobile,” “cheap,” or “discovers devices.” The product hypothesis worth testing is a professional workflow that combines:
 
-Water/multiservice operators and industrial water organizations are strong end-user evaluation targets when there is a bounded trigger such as:
+- bounded, OT-conscious evidence collection;
+- offline operation;
+- provenance and retained source evidence;
+- analyst review before inventory acceptance;
+- reconciliation of expected and observed state;
+- explicit unknowns and visibility limitations;
+- professional export and handoff.
 
-- commissioning or handover;
-- telemanagement/automation upgrade;
-- inherited asset records after operator transition;
-- inventory/GIS/maintenance reconciliation;
-- a specific authorized security or architecture review.
+## Commercial assumptions to validate
 
-The [Morocco market guide](MOROCCO-MARKET-GUIDE.md) turns this conclusion into segmentation and positioning; the [prospect directory](PROSPECT-DIRECTORY.md) contains named accounts and public signals.
+The following remain assumptions rather than established market facts:
 
-## 6. Product implications from the diligence
-
-The most defensible product role is a **controlled OT evidence and reconciliation instrument** for authorized professionals. The diligence supports these product principles:
-
-- passive or imported evidence before active identity where it can answer the question;
-- exact-scope active operations rather than broad discovery;
-- provenance and explicit separation between observations and accepted inventory;
-- offline/minimized-data operation suitable for sensitive environments;
-- export/handoff into an existing professional workflow;
-- explicit visibility limitations and unresolved evidence.
-
-A phone is an implementation choice, not a proven buyer preference. A USB-Ethernet adapter alone does not provide arbitrary third-party visibility on a switched network; a correct SPAN/TAP or equivalent capture source is still required.
-
-Technical product contracts are maintained outside business-development documentation in [P0-WATER](../poc/WATER-WASTEWATER-POC.md) and [Architecture](../architecture/README.md).
-
-## 7. Evidence-driven technology priority
-
-The Morocco-linked evidence supports prioritizing common industrial Ethernet and control families rather than pursuing protocol breadth for its own sake. The strongest repeated signals are around Modbus, EtherNet/IP/CIP, PROFINET/PROFIBUS, Siemens environments and common SCADA/OPC contexts, with utility/renewable evidence for IEC protocols.
-
-**Analysis:** product priority should follow customer/site evidence and safe testability. Bluetooth, BACnet, ONVIF or other packs should not receive equal priority simply because they are technically possible.
-
-Exact implemented protocol coverage is intentionally **not** listed here; current execution belongs in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
-
-## 8. Competitive reality
-
-The diligence did not identify a clean greenfield category.
-
-- [Claroty Edge](https://claroty.com/platform/edge) publicly describes a one-time agentless CPS visibility executable, weakening any claim that portable discovery itself is unique.
-- [runZero Community Edition](https://www.runzero.com/platform/community-edition/) provides a free discovery option for environments up to 100 assets.
-- [Tenable Nessus Professional](https://www.tenable.com/buy) provides a visible professional-scanner price anchor; the reviewed 2026 page listed USD 4,790/year.
-- Wireshark, Nmap and other open tools make packet inspection or network discovery inexpensive for expert users.
-
-**Analysis:** “mobile,” “portable,” “cheap” and “discovers assets” are not sufficient differentiation. The differentiation worth testing is the workflow combination: bounded OT-safe collection, offline use, evidence provenance, analyst review, reconciliation and professional handoff. That must be demonstrated against alternatives on the same task.
-
-## 9. Economic reality
-
-There is no accepted Atlas product price, recurring usage history or controlled benchmark showing a specific time/cost saving.
-
-Public infrastructure and automation spending proves adjacent procurement activity, not an Atlas budget. Competitor pricing is an anchor, not local willingness to pay.
-
-The economically useful measurements are therefore:
-
-- preparation and field time per assessment;
-- equipment/travel/support cost;
-- manual reconciliation and report-production effort;
-- repeat visits or rework;
-- assessments per practitioner/year;
-- existing tools and licenses;
-- accepted offer, procurement route, payment terms and support burden.
-
-Pricing, ROI and market sizing remain experiments until those variables are observed.
-
-## 10. Main diligence risks
-
-| Question | Why it can invalidate the proposition |
+| Assumption | Validation needed |
 |---|---|
-| Can target sites provide useful passive visibility? | Without correct placement, the appliance may see too little evidence. |
-| Are bounded active operations safe on real device/firmware combinations? | OT implementation quality varies. |
-| Is identity/reconciliation accurate enough for professional use? | Incorrect confidence can be worse than an explicit unknown. |
-| Will qualified practitioners accept the evidence schema/method? | Technically correct output has limited value if it does not fit the workflow. |
-| Does Atlas duplicate tools already owned? | Existing OT/general tools may solve enough of the task. |
-| Is the phone/appliance permitted by site policy? | Mobile, MDM and data-handling rules can block deployment. |
-| Can customer data be handled lawfully and minimally? | Captures/documents can contain sensitive or personal information. |
-| Can price cover hardware, support and knowledge maintenance? | Both willingness to pay and support cost remain unmeasured. |
+| Practitioners have enough reconciliation/reporting burden to value Atlas | Compare Atlas with their current workflow on the same bounded task |
+| The evidence model fits professional audit/engineering practice | Practitioner review and controlled evaluations |
+| Operators will permit the appliance/form factor | Site-policy and physical deployment trials |
+| Bounded passive/active evidence is sufficient for useful conclusions | Field-relevant capture and protocol tests |
+| Atlas can reduce effort or rework | Measure preparation, field, reconciliation, review and reporting time |
+| A sustainable commercial price exists | Paid evaluations, procurement discussions and support-cost measurement |
+| Partners will reuse Atlas across projects | Repeated partner-led evaluations and delivery use |
 
-## 11. Evidence that would materially increase confidence
+A phone-based appliance is an implementation choice, not a proven buyer preference. Likewise, infrastructure spending or an automation tender demonstrates activity, not purchase intent for Atlas.
 
-Commercial confidence should rise only when there is evidence such as:
+## Priority validation groups
 
-1. a qualified industrial-audit provider or equivalent practitioner accepts the evidence format for a controlled evaluation;
-2. supported physical capture combinations pass repeatable field-relevant tests;
-3. priority protocol/identity behavior passes labeled safety/accuracy corpora;
-4. Atlas is compared with existing practitioner tools on the same workflow;
-5. at least one paid or contractually binding evaluation exists;
-6. dependency/licensing/data-handling review is acceptable;
-7. field measurements show a meaningful reduction in equipment burden, reconciliation or reporting work.
+### Industrial-audit and OT-security practitioners
 
-Until then, the opportunity remains **credible but commercially unvalidated**.
+Use them to test evidence quality, methodology fit, authorization controls and reporting expectations. They can also become a channel if Atlas improves repeatable assessment work across clients.
 
-Return to the [business-development index](README.md).
+### Engineering, EPC and automation partners
+
+Use them to test commissioning, FAT/SAT, handover and accepted-baseline workflows. A partner that can reuse Atlas across projects may be commercially more valuable than a single end-user deployment.
+
+### Water and multiservice operators
+
+Use bounded evaluations where there is a real operational trigger: project handover, telemanagement modernization, inherited asset records, maintenance preparation, GIS/patrimony reconciliation or an authorized OT review.
+
+## Economic validation
+
+The most useful measurements are practical workflow variables:
+
+- preparation and field time;
+- equipment and travel burden;
+- manual inventory/reconciliation effort;
+- review and report-production effort;
+- repeat visits and rework;
+- assessments per practitioner or project;
+- current tools and licenses;
+- support effort;
+- procurement route and payment terms.
+
+The commercial case becomes stronger only when these measurements show a repeatable advantage and a prospect is willing to progress beyond evaluation.
+
+## Principal commercial risks
+
+| Risk | Commercial consequence |
+|---|---|
+| Poor passive visibility at target sites | The product may not collect enough evidence to justify deployment |
+| Unsafe or inconsistent behavior across real OT devices | Active identity features may be unacceptable in production |
+| Weak identity/reconciliation accuracy | Professional users may prefer explicit unknowns to unreliable automation |
+| Evidence package does not fit practitioner workflow | Technically correct collection may still have little commercial value |
+| Existing tools already solve enough of the task | Atlas may be viewed as duplicate tooling |
+| Mobile/appliance restrictions | Site policy may block the intended field workflow |
+| Data-handling or privacy concerns | Captures and customer records may be difficult to retain or export |
+| Support costs exceed willingness to pay | Hardware and specialist support may make the offer uneconomic |
+
+## What would materially strengthen the business case
+
+The strongest evidence would be:
+
+1. a qualified practitioner accepts Atlas evidence for a controlled professional workflow;
+2. physical capture combinations pass repeatable field-relevant qualification;
+3. priority identity methods demonstrate acceptable safety and accuracy;
+4. Atlas compares favorably with existing tools on the same workflow;
+5. a customer or partner progresses to a paid or contractually binding engagement;
+6. data-handling, licensing and deployment controls survive professional review;
+7. measured evaluations show meaningful reduction in effort, ambiguity or rework.
+
+The [Morocco market strategy](MOROCCO-MARKET-GUIDE.md) translates this evidence into segment and account priorities.

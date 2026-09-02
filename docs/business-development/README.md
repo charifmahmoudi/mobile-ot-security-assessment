@@ -1,36 +1,39 @@
 # Business development — Morocco
 
-_Reviewed: 1 September 2026._
+Atlas is entering Morocco through a focused commercial strategy built around OT evidence, asset reconciliation and safe field assessment in water and industrial environments.
 
-This section turns public evidence into a practical Morocco go-to-market workflow. Each page has a distinct job; the purpose of separating them is to prevent conflicting authority **without stripping the operational intelligence needed to sell**.
+The business-development material is organized around five practical questions:
 
-## Working sequence
+| Document | Business question |
+|---|---|
+| [Market evidence](DILIGENCE-SUMMARY.md) | What makes the opportunity credible, and which assumptions still need validation? |
+| [Morocco market strategy](MOROCCO-MARKET-GUIDE.md) | Where should Atlas compete first, and in which buying situations? |
+| [Target accounts and partners](PROSPECT-DIRECTORY.md) | Which organizations and people are worth pursuing now? |
+| [Sales and marketing playbook](MARKETING-PLAYBOOK.md) | How should Atlas qualify, approach and develop those opportunities? |
+| [Evaluation and services offer](OFFER.md) | What can a prospect evaluate or buy, and under what commercial structure? |
 
-1. [Commercial diligence summary](DILIGENCE-SUMMARY.md) — what the evidence establishes, what it does not establish, commercial implications, risks and unknowns.
-2. [Morocco market guide](MOROCCO-MARKET-GUIDE.md) — where to compete, which situations matter, stakeholder/buying-group structure and account-selection logic.
-3. [Prospect intelligence directory](PROSPECT-DIRECTORY.md) — the actual organizations **and people**: current triggers, named public professionals, why they matter, public activity, technology/operating signals and contact routes.
-4. [Marketing playbook](MARKETING-PLAYBOOK.md) — how to convert that intelligence into role-specific messages, conversation starters, channels, objections and follow-up.
-5. [Evaluation and services offer](OFFER.md) — exact commercial evaluation, adoption and specialist-service terms.
+## Commercial focus
 
-## Quality standard
+The initial market focus is deliberately narrow:
 
-A business-development document is not useful merely because it is concise.
+- water and wastewater operators;
+- regional multiservice utilities;
+- desalination and industrial-water programs;
+- engineering, EPC and automation partners;
+- qualified industrial-audit and OT-security practitioners.
 
-- The diligence page should preserve enough evidence and analysis to challenge a commercial claim.
-- The market guide should preserve enough organizational/stakeholder detail to decide where to focus.
-- The prospect directory should contain named people, not only company switchboards.
-- The marketing playbook should contain role motivations and usable conversation angles, not only generic messaging rules.
-- The offer should be specific enough to hand to a prospect without reconstructing terms from other pages.
+Atlas is most relevant where a team needs to establish or challenge an equipment baseline for a bounded operational area: commissioning, handover, maintenance preparation, inherited asset records, GIS/patrimony reconciliation or an authorized OT assessment.
 
-Cross-links should remove duplicated **definitions**, not unique sales intelligence.
+## Positioning
 
-## Research discipline
+Atlas should be presented as a **portable, offline OT evidence and reconciliation tool** for professional use in a clearly authorized scope.
 
-- Use current public professional information only; recheck roles before outreach.
-- Never infer private email addresses or phone numbers.
-- Record why a named person is relevant; an employee name alone is not a prospect.
-- Distinguish source-backed account facts from the outreach interpretation built on them.
-- A project/tender/post is a timing and vocabulary signal, not proof of demand.
-- Feed evidence that changes the market thesis back into [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md).
+The commercial conversation should lead with the operational decision to be made—not with protocol count, scanning, vulnerability claims or the mobile form factor. The strongest proposition to validate is the combination of bounded collection, provenance, analyst review, reconciliation and professional handoff.
+
+## How to use this material
+
+Start with the [market strategy](MOROCCO-MARKET-GUIDE.md) when selecting segments and opportunities. Use the [prospect directory](PROSPECT-DIRECTORY.md) to identify the right stakeholder and current account context, then use the [sales and marketing playbook](MARKETING-PLAYBOOK.md) to prepare the conversation. Commercial terms are in the [offer](OFFER.md).
+
+The [market evidence](DILIGENCE-SUMMARY.md) is the supporting evidence base for major strategic assumptions and should be revisited when new customer or field evidence changes the commercial thesis.
 
 Return to the [documentation index](../README.md).
