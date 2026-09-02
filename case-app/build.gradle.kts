@@ -36,8 +36,9 @@ android {
 
 dependencies {
     implementation(project(":core-domain"))
-    implementation("net.zetetic:sqlcipher-android:4.18.0@aar")
-    implementation("androidx.sqlite:sqlite:2.7.0")
+    // SQLCipher 4.18.0 declares minCompileSdk 37; keep this line compatible with the compileSdk 35 baseline.
+    implementation("net.zetetic:sqlcipher-android:4.17.0@aar")
+    implementation("androidx.sqlite:sqlite:2.6.2")
     testImplementation(kotlin("test-junit"))
     // The test-only content provider is instantiated in the instrumentation APK's
     // process before the target application. Package the runtime explicitly so a
