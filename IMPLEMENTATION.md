@@ -4,22 +4,26 @@
 
 ## Current software boundary
 
-The repository contains three Android application boundaries plus a native passive-capture daemon:
+The repository contains a pure domain layer, three Android application boundaries plus a native passive-capture daemon:
 
 | Component | Current executable role |
 |---|---|
+| Core domain | Professional case lifecycle/authorization/audit/snapshot invariants, evidence-record contracts, grant/scope policy and deterministic parsing/business rules; no Android/storage dependency |
 | Case App | Guided site workflow, passive import/review, inventory reasoning, findings/report-readiness UI; no Android `INTERNET` permission |
 | Network Broker | Separately privileged active-network service for the compiled Modbus identity operation |
 | Capture Broker | Separate passive-capture Binder/FD boundary; debug builds stream a labeled CI fixture and release builds fail closed until the native backend is integrated |
 | Parser worker | Isolated-process parsing boundary for untrusted captures |
 | `atlas_capture` | Native `AF_PACKET` receive-only daemon compiled and tested on Linux virtual Ethernet; not yet integrated and qualified on the target phone image |
 
-The authoritative topology and privilege model are in [System and deployment](docs/architecture/SYSTEM-AND-DEPLOYMENT.md). Exact packet-producing and packet-receiving behavior is defined in [Network execution](docs/architecture/NETWORK-EXECUTION.md).
+The authoritative topology and privilege model are in [System and deployment](docs/architecture/SYSTEM-AND-DEPLOYMENT.md). Exact packet-producing and packet-receiving behavior is defined in [Network execution](docs/architecture/NETWORK-EXECUTION.md). The professional case lifecycle is defined in [Professional case model](docs/architecture/PROFESSIONAL-CASE-MODEL.md).
 
 ## Implemented behavior
 
 | Area | Current behavior | Verification route |
 |---|---|---|
+| Professional case domain | Typed case/actor/authorization/snapshot IDs; legal/site/process context; decision-oriented assessment objective; scope, evidence methods, stop conditions and data policy; guarded `DRAFT → ... → FINALIZED/SUPERSEDED` lifecycle; role-gated transitions; authorization bound to exact scope/data-policy fingerprints; reviewer acceptance gate; finalized snapshot hash; revision/supersession semantics | `core-domain` unit tests |
+| Professional audit chain | Append-only SHA-256 chained lifecycle events with actor role, object identity, details hash and previous-event hash; restoration rejects sequence/hash-chain tampering | `core-domain` unit tests |
+| Professional evidence record contracts | Separate typed records for sealed artifacts, expected records, observations, identity claims, reconciliation decisions, findings and object-review decisions; provenance/evidence/confidence/consequence invariants enforced in pure domain code | `core-domain` unit tests |
 | Site workflow | Three-step site creation and a persistent Overview → Collect → Assets → Findings → Report shell | Android instrumentation |
 | Local prototype state | Site and working inventory state persist locally for the current PoC workflow | Android tests |
 | Passive import | Bounded PCAP/PCAPNG import, hashing, metadata extraction, parsing and explicit observation review before inventory mutation | JVM + Android tests with sourced captures |
@@ -36,7 +40,7 @@ The authoritative topology and privilege model are in [System and deployment](do
 
 ## What CI proves
 
-The Android safety workflow exercises builds, architecture checks, JVM tests, lint, API 29/35 instrumentation, passive capture imports, the Capture Broker file-descriptor journey, active Modbus behavior against PyModbus/modbus-tk/Conpot, and the native receive-only capture gate.
+The Android safety workflow exercises builds, architecture checks, JVM tests, lint, API 29/35 instrumentation, passive capture imports, the Capture Broker file-descriptor journey, active Modbus behavior against PyModbus/modbus-tk/Conpot, and the native receive-only capture gate. `core-domain` tests additionally exercise the professional case state machine, authorization binding, role gates, audit-chain verification, finalization/supersession and evidence-record invariants.
 
 The exact verification topology and retained artifacts are documented in [Testing](docs/testing/README.md). CI proves those software paths; it does not qualify a physical OT appliance or production network.
 
@@ -44,11 +48,11 @@ The exact verification topology and retained artifacts are documented in [Testin
 
 The following are not current field-ready capabilities:
 
+- SQLCipher-backed professional case repository, encrypted content-addressed artifact vault and production key lifecycle; the professional case domain model now exists but is not yet persisted through this target storage;
+- Case App integration of the full role-aware professional lifecycle, including durable operational/security approvals, assessment objective, reviewer decisions and revision workflow;
 - integration of `atlas_capture` into the signed LineageOS appliance image with its final SELinux/init policy;
 - physical phone, powered hub, USB-Ethernet and SPAN/TAP qualification;
-- encrypted professional case database/artifact vault and production key lifecycle;
-- durable multi-user authorization/reviewer workflow;
-- deterministic signed HTML/PDF/JSON/CSV final assessment package;
+- deterministic signed HTML/PDF/JSON/CSV final assessment package and external verification tooling; the domain snapshot hash/finalization foundation now exists;
 - production inventory/CMMS/CMDB connectors;
 - production Wi-Fi, BLE or serial collection packs;
 - OPC UA active discovery;

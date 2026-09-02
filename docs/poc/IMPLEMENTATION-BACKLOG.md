@@ -12,13 +12,16 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 
 ## M1 — professional offline case
 
-- E1-01 Implement the professional case state machine and transition tests.
-- E1-02 Implement authorization, scope and exclusion entities.
+- E1-01 Maintain the pure-domain professional case aggregate: typed IDs, assessment context/objective, guarded lifecycle, role separation, finalization and revision/supersession semantics.
+- E1-02 Integrate professional case context, objective, scope, stop conditions, data policy and authorization workflow into the Case App/application layer.
 - E1-03 Integrate current `sqlcipher-android` for professional case storage.
 - E1-04 Implement per-case key creation/wrapping and lock timeout.
 - E1-05 Implement content-addressed encrypted artifact storage and secure deletion.
-- E1-06 Implement canonical audit events and hash chain.
+- E1-06 Persist canonical audit events/hash chain and verify the chain on restore/export; the pure-domain hash-chain implementation remains the reference invariant.
 - E1-07 Implement migrations and corrupted/tampered database handling.
+- E1-08 Implement a repository/storage adapter with optimistic version checks so stale application state cannot overwrite newer professional decisions.
+- E1-09 Persist finalized snapshot material, audit head and supersession links without reopening finalized revisions.
+- E1-10 Integrate durable operational/security approver and independent-reviewer identities/actions; one human may hold multiple roles only when policy permits and each action retains the role used.
 - E2-01 Storage Access Framework imports with streaming SHA-256.
 - E2-02 CSV mapping UI, preview, row errors and immutable source rows.
 - E2-03 PCAP/PCAPNG metadata inspection and sealing.
@@ -36,9 +39,9 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 - E3-07 Add only protocol parsers justified by the product contract and evidence priorities.
 - E3-08 Expand sourced corpus, fuzz harnesses, mutation/truncation tests and parser metrics.
 - E6-01 Maintain water taxonomy and normalized attribute dictionary.
-- E6-02 Implement endpoint construction and strong/weak identity keys.
+- E6-02 Implement endpoint construction and strong/weak identity keys using the typed artifact/observation/claim record boundaries in `core-domain`.
 - E6-03 Implement deterministic candidate scoring.
-- E6-04 Implement durable reviewer merge/split/conflict workflow.
+- E6-04 Implement durable reviewer merge/split/conflict workflow and persist reconciliation decisions/rationale rather than mutating expected/observed source records in place.
 - E6-05 Implement confidence reason display.
 - E6-06 Implement inventory metrics and exception export.
 
@@ -55,7 +58,7 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 
 - E5-01 Maintain signed profile/pack verification and rollback controls.
 - E5-02 Maintain CIDR/IP/interface/time/exclusion scope matching.
-- E5-03 Harden single-use execution grants and durable audit records.
+- E5-03 Bind signed execution grants to the professional case authorization artifact/hash and persist durable execution/audit records.
 - E5-04 Harden foreground active execution and emergency stop.
 - E5-05 Expand per-socket binding and alternate-route failure tests.
 - E5-06 Maintain Modbus 43/14 basic device-ID serializer/parser and packet-budget proof.
@@ -77,9 +80,9 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 - E7-02 Implement WAT-ID rules.
 - E7-03 Implement WAT-NET rules.
 - E7-04 Implement WAT-ARC, WAT-WIR, WAT-LCM and WAT-EVD rules.
-- E7-05 Implement consequence/exposure scoring with confidence kept separate.
-- E7-06 Implement reviewer acceptance/rejection and corrective-action ownership.
-- E7-07 Generate normative machine-readable data and human-readable HTML/PDF output.
+- E7-05 Implement consequence/exposure scoring with confidence kept separate; the pure-domain finding contract remains the invariant boundary.
+- E7-06 Implement durable reviewer acceptance/rejection and corrective-action ownership using explicit review records.
+- E7-07 Materialize the finalized professional snapshot into normative machine-readable data and human-readable HTML/PDF output; report generation must not read mutable working case state.
 - E7-08 Sign the finalized package and verify it externally.
 
 ## M7 — assurance and rehearsal
@@ -91,6 +94,10 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 - E8-05 Complete the compatibility matrix required by the P0 test plan.
 - E8-06 Run the independent P0-WATER rehearsal.
 - E8-07 Obtain legal/privacy/site-safety release approval.
+- E9-01 Define a controlled-evaluation record that captures the assessment question, baseline/current toolchain and measurable evaluation outcomes without claiming ROI in advance.
+- E9-02 Measure preparation, field-collection, reconciliation, review/report effort, equipment burden, revisit/rework and support needs where the evaluator permits measurement.
+- E9-03 Record technical success separately from methodological acceptance, workflow usefulness, deployment blockers and procurement willingness.
+- E9-04 Record the sponsor decision as `continue`, `modify_and_retest`, `procurement_investigation` or `stop` with evidence/rationale.
 
 ## Dependency flow
 

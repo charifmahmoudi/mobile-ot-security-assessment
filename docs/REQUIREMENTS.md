@@ -4,6 +4,18 @@ This file is the stable normative requirements baseline. It states what the prod
 
 Exact architecture mechanics are owned by the [architecture section](architecture/README.md). Requirements reference outcomes and constraints rather than duplicating grant formats, packet templates or deployment internals.
 
+## Professional case lifecycle
+
+- **CASE-001:** Every professional assessment record MUST belong to exactly one case revision with a stable case lineage, legal entity, site, process area and assessment pack.
+- **CASE-002:** Before authorization, a case MUST state the assessment question/requested decision, explicit collection boundary, evidence methods, data-handling policy and stop conditions.
+- **CASE-003:** Professional actions MUST retain actor identity and the role under which the action was performed; assessor, operational approver, security approver and independent reviewer responsibilities MUST remain distinguishable even when one permitted person holds multiple roles.
+- **CASE-004:** Authorization MUST be bound to an immutable authorization artifact, a validity window, the exact case scope and the exact data-handling policy, and MUST require both operational and security approval before protected collection.
+- **CASE-005:** Material case lifecycle actions MUST append to a canonical integrity-verifiable audit chain; retained/exported history MUST detect sequence, previous-hash or event-content alteration.
+- **CASE-006:** Customer-declared expected records, sealed evidence artifacts, parsed observations, identity claims, accepted/reconciled asset state and findings MUST remain distinct semantic layers; a later layer MUST NOT silently overwrite its source layer.
+- **CASE-007:** Finalization MUST require independent reviewer acceptance and MUST freeze the authorization identity, scope/data-policy identities, audit-chain head, tool/content identities and professional case material used by the final output.
+- **CASE-008:** A finalized revision MUST NOT resume collection or semantic mutation. A correction after finalization MUST create a new revision linked to the previous finalized snapshot rather than rewriting the prior revision.
+- **CASE-009:** Active execution MUST be allowed only while the case is in an authorized collecting state and MUST remain within the case operation/target scope and exclusions in addition to the Network Broker grant policy.
+
 ## Authorization and safety
 
 - **SAFE-001:** The system MUST default to passive mode.
@@ -60,4 +72,4 @@ Exact architecture mechanics are owned by the [architecture section](architectur
 - **QUAL-002:** Every active profile MUST have golden-packet, negative-scope and cancellation tests.
 - **QUAL-003:** Releases MUST include an SBOM and signed provenance.
 - **QUAL-004:** Dependencies MUST be pinned, licensed, owned and monitored.
-- **QUAL-005:** No production pilot build may ship before threat-model, privacy, legal and external security reviews pass.
+- **QUAL-005:** No production pilot build may ship before threat-model, privacy, legal and external security reviews pass with no blocking finding.

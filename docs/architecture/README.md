@@ -6,8 +6,9 @@ This section owns Atlas OT Scout architecture contracts. Architecture describes 
 |---|---|
 | [System and deployment](SYSTEM-AND-DEPLOYMENT.md) | Packages/processes, privilege and trust/deployment topology |
 | [Component contracts](COMPONENT-CONTRACTS.md) | Internal responsibilities and forbidden coupling |
+| [Professional case model](PROFESSIONAL-CASE-MODEL.md) | Case aggregate, roles, objective, scope/authorization binding, lifecycle guards, audit chain, finalization and revision semantics |
 | [Network execution](NETWORK-EXECUTION.md) | Active grant/signature mechanics, initial Modbus operation, passive broker/daemon behavior and stop semantics |
-| [Evidence data model](EVIDENCE-DATA-MODEL.md) | Artifact → observation → claim → asset/finding → review → snapshot/report model |
+| [Evidence data model](EVIDENCE-DATA-MODEL.md) | Artifact → observation → claim → asset/finding → review → snapshot/report storage/lineage model |
 | [Security and threat model](SECURITY-AND-THREAT-MODEL.md) | Security argument, threat register and residual risks |
 | [Dedicated Android appliance](DEDICATED-ANDROID-APPLIANCE.md) | Live-passive privilege boundary and physical acceptance invariants |
 | [Protocol and device catalog](PROTOCOL-AND-DEVICE-CATALOG.md) | Evidence-bounded protocol/device identity surfaces |
