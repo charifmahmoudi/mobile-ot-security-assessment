@@ -1,17 +1,36 @@
 # Business development — Morocco
 
-This section separates commercial research from strategy, account data, outreach execution and offer terms. Use the authority below rather than copying market facts or commercial terms between files.
+_Reviewed: 1 September 2026._
 
-| Document | Authority |
-|---|---|
-| [Commercial diligence summary](DILIGENCE-SUMMARY.md) | What the evidence establishes, what it implies, competitive/economic reality, risks and unknowns |
-| [Morocco market guide](MOROCCO-MARKET-GUIDE.md) | Where to focus, which situations to enter and how to position Atlas in Morocco |
-| [Prospect directory](PROSPECT-DIRECTORY.md) | Named organizations, public project signals and public contact routes |
-| [Marketing playbook](MARKETING-PLAYBOOK.md) | Roles, messages, channels, content and campaign execution |
-| [Evaluation and services offer](OFFER.md) | Canonical evaluation duration, adoption choices, device setup and consulting terms |
+This section turns public evidence into a practical Morocco go-to-market workflow. Each page has a distinct job; the purpose of separating them is to prevent conflicting authority **without stripping the operational intelligence needed to sell**.
 
-Atlas should be presented commercially as a bounded OT evidence/reconciliation instrument, not as a generic scanner or substitute for a qualified audit, SCADA/GIS/CMMS platform or engineering integrator. The evidence basis and limits for that positioning are maintained in the diligence summary.
+## Working sequence
 
-Product capability claims must link to [IMPLEMENTATION.md](../../IMPLEMENTATION.md); planned capability must link to [ROADMAP.md](../../ROADMAP.md). Commercial documents do not maintain their own implementation-status lists.
+1. [Commercial diligence summary](DILIGENCE-SUMMARY.md) — what the evidence establishes, what it does not establish, commercial implications, risks and unknowns.
+2. [Morocco market guide](MOROCCO-MARKET-GUIDE.md) — where to compete, which situations matter, stakeholder/buying-group structure and account-selection logic.
+3. [Prospect intelligence directory](PROSPECT-DIRECTORY.md) — the actual organizations **and people**: current triggers, named public professionals, why they matter, public activity, technology/operating signals and contact routes.
+4. [Marketing playbook](MARKETING-PLAYBOOK.md) — how to convert that intelligence into role-specific messages, conversation starters, channels, objections and follow-up.
+5. [Evaluation and services offer](OFFER.md) — exact commercial evaluation, adoption and specialist-service terms.
+
+## Quality standard
+
+A business-development document is not useful merely because it is concise.
+
+- The diligence page should preserve enough evidence and analysis to challenge a commercial claim.
+- The market guide should preserve enough organizational/stakeholder detail to decide where to focus.
+- The prospect directory should contain named people, not only company switchboards.
+- The marketing playbook should contain role motivations and usable conversation angles, not only generic messaging rules.
+- The offer should be specific enough to hand to a prospect without reconstructing terms from other pages.
+
+Cross-links should remove duplicated **definitions**, not unique sales intelligence.
+
+## Research discipline
+
+- Use current public professional information only; recheck roles before outreach.
+- Never infer private email addresses or phone numbers.
+- Record why a named person is relevant; an employee name alone is not a prospect.
+- Distinguish source-backed account facts from the outreach interpretation built on them.
+- A project/tender/post is a timing and vocabulary signal, not proof of demand.
+- Feed evidence that changes the market thesis back into [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md).
 
 Return to the [documentation index](../README.md).

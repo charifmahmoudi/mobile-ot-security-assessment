@@ -2,6 +2,8 @@
 
 This is the canonical map and ownership contract for Atlas OT Scout documentation. Each material fact, requirement, design decision or mutable status has one authoritative home. Other documents may summarize it for their audience, but should link rather than maintain a second definition.
 
+**Authority is not minimalism.** A document must still contain the audience-specific detail needed to do its job. Centralize the underlying truth, not the useful context. For example, the prospect directory should contain named people and account intelligence; the marketing playbook should contain role-specific messages and conversation starters; the user guide should contain executable operator steps; testing should contain concrete verification evidence.
+
 ## Authority by question
 
 | Question | Authority | Rule |
@@ -19,11 +21,11 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | What are the security threats and controls? | [Security and threat model](architecture/SECURITY-AND-THREAT-MODEL.md) | Security argument, threat register and residual risks; links to architecture for mechanics. |
 | Why was an architecture choice made? | [ADR index](adr/README.md) | Historical decision record. Superseded ADRs remain history, not current design. |
 | What does CI prove? | [Testing](testing/README.md) | Verification evidence and proof boundary, not product definition. |
-| How does a user operate the current application? | [User guide](user-guide/README.md) | Task instructions; capability status links to `IMPLEMENTATION.md`. |
+| How does a user operate the current application? | [User guide](user-guide/README.md) | Concrete task instructions and safety decisions; capability status links to `IMPLEMENTATION.md`. |
 | What does commercial evidence imply? | [Commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) | Source-backed facts, analysis, risks and commercial unknowns. |
-| Where should Atlas compete in Morocco? | [Morocco market guide](business-development/MOROCCO-MARKET-GUIDE.md) | Segmentation, entry situations and positioning derived from diligence. |
-| Which organizations should be approached? | [Prospect directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, public signals and public contact routes. |
-| How should outreach be executed? | [Marketing playbook](business-development/MARKETING-PLAYBOOK.md) | Roles, messages, channels and campaign execution. |
+| Where should Atlas compete in Morocco? | [Morocco market guide](business-development/MOROCCO-MARKET-GUIDE.md) | Segmentation, buying situations and stakeholder map derived from diligence. |
+| Which organizations and people should be approached? | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, current triggers, named public professionals, role relevance, public activity and contact routes. |
+| How should outreach be executed? | [Marketing playbook](business-development/MARKETING-PLAYBOOK.md) | Role motivations, account-specific conversation starters, messages, channels and campaign execution. |
 | What exactly is offered commercially? | [Evaluation and services offer](business-development/OFFER.md) | Evaluation duration, adoption choices, setup and consulting terms. |
 
 ## Anti-duplication rules
@@ -35,14 +37,30 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 5. **Commercial evidence and analysis belong in `DILIGENCE-SUMMARY.md`.** Market, prospect and marketing documents consume those conclusions instead of reproducing the source case.
 6. **Commercial terms belong in `OFFER.md`.** Other commercial material may name the evaluation but should link for duration, acquisition and service terms.
 7. **ADRs explain why.** Current architecture is maintained in the architecture section; superseded ADR text is not silently rewritten into a new decision.
-8. **Testing documents describe proof.** They may restate an invariant briefly only to identify what a test verifies.
+8. **Testing documents describe proof.** They may restate an invariant briefly to identify exactly what a test verifies and must retain the concrete environment, method, expected result and residual proof boundary.
+9. **Do not delete unique audience intelligence in the name of deduplication.** A prospect page needs people and triggers; a playbook needs motivations and message examples; a user manual needs step-by-step operation; an architecture contract needs implementable interfaces; a test plan needs actual acceptance conditions.
+
+## Audience utility test
+
+Before removing content as "duplicated," ask whether the second document is merely redefining the same truth or using that truth to help a different audience make a decision.
+
+Keep content when it adds one of these:
+
+- a named person/account/project needed for sales execution;
+- a role-specific motivation, objection or message;
+- an operator action, decision point, warning or recovery path;
+- a test environment, fixture, expected result or evidence artifact;
+- an architecture interface, dependency, failure mode or operational consequence;
+- a product acceptance criterion or concrete definition-of-done item.
+
+Remove or replace with a link when it only copies a mutable status table, exact cryptographic/network definition, generic market evidence, commercial terms or another document's normative semantics.
 
 ## Choose by audience
 
 | Audience or decision | Start here | Supporting section |
 |---|---|---|
 | Customer or prospect | [Prospect pitch](pitch/README.md) | [Guided demo](demo/README.md) |
-| Business developer | [Morocco business development](business-development/README.md) | [Commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) |
+| Business developer | [Morocco business development](business-development/README.md) | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) and [commercial diligence](business-development/DILIGENCE-SUMMARY.md) |
 | Assessor | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
 | Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Requirements](REQUIREMENTS.md) and [Roadmap](../ROADMAP.md) |
 | Engineer | [Implementation](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) |
@@ -58,7 +76,7 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | [Architecture decisions](adr/README.md) | Decision history and supersession |
 | [Appliance](appliance/README.md) | Laboratory platform and physical compatibility evidence |
 | [Architecture](architecture/README.md) | Current/target design contracts and security boundaries |
-| [Business development](business-development/README.md) | Diligence, Morocco strategy, prospects, marketing and commercial offer |
+| [Business development](business-development/README.md) | Diligence, Morocco strategy, person/account intelligence, marketing and commercial offer |
 | [Demo](demo/README.md) | Generated customer-story media and provenance |
 | [Pitch](pitch/README.md) | Prospect presentation assets |
 | [P0 product pack](poc/README.md) | Product contract, method, acceptance and implementation backlog |
@@ -70,7 +88,8 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 ## Maintenance contract
 
 - Prefer a relative link to the authority document over a copied table or capability list.
-- When a summary is necessary for readability, keep it audience-specific and avoid exact mutable implementation details.
+- When a summary is necessary, make it audience-specific and useful rather than mechanically shorter.
+- Preserve named people, project signals, workflow steps, acceptance evidence and other unique operational intelligence in the document that owns that audience task.
 - Pin individual CI runs only in provenance records that intentionally describe that historical artifact.
 - Use external citations next to factual market or technical claims.
 - Add every maintained document to its nearest section landing page.
