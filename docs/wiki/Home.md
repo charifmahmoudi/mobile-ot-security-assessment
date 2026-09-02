@@ -1,63 +1,58 @@
 # Atlas OT Scout
 
-Atlas OT Scout is a portable, offline-oriented OT evidence and reconciliation tool for bounded industrial assessments. The first product focus is water and wastewater control environments.
+Atlas OT Scout helps an authorized assessor reconcile a customer's expected OT asset inventory with bounded field evidence and produce a reviewed, traceable assessment result.
 
-Atlas is designed around a simple professional question:
+The first product focus is water and wastewater control environments.
 
-> **Does the equipment and evidence observed in this authorized control area support the asset baseline the customer currently relies on, and which discrepancies still require action?**
+## The question Atlas answers
 
-Rather than treating network discovery as an inventory by itself, Atlas keeps customer declarations, raw evidence, observations, identity claims, reconciliation decisions and findings distinct. The assessor can therefore explain not only *what* Atlas concluded, but *why*.
+**Does the available evidence support the asset baseline the customer currently relies on, and which discrepancies require action?**
 
-## Pilot workflow
+Atlas is designed for situations where commissioning records, maintenance inventories, drawings and the installed environment may no longer agree.
 
-A bounded assessment follows this path:
+## What the customer receives
 
-**Prepare and authorize → import the expected inventory → collect or import evidence → review observations → reconcile expected and observed state → resolve selected identity gaps safely → review findings and limitations → finalize and export.**
+For one defined process area, Atlas distinguishes:
 
-Start with the [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md) for the complete story.
+| Result | Meaning |
+|---|---|
+| **Confirmed** | Evidence supports the expected asset record |
+| **Probable** | A likely match exists, but important identity evidence is still missing |
+| **Conflict** | Expected and observed identity attributes materially disagree |
+| **Unexpected** | An observed OT endpoint has no accepted match in the expected baseline |
+| **Not observed** | An expected record was not supported by the available evidence sample |
+| **Unresolved** | The available evidence does not support a defensible decision |
 
-## What Atlas is intended to deliver
+The objective is a **reviewed asset reconciliation and exception set**, not a list of discovered IP addresses.
 
-For one authorized process area, the customer should be able to see:
+## Assessment flow
 
-- which expected assets are corroborated by evidence;
-- which matches remain probable rather than confirmed;
-- which attributes conflict;
-- which observed endpoints are unexpected;
-- which expected records were not observed in the available evidence;
-- what remains unresolved;
-- which bounded active identity operations were performed;
-- what limitations affect the conclusions;
-- which findings were accepted after review.
+1. **Define and authorize** the customer, site, process area, scope and permitted evidence methods.
+2. **Load the expected baseline** without treating customer-declared data as discovered fact.
+3. **Collect or import evidence** using the least intrusive approved method.
+4. **Reconcile expected and observed state**, preserving conflicts and uncertainty.
+5. **Review and deliver** the accepted findings, limitations and assessment package.
 
-The final goal is a reviewed assessment package, not a scanner device count.
+See [Assessment Workflow](Assessment-Workflow.md) for the operating sequence and [Asset Reconciliation](Asset-Reconciliation.md) for the decision model.
 
-## Choose your path
+## Evidence methods
 
-**Assessors and operators**
+The P0-WATER workflow is intentionally bounded:
 
-- [Getting Started](Getting-Started.md)
-- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case.md)
-- [Collecting Evidence](Collecting-Evidence.md)
-- [Reconciling Assets](Reconciling-Assets.md)
-- [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations.md)
+- approved PCAP/PCAPNG analysis;
+- qualified receive-only SPAN/TAP capture;
+- exact Modbus Device Identification for one explicitly authorized target when an identity gap justifies it.
 
-**Customers and evaluators**
+Atlas is not designed as a general-purpose network scanner, exploitation framework or continuous-monitoring platform.
 
-- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md)
-- [Evidence and Provenance](Evidence-and-Provenance.md)
-- [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md)
-- [FAQ and Glossary](FAQ-and-Glossary.md)
+## Customer pilot
 
-**Technical readers**
+A pilot focuses on one control area and one measurable question. The customer provides the expected baseline and authorized access to suitable evidence; Atlas returns the reconciled state, material exceptions, evidence references, limitations and reviewed output.
 
-- [Technical Overview](Technical-Overview.md)
-- [Field Setup and Safety](Field-Setup-and-Safety.md)
+See [Customer Pilot](Customer-Pilot.md).
 
-## Important status boundary
+## Safety and technical detail
 
-The Wiki explains the product and intended pilot workflow. It is **not** the authority for what is implemented or field-qualified today.
+For collection boundaries, visibility limits and links to the exact engineering specifications, see [Safety & Technical Boundaries](Safety-and-Technical-Boundaries.md).
 
-Before using Atlas in a demo, lab or field setting, check the repository's current [`IMPLEMENTATION.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md) and measured [`COMPATIBILITY-MATRIX.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/appliance/COMPATIBILITY-MATRIX.md).
-
-For exact product and safety contracts, use the repository documentation linked from [Technical Overview](Technical-Overview.md).
+Current executable capability is maintained in [`IMPLEMENTATION.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md).
