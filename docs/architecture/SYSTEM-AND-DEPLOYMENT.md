@@ -1,231 +1,125 @@
-# System Context and Deployment Architecture
+# System context and deployment architecture
 
-_Status: normative for P0-WATER._
+_Status: normative P0 architecture. Current executable coverage is reported in [IMPLEMENTATION.md](../../IMPLEMENTATION.md)._
+
+This document owns the **deployment topology, component privileges and trust boundaries**. Exact network operations are defined in [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md), data semantics in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md), and security threats in [SECURITY-AND-THREAT-MODEL.md](SECURITY-AND-THREAT-MODEL.md).
 
 ## 1. System context
 
 ```mermaid
 flowchart TD
-  OPS["Operational approver"] -->|"scope, criticality, stop authority"| ATLAS["Atlas assessment kit"]
-  SEC["Security approver"] -->|"interfaces, profiles, retention"| ATLAS
-  ASSESSOR["Assessor"] -->|"walkdown and review"| ATLAS
-  INVENTORY["Customer inventory / diagrams"] -->|"CSV, PDF, PCAPNG"| ATLAS
-  OT["Authorized OT segment"] <-->|"P0 evidence or bounded A1"| ATLAS
-  ATLAS -->|"signed assessment package"| REVIEWER["Customer reviewer"]
+  OPS["Operational approver"] -->|"scope, consequence, stop authority"| ATLAS["Atlas assessment appliance"]
+  SEC["Security approver"] -->|"interfaces, active targets, retention"| ATLAS
+  ASSESSOR["Assessor"] -->|"evidence collection and review"| ATLAS
+  INPUT["Approved inventory / documents / captures"] --> ATLAS
+  SPAN["Approved SPAN/TAP"] -->|"H2 receive-only evidence"| ATLAS
+  ATLAS -->|"bounded H1 identity request"| TARGET["Exact authorized OT target"]
+  ATLAS -->|"reviewed assessment package"| REVIEWER["Reviewer / customer"]
 ```
 
-Atlas owns collection integrity, evidence lineage and deterministic analysis. The customer owns authorization, process consequence, authoritative inventory, network configuration and acceptance of remediation.
+Atlas owns collection integrity, evidence lineage and deterministic product behavior. The customer owns authorization, process consequence, network configuration, authoritative records and acceptance of remediation.
 
-## 2. Product boundary
+## 2. Runtime boundaries
 
-The deliverable is a kit with two signed Android packages and an optional capture appliance:
-
-| Deployable | Package/process | Network authority | Sensitive storage |
+| Boundary | Identity | Permitted authority | Forbidden authority |
 |---|---|---|---|
-| Atlas Case App | `com.atlasot.scout` | **No INTERNET permission**; Android Wi-Fi scan, BLE scan, camera, document import and USB enumeration only | SQLCipher case DB, encrypted artifacts, Keystore case keys |
-| Atlas Network Broker | `com.atlasot.netbroker` | INTERNET/local-network plus network-state; foreground service; only compiled operations | No database, customer inventory or long-term artifacts |
-| Parser Worker | isolated service hosted by Case App | No permissions; Android isolated UID | No key; receives read-only file descriptor |
-| H2 Capture Appliance | Raspberry Pi reference image | Receive-only OT Ethernet; isolated Wi-Fi API to Network Broker | Encrypted temporary PCAPNG spool |
+| Case App | `com.atlasot.scout` | UI, case policy, document import, evidence review, inventory and report state; high-level approved Wi-Fi/BLE observation | Android `INTERNET`, raw sockets, arbitrary network commands |
+| Network Broker | `com.atlasot.netbroker` | Compiled active operations on an explicitly selected Android `Network` | Case database, generic scanner/socket API, arbitrary payloads |
+| Capture Broker | `com.atlasot.capturebroker` | Inspect allowlisted passive interfaces; request one bounded receive-only capture; stream bytes by file descriptor | Internet access, packet injection, shell commands, arbitrary output paths |
+| Parser worker | isolated process hosted by Case App | Parse sealed read-only evidence and return bounded observations | Network, case keys, general database access |
+| `atlas_capture` daemon | platform component in a dedicated SELinux domain | `AF_PACKET` receive on an allowlisted capture interface and bounded PCAP creation | Packet-send API, general routing/IP service, application UI |
 
-Android assigns applications distinct UIDs and sandboxes them, including native code ([Android security](https://developer.android.com/privacy-and-security/security-tips)). Cross-package broker binding is protected by a custom `signature` permission; Android grants signature permissions only to apps signed with the same certificate ([Android permissions](https://developer.android.com/guide/topics/permissions/overview)).
+The application boundaries are separately addressable Android identities. Active and passive privilege are deliberately split: the data-rich Case App cannot open arbitrary network sockets; the active Network Broker and passive Capture Broker expose narrow typed contracts.
 
-The split is deliberate: UI/report code cannot open a socket because its APK does not request network permission. Only the small Network Broker can transmit.
+## 3. Deployment profiles
 
-## 3. Deployment and trust boundaries
+### Compatibility profile
 
-```mermaid
-flowchart TD
-  subgraph T0["T0 Customer authority"]
-    AUTH["Signed authorization"]
-    INV["Inventory and diagrams"]
-  end
-  subgraph T1["T1 Android Case App UID"]
-    UI["Compose UI"]
-    CASE["Case / policy"]
-    VAULT["Encrypted vault"]
-    ENGINE["Resolver / rules / report"]
-  end
-  subgraph T2["T2 Isolated parser UID"]
-    PARSER["Rust parser worker"]
-  end
-  subgraph T3["T3 Network Broker UID"]
-    BROKER["Grant verifier"]
-    EXEC["Probe / capture client"]
-  end
-  subgraph T4["T4 Capture appliance"]
-    CAPAPI["mTLS capture API"]
-    DUMP["Receive-only capture"]
-  end
-  subgraph T5["T5 Authorized OT zone"]
-    TARGETS["PLC / RTU / HMI / gateway"]
-    SPAN["SPAN or TAP output"]
-  end
-  AUTH --> CASE
-  INV --> VAULT
-  VAULT -->|"read-only FD"| PARSER
-  PARSER -->|"bounded observations"| ENGINE
-  CASE -->|"signed one-use grant"| BROKER
-  EXEC -->|"H1 approved A1"| TARGETS
-  EXEC <-->|"H2 mTLS stream"| CAPAPI
-  SPAN --> DUMP
-  DUMP --> CAPAPI
-  EXEC -->|"sealed byte stream"| VAULT
-```
+A normal Android build supports H3 imported evidence and the separately constrained H1 Network Broker where platform/network policy allows it. It does not claim whole-segment live passive capture.
 
-Trust does not flow automatically across a boundary. Every arrow has a typed, validated contract and an audit event.
+### Dedicated appliance profile
 
-## 4. Physical deployment
+The target field appliance is a signed Android system image containing the Case App, Network Broker, Capture Broker, isolated parser and the confined `atlas_capture` platform daemon. The laboratory platform selection and hardware evidence are maintained under [Appliance integration](../appliance/README.md).
 
-### H1 — direct identity query
+The dedicated appliance does not expose a general-purpose root mode to the user.
+
+## 4. Evidence modes
+
+### H1 — exact active identity
 
 ```mermaid
 flowchart LR
-  PHONE["Android kit"] --> HUB["Powered USB-C hub"]
-  HUB --> NIC["Qualified USB Ethernet NIC"]
-  NIC --> PORT["Authorized access port"]
-  PORT --> TARGET["Allowlisted target"]
+  APP["Case App"] -->|"signed one-use grant"| NB["Network Broker"]
+  NB -->|"bound socket"| NIC["Selected Android Network"]
+  NIC --> TARGET["Exact authorized target"]
 ```
 
-- Only the Network Broker APK has socket authority.
-- The socket is bound to the selected Android `Network` before connect; Android documents per-socket binding as forcing traffic through that network ([Network.bindSocket](https://developer.android.com/reference/android/net/Network)).
-- No default-route or cellular fallback is allowed.
-- H1 does not claim third-party passive visibility.
+H1 is packet-producing and therefore governed entirely by [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md).
 
-### H2 — passive SPAN/TAP
+### H2 — live passive SPAN/TAP
 
 ```mermaid
 flowchart LR
-  SWITCH["OT switch"] -->|"one-way SPAN/TAP feed"| PI["H2 capture appliance"]
-  PI -->|"isolated Wi-Fi, TLS 1.3 mTLS"| BROKER["Android Network Broker"]
-  BROKER -->|"read-only pipe"| APP["Android Case App"]
+  SWITCH["SPAN / passive TAP"] --> NIC["Allowlisted USB Ethernet"]
+  NIC --> DAEMON["atlas_capture receive-only daemon"]
+  DAEMON --> CB["Capture Broker"]
+  CB -->|"bounded FD stream"| APP["Case App"]
+  APP --> PARSER["Isolated parser"]
 ```
 
-- Capture-appliance `eth0` has no IP configuration and must emit zero Ethernet frames.
-- The Android phone is never bridged to the OT segment.
-- The appliance API is reachable only on its isolated Wi-Fi management network.
-- The complete reference design is [CAPTURE-ACCESSORY.md](../poc/CAPTURE-ACCESSORY.md).
+The capture interface must be treated as a receive-only evidence interface. Root or promiscuous mode does not defeat Ethernet switching: useful third-party visibility still requires the network to deliver mirrored/TAP traffic to that interface.
 
-### H3/H4 — offline and radio evidence
+The detailed daemon/broker contract and acceptance invariants are in [Dedicated Android appliance](DEDICATED-ANDROID-APPLIANCE.md) and [Network execution](NETWORK-EXECUTION.md).
 
-H3 imports files through Android’s Storage Access Framework. H4 records Android Wi-Fi scan results and BLE advertisements; it does not use monitor mode, deauthentication or BLE connections.
+### H3 — offline evidence import
 
-## 5. Android package permission architecture
+PCAP/PCAPNG and other approved evidence enter through Android file-selection APIs, are hashed/sealed and are parsed through the isolated parser. H3 has no packet-producing network behavior.
 
-### Case App manifest ceiling
+### H4 — approved radio observation
 
-Allowed permissions/features:
+Wi-Fi/BLE evidence uses Android high-level scan APIs. P0 does not expose Wi-Fi association/deauthentication, raw monitor-mode commands, BLE connection or GATT interaction as assessment actions.
 
-- camera, only when operator invokes physical evidence;
-- Bluetooth scan with runtime permission;
-- Wi-Fi state/scan permissions appropriate to target API;
-- USB host feature;
-- biometric/device credential;
-- foreground data processing only if needed for local import;
-- notifications.
-
-Forbidden:
-
-- `INTERNET`;
-- `MANAGE_EXTERNAL_STORAGE`;
-- VPN service;
-- accessibility service;
-- package installation;
-- root/su;
-- background location;
-- SMS, contacts, microphone and advertising ID.
-
-### Network Broker manifest ceiling
-
-Allowed:
-
-- `INTERNET`, `ACCESS_NETWORK_STATE`, local-network permission when enforced by target Android;
-- foreground service for connected-device/data transfer;
-- notifications;
-- bound-service export protected by `com.atlasot.permission.BIND_NETWORK_BROKER` with `signature` protection.
-
-Forbidden:
-
-- camera, Bluetooth scan, location, contacts;
-- broad external storage;
-- database provider;
-- exported activity;
-- dynamic code loading;
-- WebView;
-- arbitrary URL handlers.
-
-The broker verifies the caller’s signing certificate and package name in addition to the signature permission.
-
-### Parser worker
-
-`android:isolatedProcess="true"` gives the service an isolated process with no permissions of its own; communication is only through the service API ([Android service element](https://developer.android.com/guide/topics/manifest/service-element)). It receives sealed file descriptors and returns protobuf batches. It cannot open the case database or network.
-
-## 6. Runtime nodes
+## 5. Trust flow
 
 ```mermaid
 flowchart TD
-  ACT["Activities / ViewModels"] --> USE["Application use cases"]
-  USE --> DOMAIN["Pure domain model"]
-  USE --> PORTS["Domain ports"]
-  PORTS --> DB["Room + SQLCipher"]
-  PORTS --> FILES["Encrypted artifact vault"]
-  PORTS --> IPC["Broker / parser IPC adapters"]
-  PORTS --> PACKS["Signed pack adapter"]
-  PORTS --> EXPORT["Deterministic export adapter"]
+  AUTH["Authorization / scope"] --> CASE["Case policy"]
+  FILE["Untrusted evidence"] --> VAULT["Sealed artifact boundary"]
+  VAULT -->|"read-only FD"| PARSER["Isolated parser"]
+  PARSER --> OBS["Bounded observations"]
+  OBS --> REVIEW["Analyst review"]
+  CASE -->|"H1 signed grant"| NB["Network Broker"]
+  CASE -->|"H2 bounded request"| CB["Capture Broker"]
+  CB --> DAEMON["Passive daemon"]
+  REVIEW --> MODEL["Accepted inventory / findings"]
+  MODEL --> SNAP["Finalized snapshot"]
 ```
 
-Dependency rule: adapters depend inward on domain ports. Domain and use-case modules do not depend on Android networking, Room entities, SQLCipher, JNI or report-rendering libraries.
+No later semantic layer erases the evidence layer that supports it. The canonical data relationships are in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md).
 
-## 7. Deployable artifacts
+## 6. Package and IPC rules
 
-| Artifact | Contents | Signature |
-|---|---|---|
-| `atlas-case.apk` | Case UI, domain, vault, rules, report, parser service declaration | Android release certificate |
-| `atlas-netbroker.apk` | Grant verifier, interface selector, four compiled A1 operations, H2 client | Same Android release certificate |
-| `parser-core.aar/.so` | Rust parsers and JNI bridge, bundled only in Case App | Covered by APK signature and build provenance |
-| `water-pack.atlaspack` | Taxonomy, mappings, deterministic rules, references | Ed25519 pack key |
-| `query-pack.atlaspack` | Query profiles referencing compiled implementation IDs | Separate Ed25519 safety key |
-| H2 OS image | Minimal capture appliance image | Image signing key |
-| Verification CLI | Offline manifest/hash/signature validation | Release signature/checksum |
+- Cross-package broker entry points are signature-protected and callers are validated.
+- The Network Broker accepts typed grant envelopes, not raw packet bytes, shell commands, port ranges or arbitrary URLs.
+- The Capture Broker accepts an allowlisted interface identifier plus byte/time limits and a sink file descriptor, not arbitrary capture commands.
+- The parser receives sealed evidence by file descriptor and has no network authority.
+- Content/industry packs can select only behavior already admitted by the compiled product contracts; they cannot inject executable network code.
 
-Compromise of a content-pack key cannot add executable network behavior because profiles reference a closed enum compiled into the broker.
+## 7. Installation and field posture
 
-## 8. Installation and provisioning
+The dedicated appliance profile requires a pinned signed build, approved packages/packs, recorded device identity, no general-purpose root manager, and hardware acceptance before live passive capture is represented as supported. Laboratory platform details and exact model restrictions are maintained in [ROOTED-ANDROID-POC.md](../appliance/ROOTED-ANDROID-POC.md) and [COMPATIBILITY-MATRIX.md](../appliance/COMPATIBILITY-MATRIX.md).
 
-1. Verify device model/build against compatibility matrix.
-2. Factory-reset or enroll dedicated Android device.
-3. Install Case App and Network Broker from signed offline release bundle.
-4. Verify both package certificate digests and build manifest.
-5. Create operator identity and hardware-backed case master key.
-6. Install signed water/query packs.
-7. Provision H2 appliance public key by scanning its physical QR label.
-8. Run self-test: Keystore, DB, storage reserve, broker binding, parser isolation, USB, Wi-Fi/BLE permission state.
-9. Export signed provisioning record.
+No collection automatically resumes after process/device restart. Authorization, interface state and case conditions are re-evaluated.
 
-Field mode is disabled when developer options, debugger attachment, root indicators, package-certificate mismatch, unapproved OS build or failed hardware attestation policy is detected. Lab mode remains available and is watermarked.
+## 8. Environment interpretation
 
-## 9. Availability and failure containment
+| Environment | What it can prove |
+|---|---|
+| JVM/native CI | Domain, parser and native-daemon behavior |
+| Android emulator | Application, IPC, policy and UI journeys |
+| Isolated protocol lab | Bounded active behavior against controlled endpoints |
+| Virtual SPAN test | Receive-only daemon behavior on virtual Ethernet |
+| Physical compatibility bench | USB/NIC/TAP, image, power, packet-loss and interface invariants |
+| Customer evaluation | Authorized workflow usefulness in a bounded customer environment |
 
-| Fault domain | Cannot directly affect | Recovery |
-|---|---|---|
-| UI crash | Network broker grant budget; sealed artifacts | Restart app and resume from DB state |
-| Parser crash | Raw artifact, network, database key | Kill isolated worker; mark batch failed; retry different worker |
-| Broker crash | Case database/report | Android closes sockets; case records broker death |
-| H2 appliance loss | Finalized local evidence | Seal received chunks; mark incomplete capture |
-| Report renderer failure | Finalized snapshot/evidence | Retry renderer; normative JSON unchanged |
-| Corrupt pack | Existing activated pack | Reject update and retain last trusted version |
-| Device power loss | Previously sealed DB transactions/artifacts | Integrity check and explicit interrupted event |
-
-No collection automatically resumes after process/device restart. Authorization and interface conditions are reevaluated.
-
-## 10. Environments
-
-| Environment | Real network actions | Data |
-|---|---|---|
-| Unit/CI | None | Synthetic |
-| Emulator | Mock broker/parser | Synthetic |
-| Protocol lab | Compiled A1 to simulators/physical lab PLC | Synthetic |
-| Rehearsal | H1/H2 on isolated water lab | Synthetic customer-style |
-| Customer PoC | Authorized H1/H2 only | Customer controlled |
-| Production | Blocked until PoC release gates | Customer controlled |
-
-The [architecture index](README.md) is the canonical route to component, data, security and deployment contracts.
+A result from one environment must not be described as qualification of a stronger environment.

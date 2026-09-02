@@ -1,35 +1,39 @@
 # Atlas OT Scout prospect pitch
 
-This presentation is designed to secure agreement to a **free, bounded P0-WATER pilot** and make the commercial model unambiguous: Atlas delivers a configured appliance, guides the first assessment, leaves the device with the customer, and lets the customer decide from its own experience whether to acquire it or have it collected. Consulting and support packages are optional.
+The prospect deck communicates one customer story: move from uncertain records to a reviewed evidence baseline for one bounded OT area, then decide whether a real evaluation is useful.
+
+The deck is presentation material, not an authority for implementation status, architecture or commercial terms.
 
 ## Narrative
 
-The 14-slide deck follows one customer from problem to improved operating state:
+The 14-slide story covers:
 
-1. **Offer:** try the appliance before deciding to buy it.
-2. **Current problem:** the customer has records, but not enough confidence that they still match field reality.
-3. **Desired state:** a defensible baseline, explicit limitations, prioritized next actions and a repeatable assessment method.
-4. **Commercial model:** deliver, use, decide, support.
-5. **Guided workflow:** scope, collect, review, reason and hand off.
-6. **Customer case:** one bounded water-treatment segment and one decision question.
-7. **Passive first:** select the least intrusive evidence method.
-8. **Review before mutation:** observations do not silently become inventory.
-9. **Reconciliation:** expected, observed, missing and conflicting identities become explicit.
-10. **Bounded active check:** one exact identity question, with out-of-scope rejection.
-11. **Honest handoff:** findings and readiness blockers stay linked to evidence.
-12. **Benefit:** move from “we have an inventory” to “we can show the evidence and know what to do next.”
-13. **What exists / what the pilot proves:** software behavior is separated from physical and operational field qualification.
-14. **Close:** select one bounded segment for the free pilot; acquire the appliance only after it proves useful.
+1. bounded evaluation offer;
+2. expected records versus uncertain field reality;
+3. desired state: evidence-linked baseline and explicit unknowns;
+4. guided workflow from scope to handoff;
+5. one water-treatment example;
+6. least-intrusive evidence selection;
+7. review before inventory mutation;
+8. reconciliation of expected/observed/conflicting records;
+9. one exact authorized identity question;
+10. evidence-linked findings and readiness blockers;
+11. practical benefit and follow-up decisions;
+12. separation between demonstrated software behavior and field qualification;
+13. evaluation decision;
+14. close on one bounded customer question.
+
+Exact evaluation duration, acquisition/setup choices and consulting terms are maintained in the [evaluation and services offer](../business-development/OFFER.md). Current technical capability is maintained in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
 
 ## Files
 
-- [PowerPoint](Atlas-OT-Scout-Pitch-and-Demo.pptx) — editable 14-slide prospect deck with the guided customer-story MP4 embedded.
-- [PDF](Atlas-OT-Scout-Pitch-and-Demo.pdf) — portable 14-page export.
-- [Guided customer-story video](../demo/atlas-ot-scout-emulator-demo.mp4) — real Android footage with explanatory captions, click indicators and paced holds.
-- [Video story and provenance](../demo/VIDEO-SCRIPT.md) — exact narrative, business model and proof boundary.
-- [`tools/build_pitch_deck.js`](../../tools/build_pitch_deck.js) — reproducible PptxGenJS source.
-- [`tools/compose_guided_customer_story.py`](../../tools/compose_guided_customer_story.py) — reproducible customer-story video composition.
+- [PowerPoint](Atlas-OT-Scout-Pitch-and-Demo.pptx) — editable prospect deck.
+- [PDF](Atlas-OT-Scout-Pitch-and-Demo.pdf) — portable export.
+- [Guided customer-story video](../demo/atlas-ot-scout-emulator-demo.mp4) — application footage with explanatory composition.
+- [Video provenance](../demo/VIDEO-SCRIPT.md) — how the video is produced and what the footage proves.
+- [`tools/build_pitch_deck.js`](../../tools/build_pitch_deck.js) — reproducible deck source.
+- [`tools/compose_guided_customer_story.py`](../../tools/compose_guided_customer_story.py) — reproducible video composition.
 
 ## Claim boundary
 
-All application footage and screenshots come from Android CI/emulation. The active identity journey uses the signed Case App to Network Broker path against the controlled PyModbus target. The deck and video do not claim physical hardware, production-network or release qualification; the free pilot exists to test those field questions with the customer.
+Presentation assets may summarize the product, but mutable technical claims must match [IMPLEMENTATION.md](../../IMPLEMENTATION.md), and planned capability must not be presented as executed. Emulator/CI footage is identified as such; physical appliance qualification is evidenced separately by the appliance/testing records.

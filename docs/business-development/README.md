@@ -1,30 +1,17 @@
-# Business development: Morocco market guide
+# Business development — Morocco
 
-_Reviewed: 1 September 2026._
+This section separates commercial research from strategy, account data, outreach execution and offer terms. Use the authority below rather than copying market facts or commercial terms between files.
 
-This section is an evidence-based guide for marketing Atlas OT Scout in Morocco. It explains the market context, the problems that motivate prospects, the organisations and professional roles most relevant to the product, the public channels available for reaching them, the commercial evaluation model and the diligence conclusions that constrain commercial claims.
+| Document | Authority |
+|---|---|
+| [Commercial diligence summary](DILIGENCE-SUMMARY.md) | What the evidence establishes, what it implies, competitive/economic reality, risks and unknowns |
+| [Morocco market guide](MOROCCO-MARKET-GUIDE.md) | Where to focus, which situations to enter and how to position Atlas in Morocco |
+| [Prospect directory](PROSPECT-DIRECTORY.md) | Named organizations, public project signals and public contact routes |
+| [Marketing playbook](MARKETING-PLAYBOOK.md) | Roles, messages, channels, content and campaign execution |
+| [Evaluation and services offer](OFFER.md) | Canonical evaluation duration, adoption choices, device setup and consulting terms |
 
-Atlas OT Scout is positioned as a portable, offline and evidence-oriented OT assessment appliance for water, wastewater and related industrial infrastructure. The entry offer is a **free 30-day device evaluation**, extendable once to a maximum of **60 days**.
+Atlas should be presented commercially as a bounded OT evidence/reconciliation instrument, not as a generic scanner or substitute for a qualified audit, SCADA/GIS/CMMS platform or engineering integrator. The evidence basis and limits for that positioning are maintained in the diligence summary.
 
-## Guide
-
-- [Commercial diligence summary](DILIGENCE-SUMMARY.md) — essential evidence, business interpretation, product priorities, competitive implications, risks and commercial unknowns
-- [Morocco market guide](MOROCCO-MARKET-GUIDE.md) — market context, demand drivers, segmentation and positioning
-- [Prospect directory](PROSPECT-DIRECTORY.md) — relevant organisations, public projects, media signals, social profiles and published contact routes
-- [Marketing playbook](MARKETING-PLAYBOOK.md) — prospect roles, messages, channels, content and campaign design
-- [Evaluation and services offer](OFFER.md) — 30–60 day evaluation, adoption choices, device setup and consulting
-
-## Market proposition
-
-Moroccan water organisations are investing in regional consolidation, drought resilience, desalination, wastewater reuse, telemanagement, GIS and infrastructure renewal. Atlas should be marketed around four outcomes:
-
-1. establish a clearer evidence-linked baseline for one bounded operational area;
-2. reduce ambiguity during commissioning, handover, maintenance or inventory reconciliation;
-3. evaluate a portable offline approach without committing to a large platform or proprietary licence;
-4. obtain practical OT networking and security assistance when specialist support is needed.
-
-Atlas is not positioned as a replacement for SCADA, GIS, CMMS, SIEM or an engineering integrator. It is a portable assessment layer that helps technical teams compare expected records with approved evidence and identify what is corroborated, conflicting or unresolved.
-
-Commercial positioning and product priorities should remain consistent with the conclusions and evidence boundaries in the [commercial diligence summary](DILIGENCE-SUMMARY.md).
+Product capability claims must link to [IMPLEMENTATION.md](../../IMPLEMENTATION.md); planned capability must link to [ROADMAP.md](../../ROADMAP.md). Commercial documents do not maintain their own implementation-status lists.
 
 Return to the [documentation index](../README.md).

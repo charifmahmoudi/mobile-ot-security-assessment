@@ -1,13 +1,13 @@
 # Testing and verification evidence
 
-This section explains what CI proves, what evidence is retained, and what remains a physical or release qualification gate.
+This section records **what a test environment proves and what evidence it retains**. It does not define product behavior: current capability belongs in [IMPLEMENTATION.md](../../IMPLEMENTATION.md), target requirements in [P0-WATER](../poc/WATER-WASTEWATER-POC.md), and exact architecture in [Architecture](../architecture/README.md).
 
 | Document | Purpose |
 |---|---|
-| [End-to-end acceptance architecture](E2E-ACCEPTANCE.md) | CI topology, active and passive sequences, acceptance matrix, and physical limits |
-| [Research testbeds](RESEARCH-TESTBEDS.md) | Emulator and protocol testbed provenance, versions, and expected behavior |
-| [Emulator screenshot provenance](EMULATOR-SCREENSHOTS.md) | Screenshot source, represented journeys, and reproduction path |
+| [End-to-end test architecture](E2E-ACCEPTANCE.md) | CI topology, exercised journeys, retained evidence and proof limits |
+| [Research testbeds](RESEARCH-TESTBEDS.md) | Protocol/emulator testbed provenance, versions and expected fixture behavior |
+| [Emulator screenshot provenance](EMULATOR-SCREENSHOTS.md) | Historical screenshot sources and reproduction paths |
 
-The executable source of truth is [.github/workflows/android-ci.yml](../../.github/workflows/android-ci.yml). A green workflow proves the software paths described here; it does not qualify the final appliance or a production OT network.
+The executable CI source is [.github/workflows/android-ci.yml](../../.github/workflows/android-ci.yml). Pin a specific workflow run only when documenting provenance for an artifact produced by that run.
 
 Return to the [documentation index](../README.md).

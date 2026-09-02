@@ -1,10 +1,10 @@
 # Appliance integration
 
-This section separates the executable software boundary from the physical appliance evidence still required before field support can be claimed.
+This section owns platform selection and measured physical compatibility evidence. The passive security/privilege architecture itself is maintained in [Dedicated Android passive-capture appliance](../architecture/DEDICATED-ANDROID-APPLIANCE.md).
 
-- [Rooted Android proof of concept](ROOTED-ANDROID-POC.md) — privileged capture architecture, deployment boundary, and proof-of-concept constraints.
-- [Compatibility matrix](COMPATIBILITY-MATRIX.md) — device, USB host, NIC, TAP, kernel, and qualification evidence.
+- [Rooted Android PoC platform](ROOTED-ANDROID-POC.md) — laboratory LineageOS/emulator/Samsung selection, build path and platform-specific risks.
+- [Compatibility matrix](COMPATIBILITY-MATRIX.md) — measured device, USB host, NIC, TAP, kernel/build and qualification evidence.
 
-The canonical current-versus-deferred status remains [IMPLEMENTATION.md](../../IMPLEMENTATION.md). Hardware work is not complete until the exact device and accessory combination has measured evidence.
+Current executable coverage remains [IMPLEMENTATION.md](../../IMPLEMENTATION.md); hardware milestone status remains [ROADMAP.md](../../ROADMAP.md).
 
 Return to the [documentation index](../README.md).

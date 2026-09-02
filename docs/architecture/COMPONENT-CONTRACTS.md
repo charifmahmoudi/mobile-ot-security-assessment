@@ -1,294 +1,100 @@
-# Component Contracts and Code Architecture
+# Component contracts
 
-_Status: normative implementation decomposition for P0-WATER._
+_Status: component responsibility and coupling rules. Current executable behavior is reported in [IMPLEMENTATION.md](../../IMPLEMENTATION.md)._
 
-## 1. Repository layout
+This document owns **which code boundary is responsible for what and which coupling is forbidden**. Packet semantics belong in [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md); deployment/privilege topology belongs in [SYSTEM-AND-DEPLOYMENT.md](SYSTEM-AND-DEPLOYMENT.md); evidence entities belong in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md).
 
-```text
-android/
-  settings.gradle.kts
-  build-logic/
-  case-app/
-  network-broker/
-  core-domain/
-  core-application/
-  adapter-sqlcipher/
-  adapter-artifact-vault/
-  adapter-parser-ipc/
-  adapter-broker-ipc/
-  adapter-pack/
-  adapter-report/
-  feature-case/
-  feature-walkdown/
-  feature-collection/
-  feature-reconciliation/
-  feature-findings/
-  feature-report/
-native/
-  parser-core/
-  parser-ffi/
-proto/
-  parser.proto
-  broker.proto
-  evidence.proto
-packs/
-  water/
-  query/
-schemas/
-tools/
-  atlas-verify/
-testdata/
-  pcapng/
-  inventories/
-  golden/
-```
+## Repository component map
 
-Build dependencies point inward:
+| Path/component | Responsibility | Must not become |
+|---|---|---|
+| `core-domain/` | Pure grant/scope/domain policy and deterministic business rules | Android/network/storage adapter layer |
+| `case-app/` | Site/workflow UI, evidence import/review, working inventory and orchestration | Generic raw-network client or root shell |
+| `network-broker/` | Verify active grant and execute compiled active operation through selected Android `Network` | Generic scanner, arbitrary payload/socket service, customer case store |
+| `capture-broker/` | Expose bounded passive interface/start/stop Binder boundary and FD stream | Active network client, shell command surface, arbitrary file service |
+| `appliance/capture-daemon/` | Native raw Ethernet receive backend for dedicated appliance integration | General network utility or packet transmitter |
+| isolated parser service | Decode untrusted evidence into bounded observations | Network/database/key owner |
+| documentation/test tools | Verify architecture, docs, daemon and workflows | Runtime product authority |
 
-```mermaid
-flowchart TD
-  FEATURES["Feature modules"] --> APP["core-application"]
-  APP --> DOMAIN["core-domain"]
-  ADAPTERS["Storage / IPC / report adapters"] --> APP
-  CASEAPK["case-app composition root"] --> FEATURES
-  CASEAPK --> ADAPTERS
-  BROKERAPK["network-broker composition root"] --> BROKERCORE["compiled broker core"]
-  PARSER["Rust parser"] --> PROTO["versioned protobuf contracts"]
-  ADAPTERS --> PROTO
-  BROKERCORE --> PROTO
-```
+Dependencies should point toward narrow domain/contracts. UI and adapters may depend on domain policy; domain policy must not depend on Android UI, broker service classes or capture implementation.
 
-`core-domain` is Kotlin/JVM-only and has no Android, SQL, JSON, JNI, Compose or network dependencies.
+## Case App → Network Broker contract
 
-## 2. Application ports
-
-### Case lifecycle
-
-```kotlin
-interface CaseRepository {
-    suspend fun create(command: CreateCase): CaseId
-    suspend fun get(id: CaseId): CaseAggregate
-    suspend fun transact(id: CaseId, expectedVersion: Long, command: CaseCommand): CaseAggregate
-    fun observe(id: CaseId): Flow<CaseAggregate>
-}
-
-interface AuthorizationService {
-    suspend fun validate(case: CaseAggregate, now: Instant): AuthorizationDecision
-    suspend fun authorize(caseId: CaseId, approvals: Set<Approval>): AuthorizedCase
-    suspend fun expireDueCases(now: Instant): List<CaseId>
-}
-```
-
-All commands carry `actorId`, `actorRole`, `occurredAt` and a unique command ID. Repository transactions use optimistic aggregate versioning; command IDs make retries idempotent.
-
-### Artifact vault
-
-```kotlin
-interface ArtifactVault {
-    suspend fun begin(caseId: CaseId, descriptor: ArtifactDescriptor): ArtifactWriter
-    suspend fun seal(handle: ArtifactWriter): SealedArtifact
-    suspend fun openReadOnly(caseId: CaseId, hash: Sha256): ParcelFileDescriptor
-    suspend fun verify(caseId: CaseId, hash: Sha256): IntegrityResult
-    suspend fun destroyCaseKey(caseId: CaseId, approval: DeletionApproval)
-}
-```
-
-`ArtifactWriter` is append-only, enforces declared maximum size and cannot read. `seal` fsyncs, hashes, atomically renames and records one DB transaction. A hash collision with unequal length is a fatal integrity event.
-
-### Parser
-
-```kotlin
-interface EvidenceParser {
-    fun parse(request: ParseRequest): Flow<ParseBatch>
-}
-
-data class ParseRequest(
-    val artifact: ArtifactRef,
-    val expectedSha256: Sha256,
-    val linkType: LinkType?,
-    val parserPack: PackRef,
-    val limits: ParserLimits
-)
-```
-
-`ParseBatch` carries batch number, observations, warnings, metrics and rolling output hash. The final batch carries input hash and final output hash. The adapter rejects out-of-order batches, duplicate IDs and totals beyond the request limits.
-
-### Asset resolution
-
-```kotlin
-interface AssetResolver {
-    suspend fun propose(caseId: CaseId, policy: ResolutionPolicy): ResolutionSet
-    suspend fun accept(caseId: CaseId, proposalId: ProposalId, reviewer: Actor): AssetRevision
-    suspend fun reject(caseId: CaseId, proposalId: ProposalId, reason: String, reviewer: Actor)
-    suspend fun split(caseId: CaseId, assetId: AssetId, endpointIds: Set<EndpointId>, reviewer: Actor): List<AssetRevision>
-}
-```
-
-Proposal computation is pure and deterministic for `caseSnapshotHash + policyHash`. Only reviewer commands alter accepted asset groupings.
-
-### Rules and findings
-
-```kotlin
-interface AssessmentEngine {
-    suspend fun evaluate(snapshot: CaseSnapshot, pack: RulePack): EvaluationResult
-}
-
-interface FindingReviewService {
-    suspend fun decide(findingId: FindingId, decision: FindingDecision, reviewer: Actor): FindingRevision
-    suspend fun setTreatment(findingId: FindingId, owner: String?, due: LocalDate?, action: String, reviewer: Actor)
-}
-```
-
-A rule cannot mutate assets or observations. It emits a candidate finding with explicit evidence IDs. Reviewer acceptance creates the reportable finding revision.
-
-### Export
-
-```kotlin
-interface AssessmentExporter {
-    suspend fun prepare(caseId: CaseId): FinalizationPreview
-    suspend fun finalize(caseId: CaseId, reviewerApproval: Approval): FinalizedSnapshot
-    suspend fun export(snapshotId: SnapshotId, policy: ExportPolicy, destination: Uri): ExportReceipt
-}
-```
-
-Finalization freezes the exact database revision, active pack hashes and audit head. Rendering reads only this snapshot.
-
-## 3. IPC contracts
-
-### Case App → Network Broker
-
-AIDL transports only protobuf bytes and `ParcelFileDescriptor` pipes:
+The current AIDL surface is intentionally small:
 
 ```aidl
 interface IAtlasNetworkBroker {
-  byte[] inspectInterfaces(in byte[] signedRequest);
-  byte[] execute(in byte[] signedGrant, in ParcelFileDescriptor writeSide);
-  byte[] capture(in byte[] signedGrant, in ParcelFileDescriptor writeSide);
-  byte[] emergencyStop(in byte[] signedStop);
+    byte[] inspectInterfaces(in byte[] signedRequest);
+    byte[] provisionGrantKey(in byte[] x509GrantPublicKey);
+    byte[] execute(in byte[] grantEnvelope, in ParcelFileDescriptor evidenceSink);
+    byte[] emergencyStop(in byte[] signedStop);
 }
 ```
 
-Constraints:
+Contract rules:
 
-- explicit package/component binding;
-- signature-protected service;
-- Binder caller UID and certificate check;
-- protobuf maximum 64 KiB;
-- no Bundle, Serializable, URI, path or Intent supplied by caller;
-- result pipe maximum enforced by grant;
-- caller closes unread pipe on cancellation, which the broker treats as stop.
+- no method accepts arbitrary packet bytes, command strings, port ranges, URLs or generic sockets;
+- `execute` receives one signed grant envelope and a caller-provided evidence pipe;
+- the broker owns grant verification and policy enforcement before socket creation;
+- the broker returns evidence/result bytes, not direct database mutations;
+- active operation semantics are defined only in [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md).
 
-### Case App → Parser Worker
+## Case App → Capture Broker contract
 
 ```aidl
-interface IAtlasParser {
-  void parse(in byte[] request, in ParcelFileDescriptor artifact, in ParcelFileDescriptor resultPipe);
-  void cancel(in String requestId);
+interface IAtlasCaptureBroker {
+    byte[] inspectInterfaces();
+    byte[] startPassiveCapture(String interfaceId, long maxBytes, long durationMs,
+                               in ParcelFileDescriptor sink);
+    void stopCapture();
 }
 ```
 
-The isolated parser gets a read-only descriptor positioned at byte 0. The result pipe is length-delimited protobuf; main app caps batch and total size. Binder death yields `PARSER_PROCESS_DIED`.
+Contract rules:
 
-## 4. Parser pipeline
+- `interfaceId` must resolve to a compiled/allowlisted passive interface;
+- byte/time limits are validated by the broker/backend;
+- output is returned by file descriptor;
+- no arbitrary output path, BPF string, shell command or packet-send operation is exposed;
+- production integration of the native daemon must preserve the same application-facing contract.
 
-```mermaid
-flowchart TD
-  FRAME["PCAPNG block/frame"] --> L2["Ethernet / VLAN"]
-  L2 --> L3["ARP / IPv4 / IPv6"]
-  L3 --> L4["ICMP / TCP / UDP"]
-  L4 --> FLOW["Bounded flow table"]
-  FLOW --> OT["Modbus / OPC UA metadata"]
-  OT --> NORMAL["Normalized observation"]
-  NORMAL --> BATCH["Length-delimited protobuf batch"]
-```
+## Domain grant policy
 
-Each stage returns `Parsed`, `Unsupported`, `Malformed` or `LimitExceeded`; there is no exception-based control flow across JNI.
+`core-domain` owns deterministic validation of the signed active grant data: lifetime, replay nonce, operation enum, exact target/port/unit, CIDR scope/exclusion and resource ceilings. Cryptographic/network execution mechanics are outside the domain layer and are specified by [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md).
 
-Rust crate boundaries:
+Domain tests must be runnable without Android networking.
 
-- `atlas-bytes`: checked cursors and bounded strings;
-- `atlas-pcapng`: section/interface/enhanced-packet blocks;
-- `atlas-net`: L2–L4;
-- `atlas-flow`: bounded TCP reassembly;
-- `atlas-modbus`;
-- `atlas-opcua-discovery`;
-- `atlas-observation`: protobuf mapping;
-- `atlas-parser-cli`: host fuzz/test harness;
-- `atlas-parser-ffi`: minimal JNI.
+## Parser boundary
 
-No parser uses unsafe Rust except reviewed FFI glue. Any `unsafe` requires a local safety comment and dedicated test.
+Untrusted capture bytes cross into an isolated parser through file-descriptor/typed-result boundaries. The parser must not:
 
-## 5. Domain aggregates
+- receive Android network authority;
+- open the customer case database directly;
+- change accepted inventory/findings;
+- convert malformed evidence into partial accepted state.
 
-| Aggregate | Consistency boundary | Invariants |
-|---|---|---|
-| Case | state, scope, authorization, active window | no collection before authorization; finalized immutable |
-| Artifact | content and provenance | write once; hash/length fixed after seal |
-| Asset | accepted endpoint/claim grouping | every accepted relation reviewed or deterministic strong-key rule |
-| Execution | one network action | one grant, target, profile, receipt and evidence stream |
-| Finding | condition, evidence, risk, decision | accepted finding has evidence, reviewer and recommendation |
-| PackActivation | trusted active pack | valid signature, compatible schema/build and no rollback |
-| FinalizedSnapshot | report input | exact DB revision, pack hashes and audit head |
+Parser output is an observation input to the evidence/review model; it is not an accepted asset or finding.
 
-## 6. Command/event model
+## Evidence mutation boundary
 
-Mutating use cases append an audit event in the same database transaction as state change.
+The Case App/application layer is responsible for explicit review commands that change the working semantic model. Key rule:
 
 ```text
-Command -> validate aggregate version/invariants
-        -> write domain rows
-        -> append canonical audit event
-        -> update case aggregate version
-        -> commit
-        -> publish in-process notification
+raw artifact -> parsed observation -> proposed claim/match -> analyst decision -> accepted model
 ```
 
-Notifications are hints, not durable truth. On restart, workers query durable job state.
+No broker or parser directly creates an accepted asset/finding. Exact evidence lineage is defined in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md).
 
-## 7. Background work
+## Background/restart rule
 
-| Work | Mechanism | Restart behavior |
-|---|---|---|
-| Small DB/import operations | Coroutine in application scope | transaction rollback/retry |
-| Long offline parse | persistent job row + bound isolated service | restart from artifact; observations staged by job ID |
-| Report render | WorkManager with finalized snapshot ID | safe retry |
-| H1/H2 network | Network Broker foreground service | never auto-resume |
-| Retention deletion | WorkManager, charging preference | idempotent key deletion/file cleanup |
+Network activity never auto-resumes solely because a process restarts. A resumed workflow re-establishes the case/authorization/interface conditions required by the product contract.
 
-Parsing uses staging tables. Only a complete final batch with matching output hash is promoted atomically into canonical observations.
+Offline parsing/rendering jobs may be retryable when they operate from sealed immutable inputs and deterministic state.
 
-## 8. Error taxonomy
+## Error/logging rule
 
-```kotlin
-sealed interface AtlasError {
-    data class Authorization(val code: AuthCode): AtlasError
-    data class Scope(val code: ScopeCode, val field: String): AtlasError
-    data class Interface(val code: InterfaceCode): AtlasError
-    data class Broker(val code: BrokerCode, val receiptId: String?): AtlasError
-    data class Evidence(val code: EvidenceCode, val artifact: Sha256?): AtlasError
-    data class Parse(val code: ParseCode, val offset: Long?): AtlasError
-    data class Storage(val code: StorageCode, val recoverable: Boolean): AtlasError
-    data class Integrity(val code: IntegrityCode): AtlasError
-    data class Export(val code: ExportCode): AtlasError
-}
-```
+Cross-boundary failures must return bounded typed/status information suitable for safe user action. Logs and broker errors must avoid unnecessary customer payloads, credentials or full sensitive paths.
 
-User-visible errors include safe next action and whether evidence was sealed. Logs contain IDs and codes, never packet payload, credentials, serial numbers or full customer paths.
+## Determinism rule
 
-## 9. Determinism
-
-Normative outputs are deterministic for:
-
-```text
-finalized DB snapshot
-+ artifact hashes
-+ parser/rule/knowledge pack hashes
-+ application build
-+ export policy
-```
-
-Canonical JSON uses UTF-8, lexicographically ordered object keys, normalized numbers, explicit UTC timestamps and stable array sort rules. PDF is not used for hash comparison; HTML/JSON are normative.
-
-## 10. Testing seams
-
-Every port has an in-memory fake. The Case App instrumentation tests use a fake Network Broker incapable of sockets. Real broker tests run only in the isolated lab. Parser host CLI and Android isolated service must produce identical observation hashes for the golden corpus.
+Any final assessment result must be reproducible from the finalized evidence/model inputs and identified product/content versions. Report determinism and finalization belong in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md), not duplicated here.

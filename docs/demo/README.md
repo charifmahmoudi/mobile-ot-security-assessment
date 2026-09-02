@@ -1,12 +1,12 @@
 # Guided customer-story demo
 
-This section contains the prospect-facing application story and the evidence needed to reproduce it.
+This section contains the generated prospect-facing application story and its reproduction/provenance record.
 
-- [Guided customer-story video](atlas-ot-scout-emulator-demo.mp4) — paced Android emulator footage with explanatory text and click indicators.
-- [Video script and provenance](VIDEO-SCRIPT.md) — customer problem, desired state, guided workflow, commercial model, source capture, and proof boundary.
-- [Prospect deck](../pitch/README.md) — the same story in PowerPoint and PDF form.
-- [Presenter script](../product/DEMO-SCRIPT.md) — a live, operator-led product walkthrough rather than the composed video.
+- [Guided customer-story video](atlas-ot-scout-emulator-demo.mp4) — composed application footage with explanatory text and click indicators.
+- [Video provenance](VIDEO-SCRIPT.md) — narrative represented, composition/reproduction path and proof boundary.
+- [Prospect deck](../pitch/README.md) — the same customer story in presentation form.
+- [Presenter script](../product/DEMO-SCRIPT.md) — live operator-led walkthrough.
 
-The video demonstrates CI/emulator behavior. It does not qualify a physical appliance, SPAN/TAP deployment, real PLC, or production network.
+The demo is presentation evidence, not a source of current capability status or commercial terms. Use [IMPLEMENTATION.md](../../IMPLEMENTATION.md) for current execution and [OFFER.md](../business-development/OFFER.md) for the evaluation/service offer.
 
 Return to the [documentation index](../README.md).

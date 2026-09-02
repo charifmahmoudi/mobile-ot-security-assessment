@@ -1,95 +1,53 @@
 # Atlas OT Scout
 
-**A guided, offline assessment appliance for authorized OT asset assessment in water and wastewater environments.**
+**A guided, offline OT evidence and assessment appliance for authorized water and wastewater work.**
 
 [![Android safety CI](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml)
 [![Documentation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml)
 
-Atlas guides an authorized assessor from an uncertain asset picture to a defensible operating baseline. The workflow establishes scope, collects the least intrusive useful evidence, requires review before inventory changes, reconciles expected and observed assets, permits one exact identity check only when authorized, and preserves limitations at handoff.
+Atlas helps an authorized assessor turn incomplete inventories and bounded field evidence into a reviewed operating baseline. It is designed around one question: **is the available evidence strong enough to support an inventory, risk, remediation or handover decision for this exact process area?**
 
-The first product pack is **P0-WATER**, limited to one drinking-water or wastewater control segment. It is not a general-purpose scanner, exploitation framework, certification audit or continuous-monitoring platform.
+The first product pack is **P0-WATER**, for one bounded drinking-water or wastewater control segment. Atlas is not a general-purpose scanner, exploitation framework, certification service or continuous-monitoring platform.
 
-> **Status:** executable research prototype. The guided Android workflow, passive PCAP/PCAPNG analysis, emulated receive-only capture path and one-target Modbus/TCP identity operation are exercised in CI. Physical appliance qualification, USB-Ethernet and SPAN/TAP validation, encrypted production storage, reviewer signatures, deterministic final export and production release qualification remain open gates.
+This repository is a research prototype. The authoritative current capability matrix is [IMPLEMENTATION.md](IMPLEMENTATION.md); planned work and release gates are in [ROADMAP.md](ROADMAP.md). Do not infer implementation status from design, user, demo or commercial documents.
 
-## Navigate
+## How Atlas approaches an assessment
+
+1. Establish the authorized site, process boundary and decision.
+2. Use the least intrusive useful evidence source.
+3. Preserve source provenance and visibility limitations.
+4. Review observations before they change the accepted inventory.
+5. Keep conflicts and unknowns visible instead of converting them into certainty.
+6. Hand off a reviewed evidence model and explicit next actions.
+
+The normative assessment contract is [P0-WATER](docs/poc/WATER-WASTEWATER-POC.md), and the assessment method is [ASSESSMENT-METHOD.md](docs/poc/ASSESSMENT-METHOD.md).
+
+## Documentation routes
 
 | Need | Authoritative route |
 |---|---|
-| Navigate the complete documentation | [Documentation index](docs/README.md) |
-| See what executes today | [Implementation status](IMPLEMENTATION.md) |
-| Understand the first product pack | [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md) |
-| Operate or demonstrate the application | [User guide](docs/user-guide/README.md) |
-| Review architecture and safety boundaries | [Architecture index](docs/architecture/README.md) |
-| Review verification evidence | [Testing index](docs/testing/README.md) |
-| Present the commercial offer | [Prospect pitch](docs/pitch/README.md) and [guided demo](docs/demo/README.md) |
-| Research Moroccan customers and stakeholders | [Business development](docs/business-development/README.md) |
+| What executes today | [Implementation](IMPLEMENTATION.md) |
+| What is planned | [Roadmap](ROADMAP.md) |
+| Product requirements | [Requirements](docs/REQUIREMENTS.md) |
+| P0-WATER product contract | [P0 specification](docs/poc/WATER-WASTEWATER-POC.md) |
+| Assessment procedure and evidence rules | [Assessment method](docs/poc/ASSESSMENT-METHOD.md) |
+| Deployment and trust boundaries | [System architecture](docs/architecture/SYSTEM-AND-DEPLOYMENT.md) |
+| Exact active/passive network behavior | [Network execution](docs/architecture/NETWORK-EXECUTION.md) |
+| Evidence and report data model | [Evidence model](docs/architecture/EVIDENCE-DATA-MODEL.md) |
+| Threats and controls | [Security model](docs/architecture/SECURITY-AND-THREAT-MODEL.md) |
+| Operate the current application | [User guide](docs/user-guide/README.md) |
+| Verification evidence | [Testing](docs/testing/README.md) |
+| Morocco commercial research and execution | [Business development](docs/business-development/README.md) |
+| Prospect presentation | [Pitch](docs/pitch/README.md) and [guided demo](docs/demo/README.md) |
+| Complete documentation map | [Documentation index](docs/README.md) |
 
-## Customer decision supported
+## Product principles
 
-Atlas is designed to answer one field question: **is the available evidence strong enough to support an inventory, risk, remediation or handover decision for this exact process area?**
-
-| Starting condition | Guided action | Customer outcome |
-|---|---|---|
-| The spreadsheet inventory may be stale | Compare imported records with passive and approved identity evidence | A baseline with corroborated, missing, unexpected and conflicting assets |
-| The phone cannot observe a switched segment | Explain approved capture options and use a receive-only SPAN/TAP path | Useful visibility without broad discovery |
-| One controller remains unidentified | Authorize one exact Modbus device-identification request | A specific uncertainty is resolved without widening scope |
-| Evidence is incomplete | Preserve gaps, approvals and reviewer blockers | A defensible next-action list instead of a false final report |
-
-## Commercial model
-
-Atlas is offered as a try-before-you-buy appliance:
-
-1. Atlas and the customer agree one bounded segment and decision.
-2. Atlas delivers and configures the device, then guides the first assessment.
-3. The appliance remains with the customer for a free pilot.
-4. The customer acquires it if useful; Atlas retrieves it if not.
-5. Consulting and support remain optional.
-
-## Executable baseline
-
-| Capability | Current behavior | Evidence route |
-|---|---|---|
-| Guided case workflow | Onboarding followed by Overview, Collect, Assets, Findings and Report stages | [Testing index](docs/testing/README.md) |
-| Passive analysis | Bounded PCAP/PCAPNG import, hashing, parsing, review and reconciliation | [Implementation status](IMPLEMENTATION.md) |
-| Receive-only capture boundary | Signature-protected broker streams bounded native `AF_PACKET` capture over a file descriptor | [Architecture](docs/architecture/README.md) |
-| Active identity | One signed, short-lived, non-replayable Modbus FC 43 / MEI 14 request to one authorized target | [Network execution](docs/architecture/NETWORK-EXECUTION.md) |
-| Evidence reasoning | Provenance, confidence, conflicts, findings and readiness blockers remain visible | [Evidence data model](docs/architecture/EVIDENCE-DATA-MODEL.md) |
-
-Detailed implemented-versus-deferred status is maintained only in [IMPLEMENTATION.md](IMPLEMENTATION.md). Planned work belongs in [ROADMAP.md](ROADMAP.md).
-
-## Safety boundary
-
-- The Case App does not request Android `INTERNET` permission.
-- Network access is isolated in a signature-protected broker with compiled, bounded operations.
-- Active execution requires a signed one-use grant containing the exact target, scope, interface, expiry and resource ceilings.
-- Untrusted capture parsing runs in an isolated process.
-- Passive capture is receive-only and bound to an allowlisted interface.
-- Observations do not become accepted assets or findings without analyst review.
-- Writes, control actions, exploitation, fuzzing, credential attacks and broad discovery are outside P0.
-
-See the [architecture index](docs/architecture/README.md), [security and threat model](docs/architecture/SECURITY-AND-THREAT-MODEL.md) and [network execution contract](docs/architecture/NETWORK-EXECUTION.md).
-
-## Current limits
-
-The prototype is not yet a professional field release. In particular:
-
-- no qualified physical appliance, USB-Ethernet adapter or TAP combination;
-- no production case vault, reviewer signature or deterministic final report package;
-- no subnet, port, unit-ID, credential or vulnerability sweep;
-- no register read/write or control operation;
-- no production Wi-Fi, BLE or serial collection pack;
-- no claim of complete visibility, exploitability or compliance certification.
-
-## Prospect assets
-
-| Asset | Purpose |
-|---|---|
-| [Guided customer-story video](docs/demo/atlas-ot-scout-emulator-demo.mp4) | Android emulator footage with explanatory captions and the commercial model |
-| [Editable prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx) | Current-state → guided-action → desired-state narrative |
-| [PDF prospect deck](docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf) | Portable presentation export |
-| [Video story and provenance](docs/demo/VIDEO-SCRIPT.md) | Reproducible composition, storyline and proof boundary |
-
-These assets describe emulator and CI evidence accurately; they do not claim physical-hardware or production-network qualification.
+- **Authorization before transmission.** Active network behavior is constrained by the network-execution contract.
+- **Passive first.** Imported or mirrored evidence is preferred when it can answer the question.
+- **Evidence before inventory mutation.** Raw observations remain separate until reviewed.
+- **Offline by design.** The assessment workflow does not depend on a cloud service.
+- **Explicit limitations.** Visibility, confidence and unresolved evidence remain part of the result.
 
 ## Build and verify
 
@@ -109,12 +67,10 @@ gradle --no-daemon \
   lintDebug assembleDebug
 ```
 
-Device and emulator acceptance paths are defined in [.github/workflows/android-ci.yml](.github/workflows/android-ci.yml).
+Device and emulator acceptance paths are defined by [.github/workflows/android-ci.yml](.github/workflows/android-ci.yml).
 
 ## Repository policy
 
-- [Requirements baseline](docs/REQUIREMENTS.md)
-- [Roadmap](ROADMAP.md)
 - [Contributing](CONTRIBUTING.md)
 - [Governance](GOVERNANCE.md)
 - [Security policy](SECURITY.md)

@@ -1,197 +1,157 @@
 # Atlas OT Scout — guided user manual
 
-Atlas OT Scout is a site-centered OT discovery PoC. The working journey is:
+This manual explains **how to operate the current application workflow**. It does not maintain an independent capability/status matrix. Before field or demo use, check [IMPLEMENTATION.md](../../IMPLEMENTATION.md) for what executes and [E2E-ACCEPTANCE.md](../testing/E2E-ACCEPTANCE.md) for what the test environment proves.
+
+The working journey is:
 
 **Prepare → Collect → Review → Reason → Report.**
 
-This manual covers the implemented passive PCAP/PCAPNG analysis and the explicitly authorized, single-target Modbus/TCP identity check. It does not describe an unrestricted scanner or a complete certification audit.
+Normative assessment rules are in [ASSESSMENT-METHOD.md](../poc/ASSESSMENT-METHOD.md); exact active/passive packet behavior is in [NETWORK-EXECUTION.md](../architecture/NETWORK-EXECUTION.md).
 
-Every screenshot below is an unmodified Android 15 emulator output from green [CI run #36](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/runs/33350379673) at commit [`bd1860e`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/commit/bd1860e9601b2433b41bf9ef42c9e09577c1aef0). That run also passed Android 10, PyModbus, Modbus-TK, Conpot, passive research captures and the native AF_PACKET zero-transmission gate.
-
-## 1. Start in the correct site
+## 1. Select the correct site
 
 ![Choose an existing site or create a new one](screenshots/01-site-selection-api35.png)
 
-The first screen establishes the operating context before any evidence is collected.
+Choose the authorized operating context before collecting evidence. The included North Water Treatment Plant is sample/demo data and must not be treated as field evidence.
 
-- Tap an existing site to continue its assessment.
-- Tap **Create a new site** when the location is not listed.
-- The included North Water Treatment Plant is clearly marked **SAMPLE**. It is demonstration data, not field evidence.
+Evidence assigned to the wrong site or process area can produce a misleading working inventory.
 
-Confirm the site and process area before continuing. Evidence assigned to the wrong site can produce a misleading inventory.
-
-## 2. Create a site in three short steps
+## 2. Create a site workspace
 
 | Site and industry | Technology context | Review and create |
 |---|---|---|
 | ![New-site identity step](screenshots/02-new-site-api35.png) | ![New-site vendor step](screenshots/02b-new-site-vendors-api35.png) | ![New-site review step](screenshots/02c-new-site-review-api35.png) |
 
-The progress indicator separates required scope from optional context:
+1. **Site:** enter the site name and authorized location/process area.
+2. **Technology context:** select vendors only when prior drawings/contracts/inventory justify them, or explicitly skip.
+3. **Review:** verify context, language and local workspace settings before creation.
 
-1. **Site:** enter the site name, authorized location/process area and industry, then tap **Continue to technology context**.
-2. **Technology:** select vendors supported by prior drawings, contracts or inventory. Select several, or explicitly tap **Skip vendor context**.
-3. **Review:** verify the operating-context summary, choose French, Arabic or English, set local retention, then tap **Create site workspace**.
+Vendor context is prior knowledge, not discovery. It becomes an accepted asset fact only after evidence/review.
 
-Back returns to the previous step without discarding the draft. No network operation occurs during setup.
-
-Vendor selections are context and filtering hints—not claims that equipment has been discovered. A vendor becomes an asset fact only when supported by evidence and analyst review.
-
-PoC note: site and inventory state is persisted locally using application preferences. Encrypted professional case storage, access control and export are later milestones.
-
-## 3. Read the site dashboard
+## 3. Use the site dashboard
 
 ![Site assessment dashboard](screenshots/03-site-dashboard-api35.png)
 
-Use the dashboard as the assessment home. The stage rail shows where you are, while the bottom navigation provides stable access to all five work areas.
-
-- **Assessment outcome so far** separates known assets, protocols and open decisions.
-- **Do this next** presents one context-aware action instead of a generic scan button.
-- **Evidence coverage** summarizes protocol, vendor and review coverage without overstating completeness.
-- **Deliverable in progress** shows what the assessment package will contain and why the next action matters.
-
-Tap **Open asset inventory** when you need to investigate the current model. Tap **Collect evidence** when you know what evidence gap you intend to close.
-
-Inside a site, the bottom navigation is persistent:
+The five work areas are:
 
 | Destination | Use it for |
 |---|---|
-| **Overview** | Progress, coverage and the recommended next action |
-| **Collect** | Passive, imported and explicitly authorized active evidence |
-| **Assets** | Observation review, inventory filtering and the process-zone model |
-| **Findings** | Evidence-linked draft conditions and required validation |
-| **Report** | Readiness gates and draft report preview |
+| Overview | Assessment state, evidence coverage and next decision |
+| Collect | Choose the evidence method that matches the question and authorization |
+| Assets | Review observations and the working inventory model |
+| Findings | Review evidence-linked draft conditions |
+| Report | Inspect readiness blockers and handoff state |
 
-## 4. Choose the collection method
+Use the recommended next action as guidance, not as authorization. Authorization and evidence sufficiency still control the method.
+
+## 4. Choose an evidence method
 
 ![Passive and active collection methods](screenshots/04-collection-methods-api35.png)
 
-Choose the method that matches both visibility and authorization.
+Use the least intrusive method that can answer the question.
 
 | Situation | Method | Network effect |
 |---|---|---|
-| An approved PCAP/PCAPNG is available, or the phone cannot observe the switched segment | **Analyze PCAP / PCAPNG** | No packets transmitted |
-| One controller and exact CIDR are explicitly authorized | **Identify one known controller** | One bounded Modbus identity request |
-| Target or scope is unknown | Stop | Obtain authorization or a capture |
+| Approved PCAP/PCAPNG is available | Analyze imported capture | No packet transmission |
+| Approved SPAN/TAP passive path is available on a supported appliance | Observe passive interface | Receive-only capture path |
+| One exact Modbus controller is explicitly authorized | Identify one known controller | One bounded active identity request |
+| Scope, target or visibility is uncertain | Stop | Obtain the missing authorization/evidence |
 
-Wi-Fi and Bluetooth appear under **Planned collection packs** and cannot be mistaken for working capability.
+Whether a live passive or other collection path is currently usable is answered only by [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and the appliance compatibility evidence.
 
-### Use the dedicated rooted capture path
-
-Choose **Observe a SPAN / TAP interface** only when the dedicated appliance image and a receive-only interface are available. Confirm that the app reports the Capture Broker as ready before attaching the approved SPAN/TAP feed.
-
-| Capture broker ready | Passive result from the live stream |
-|---|---|
-| ![Rooted capture broker ready](screenshots/05-live-span-ready-api35.png) | ![Live SPAN result](screenshots/06-live-span-result-api35.png) |
-
-The capture service writes a bounded PCAP through an isolated file-descriptor boundary. It does not expose a packet-send operation. CI compiles the native AF_PACKET daemon, captures injected Ethernet on a virtual SPAN link and traces the daemon to prove that it calls no `send`, `sendto` or `sendmsg` syscall. This validates the software boundary; it does not replace qualification on the selected phone, USB adapter and physical TAP.
-
-## 5. Analyze a passive capture
+## 5. Analyze an imported capture
 
 ### Prepare the evidence
 
-Obtain the original PCAP or PCAPNG, capture start/end time, collection point, operator and authorization to handle the file. A capture may contain sensitive addressing and process communications.
+Record the original capture source, collection point/time, operator where known, authorization/handling context and source file.
 
 ### Import and review
 
-1. Tap **Analyze PCAP / PCAPNG**.
-2. Select the approved file in Android's document picker.
-3. Review the filename, SHA-256 prefix, packet counts, time window and protocol summary.
-4. Review every proposed endpoint, inferred role and confidence.
-5. Select **Accept into site inventory** only for observations supported by the capture and site context.
-6. Tap **Add selected observations**. Unselected records remain outside inventory.
+1. Choose **Analyze PCAP / PCAPNG**.
+2. Select the approved file through Android's document picker.
+3. Review filename/hash, packet/time summary, protocols and visibility context.
+4. Review each proposed endpoint/role/identity and its confidence.
+5. Select only observations you are prepared to accept into the working inventory.
+6. Add the selected observations; leave unresolved records outside accepted inventory until reviewed.
 
 ![Passive Modbus observations awaiting review](screenshots/08-passive-modbus-api35.png)
 
-The screen deliberately says **observed**, **candidate** and **to review**. A capture is a visibility sample: absence from the file is not proof that an asset is absent from the site.
+A capture is a visibility sample. Absence from a capture is not proof that an asset is absent from the process area.
 
-The research corpus also exercises DNP3, IEC 60870-5-104 and BACnet/IP:
+## 6. Use live passive capture only with the approved path
 
-| DNP3 | IEC 60870-5-104 | BACnet/IP |
-|---|---|---|
-| ![DNP3 result](screenshots/08-passive-dnp3-api35.png) | ![IEC-104 result](screenshots/08-passive-iec104-api35.png) | ![BACnet result](screenshots/08-passive-bacnet-api35.png) |
+When the dedicated passive capability is available and qualified for the environment, choose the SPAN/TAP method only after confirming the intended capture source and interface.
 
-Malformed, truncated, oversized or unsupported captures stop safely rather than being partially trusted.
+| Capture boundary | Result review |
+|---|---|
+| ![Capture broker ready](screenshots/05-live-span-ready-api35.png) | ![Live passive result](screenshots/06-live-span-result-api35.png) |
 
-## 6. Identify one authorized Modbus device
+The application-facing passive path is receive-only by contract, but whole-segment visibility still depends on correct SPAN/TAP delivery. An ordinary Ethernet connection does not provide arbitrary switched-network visibility.
 
-Before starting, obtain written authorization, a case reference, process area, one controller IPv4 address, its approved CIDR, Modbus unit ID and approved time window. Do not guess a broader CIDR or sweep targets.
+Do not infer hardware qualification from the existence of this screen; use [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and [COMPATIBILITY-MATRIX.md](../appliance/COMPATIBILITY-MATRIX.md).
+
+## 7. Identify one authorized Modbus device
+
+Before starting, obtain the exact authorization context required by the assessment: one target IPv4 address, approved CIDR/scope, Modbus unit ID and valid operating window.
 
 ![Active authorization and exact scope form](screenshots/05-active-authorization-api35.png)
 
-1. Enter the work-order or case reference and process area.
-2. Enter the exact target IPv4, authorized CIDR and unit ID.
-3. Read the displayed limit: one FC 43 / MEI 14 request on TCP/502, 1.5-second timeout, no register reads or writes.
-4. Compare the values with the written authorization.
-5. Select the authorization checkbox and tap **Authorize and identify device** once.
+1. Enter the case/work reference and process context requested by the UI.
+2. Enter the exact target, approved CIDR and unit ID.
+3. Review the displayed operation boundary.
+4. Compare entered values with the authorization source.
+5. Confirm and execute once.
 
-If the target is outside the entered CIDR, the Case App stops before contacting the Network Broker:
+If the target is outside the entered scope, stop rather than widening the scope to make validation pass.
 
 ![Out-of-scope target blocked locally](screenshots/06-out-of-scope-blocked-api35.png)
 
-Do not enlarge the scope to make validation pass. Correct transcription errors only from the authorization record.
+The initial active operation is the bounded Modbus basic device-identification request defined in [NETWORK-EXECUTION.md](../architecture/NETWORK-EXECUTION.md). The user workflow provides no subnet sweep, port sweep, unit-ID sweep, register read/write or credential operation.
 
 ### Interpret the result
 
-![PyModbus controller identity result](screenshots/09-active-pymodbus-api35.png)
+![Controller identity result](screenshots/09-active-pymodbus-api35.png)
 
-| Result | Meaning | Decision |
-|---|---|---|
-| **Identity confirmed** | Valid vendor, product or revision identity objects were returned | Corroborate, then add the asset |
-| **Service confirmed** | Modbus responded, but reliable device identity was not returned | Record the service only |
-| **Action required** | The request failed safely or the broker rejected it | Record the message; do not broaden scope |
+| Result class | Interpretation |
+|---|---|
+| Identity evidence | Supported device-identification objects were returned; corroborate before accepting the asset identity |
+| Service evidence | A Modbus service response exists but reliable model identity was not established |
+| Rejected/failed action | Preserve the reason and fix authorization/context if appropriate; do not broaden scope |
 
-The modbus-tk emulator demonstrates the conservative service-only case:
-
-![modbus-tk service-only result](screenshots/09-active-modbus-tk-api35.png)
-
-Conpot provides an independent ICS-honeypot implementation and must also remain service-only unless supported identity objects are returned:
-
-![Conpot service-only result](screenshots/09-active-conpot-api35.png)
-
-## 7. Navigate and reason about the asset inventory
+## 8. Review the inventory
 
 ![Searchable and filterable asset inventory](screenshots/07-asset-inventory-api35.png)
 
-The inventory is a working evidence model, not a flat scan result.
+The inventory is a reviewed evidence model, not a scan-result list.
 
-- Search by address, name, vendor, protocol or role.
-- Filter all assets, review items, controllers, HMI/clients, gateways, passive evidence or active evidence.
-- Use the network insight card to see protocol concentration, identified vendors and unresolved observations.
-- Tap an asset to inspect identity, provenance, confidence, supporting evidence and the recommended next decision.
-- Treat **Review** as a queue for analyst work, not a vulnerability label.
+For each relevant record ask:
 
-After adding passive or active evidence, return here to ask: Is this a new asset, corroboration of an existing one, a role conflict, or an observation that needs physical/inventory validation?
+- Is this a new asset candidate, corroboration or a conflict?
+- What source supports each identity attribute?
+- What remains unverified?
+- Is the visibility strong enough for the conclusion?
 
-Tap **Zone map** to group the evidence model into supervisory, control, integration and field functions. This view is intentionally not a raw IP-node graph. Missing traffic is not interpreted as proof that a connection is absent.
+Use the process/zone view as a review aid. Missing communication in the available evidence is not proof that a connection does not exist.
 
-## 8. Review findings and report readiness
+## 9. Review findings and report readiness
 
-Open **Findings** after reviewing the inventory. Draft findings keep confidence separate from consequence and state what still needs validation. Protocol presence alone does not become an exploitability or business-impact claim.
+Findings keep evidence/confidence separate from operational consequence. Protocol presence alone is not automatically a vulnerability or business-impact conclusion.
 
-Open **Report** to inspect the finalization gates. The PoC checks site context, evidence-backed inventory and unresolved identities, while clearly blocking final issue until authorization records, an independent reviewer, encrypted case storage and deterministic export are implemented.
+The Report area shows readiness blockers. A professional handoff should remain blocked until the required authorization, evidence review and release controls exist under the P0 method.
 
 ![Report readiness with explicit blockers](screenshots/10-guided-report-readiness-api35.png)
 
-## 9. Safe-stop rules
+## 10. Safe-stop rules
 
-Stop and escalate when authorization, target, scope, unit ID, maintenance window or intended interface is uncertain; when the result conflicts with a physical label or authoritative inventory; or when capture visibility is insufficient for the requested conclusion.
+Stop and escalate when:
 
-The PoC never falls back to an address sweep, port sweep, unit-ID sweep, register read, credential attempt or write operation.
+- authorization, target, scope, unit ID, operating window or interface is uncertain;
+- the observed result conflicts with a physical label or authoritative record and cannot be reconciled safely;
+- passive visibility is insufficient for the requested conclusion;
+- the environment shows instability or a stop condition defined by the authorization/method occurs.
 
-## 10. Five-minute demonstration
+Never use a broader network action as a fallback for missing authorization or insufficient evidence.
 
-Use [the presenter script](../product/DEMO-SCRIPT.md) for a coherent customer demonstration. The shortest storyline is:
+## 11. Demonstration and provenance
 
-1. Show site selection and explain why evidence must have site context.
-2. Open the sample water site and read its current assessment snapshot.
-3. Open inventory, filter **Needs review**, and inspect the unresolved HMI observation.
-4. Return to **Collect evidence** and explain the passive-safe default.
-5. Import the Modbus PCAP and review its four proposed assets.
-6. Show the authorized active path and its exact safety limit.
-7. Finish in inventory: evidence becomes useful only after it supports an analyst decision.
-
-## 11. Current PoC boundary
-
-Implemented and green in CI run #36: three-step site onboarding, persisted local site/inventory state, five-stage guided shell, decision-led dashboard, passive PCAP/PCAPNG analysis, Modbus/DNP3/IEC-104/BACnet decoders, capture-broker journey, constrained Modbus identity, inventory search/filter/detail, findings drafts and report-readiness blocking.
-
-Not yet implemented: physical rooted-device SPAN/TAP and USB-Ethernet qualification, general active scanning, encrypted multi-user case storage, durable merge/reject audit events, inventory connectors, reviewer signatures and final professional report export. The current Findings and Report destinations are guided PoC workflows, not completed audit issuance.
+Use the maintained [presenter script](../product/DEMO-SCRIPT.md) for a short demo. Screenshot provenance is recorded separately in [EMULATOR-SCREENSHOTS.md](../testing/EMULATOR-SCREENSHOTS.md); pinning a historical CI run there does not make that run the repository's permanent current-status authority.

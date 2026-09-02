@@ -1,6 +1,41 @@
 # Documentation index
 
-This page is the canonical map for Atlas OT Scout documentation. The root [README](../README.md) is the product landing page; this index routes each reader to the authoritative document and complete section index.
+This is the canonical map and ownership contract for Atlas OT Scout documentation. Each material fact, requirement, design decision or mutable status has one authoritative home. Other documents may summarize it for their audience, but should link rather than maintain a second definition.
+
+## Authority by question
+
+| Question | Authority | Rule |
+|---|---|---|
+| What is Atlas? | [Root README](../README.md) | Product-level description only. |
+| What must the product do? | [Requirements](REQUIREMENTS.md) | Stable normative `MUST/SHOULD/MAY` requirements and IDs. |
+| What exactly is P0-WATER? | [P0 specification](poc/WATER-WASTEWATER-POC.md) | Scope, permitted modes, checks, deliverable and definition of done. |
+| How is an assessment performed and judged? | [Assessment method](poc/ASSESSMENT-METHOD.md) | Authorization, evidence hierarchy, reconciliation, finding and review method. |
+| What executes today? | [Implementation](../IMPLEMENTATION.md) | The only maintained implemented/deferred capability matrix. |
+| What is planned next? | [Roadmap](../ROADMAP.md) | Milestone status and sequencing. |
+| What work items implement the roadmap? | [P0 backlog](poc/IMPLEMENTATION-BACKLOG.md) | Tickets and dependencies; it does not maintain a second milestone-status table. |
+| What is the deployment topology? | [System and deployment](architecture/SYSTEM-AND-DEPLOYMENT.md) | Packages, processes, privilege and trust boundaries. |
+| What network traffic can Atlas produce or receive? | [Network execution](architecture/NETWORK-EXECUTION.md) | Exact grants, active operation, passive capture path and stop behavior. |
+| How are evidence and reports represented? | [Evidence data model](architecture/EVIDENCE-DATA-MODEL.md) | Artifact, observation, claim, asset, finding, review, snapshot and export model. |
+| What are the security threats and controls? | [Security and threat model](architecture/SECURITY-AND-THREAT-MODEL.md) | Security argument, threat register and residual risks; links to architecture for mechanics. |
+| Why was an architecture choice made? | [ADR index](adr/README.md) | Historical decision record. Superseded ADRs remain history, not current design. |
+| What does CI prove? | [Testing](testing/README.md) | Verification evidence and proof boundary, not product definition. |
+| How does a user operate the current application? | [User guide](user-guide/README.md) | Task instructions; capability status links to `IMPLEMENTATION.md`. |
+| What does commercial evidence imply? | [Commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) | Source-backed facts, analysis, risks and commercial unknowns. |
+| Where should Atlas compete in Morocco? | [Morocco market guide](business-development/MOROCCO-MARKET-GUIDE.md) | Segmentation, entry situations and positioning derived from diligence. |
+| Which organizations should be approached? | [Prospect directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, public signals and public contact routes. |
+| How should outreach be executed? | [Marketing playbook](business-development/MARKETING-PLAYBOOK.md) | Roles, messages, channels and campaign execution. |
+| What exactly is offered commercially? | [Evaluation and services offer](business-development/OFFER.md) | Evaluation duration, adoption choices, setup and consulting terms. |
+
+## Anti-duplication rules
+
+1. **Mutable implementation language belongs in `IMPLEMENTATION.md`.** Other documents should not maintain lists of what is implemented, working, supported, deferred or production-ready.
+2. **Future-status language belongs in `ROADMAP.md`.** The backlog contains tickets, not a competing milestone-status summary.
+3. **Exact network and cryptographic mechanics belong in `NETWORK-EXECUTION.md`.** Requirements state outcomes; security and test documents reference the network contract.
+4. **Assessment semantics belong in `ASSESSMENT-METHOD.md`.** User and demo documents explain how to apply them, not redefine evidence levels, confidence or reportability rules.
+5. **Commercial evidence and analysis belong in `DILIGENCE-SUMMARY.md`.** Market, prospect and marketing documents consume those conclusions instead of reproducing the source case.
+6. **Commercial terms belong in `OFFER.md`.** Other commercial material may name the evaluation but should link for duration, acquisition and service terms.
+7. **ADRs explain why.** Current architecture is maintained in the architecture section; superseded ADR text is not silently rewritten into a new decision.
+8. **Testing documents describe proof.** They may restate an invariant briefly only to identify what a test verifies.
 
 ## Choose by audience
 
@@ -8,58 +43,35 @@ This page is the canonical map for Atlas OT Scout documentation. The root [READM
 |---|---|---|
 | Customer or prospect | [Prospect pitch](pitch/README.md) | [Guided demo](demo/README.md) |
 | Business developer | [Morocco business development](business-development/README.md) | [Commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) |
-| Assessor or presenter | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
-| Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Product design](product/README.md) |
-| Engineer or security reviewer | [Executable baseline](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) and [ADRs](adr/README.md) |
-| Test or release reviewer | [Testing and evidence](testing/README.md) | [Roadmap](../ROADMAP.md) |
+| Assessor | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
+| Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Requirements](REQUIREMENTS.md) and [Roadmap](../ROADMAP.md) |
+| Engineer | [Implementation](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) |
+| Security reviewer | [Security model](architecture/SECURITY-AND-THREAT-MODEL.md) | [Network execution](architecture/NETWORK-EXECUTION.md) and [ADRs](adr/README.md) |
+| Test or release reviewer | [Testing](testing/README.md) | [P0 test plan](poc/TEST-AND-ACCEPTANCE.md) |
 | Appliance integrator | [Appliance](appliance/README.md) | [Dedicated Android appliance](architecture/DEDICATED-ANDROID-APPLIANCE.md) |
-| New contributor | [Contributing](../CONTRIBUTING.md) | [Governance](../GOVERNANCE.md) and [Security](../SECURITY.md) |
-
-## Document authority
-
-When documents overlap, use this order:
-
-1. [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) for the first product pack and its acceptance criteria.
-2. [Requirements baseline](REQUIREMENTS.md) for stable normative requirements.
-3. [Implementation status](../IMPLEMENTATION.md) for current executable behavior.
-4. [Roadmap](../ROADMAP.md) for planned work; it must not be read as implemented capability.
-5. Accepted decisions in the [ADR index](adr/README.md).
-6. Section-specific research and the [commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) for evidence, interpretation and commercial context.
+| Contributor | [Contributing](../CONTRIBUTING.md) | [Governance](../GOVERNANCE.md) and [Security](../SECURITY.md) |
 
 ## Section map
 
-Every maintained section has one landing page. A documentation change is incomplete until its nearest landing page links the new, renamed or moved document.
-
 | Section | Scope |
 |---|---|
-| [Architecture decisions](adr/README.md) | Numbered decisions, status and consequences |
-| [Appliance](appliance/README.md) | Rooted proof-of-concept boundary and physical compatibility evidence |
-| [Architecture](architecture/README.md) | Deployment, component contracts, evidence model, network execution, protocol catalog and threat model |
-| [Business development](business-development/README.md) | Morocco market evidence, diligence conclusions, prospect organisations, public channels, marketing approach and evaluation offer |
-| [Demo](demo/README.md) | Guided customer-story video, script and provenance |
-| [Pitch](pitch/README.md) | Prospect deck, PDF, video linkage and claim boundary |
-| [P0 product pack](poc/README.md) | Water/wastewater scope, method, capture accessory, backlog and acceptance |
-| [Product design](product/README.md) | User stories, UX implementation and presenter script |
-| [Research sources](research/README.md) | Shared technical and normative sources |
-| [Testing](testing/README.md) | End-to-end architecture, testbeds, screenshots and evidence retention |
-| [User guide](user-guide/README.md) | Operator workflow and screenshot-backed manual |
-
-## Top-level documents
-
-- [Requirements baseline](REQUIREMENTS.md)
-- [Executable baseline](../IMPLEMENTATION.md)
-- [Roadmap](../ROADMAP.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Governance](../GOVERNANCE.md)
-- [Security policy](../SECURITY.md)
+| [Architecture decisions](adr/README.md) | Decision history and supersession |
+| [Appliance](appliance/README.md) | Laboratory platform and physical compatibility evidence |
+| [Architecture](architecture/README.md) | Current/target design contracts and security boundaries |
+| [Business development](business-development/README.md) | Diligence, Morocco strategy, prospects, marketing and commercial offer |
+| [Demo](demo/README.md) | Generated customer-story media and provenance |
+| [Pitch](pitch/README.md) | Prospect presentation assets |
+| [P0 product pack](poc/README.md) | Product contract, method, acceptance and implementation backlog |
+| [Product design](product/README.md) | UX contracts, user stories and presenter guidance |
+| [Research sources](research/README.md) | Shared technical and normative references |
+| [Testing](testing/README.md) | CI topology, testbeds and retained evidence |
+| [User guide](user-guide/README.md) | Operator instructions and screenshot-backed workflow |
 
 ## Maintenance contract
 
-- Keep current capability statements in `IMPLEMENTATION.md`; link to them instead of copying mutable status into multiple overview documents.
-- Keep planned capability in `ROADMAP.md` and the P0 backlog; never describe a roadmap item as executable.
-- Keep Morocco market evidence, commercial diligence analysis and marketing material in `docs/business-development/`.
-- Add every document to its nearest section `README.md`, and add every new section to this page.
-- Use stable workflow links in overview documents. Pin an individual run only in a provenance document that explains why that snapshot matters.
-- Use relative links for repository files and place citations next to external factual claims.
-- Distinguish evidence, interpretation and unknowns; do not turn an inference into a verified claim.
+- Prefer a relative link to the authority document over a copied table or capability list.
+- When a summary is necessary for readability, keep it audience-specific and avoid exact mutable implementation details.
+- Pin individual CI runs only in provenance records that intentionally describe that historical artifact.
+- Use external citations next to factual market or technical claims.
+- Add every maintained document to its nearest section landing page.
 - Run `python3 tools/verify_documentation.py` before committing documentation changes.

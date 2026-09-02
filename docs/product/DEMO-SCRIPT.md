@@ -1,80 +1,86 @@
-# Atlas OT Scout PoC demonstration script
+# Atlas OT Scout demonstration script
 
-Use this 7–9 minute story. Do not present planned features as implemented.
-
-The story follows the persistent product stages: **Overview → Collect → Assets → Findings → Report**.
+Use this as the live presenter guide. It owns **demo sequencing and presenter language**, not product status or architecture definitions. Before presenting, verify [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and do not demonstrate a path that is not available in the chosen environment.
 
 ## Setup
 
-- Install the matching Case App and Network Broker debug APKs from the successful CI artifacts.
-- Keep the supplied Modbus PCAP on the emulator/device.
-- For the live active segment, start the approved PyModbus emulator and use its exact address/CIDR.
-- Reset to the **Choose a site** screen before the audience arrives.
+- Use matching application/broker artifacts from the selected successful test build.
+- Keep the approved sample capture available.
+- If demonstrating active identity, use the controlled target and exact scope prepared for the demo.
+- Reset to the site-selection screen.
 
-## 1. Establish the problem — 45 seconds
+## 1. Establish context
 
-Open **North Water Treatment Plant**.
+Open the sample water site.
 
-Say: “OT discovery is only useful when evidence belongs to a known site and process area. We start with context, not a subnet sweep.”
+Say: “OT evidence is only useful when it belongs to a known site, process area and decision. We start with context, not a subnet sweep.”
 
-Point out the sample label, industry, asset count and **Create a new site** option. Open onboarding long enough to show the three-step structure—site, technology context and review—then return without creating duplicate data.
+Show that sample data is visibly distinguished from field evidence.
 
-## 2. Resume and follow the recommendation — 60 seconds
+## 2. Show the working model
 
-On **Overview**, explain the 4 assets, 3 protocols and 1 review item. Point to the stage rail and **Do this next** card.
+On **Overview**, point to the five work areas and the recommended next decision.
 
-Say: “This is the working model. The app tells the assessor what is known and what still needs a decision.”
+Say: “The application separates what is known from what still needs review. The next action is driven by an evidence gap, not by a generic scan button.”
 
-Open inventory, select **Needs review**, and open the Operator HMI. Show role, confidence, provenance and next decision. Return to the dashboard.
+Open one inventory review item, show provenance/confidence, then return.
 
-## 3. Choose evidence, not ‘scan everything’ — 45 seconds
+## 3. Choose evidence deliberately
 
-Tap **Collect evidence**.
+Open **Collect**.
 
-Say: “The assessor chooses a method based on visibility and authorization. Passive import cannot transmit. Active identity is deliberately locked to one known target.”
+Say: “The assessor chooses the least intrusive method that can answer the question. Imported evidence does not transmit; an active identity check is tied to one exact authorization.”
 
-Point out that Wi-Fi and Bluetooth are marked planned.
+Do not describe disabled/planned controls as available capability.
 
-## 4. Passive discovery — 90 seconds
+## 4. Passive evidence
 
-Choose **Analyze PCAP / PCAPNG** and import the supplied Modbus capture.
+Import the sample capture and show:
 
-Show the hash, 46 OT packets, four endpoints, controller/server versus client/HMI roles and confidence.
+- source/hash and time/packet context;
+- proposed observations;
+- protocol/role evidence;
+- explicit analyst selection before inventory mutation.
 
-Say: “These are observations from a bounded visibility window, not claims about the complete network. Nothing enters inventory until the analyst accepts it.”
+Say: “These are observations from this visibility window, not a claim about the entire network.”
 
-Add the reviewed observations and return to inventory to show how evidence changes the model.
+Add only the reviewed sample observations.
 
-## 5. Active identity — 90 seconds
+## 5. Exact active identity
 
-Open **Identify one known controller**. Enter the approved PyModbus target and CIDR. Read the visible one-request limit aloud. Confirm authorization and run once.
+If the active demo path is available in the chosen environment, open the exact-target identity workflow and show the authorization/scope values before execution.
 
-On **Controller identified**, show interface, address, vendor, product, revision and evidence byte count.
+Say: “The user does not get a generic scanner. The active path asks the Network Broker for the single operation defined by the network contract.”
 
-Say: “The Case App cannot open arbitrary sockets. A signed, one-use grant asks the isolated broker for one FC 43 / MEI 14 identity request. No register read or write is available.”
+Show an out-of-scope rejection if that is part of the prepared deterministic demo, then use the correct controlled target.
 
-Add the result to inventory.
+Exact cryptographic/packet details are defined in [NETWORK-EXECUTION.md](../architecture/NETWORK-EXECUTION.md); do not improvise different limits in presenter narration.
 
-## 6. Reason about the network — 60 seconds
+## 6. Reason rather than count
 
-Return to **Assets**, search for the new address or vendor, then open **Zone map**.
+Return to **Assets** and inspect how evidence changed the working model.
 
-Say: “The output is not a celebratory device count. It is a navigable evidence model: what was observed, how, with what confidence, and where it sits in the operating process.”
+Say: “The useful output is not a device count. It is a reviewable model showing what was observed, what supports an identity, what conflicts and what remains unresolved.”
 
-## 7. Show the professional handoff — 60 seconds
+## 7. Handoff
 
-Open **Findings**. Explain that confidence is separate from consequence and that protocol presence does not automatically become a vulnerability claim.
+Open **Findings** and **Report**.
 
-Open **Report**. Show the readiness checks and the explicit authorization/reviewer blockers.
+Say: “A condition stays linked to evidence and review. The product should not issue a professional handoff merely because collection completed.”
 
-Say: “The product guides the assessor all the way to a defensible handoff, but it refuses to issue a professional report until the required evidence and approvals exist.”
+Use report-readiness blockers to close on the remaining decisions.
 
-## Questions to answer precisely
+## Common questions
 
-| Question | Answer |
+| Question | Presenter answer |
 |---|---|
-| Does the phone sniff the whole switched network? | Only a qualified dedicated appliance attached to an approved SPAN/TAP can observe mirrored traffic. Imported PCAP remains the universal fallback; current live capture is emulator-validated, not hardware-qualified. |
-| Does active mode scan a subnet? | No. The PoC performs one identity request to one allowlisted Modbus target. |
-| Is this a finished professional audit product? | No. It is an emulator-tested discovery and inventory PoC; encrypted cases, findings and signed reports remain. |
-| Are inferred roles facts? | They are evidence-scoped candidates with confidence until corroborated. |
-| Can the demo use real equipment? | Only under written scope and the same bounded safety rules; emulator results are the repeatable baseline. |
+| Does Ethernet let the phone sniff an entire switched network? | No. Whole-segment third-party visibility depends on an approved SPAN/mirror or passive TAP source; see the canonical capture architecture. |
+| Does active mode scan a subnet? | No. P0's initial active contract is one exact authorized Modbus basic identity operation. |
+| Is Atlas a certification or penetration-test product? | No. The P0 product contract explicitly excludes those claims. |
+| Are inferred roles or identities automatically facts? | No. Observations/claims require review under the assessment method. |
+| Is the physical appliance qualified? | Answer from [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md), not from memory or this script. |
+| What are the evaluation terms? | Use the canonical [evaluation and services offer](../business-development/OFFER.md). |
+
+## Presenter rule
+
+If a question asks **what currently works**, open [IMPLEMENTATION.md](../../IMPLEMENTATION.md). If it asks **what P0 is supposed to do**, use the [P0 contract](../poc/WATER-WASTEWATER-POC.md). If it asks **how packets are constrained**, use [NETWORK-EXECUTION.md](../architecture/NETWORK-EXECUTION.md).

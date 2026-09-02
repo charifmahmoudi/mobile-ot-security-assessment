@@ -1,24 +1,24 @@
 # ADR 0003: Use an external receive-only path for whole-segment capture
 
-- Status: accepted for P0
+- Status: **Superseded by [ADR 0007](0007-dedicated-android-passive-capture.md)**
 - Date: 2026-08-30
 
 ## Context
 
 A USB Ethernet adapter on ordinary Android supports IP networking but does not establish promiscuous whole-segment visibility. A switched network sends third-party traffic to a phone only when the network provides a mirror/TAP path, and an ordinary app cannot assume raw Ethernet capture privileges.
 
-## Decision
+## Historical decision
 
-Use:
+The initial P0 design used:
 
-- H1 direct USB Ethernet for approved socket-based A1 requests;
-- H2 capture appliance connected to a customer SPAN/TAP for passive PCAPNG;
-- H3 imported PCAP/PCAPNG when live H2 is unavailable.
+- H1 direct USB Ethernet for approved socket-based active identity;
+- an external receive-only capture appliance connected to customer SPAN/TAP traffic for H2;
+- H3 imported PCAP/PCAPNG when live capture was unavailable.
 
-The H2 OT-facing interface has no address, forwarding or bridge and must emit zero frames. Android receives signed chunks over an isolated authenticated management link.
+The proposed external appliance had no addressed/routed OT interface and sent captured data to Android over a separate management link.
 
-## Consequences
+## Why it was superseded
 
-The report can state exactly what was visible. The kit gains an accessory and provisioning burden. Raspberry Pi 4 is the controlled PoC reference, not the final commercial hardware.
+The dedicated Android architecture later introduced a separate Capture Broker and confined native `AF_PACKET` receive daemon, allowing H2 capture to live inside the dedicated appliance without giving the Case App raw-packet privilege. [ADR 0007](0007-dedicated-android-passive-capture.md) records that replacement.
 
-Rejected: claiming passive capture from an ordinary RJ45 dongle; rooted production phone; inline transparent bridge; silent packet-capture degradation.
+The original visibility conclusion remains valid: neither root nor a USB Ethernet adapter defeats switch forwarding; third-party visibility still requires approved SPAN/TAP delivery.

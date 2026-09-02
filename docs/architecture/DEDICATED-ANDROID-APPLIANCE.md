@@ -1,102 +1,105 @@
-# Dedicated Android security appliance architecture
+# Dedicated Android passive-capture appliance
 
-## Decision
+This document owns the **dedicated Android live-passive architecture and physical acceptance invariants**. It replaces the former external Raspberry-Pi capture-accessory design as the target P0 passive path. Current executable coverage is reported only in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
 
-Atlas OT Scout will support a dedicated Android appliance profile. The product profile is **not** a consumer ROM with unrestricted application root. It is a signed Android system image with a locked bootloader, SELinux enforcing, a narrowly privileged native packet-capture daemon and three separately signed application identities.
+The appliance is not a consumer phone with unrestricted root. The target is a signed Android system image containing a narrowly privileged receive-only daemon plus separately constrained application components.
 
-Imported PCAP remains mandatory as the universal fallback. The existing unrooted build remains a supported compatibility profile.
+Laboratory platform/model selection belongs in [ROOTED-ANDROID-POC.md](../appliance/ROOTED-ANDROID-POC.md), and measured hardware evidence belongs in [COMPATIBILITY-MATRIX.md](../appliance/COMPATIBILITY-MATRIX.md).
 
-The selected laboratory platform and exact Samsung/emulator compatibility are specified in:
-
-- `docs/appliance/ROOTED-ANDROID-POC.md`;
-- `docs/appliance/COMPATIBILITY-MATRIX.md`.
-
-Current GitHub CI uses stock Pixel 6 x86_64 AVDs on API 29 and 35 for application compatibility; it does not yet boot the proposed LineageOS image. The native daemon is tested separately on Linux virtual Ethernet. The [end-to-end test architecture](../testing/E2E-ACCEPTANCE.md) documents that boundary. Do not describe the split test as a hardware-qualified rooted-phone capture.
-
-## Deployment profiles
-
-| Profile | Passive source | Active source | Claim permitted |
-|---|---|---|---|
-| Compatibility Android | Imported PCAP/PCAPNG | Signed Network Broker | Offline analysis and bounded identity |
-| Rooted development device | USB Ethernet through experimental native daemon | Signed Network Broker | Laboratory feasibility only |
-| Dedicated appliance | Qualified SPAN/TAP adapter through confined daemon | Signed Network Broker | Live passive collection after hardware acceptance |
-
-An unlocked rooted development device must never be reported as the production security boundary.
-
-## Runtime boundaries
+## Runtime path
 
 ```mermaid
-flowchart TD
-  TAP["SPAN / network TAP"] --> NIC["Allowlisted USB Ethernet"]
-  NIC --> DAEMON["AF_PACKET capture daemon"]
+flowchart LR
+  TAP["Approved SPAN / passive TAP"] --> NIC["Allowlisted USB Ethernet"]
+  NIC --> DAEMON["atlas_capture daemon"]
   DAEMON --> CB["Passive Capture Broker"]
-  CB --> PARSER["Isolated protocol parser"]
-  PARSER --> APP["Offline Case App and inventory"]
+  CB -->|"bounded file descriptor"| APP["Case App"]
+  APP --> PARSER["Isolated parser"]
 ```
 
 | Component | Permitted | Forbidden |
 |---|---|---|
-| Case App | Site workflow, evidence review, inventory, report state | Internet permission, raw sockets, arbitrary commands |
-| Passive Capture Broker | Capability inspection, one bounded capture request, FD streaming | Internet permission, shell interface, arbitrary file paths |
-| Native capture daemon | `AF_PACKET` receive on one allowlisted interface, PCAP framing | Packet send API, IP configuration, routing, DNS, general filesystem |
-| Network Broker | Signed active profiles on selected Android network | Passive evidence storage, generic scanner socket |
-| Parser | Bounded untrusted packet parsing | Network and customer database access |
+| Case App | Request a bounded passive sample and review evidence | Raw packet socket, shell/root command, generic network capture API |
+| Capture Broker | Inspect allowlisted interface capability; start/stop one bounded capture; stream bytes by FD | Internet access, arbitrary output paths, packet injection, shell command |
+| `atlas_capture` daemon | `AF_PACKET` receive on one allowlisted interface and bounded PCAP creation | Packet-send operation, general IP/routing service, application UI |
+| Parser | Bounded parsing of sealed capture bytes | Network authority and direct access to customer case keys |
 
-## Live capture contract
+Active identity remains a separate Network Broker concern; it is not added to the passive daemon.
 
-The Android AIDL contract exposes only:
+## Capture Broker contract
 
-- `inspectInterfaces()`;
-- `startPassiveCapture(interfaceId, maxBytes, durationMs, sinkFd)`;
-- `stopCapture()`.
+The application-facing passive API contains only:
 
-There is no command string, BPF text supplied by the UI, output pathname, packet-injection method or generic socket handle. The broker returns bytes through a pipe owned by the Case App; those bytes enter the same parser and analyst-review flow as an imported PCAP.
+```text
+inspectInterfaces()
+startPassiveCapture(interfaceId, maxBytes, durationMs, sinkFd)
+stopCapture()
+```
+
+No UI-supplied BPF expression, arbitrary pathname, raw command, packet-injection operation or generic socket handle is accepted.
+
+The exact packet-receiving contract is maintained in [NETWORK-EXECUTION.md](NETWORK-EXECUTION.md).
+
+## Native daemon contract
+
+`appliance/capture-daemon/atlas_capture.c` is the reference receive backend. The production integration must preserve these constraints:
+
+- open one `AF_PACKET/SOCK_RAW` socket;
+- bind to the selected interface index;
+- enable promiscuous receive membership only for that interface;
+- receive frames delivered by the interface;
+- write bounded PCAP with timestamps;
+- stop at byte/time limits or local stop signal;
+- create private output without following symlinks;
+- expose no packet-send operation.
+
+Promiscuous mode is not a visibility guarantee. An ordinary switch access port still does not deliver unrelated unicast frames; whole-segment evidence requires an approved SPAN/mirror port or passive TAP.
 
 ## Interface acceptance invariants
 
-Before the product enables **Start passive sample**, the appliance backend must establish:
+Before live passive capture is represented as supported, the appliance must establish and test:
 
-1. interface is on the signed allowlist;
-2. link is Ethernet and operational;
-3. no IPv4 address is assigned;
-4. no IPv6 address, including link-local, is assigned;
-5. Android connectivity management does not own the interface;
-6. kernel egress policy is installed;
-7. transmit counter has not increased since passive mode began;
-8. capture byte and duration limits are valid;
+1. exact interface is allowlisted for the installed appliance build;
+2. Ethernet link and driver identity match a qualified combination;
+3. OT-facing capture interface has no IPv4 address;
+4. OT-facing capture interface has no IPv6 address, including link-local;
+5. Android connectivity management does not select it as a normal data network;
+6. egress prevention is active;
+7. transmit counters remain unchanged during passive operation;
+8. requested byte/time limits are inside compiled maxima;
 9. only one capture is active;
-10. output sink is a broker-provided file descriptor.
+10. bytes return only through the broker-owned file-descriptor path;
+11. packet loss and capture source/visibility are measured and preserved in evidence.
 
-The current Android CI backend returns a visibly labeled `EMULATED_APPLIANCE` interface. Release builds return unavailable until the native backend attests these conditions.
-
-## Native capture daemon
-
-`appliance/capture-daemon/atlas_capture.c` is the first executable backend. It:
-
-- opens one `AF_PACKET/SOCK_RAW` socket;
-- binds it to the exact interface index;
-- requests promiscuous membership;
-- writes bounded classic PCAP with timestamps;
-- stops on duration, byte limit or signal;
-- creates a new mode-0600 output without following symlinks;
-- contains no `send`, `sendto` or `sendmsg` call.
-
-The virtual-SPAN CI gate compiles the daemon, rejects packet-transmission symbols, creates a veth pair, injects frames from the peer and validates the resulting PCAP. During live capture, syscall tracing must remain empty for `send`, `sendto` and `sendmsg`; this also detects a direct transmission path that is not visible in the normal symbol table.
-
-This software assertion does not replace physical hardware acceptance. A receive-only TAP remains the highest-assurance collection topology.
+A software zero-send assertion is necessary but not sufficient; each supported physical phone/NIC/hub/TAP combination requires independent zero-egress and visibility verification.
 
 ## Product image requirements
 
-- Android Verified Boot using product-controlled signing keys.
-- Bootloader relocked after provisioning on supported hardware.
-- A/B signed OTA with rollback behavior.
-- SELinux globally enforcing.
-- Dedicated daemon domain with only packet receive, required interface ioctls and broker IPC.
-- Case, capture and active-broker keys protected by Android Keystore/TEE where available.
-- No general-purpose root manager, terminal or package sideloading in field mode.
-- USB debugging disabled outside maintenance mode.
-- Measured device/build identity recorded in every case export.
+The field appliance target requires:
 
-## Hardware release gate
+- product-controlled image and package signing;
+- SELinux enforcing with a dedicated capture-daemon domain;
+- no general-purpose root manager or field terminal;
+- USB debugging and maintenance functions disabled outside controlled maintenance mode;
+- Keystore/TEE use where available for product/case keys;
+- signed update and rollback/recovery process;
+- recorded device/build identity in assessment evidence;
+- a boot-integrity story appropriate to the selected production hardware.
 
-For every supported phone/NIC/TAP combination, verify VLAN preservation, Ethernet link stability, timestamp quality, packet loss at target load, suspend behavior, thermal behavior, power budget, maximum capture duration, zero interface egress and recovery after disconnect. Until this matrix passes, live capture is a laboratory capability, not a supported field claim.
+An unlocked `userdebug` laboratory device is evidence of feasibility, not evidence of the final production trust boundary.
+
+## Hardware acceptance
+
+For every supported combination, measure at least:
+
+- exact phone/OS build and USB host behavior;
+- powered-hub stability and power budget;
+- USB NIC driver, VLAN preservation and link recovery;
+- SPAN/TAP visibility and receive-only behavior;
+- timestamp quality and packet loss under target load;
+- suspend/resume and disconnect recovery;
+- thermal behavior and sustained capture duration;
+- zero interface egress;
+- recovery after interrupted capture.
+
+The canonical results are recorded in [COMPATIBILITY-MATRIX.md](../appliance/COMPATIBILITY-MATRIX.md). Until those gates pass, live passive capture cannot be represented as hardware-qualified.

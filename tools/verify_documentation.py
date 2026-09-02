@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail CI when repository documentation is broken, orphaned, or ambiguously indexed."""
+"""Fail CI when repository documentation is broken, orphaned, or violates authority boundaries."""
 
 from __future__ import annotations
 
@@ -26,6 +26,64 @@ FENCED_BLOCK = re.compile(r"```.*?```", re.DOTALL)
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$", re.MULTILINE)
 ADR_FILENAME = re.compile(r"^(\d{4})-[a-z0-9-]+\.md$")
 ADR_HEADING = re.compile(r"^# ADR (\d{4}):", re.MULTILINE)
+
+# These are intentionally narrow semantic guardrails. They catch the kinds of
+# duplication that previously caused real drift while avoiding a brittle ban on
+# ordinary explanatory words such as "current" or "implemented".
+AUTHORITY_RULES: list[tuple[str, re.Pattern[str], set[str]]] = [
+    (
+        "roadmap milestone status tables belong only in ROADMAP.md",
+        re.compile(r"^\|\s*M[0-9]\b", re.MULTILINE),
+        {"ROADMAP.md"},
+    ),
+    (
+        "evaluation duration belongs only in the canonical commercial offer",
+        re.compile(
+            r"\b30[-‑–]day\b|\b60[-‑–]day\b|\b30 calendar days\b|"
+            r"\bmaximum free evaluation period\b",
+            re.IGNORECASE,
+        ),
+        {"docs/business-development/OFFER.md"},
+    ),
+    (
+        "obsolete external Raspberry-Pi capture design may appear only in supersession history",
+        re.compile(r"Raspberry Pi", re.IGNORECASE),
+        {
+            "docs/adr/0003-external-passive-capture.md",
+            "docs/adr/0007-dedicated-android-passive-capture.md",
+        },
+    ),
+    (
+        "the removed CAPTURE-ACCESSORY.md must not be referenced",
+        re.compile(r"CAPTURE-ACCESSORY\.md"),
+        set(),
+    ),
+    (
+        "execution grants must not be documented as Ed25519",
+        re.compile(
+            r"Ed25519\s+grant\s+signature|Execution\s+grant\s*\|\s*Ed25519",
+            re.IGNORECASE,
+        ),
+        set(),
+    ),
+    (
+        "exact execution-grant algorithm may be repeated only in its architecture/security/status authorities",
+        re.compile(r"SHA256withECDSA|secp256r1", re.IGNORECASE),
+        {
+            "docs/architecture/NETWORK-EXECUTION.md",
+            "docs/architecture/SECURITY-AND-THREAT-MODEL.md",
+            "IMPLEMENTATION.md",
+        },
+    ),
+    (
+        "mutable current-capability headings belong in IMPLEMENTATION.md",
+        re.compile(
+            r"^##\s+Current\s+(?:limits|PoC boundary|implemented behavior|verified reference)\b",
+            re.IGNORECASE | re.MULTILINE,
+        ),
+        {"IMPLEMENTATION.md"},
+    ),
+]
 
 errors: list[str] = []
 graph: dict[Path, set[Path]] = {path: set() for path in FILES}
@@ -119,12 +177,17 @@ def resolve_local_target(
 for path in FILES:
     text = path.read_text(encoding="utf-8")
     visible = visible_markdown(text)
+    rel = relative(path)
 
     if text.count("```") % 2:
-        errors.append(f"{relative(path)}: unbalanced fenced code block")
+        errors.append(f"{rel}: unbalanced fenced code block")
 
     if not re.search(r"^#\s+\S", visible, re.MULTILINE):
-        errors.append(f"{relative(path)}: missing level-one heading")
+        errors.append(f"{rel}: missing level-one heading")
+
+    for rule_name, pattern, allowed_paths in AUTHORITY_RULES:
+        if rel not in allowed_paths and pattern.search(visible):
+            errors.append(f"{rel}: authority violation: {rule_name}")
 
     for raw_target in MARKDOWN_LINK.findall(visible):
         target, fragment = resolve_local_target(path, raw_target)
@@ -138,7 +201,7 @@ for path in FILES:
                 normalized = markdown_anchor(fragment)
                 if normalized not in anchors_for(target):
                     errors.append(
-                        f"{relative(path)}: missing anchor #{fragment} in {relative(target)}"
+                        f"{rel}: missing anchor #{fragment} in {relative(target)}"
                     )
 
     for raw_target in INLINE_REPO_PATH.findall(visible):
@@ -239,5 +302,5 @@ if errors:
 
 print(
     f"documentation: PASS ({len(FILES)} Markdown files; "
-    f"{len(adr_ids)} ADRs; all documents indexed and reachable)"
+    f"{len(adr_ids)} ADRs; all documents indexed, reachable and authority-checked)"
 )

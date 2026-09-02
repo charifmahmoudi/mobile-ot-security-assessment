@@ -1,74 +1,74 @@
 # Atlas device evaluation and services offer
 
+This file is the **canonical commercial-terms document** for the Atlas evaluation, adoption choices, setup service and optional consulting. Other business-development, pitch and demo documents should link here rather than maintain their own duration or purchase-flow wording.
+
 ## Free device evaluation
 
-A suitable prospect may receive a configured Atlas OT Scout device for **30 calendar days free of charge**. The period may be extended once for another 30 days, making **60 days the maximum free evaluation period**.
+A suitable prospect may receive a configured Atlas OT Scout device for **30 calendar days free of charge**. The evaluation may be extended once for another 30 days, making **60 days the maximum free evaluation period**.
 
-The purpose is to determine whether Atlas produces a useful result for one bounded water, wastewater or industrial OT area. Suitable cases include:
+The evaluation is intended to answer whether Atlas produces a useful result for one bounded, authorized water/wastewater or industrial OT question. The scope, device custodian, permitted evidence, authorization conditions and return arrangements are agreed before handoff.
 
-- a telemanagement or remote-station group;
-- a pumping station, reservoir or lift station;
-- a treatment or desalination process area;
-- an EPC commissioning or handover package;
-- an inventory, GIS or maintenance-record reconciliation;
-- a bounded OT networking or security review.
+An evaluation may start from approved documents or imported evidence; network collection is used only where the agreed method and current product capability permit it. Current technical capability is authoritative only in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
 
-The evaluation scope, device custodian, permitted evidence and return arrangements are agreed before the device is handed over. The evaluation may begin with approved inventories, as-built material, configuration exports or imported PCAP/PCAPNG files; broad production-network access is not required.
+## End-of-evaluation choices
 
-## After the evaluation
+At the end of the agreed free period, the prospect selects one of these outcomes:
 
-### Build an independent device
+1. return the evaluation device;
+2. build and maintain an independent implementation from the public repository;
+3. keep the prepared evaluation device and pay the agreed hardware/preparation cost;
+4. arrange setup on a compatible dedicated customer-owned device;
+5. request a separately scoped consulting or support engagement.
 
-The organisation may use [this public repository](../../README.md) to build and maintain its own implementation and purchase a compatible Samsung phone and peripherals independently.
+The free evaluation ends after a maximum of 60 days unless a purchase or separately agreed engagement has begun.
 
-The repository currently identifies specific Galaxy S20 Exynos variants as candidates in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md). Exact model identity matters. These models remain proof-of-concept candidates until the physical hardware and receive-only acceptance tests documented in the repository are completed.
+## Independent self-build
 
-There is no software licence fee for the self-build option. The organisation is responsible for hardware sourcing, build, flashing, testing and maintenance unless it separately requests assistance.
+The organization may use [this public repository](../../README.md) to build and maintain its own implementation and source its own compatible hardware.
 
-### Keep the evaluation device
+There is no compulsory proprietary software-license fee for the self-build option. The organization is responsible for hardware sourcing, build, installation, testing, updates and maintenance unless assistance is separately contracted.
 
-The organisation may keep the supplied device by paying:
+Hardware represented as currently supported must match the evidence in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md); this offer does not create a hardware-support claim.
 
-- the actual cost of the phone and supplied accessories; and
-- a small installation, preparation and configuration fee.
+## Keep the supplied evaluation device
 
-Any additional integration or consulting is agreed separately. The commercial value is the prepared hardware and service, not a compulsory proprietary licence.
+If both parties agree that the prospect keeps the device, the price consists of:
 
-### Arrange setup on a customer-owned device
+- the actual agreed phone/accessory cost; and
+- an agreed installation, preparation and configuration fee.
 
-The organisation may supply a compatible, dedicated Samsung device and schedule an on-site setup session. The session may cover model verification, operating-system installation, Atlas installation, configuration and a basic functional check.
+Additional integration, training, support or consulting is separate unless explicitly included in the commercial agreement.
 
-This setup requires bootloader unlocking and flashing a custom operating-system image. The process erases the device. Samsung also documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), after which Samsung Pay, Secure Folder and other Knox-dependent functions may stop working. The device should therefore be dedicated to Atlas rather than used as a personal or enterprise-managed phone.
+## Setup on a customer-owned device
 
-LineageOS publishes [Galaxy S20 `x1s` build instructions](https://lineageos.github.io/lineage_wiki/devices/x1s/build/), while this repository defines the narrower model and acceptance requirements used by Atlas.
+A customer may supply a compatible **dedicated** device for an agreed setup session. Setup may include model verification, operating-system installation, Atlas installation/configuration and a basic functional check.
+
+Bootloader unlocking and custom-image installation can erase the device and alter vendor security/warranty features. Samsung documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), after which Knox-dependent services may stop working. For that reason, a personal or normally managed employee phone is not an appropriate setup target.
+
+Exact laboratory/platform restrictions and supported-hardware evidence are maintained under [Appliance integration](../appliance/README.md), not duplicated here.
 
 ## OT networking and security consulting
 
-The team is available for consulting requested directly by a prospect, with or without a device evaluation. Relevant services include:
+Consulting may be requested with or without a device evaluation. Possible scopes include:
 
 - OT network architecture and segmentation;
 - passive visibility and packet-capture planning;
-- SCADA, PLC, RTU and industrial-protocol review;
+- SCADA/PLC/RTU and industrial-protocol review;
 - asset inventory and evidence governance;
 - commissioning and handover support;
 - remote-site and telemanagement architecture;
 - OT cybersecurity risk assessment;
 - incident readiness and evidence preservation;
-- vendor, integrator and project technical review;
+- vendor/integrator/project technical review;
 - Atlas deployment, integration and training.
 
-Consulting scope and commercial terms are agreed separately from the free device evaluation.
+Consulting scope, deliverables, authorization and commercial terms are agreed separately from the free evaluation.
 
-## End of the free period
+## Commercial boundaries
 
-At the end of 30 days, or at the end of the approved extension, the prospect selects one of these outcomes:
+- The public repository allows independent implementation; payment is for agreed hardware/preparation/services rather than an unavoidable proprietary license.
+- This offer does not represent Atlas as a legally qualified audit provider or certification service.
+- Product capability claims come from [IMPLEMENTATION.md](../../IMPLEMENTATION.md), not from this commercial document.
+- Market evidence and unvalidated economic assumptions are documented in [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md).
 
-- return the device;
-- build an independent implementation;
-- keep the prepared evaluation device;
-- arrange setup on a compatible device;
-- request consulting services.
-
-A free evaluation ends after a maximum of 60 days unless the device has been purchased or another separately agreed engagement has begun.
-
-Return to the [business-development guide](README.md).
+Return to the [business-development index](README.md).

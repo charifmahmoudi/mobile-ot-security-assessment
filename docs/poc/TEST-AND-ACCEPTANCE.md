@@ -1,147 +1,140 @@
-# P0-WATER Test and Acceptance Plan
+# P0-WATER test and acceptance plan
+
+This file owns the **P0 verification levels, acceptance conditions and independent rehearsal**. It tests the product/architecture contracts; it does not redefine them. Current test coverage is reported in [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and CI topology in [E2E-ACCEPTANCE.md](../testing/E2E-ACCEPTANCE.md).
 
 ## Test levels
 
 | Level | Environment | Purpose |
 |---|---|---|
-| T0 | JVM/Rust unit tests | Domain rules, canonicalization, parsers, scoring |
-| T1 | Android emulator | UI/state/error paths without hardware claims |
-| T2 | Physical Android compatibility bench | USB, storage, Keystore, Wi-Fi/BLE, lifecycle |
-| T3 | Isolated water lab | Packet safety, capture, identity and full report |
-| T4 | Witnessed rehearsal | Independent assessor follows the procedure unaided |
+| T0 | JVM/native unit and fuzz tests | Domain policy, parsers, canonicalization and deterministic rules |
+| T1 | Android emulator | UI, state, IPC and error paths without physical-hardware claims |
+| T2 | Physical Android compatibility bench | Image, USB, storage, Keystore, radio permissions and lifecycle |
+| T3 | Isolated water lab | Packet safety, passive capture, identity and full report workflow |
+| T4 | Witnessed rehearsal | Independent assessor completes the P0 method unaided |
 
-Production networks are never used for parser or profile development.
+Production networks are not parser/profile development environments.
 
-## Mandatory test matrix
+## Authorization and state
 
-### Authorization and state
+Verify at minimum:
 
-| Test | Expected result |
-|---|---|
-| Missing authorization artifact | Case cannot become Authorized |
-| Clock outside window | Active grant refused |
-| Target outside CIDR/allowlist | Grant refused before socket creation |
-| Excluded IP selected | Grant refused |
-| Case finalized | All collection and edits refused |
-| App restart during Authorized state | Scope revalidated; no action resumes automatically |
+- missing/invalid authorization prevents protected collection;
+- execution outside the authorized window is refused;
+- exact target outside scope or inside exclusions is rejected;
+- finalized cases cannot silently resume collection/editing;
+- restart does not automatically resume network activity;
+- stop authority remains locally usable.
 
-### Packet safety
+## Packet-safety verification
 
-A separate recorder observes every frame emitted by the phone.
+An independent recorder observes packet-producing behavior.
 
-| Test | Expected result |
-|---|---|
-| Modbus basic device ID | Exactly one approved request; at most one retry after timeout |
-| Modbus unit-ID sweep attempt | Impossible through UI/API; policy rejection audited |
-| OPC UA discovery | Only HEL/ACK, FindServers, GetEndpoints and close sequence |
-| Route changes to Wi-Fi/cellular | Socket closes; no packet on alternate interface |
-| Emergency stop | All probe sockets closed within 1 second |
-| Authorization expiry mid-request | Execution stops and records `authorization_expired` |
-| Profile signature modified | Pack/profile rejected |
-| Concurrent second request | Rejected while concurrency ceiling is one |
+For the initial Modbus active operation, verify:
 
-Golden packet tests compare full request bytes except declared transaction/message IDs.
+- emitted request matches the canonical [network-execution contract](../architecture/NETWORK-EXECUTION.md);
+- out-of-scope, excluded, expired, replayed or malformed grants produce no unauthorized request;
+- no subnet, port or unit-ID sweep path exists;
+- no register read/write or other undeclared Modbus function is emitted;
+- socket binding uses the selected Android network;
+- emergency stop terminates active work inside the accepted stop-time gate.
 
-### Capture
+If another active protocol is later admitted into P0, it receives its own positive, negative, cancellation and full-packet acceptance fixtures before release.
 
-| Test | Expected result |
-|---|---|
-| 100 Mbps SPAN stream, 30 min | Capture completes; measured drops reported; artifacts rotate/seal |
-| USB detach | Partial artifact sealed and case paused |
-| 2 GiB import | Hash, parse and UI progress complete without ANR |
-| Low storage | Capture stops before reserve threshold; no prior artifact overwritten |
-| PCAPNG multiple interfaces | Interface identity preserved |
-| Unsupported link type | Artifact retained and limitation reported |
+## Live passive verification
 
-### Parser security
+For the dedicated Android passive path, verify:
 
-Each Rust parser runs:
+- Capture Broker exposes only the bounded interface/start/stop contract;
+- native daemon receives frames from the allowlisted interface and produces valid bounded capture output;
+- no packet-send syscall/path is observed from the daemon;
+- physical OT-facing interface has the required no-address/no-egress posture;
+- SPAN/TAP visibility is independently validated;
+- packet drops, duration and capture source are measured/reported;
+- detach, low storage and stop events preserve a usable partial evidence record where permitted.
 
-- known-answer corpus;
-- truncation at every byte offset;
-- length-field boundary tests;
-- 10,000 deterministic mutation cases;
-- continuous libFuzzer/AFL-compatible fuzz target in CI;
-- AddressSanitizer/UndefinedBehaviorSanitizer on host;
-- memory and flow-table limit tests;
-- duplicate/out-of-order TCP segment tests.
+Virtual receive-only proof is not sufficient for field qualification; physical phone/NIC/hub/TAP testing is mandatory.
 
-Release gate: zero reproducible crash, panic across FFI, out-of-bounds access or unbounded allocation.
+## Import and parser security
 
-### Reconciliation
+Test PCAP/PCAPNG import with known-answer, malformed, truncated, length-boundary, unsupported-link and large-file cases.
 
-Golden cases cover exact matches, IP reuse, duplicate MAC, conflicting serial, renamed asset, unsupported OUI-only match and one-to-many candidate. Expected merge/split decisions and confidence are versioned. No automatic match based only on IP, hostname or OUI may be accepted.
+Every binary parser must have:
 
-### Rule engine
+- deterministic known-answer corpus;
+- truncation/mutation coverage;
+- length/allocation boundaries;
+- fuzz harness and sanitizer/host safety gates where applicable;
+- flow/reassembly resource ceilings;
+- safe failure without partial accepted-inventory mutation.
 
-Each WAT rule has positive, negative, insufficient-evidence and boundary fixtures. Running twice over the same case snapshot must produce byte-equivalent normative JSON after excluding documented generated timestamps.
+## Reconciliation
 
-### Security/privacy
+Golden cases cover exact match, IP reuse, duplicate MAC, conflicting serial/model, renamed asset, weak OUI/hostname-only evidence and one-to-many candidates.
 
-| Test | Expected result |
-|---|---|
-| Device locked | Case key unavailable until authenticated |
-| Copy app files from non-rooted device backup | Backup unavailable/disabled |
-| Network observation during offline workflow | Zero unapproved DNS/HTTP/telemetry |
-| Export without capture permission | Raw captures omitted; manifest states omission |
-| Photo EXIF policy off | GPS removed |
-| Invalid pack rollback | Older pack refused |
-| Database/file tamper | Integrity/manifest check fails visibly |
+Acceptance requires that weak identifiers alone cannot silently produce a strong accepted identity and that material conflicts remain reviewable.
 
-## Performance targets
+## Water rules and reporting
 
-Reference datasets:
+Each WAT rule in the [P0 contract](WATER-WASTEWATER-POC.md) receives positive, negative, insufficient-evidence and boundary fixtures.
 
-- D1: 1 GiB, 10 million packets, 100 endpoints;
-- D2: 2 GiB, malformed-heavy corpus;
-- D3: 64-row inventory, 256 endpoints, 100,000 normalized observations.
+From the same finalized snapshot, deterministic report data must reproduce the same normative findings/metrics except for explicitly non-semantic generated metadata.
 
-Measure on each supported phone:
+Final package tests verify:
 
-- import and parse duration;
-- peak RSS;
-- UI frame/ANR status;
-- database size;
-- report duration;
-- battery/thermal state;
-- capture drop rate.
+- evidence traceability;
+- limitation wording;
+- review state;
+- artifact/manifest hashes;
+- signature/external verification;
+- omission of raw captures when export policy excludes them.
 
-Pass: no ANR, parser RSS ≤256 MiB, application RSS target ≤768 MiB, and report generation ≤120 seconds for D3.
+## Security and privacy
 
-## Compatibility matrix gate
+Acceptance includes:
 
-Before P0 completion test at least:
+- Case App offline/no-unapproved-telemetry checks;
+- protected professional case data at rest;
+- backup/export policy tests;
+- pack/content signature and rollback behavior;
+- evidence/database tamper detection;
+- photo/metadata minimization;
+- lost/locked-device behavior appropriate to the supported appliance.
 
-- two Android phone models from different OEMs;
-- Android API 29 and one current supported release;
-- two USB Ethernet NIC models;
-- one powered hub;
-- one capture-accessory path;
-- Wi-Fi and BLE permissions across tested API levels.
+Security mechanics are evaluated against [SECURITY-AND-THREAT-MODEL.md](../architecture/SECURITY-AND-THREAT-MODEL.md), not independently redefined here.
 
-Record VID:PID, firmware, kernel/build, driver, link speeds, DHCP/static-IP behavior, socket binding and detach recovery. Unsupported combinations are blocked in field mode, not merely documented.
+## Performance datasets
 
-## Full assessment rehearsal
+Reference performance testing should cover at least:
 
-The witness receives only:
+- large clean capture;
+- malformed-heavy capture;
+- maximum P0 imported-asset/observed-endpoint set;
+- sustained passive capture at the target field load.
 
-- signed authorization;
-- seed inventory;
-- site/lab diagram;
-- Android kit;
-- user documentation.
+Measure import/parse duration, memory, UI responsiveness, storage growth, report duration, battery/thermal behavior and capture drop rate. Exact pass thresholds are release criteria and should be changed here once measured/approved rather than copied into multiple documents.
 
-They must complete prepare, walkdown, passive capture, optional A1, reconciliation, findings, review and signed export. Pass conditions:
+## Compatibility gate
 
-- zero prohibited packets;
-- all golden unexpected/conflict conditions found;
-- no false confirmed model identity;
-- every report fact traceable;
-- report limitations accurate;
-- independent reviewer can validate package hashes;
-- total operator time ≤4 hours excluding capture window;
-- no developer intervention.
+The compatibility matrix must contain enough independent phone/NIC/hub/TAP combinations to demonstrate that support is tied to measured hardware identities rather than an assumed Android capability.
+
+Record exact device/build, USB VID:PID where applicable, driver/kernel, link behavior, capture visibility, packet loss, detach recovery, power/thermal behavior and zero-egress evidence. Unsupported combinations are blocked or clearly represented as unsupported.
+
+Canonical measured records: [COMPATIBILITY-MATRIX.md](../appliance/COMPATIBILITY-MATRIX.md).
+
+## Full independent rehearsal
+
+The witness receives only the approved authorization, seed inventory/site diagram, supported Atlas kit and user documentation.
+
+They must complete the P0 method without developer intervention. Pass requires:
+
+- no prohibited network action;
+- expected inventory conflicts/unexpected items are detected and reviewed;
+- no false strong identity from insufficient evidence;
+- every report fact is traceable;
+- visibility and other limitations are accurate;
+- finalized package verifies externally;
+- the workflow can be completed within the approved field window.
 
 ## Release evidence
 
-The release record contains test results, packet traces, fuzz summaries, compatibility matrix, SBOM, signed provenance, threat-model approval, open defects and OT reviewer sign-off. Any open Critical/High defect blocks a field build.
+The release record includes applicable automated test results, packet traces, parser/fuzz summaries, hardware compatibility evidence, SBOM/provenance, threat-model review, open defects and independent OT/security review. Blocking defects prevent field release.

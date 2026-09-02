@@ -1,209 +1,150 @@
 # Morocco marketing playbook
 
+This page owns **outreach execution**: who to address, how to frame the problem, which channels to use and which content to create. Market rationale belongs in [MOROCCO-MARKET-GUIDE.md](MOROCCO-MARKET-GUIDE.md), named-account facts in [PROSPECT-DIRECTORY.md](PROSPECT-DIRECTORY.md), and evaluation/adoption terms in [OFFER.md](OFFER.md).
+
 ## Marketing objective
 
-Create enough trust and practical interest for a suitable water-sector organisation to request a free 30-day Atlas device evaluation. The campaign should demonstrate a useful operational or project decision outcome rather than promise a comprehensive cybersecurity audit.
+Create enough technical trust for a suitable practitioner or operator to discuss one bounded evaluation around a real evidence problem. The objective is not broad awareness of a “cyber scanner”; it is a qualified conversation about commissioning, reconciliation, maintenance or authorized assessment work.
 
-## Ideal evaluation prospect
+## Ideal conversation
 
-A suitable prospect is an operator, industrial water producer, engineering organisation or integrator that has:
+A strong prospect has:
 
-- responsibility for water, wastewater, pumping, treatment, telemanagement or industrial water infrastructure;
-- a bounded area, project package or asset-data question;
-- approved records or evidence that can be reviewed;
-- a technical function able to judge whether the result is useful;
-- a legitimate route for device custody and any necessary authorisation.
+- responsibility for a defined water/industrial OT area or professional assessment/integration workflow;
+- a bounded evidence or asset-data question;
+- legitimate access to the relevant records/evidence;
+- someone able to judge the usefulness of the result;
+- a valid route for authorization and device/evidence custody.
 
-The strongest timing signals are commissioning, telemanagement upgrades, GIS or asset-data programmes, operator transition, maintenance campaigns and repeated disagreement between field and documented records.
+Current project and account triggers are selected using the [market guide](MOROCCO-MARKET-GUIDE.md) and [prospect directory](PROSPECT-DIRECTORY.md).
 
-## Prospect roles and motivations
+## Roles and message angles
 
-| Role labels commonly used in Morocco | Primary motivation | Relevant Atlas message |
-|---|---|---|
-| Direction exploitation eau / assainissement | continuity, fewer surprises, faster operational decisions | establish a usable baseline for one station, train or remote group without changing production systems |
-| Direction technique / ingénierie / projets | commissioning, acceptance and contractor handover | compare expected records with approved evidence and document unresolved differences before acceptance |
-| Automatisme / télégestion / SCADA | accurate identities, topology context and controlled evidence collection | complement SCADA engineering with a portable offline evidence review |
-| Maintenance électromécanique | reliable asset records and work preparation | create a reviewed baseline that supports maintenance planning and future interventions |
-| SIG / patrimoine / asset management | authoritative records, change control and field reconciliation | show which proposed changes are supported, conflicting or still unverified |
-| DSI / cybersécurité / RSSI | scope control, traceability and low operational risk | use a passive-first offline assessment with explicit evidence and limitations |
-| QHSE / risques / gouvernance | reviewability, accountability and documented decisions | produce a bounded evidence package that can be retained and reviewed |
-| Achats / marchés / finance | clear scope, low entry cost and no lock-in | evaluate free for 30 days and retain the option to self-build |
-| Direction générale / direction de programme | continuity, investment protection and execution quality | reduce ambiguity in one operational or project decision without purchasing a large platform |
-| EPC / intégrateur / bureau d’études | cleaner handover and service differentiation | add a portable evidence package to project delivery and acceptance services |
+| Role | Lead with |
+|---|---|
+| Operations / exploitation | continuity, known operating baseline, fewer unresolved asset questions |
+| Technical / engineering / projects | commissioning evidence, acceptance and contractor handover |
+| Automation / telemanagement / SCADA | evidence quality across PLC/SCADA/network context without replacing engineering tools |
+| Maintenance | reliable asset state and preparation for intervention |
+| GIS / asset management | field-to-record reconciliation and documented acceptance of changes |
+| OT/IT security | authorization, traceability, passive-first collection and explicit limitations |
+| Risk / governance / QHSE | reviewability, accountable decisions and retained evidence |
+| Procurement / finance | bounded scope, reversible evaluation and clear service/hardware choices |
+| Programme/executive management | decision quality and investment protection on a specific operational/project scope |
+| Auditor / EPC / integrator | repeatable evidence package that can fit an existing methodology/deliverable |
 
-The material should be easy for a technical contact to forward internally to operations, projects, cybersecurity, procurement or management.
-
-## Core message
-
-### Headline
-
-> A portable offline evidence baseline for one water or industrial OT area.
+## Core message framework
 
 ### Problem
 
-Project files, GIS records, maintenance lists and network evidence can disagree. The resulting uncertainty affects handover, maintenance, asset governance and security review.
+Expected records and approved field/network evidence can disagree. The business problem is the unresolved decision that follows—not the absence of another scanning tool.
 
-### Product
+### Product role
 
-Atlas imports expected records and approved evidence, records provenance, highlights conflicts and unresolved identities, and produces a reviewable result for one bounded area.
+Atlas helps a practitioner collect or import bounded evidence, preserve provenance, review observations and reconcile them with expected records before handoff.
 
-### Low-risk entry
+### Entry
 
-The device can be evaluated free for 30 days. Work may begin with documents or imported captures, without a broad production-network scan.
+Propose one narrow operational/project question and the evaluation described in [OFFER.md](OFFER.md). Do not copy duration, acquisition or setup terms into campaign material; link to the canonical offer.
 
-### Long-term choice
+### Boundary
 
-The organisation may build its own device, keep the supplied appliance, arrange setup on a compatible Samsung device, or request OT networking and security consulting.
+Do not imply complete network visibility, penetration testing, certification, field qualification or any capability not present in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
 
-## Account-specific themes
+## First-contact pattern
 
-### ONEE
+A first message should:
 
-Lead with telemanagement, treatment, pumping or a regional project package. Use ONEE’s own [telemanagement and automation terminology](https://www.onep.org.ma/Espace-Achats-ONEE-BO/Cahiers-Clauses-Techniques_dispo-Generales/Cahiers-Clauses-Techniques_dispo-Generales.htm).
+1. reference one legitimate public project, operating theme or professional role;
+2. ask one precise question about how evidence is accepted/reconciled today;
+3. describe Atlas in one sentence;
+4. invite a bounded technical discussion/evaluation only if the issue is relevant.
 
-> Pour une station ou un groupe de sites de télégestion, comment l’équipe vérifie-t-elle que l’inventaire attendu, les équipements observés et les dossiers de mise en service décrivent le même périmètre ?
-
-### SRMs
-
-Lead with operator transition, regional asset consolidation, GIS, telemanagement or current infrastructure work. The [national SRM programme](https://www.maroc.ma/fr/actualites/les-srm-mettent-en-place-un-programme-dinvestissement-de-253-milliards-de-dh) makes asset transfer and service continuity legitimate business topics.
-
-> Lorsqu’un actif hérité, une observation terrain et le dossier du projet ne concordent pas, quel élément devient la référence acceptée et comment cette décision est-elle documentée ?
-
-### OCP Green Water
-
-Lead with commissioning, integrated operations, water resilience and continuity. OCP’s [public water programme](https://www.ocpgroup.ma/en/taxonomy/term/26) provides the appropriate vocabulary.
-
-> Pour une zone limitée en phase de commissioning ou de transfert à l’exploitation, quelles preuves démontrent que l’inventaire accepté correspond aux équipements et éléments de contrôle livrés ?
-
-### Engineering and integration partners
-
-Lead with a stronger handover package and additional service differentiation.
-
-> Atlas pourrait-il compléter vos livrables de mise en service par un delta d’inventaire et un registre de preuves réutilisable par l’exploitant ?
-
-## First-contact format
-
-A concise first message should reference one public project or operational theme, ask one precise question and offer the free evaluation only after relevance is established.
+Example structure:
 
 > Bonjour [Nom],  
-> J’ai consulté [source publique] concernant [projet ou programme]. Nous développons Atlas OT Scout, un appareil portable et hors ligne qui compare l’inventaire attendu avec des preuves approuvées pour une zone OT limitée.  
-> Comment votre équipe vérifie-t-elle actuellement [décision précise de réception, d’inventaire ou de maintenance] ? Si ce sujet est pertinent, nous proposons une évaluation gratuite de 30 jours.
+> J’ai consulté [source publique] concernant [projet ou thème]. Nous développons Atlas OT Scout, un appareil hors ligne qui aide à rapprocher l’inventaire attendu de preuves approuvées sur une zone OT limitée.  
+> Comment votre équipe documente-t-elle actuellement [décision précise de réception, d’inventaire ou de maintenance] lorsque les sources ne concordent pas ?
 
-## Marketing channels
+Account-specific sources and public routes come from [PROSPECT-DIRECTORY.md](PROSPECT-DIRECTORY.md).
+
+## Channels
 
 ### LinkedIn
 
-LinkedIn is the principal professional-awareness channel for this market. Follow the company pages and public profiles in the [prospect directory](PROSPECT-DIRECTORY.md), as well as water-sector events, engineering firms and project announcements.
+Use company/project feeds and relevant public professional profiles to identify timing, terminology and people involved in operations, automation, projects, asset management or security.
 
-Useful content themes include:
+Useful content themes:
 
 - why an IP address is not a durable asset identity;
-- a commissioning example with expected, corroborated, conflicting and unresolved records;
-- passive-first OT assessment in French;
-- a checklist for accepting a telemanagement package;
-- the 30-day evaluation and open-source adoption choices;
-- practical field notes on water-sector OT networking without naming customer systems.
+- “not observed” versus “absent” in a switched OT network;
+- commissioning evidence and inventory reconciliation;
+- passive-first assessment and visibility limitations;
+- evidence provenance and analyst review;
+- practical OT networking notes for water/telemanagement environments.
 
 ### Official email and contact forms
 
-Use the published organisation addresses and forms in the [prospect directory](PROSPECT-DIRECTORY.md). A first message should be brief, specific to a public project or operational theme, and suitable for internal forwarding.
+Use only published organization routes from the prospect directory. Keep the first message short enough to forward internally and tied to one specific question.
 
-### Project and procurement monitoring
+### Procurement/project monitoring
 
-Monitor official operator pages and the Moroccan public-procurement portal for:
+Watch official sources for terms associated with the entry situations in the market guide, including telemanagement, automation/regulation, SCADA/supervision, pumping, instrumentation, GIS/patrimony, commissioning, desalination, reuse, maintenance and cybersecurity.
 
-- télégestion;
-- automatisme et régulation;
-- supervision / SCADA;
-- pompage;
-- instrumentation;
-- SIG / patrimoine;
-- reconnaissance terrain;
-- mise à niveau;
-- dessalement;
-- réutilisation des eaux usées;
-- maintenance électromécanique;
-- cybersécurité / sécurité des systèmes d’information.
+A procurement notice is a timing/vocabulary signal; it is not evidence that Atlas fits the procurement.
 
-A notice provides timing and vocabulary for a relevant conversation; the message should remain focused on the prospect’s actual decision process.
+### Partner outreach
 
-### Partner marketing
-
-Engineering and integration partners may provide faster market access than direct operator outreach. Relevant public organisations include [JESA](https://www.linkedin.com/company/jesa-s-a), [NOVEC](https://www.linkedin.com/company/novec-sa/), [Waterplus Morocco](https://www.linkedin.com/company/waterplus-maroc) and [Aquatech Morocco](https://www.linkedin.com/company/aquatech-services-des-eaux-maroc/).
-
-> Atlas adds a portable, evidence-linked acceptance and baseline deliverable without replacing the partner’s engineering scope.
-
-### Events and sector media
-
-Track Moroccan water, infrastructure, cybersecurity and industrial events. Public company feeds are useful for identifying current projects, speakers and vocabulary. Event participation is most effective with a five-minute demonstration and one precise use case.
+For auditors, engineering firms and integrators, lead with methodology/deliverable fit rather than end-user marketing. Ask whether a provenance-backed reconciliation package could strengthen an existing assessment, commissioning or handover workflow.
 
 ## Marketing assets
 
 ### One-page overview
 
-The overview should contain:
+Include:
 
-- the operational problem;
-- the bounded assessment workflow;
-- one synthetic before-and-after example;
-- the free 30-day evaluation;
-- the three adoption choices;
-- consulting availability;
-- repository and compatibility links.
+- one operational/project problem;
+- one bounded evidence workflow;
+- one simple expected/observed/conflict example;
+- link to the canonical evaluation offer;
+- link to repository/current capability statement.
 
-### Five-minute demonstration
+### Demonstration
 
-Show:
-
-1. importing an expected inventory;
-2. importing approved evidence;
-3. reviewing one identity conflict;
-4. recording the source and limitation;
-5. presenting the decision-ready result.
-
-Android build details belong in a separate technical briefing for device or security specialists.
+Use the maintained [presenter script](../product/DEMO-SCRIPT.md) and generated [guided demo](../demo/README.md). Demo material should show evidence becoming useful through review, not device-count spectacle.
 
 ### Technical briefing
 
-For automation, OT security and engineering audiences, cover passive collection, imported PCAP analysis, one-target identity checks, evidence provenance, architecture and current limitations.
+For technical audiences, link directly to the appropriate authorities:
 
-## Common objections
+- [current implementation](../../IMPLEMENTATION.md);
+- [network execution](../architecture/NETWORK-EXECUTION.md);
+- [P0 product contract](../poc/WATER-WASTEWATER-POC.md);
+- [appliance architecture](../architecture/DEDICATED-ANDROID-APPLIANCE.md).
 
-### “We already have SCADA, GIS or CMMS.”
+Do not recreate those technical definitions in marketing copy.
 
-Atlas does not replace those systems. It helps compare their expected records with approved evidence and makes unresolved discrepancies visible.
+## Objection handling
 
-### “We cannot allow a new device on production.”
+| Objection | Response direction |
+|---|---|
+| “We already have SCADA/GIS/CMMS.” | Atlas is evaluated as a reconciliation/evidence layer for a bounded decision, not a replacement platform. |
+| “We cannot connect a new device.” | Start from approved documents/imported captures where useful; any network use follows an explicitly agreed method. |
+| “The repository is public.” | The commercial choices and service model are documented in [OFFER.md](OFFER.md). |
+| “Why a phone?” | Treat the appliance form factor as a hypothesis to validate, not the value proposition. |
+| “Can we use an employee phone?” | Follow the dedicated-device/setup constraints in [OFFER.md](OFFER.md) and [Appliance integration](../appliance/README.md). |
+| “Is the hardware qualified?” | Current support status is answered only by [IMPLEMENTATION.md](../../IMPLEMENTATION.md) and the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md). |
 
-The evaluation can begin with approved documents, configuration exports or imported packet captures. Any later connection is limited to an agreed method and environment.
+## Campaign measurement
 
-### “The repository is public, so why pay?”
+Measure evidence of progression rather than impressions alone:
 
-The software can be built independently. Payment is for a prepared device, installation, configuration and requested specialist services—not a compulsory licence.
+- technical conversations with relevant practitioners/operators;
+- requests to review the evidence schema or workflow;
+- bounded evaluation scopes proposed/accepted;
+- partner referrals;
+- procurement objections and reasons;
+- measured workflow effort from evaluations;
+- paid/contractually binding outcomes.
 
-### “Why use a phone?”
-
-A compatible phone provides a portable screen, battery, storage and Android platform at relatively low cost. The appliance is intended for bounded field work, not continuous rack-mounted monitoring.
-
-### “Can we use an employee’s current Samsung phone?”
-
-A dedicated device is strongly preferable. Bootloader unlocking and flashing erase the device, and Samsung documents that unofficial software can permanently trip the [Knox Warranty Bit](https://docs.samsungknox.com/admin/knox-platform-for-enterprise/faq/), disabling Knox-dependent services. A personal or managed corporate phone is therefore unsuitable.
-
-### “Is the hardware fully qualified?”
-
-The repository lists specific Galaxy S20 Exynos variants as candidates in the [compatibility matrix](../appliance/COMPATIBILITY-MATRIX.md). They are not represented as qualified production appliances until the documented physical acceptance tests are complete.
-
-## First campaign
-
-A focused first campaign consists of:
-
-1. one French-language article about evidence and asset identity in water OT;
-2. a one-page evaluation offer;
-3. a five-minute synthetic demonstration;
-4. outreach tied to a small number of current public project signals;
-5. parallel introductions to engineering and automation partners;
-6. a clear invitation to request the free 30-day device evaluation.
-
-The useful outcomes are technical conversations, evaluation requests, partner interest and feedback that improves the product and offer.
-
-See the [evaluation and services offer](OFFER.md).
+These results feed back into the commercial unknowns in [DILIGENCE-SUMMARY.md](DILIGENCE-SUMMARY.md).

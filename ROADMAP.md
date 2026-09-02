@@ -1,34 +1,30 @@
 # Roadmap
 
-The roadmap is an engineering gate sequence for one product: the [P0-WATER professional assessment](docs/poc/WATER-WASTEWATER-POC.md). Cross-industry expansion remains blocked until that assessment passes an independent rehearsal.
+`ROADMAP.md` is the canonical milestone-status record for P0-WATER. Current executable behavior is maintained in [IMPLEMENTATION.md](IMPLEMENTATION.md). Detailed work items live in the [P0 implementation backlog](docs/poc/IMPLEMENTATION-BACKLOG.md), which references these milestone IDs rather than maintaining a second status table.
 
-`ROADMAP.md` describes planned work. Current executable behavior is maintained separately in [IMPLEMENTATION.md](IMPLEMENTATION.md).
-
-| Gate | Status | Deliverable | Exit evidence |
+| Gate | Status | Product outcome | Exit evidence |
 |---|---|---|---|
-| M0 Safety slice | Complete in CI | Reproducible Kotlin/JVM and native C Android build with isolated network and capture boundaries | Debug APKs, unit tests, architecture checks, and emulated end-to-end journeys |
-| M1 Offline case | Planned | Authorization record, encrypted case vault, import, audit, and export | State, integrity, key-lifecycle, and offline tests |
-| M2 Passive analysis | Partial | Production PCAP/PCAPNG ingestion and water-asset reconciliation | Golden corpus, malformed-input tests, fuzz baseline, and review workflow |
-| M3 Field evidence | Planned | Physical photos plus approved Wi-Fi and BLE observations | Permission, privacy, and evidence-provenance tests |
-| M4 Safe active identity | Partial | Modbus device ID plus lab-approved OPC UA discovery | Independent packet traces proving operation and budget limits |
-| M5 Live passive | Emulated | Qualified SPAN/TAP capture accessory and appliance integration | Physical compatibility matrix and sustained capture with drops reported |
-| M6 Professional report | Planned | Water rules, review, and signed HTML/PDF/JSON/CSV package | Deterministic build and evidence-traceability review |
-| M7 Rehearsal | Planned | Independent four-hour lab assessment | Every P0 definition-of-done gate passes |
-
-Detailed tickets, dependencies, and staffing boundaries are in the [implementation backlog](docs/poc/IMPLEMENTATION-BACKLOG.md).
+| M0 Safety slice | Complete | Reproducible Android/JVM/native build with separated active/passive boundaries | Builds, architecture checks and emulated end-to-end journeys |
+| M1 Professional offline case | Planned | Authorization, encrypted case vault, audit chain and controlled export | State, integrity, key-lifecycle and offline tests |
+| M2 Passive analysis | Partial | Production-grade PCAP/PCAPNG ingestion and water-asset reconciliation | Golden corpus, malformed-input/fuzz gates and reviewer workflow |
+| M3 Field evidence | Planned | Physical observations plus approved Wi-Fi/BLE evidence | Permission, privacy and provenance tests |
+| M4 Safe active identity | Partial | Qualified Modbus device identification plus separately approved next active profile | Independent packet traces and operation-budget proof |
+| M5 Live passive | Partial | Dedicated Android Capture Broker + native daemon integrated with qualified SPAN/TAP hardware | Signed image integration, compatibility matrix, sustained capture/drop and zero-egress evidence |
+| M6 Professional report | Planned | Reviewed findings and deterministic signed assessment package | Reproducibility and evidence-traceability review |
+| M7 Rehearsal | Planned | Independent end-to-end P0-WATER assessment | Every P0 definition-of-done gate passes without developer intervention |
 
 ## P0 release boundary
 
-P0 ends with a professional assessment of one water or wastewater segment. It does not include cloud synchronization, enterprise dashboards, broad port scanning, credentials, exploits, PROFINET/S7 active discovery, EtherNet/IP active identity, serial buses, or customer API connectors.
+P0 is complete only when one bounded water/wastewater assessment can be performed and independently reviewed under the [P0 product contract](docs/poc/WATER-WASTEWATER-POC.md). Broad scanning, credentials, exploitation, control operations, cloud synchronization and enterprise portfolio features are outside P0.
 
 ## After P0
 
-Only measured gaps from a witnessed assessment may justify P1. Candidate work includes:
+Post-P0 work is driven by measured gaps from rehearsals or customer evaluations, not by protocol breadth alone. Candidate categories include:
 
-1. a customer CMMS/CMDB import/export connector;
-2. a second water protocol selected from observed evidence;
-3. a field-hardened capture accessory;
-4. multi-case consolidation;
-5. one separately governed industry pack.
+- customer CMMS/CMDB integration;
+- additional protocol packs justified by observed evidence;
+- hardened production appliance hardware;
+- multi-case consolidation;
+- separately governed industry packs.
 
-A new industry requires its own process model, asset taxonomy, evidence method, protocol threat review, golden corpus, assessment rules, and independent acceptance rehearsal. It is not a configuration flag.
+A new industry requires its own process model, evidence method, protocol threat review, test corpus, assessment rules and independent acceptance evidence.

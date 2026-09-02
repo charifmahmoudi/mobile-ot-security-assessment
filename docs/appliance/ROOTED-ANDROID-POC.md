@@ -1,104 +1,74 @@
 # Rooted Android PoC platform decision
 
-Status: **selected for laboratory implementation; not yet hardware-qualified**
+Status: **selected laboratory platform; not hardware-qualified**
 
-## Decision
+This document owns the **laboratory Android platform and model selection**. Passive-capture security/privilege architecture belongs in [Dedicated Android passive-capture appliance](../architecture/DEDICATED-ANDROID-APPLIANCE.md), and current executable status belongs in [IMPLEMENTATION.md](../../IMPLEMENTATION.md).
 
-Use a dedicated Samsung laboratory phone running a custom **LineageOS 23.2 / Android 16 `userdebug` build**, with the Atlas capture daemon installed as a platform component. Build the same pinned LineageOS source branch for an x86_64 Android Emulator target and for one exact Samsung device target.
+## Selected laboratory platform
 
-Selected physical target:
+Use a dedicated Samsung laboratory phone running a custom **LineageOS 23.2 / Android 16 `userdebug` build**, with Atlas platform components integrated into the image. Build the same pinned LineageOS source branch for an x86_64 Android Emulator target and for the exact Samsung device target.
 
-- Samsung Galaxy S20 4G/5G Exynos family, Lineage codename `x1s`;
-- exact accepted models: `SM-G980F`, `SM-G980F/DS`, `SM-G981B`, `SM-G981B/DS`;
-- other S20 model numbers are incompatible unless separately qualified.
+Selected physical family:
+
+- Samsung Galaxy S20 4G/5G Exynos, Lineage codename `x1s`;
+- accepted candidate model identifiers: `SM-G980F`, `SM-G980F/DS`, `SM-G981B`, `SM-G981B/DS`;
+- other S20 variants require separate compatibility evidence.
 
 Selected virtual target:
 
-- LineageOS `sdk_phone_x86_64` `userdebug` image in the Android Emulator;
-- Cuttlefish `aosp_cf_x86_64_only_phone-userdebug` remains the lower-level kernel/SELinux test fallback.
+- LineageOS `sdk_phone_x86_64` `userdebug` image;
+- Cuttlefish `aosp_cf_x86_64_only_phone-userdebug` as a lower-level kernel/SELinux fallback.
 
-The emulator and Samsung artifacts come from the same pinned platform branch and Atlas source revision, but they are device-specific images. **Never flash the emulator image to the Samsung phone.**
-
-## Why LineageOS and this Samsung target
-
-- LineageOS publishes current build and installation instructions for `x1s`.
-- LineageOS publishes an emulator/AVD build target, so platform services, SELinux policy and application integration can be tested before using hardware.
-- The S20 generation is widely available used, supports USB host mode and has sufficient CPU, memory and storage for the PoC.
-- Exact supported international model numbers can be enforced during device enrollment.
-- It avoids relying on an unmaintained phone or an unofficial GSI with unknown device integration.
+Emulator and physical images come from the same pinned source/Atlas revision but are device-specific. Never flash an emulator image to the physical phone.
 
 Sources:
 
-- LineageOS S20 device: https://wiki.lineageos.org/devices/x1s/
-- LineageOS S20 installation: https://wiki.lineageos.org/devices/x1s/install/
-- LineageOS S20 build: https://wiki.lineageos.org/devices/x1s/build/
-- LineageOS emulator build: https://wiki.lineageos.org/emulator
-- AOSP Cuttlefish: https://source.android.com/docs/devices/cuttlefish/get-started
+- https://wiki.lineageos.org/devices/x1s/
+- https://wiki.lineageos.org/devices/x1s/install/
+- https://wiki.lineageos.org/devices/x1s/build/
+- https://wiki.lineageos.org/emulator
+- https://source.android.com/docs/devices/cuttlefish/get-started
 
-## Root model
+## Why this laboratory target
 
-The Case App does not receive root and continues to have no Android `INTERNET` permission. Root is an operating-system integration capability, not an application mode.
+- LineageOS publishes maintained build and installation paths for `x1s`.
+- A published emulator target allows platform integration to be exercised before physical flashing.
+- The S20 generation is readily available used and has adequate CPU, memory, storage and USB host capability for PoC work.
+- Exact model enrollment can reject incompatible regional variants.
+- The platform can host the confined capture daemon without giving the Case App general-purpose root.
 
-| Component | Identity | Additional privilege |
-|---|---|---|
-| Case App | ordinary dedicated UID | none |
-| Parser | isolated UID/process | none |
-| Network Broker | separate signed UID | Android network sockets only |
-| Passive Capture Broker | separate signed UID | Binder access to capture daemon only |
-| `atlas_capture` daemon | init-managed SELinux domain | raw packet receive on allowlisted interface |
-| Maintenance shell | disabled in field mode | enabled only on laboratory `userdebug` image |
+This is a **PoC platform choice**, not a commitment to Samsung as production hardware.
 
-Magisk is not required in the intended build because `atlas_capture` is part of the system image and its privilege is described by init, Linux capabilities and SELinux policy. Magisk may be used temporarily to prove a driver or adapter on stock/Lineage hardware before the custom image is ready, but such a device is labeled **LAB-ROOTED**, stores no customer cases and is never used as evidence of the final security boundary.
+## Laboratory root posture
 
-## Security invariants
+`userdebug` and temporary root techniques are permitted only to develop and validate the platform integration. Field product behavior must preserve the component boundaries in the canonical appliance architecture.
 
-1. The UI never executes `su`, shell commands or arbitrary native binaries.
-2. The capture AIDL exposes interface inspection, bounded start and stop only.
-3. The passive daemon contains no packet-send operation.
-4. Passive capture is limited by interface ID, duration and byte count.
-5. The capture interface has no IPv4 or IPv6 address.
-6. Android connectivity management must not claim the capture interface.
-7. Egress policy and interface TX counters are checked before and during capture.
-8. Raw packets enter an isolated parser before reaching the case database.
-9. Active scanning remains in the separately authorized Network Broker.
-10. Emulator, rooted laboratory and hardware-qualified evidence are visibly distinguishable.
+Magisk is not required by the intended image because the capture daemon is integrated as a platform component. It may be used temporarily to prove a driver/adapter on laboratory hardware, but such a device is labeled **LAB-ROOTED**, stores no customer cases and is not evidence of the production boundary.
 
-## Benefits delivered by the rooted/custom platform
+Samsung-specific bootloader/root work can permanently affect Knox-dependent services. Official Magisk Samsung guidance: https://topjohnwu.github.io/Magisk/install.html#samsung-devices
 
-- Direct `AF_PACKET` Ethernet capture from supported USB NICs.
-- Promiscuous capture of frames delivered by a SPAN port or network TAP.
-- Layer-2 evidence: VLAN tags, MAC addresses, ARP, LLDP and industrial discovery traffic.
-- Continuous PCAP creation without first transferring a file from another laptop.
-- Real-time asset and communication-relationship updates.
-- OS-level control over interface addressing, DHCP, IPv6 and egress.
-- Ability to qualify external Wi-Fi adapters for monitor mode later.
-- Better device attestation, kiosk operation and controlled update policy than an ordinary app install.
+## Platform-specific risks
 
-Root does not defeat a switch. An ordinary access port still exposes only frames delivered to that port. Whole-segment visibility requires an approved SPAN/mirror port or TAP. Root also does not guarantee monitor mode on the internal Wi-Fi chipset; driver, firmware and HAL support remain hardware-specific.
-
-## Costs and risks
-
-- Bootloader unlocking wipes the device and reduces boot-chain assurance.
-- Samsung Magisk installation permanently trips the Knox Warranty Bit.
-- Some USA/Canada Samsung variants cannot be bootloader-unlocked; model enrollment must reject them.
-- Magisk-rooted Samsung firmware loses the ordinary OTA path and requires manual patched-image upgrades.
+- Bootloader unlocking wipes the device.
+- Some Samsung regional variants cannot be bootloader-unlocked.
+- Laboratory unlocked boot state is weaker than a production verified-boot design.
 - Custom OS maintenance becomes part of the product security lifecycle.
-- USB NIC, power, thermal, suspend and packet-loss behavior require physical qualification.
+- USB NIC, hub, power, thermal, suspend and packet-loss behavior are device-specific and require physical measurement.
+- Internal Wi-Fi monitor mode cannot be assumed from root alone; driver/firmware/HAL support is hardware-specific.
 
-Official Magisk Samsung guidance: https://topjohnwu.github.io/Magisk/install.html#samsung-devices
+## Build and qualification sequence
 
-## PoC build sequence
+1. Pin a specific LineageOS manifest revision and Atlas commit.
+2. Build and boot the emulator `userdebug` target.
+3. Integrate the Case App, Network Broker, Capture Broker, parser boundary and `atlas_capture` platform component.
+4. Validate package signatures, SELinux integration, raw receive behavior and zero egress in the virtual environment.
+5. Acquire an exact accepted `x1s` candidate and record model, bootloader, firmware and Knox state.
+6. Build and flash the device-specific image using the official Lineage installation path.
+7. Qualify the selected powered hub, USB Ethernet NIC and SPAN/TAP topology.
+8. Record measured results in [COMPATIBILITY-MATRIX.md](COMPATIBILITY-MATRIX.md).
 
-1. Pin a specific `lineage-23.2` manifest revision and Atlas commit.
-2. Build `sdk_phone_x86_64-userdebug` and boot it in Android Emulator.
-3. Integrate the three APK boundaries plus `atlas_capture` into the image.
-4. Run package, SELinux, raw-capture and zero-egress tests in the emulator/virtual network.
-5. Acquire an exact `x1s` supported model and record model, bootloader, firmware and Knox state.
-6. Build and flash the device-specific `x1s-userdebug` image using the official Lineage installation path.
-7. Qualify one powered USB hub, one USB Ethernet NIC and one passive TAP/SPAN topology.
-8. Run the physical acceptance matrix in `COMPATIBILITY-MATRIX.md`.
-9. Only then change status from laboratory to supported PoC hardware.
+Hardware support is claimed only after the compatibility gates pass.
 
-## Exit from PoC root
+## Exit from laboratory hardware
 
-The PoC may operate with an unlocked bootloader. A commercial appliance must move to hardware that supports product-controlled Verified Boot keys and a relocked bootloader, or provide an equivalent measured-boot and tamper-control story. Samsung `x1s` is therefore a PoC target, not automatically the production hardware choice.
+A commercial appliance requires a stronger boot/update/tamper story than an unlocked PoC phone. Production hardware must support product-controlled verified boot and relocking or an equivalent measured-boot control accepted by the security design. The `x1s` laboratory choice therefore remains separate from the eventual production hardware decision.

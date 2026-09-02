@@ -1,17 +1,19 @@
 # Architecture and security
 
-This section is the authoritative architecture and security record for Atlas OT Scout. Current executable behavior is tracked in [IMPLEMENTATION.md](../../IMPLEMENTATION.md); architecture documents define the system boundary and target controls without overriding that implementation status.
+This section owns Atlas OT Scout architecture contracts. Architecture describes the intended system boundaries; [IMPLEMENTATION.md](../../IMPLEMENTATION.md) is the only authority for how much of that design currently executes.
 
 | Document | Authority |
 |---|---|
-| [System and deployment](SYSTEM-AND-DEPLOYMENT.md) | Packages, processes, deployment topology and trust boundaries |
-| [Component contracts](COMPONENT-CONTRACTS.md) | Interfaces, responsibilities and forbidden coupling |
-| [Network execution](NETWORK-EXECUTION.md) | Signed grants, broker enforcement, exact operations and stop behavior |
-| [Evidence data model](EVIDENCE-DATA-MODEL.md) | Artifact, observation, claim, asset, finding, review and report layers |
-| [Security and threat model](SECURITY-AND-THREAT-MODEL.md) | Assets, adversaries, abuse cases, mitigations and residual risk |
-| [Dedicated Android appliance](DEDICATED-ANDROID-APPLIANCE.md) | Target appliance architecture and physical qualification boundary |
-| [Protocol and device catalog](PROTOCOL-AND-DEVICE-CATALOG.md) | Evidence-bounded protocol identity surfaces and permitted prototype actions |
+| [System and deployment](SYSTEM-AND-DEPLOYMENT.md) | Packages/processes, privilege and trust/deployment topology |
+| [Component contracts](COMPONENT-CONTRACTS.md) | Internal responsibilities and forbidden coupling |
+| [Network execution](NETWORK-EXECUTION.md) | Active grant/signature mechanics, initial Modbus operation, passive broker/daemon behavior and stop semantics |
+| [Evidence data model](EVIDENCE-DATA-MODEL.md) | Artifact → observation → claim → asset/finding → review → snapshot/report model |
+| [Security and threat model](SECURITY-AND-THREAT-MODEL.md) | Security argument, threat register and residual risks |
+| [Dedicated Android appliance](DEDICATED-ANDROID-APPLIANCE.md) | Live-passive privilege boundary and physical acceptance invariants |
+| [Protocol and device catalog](PROTOCOL-AND-DEVICE-CATALOG.md) | Evidence-bounded protocol/device identity surfaces |
 
-Accepted and proposed design decisions are registered in the [ADR index](../adr/README.md). Product acceptance criteria are defined in the [P0-WATER specification](../poc/WATER-WASTEWATER-POC.md), and automated proof boundaries are described in the [testing index](../testing/README.md).
+Historical decisions and supersession are recorded in the [ADR index](../adr/README.md). Product scope is defined by [P0-WATER](../poc/WATER-WASTEWATER-POC.md); verification criteria are defined by [TEST-AND-ACCEPTANCE.md](../poc/TEST-AND-ACCEPTANCE.md).
+
+Do not copy exact grant algorithms, packet templates, deployment diagrams or current capability status into overview/test/commercial documents when a link to the relevant authority is sufficient.
 
 Return to the [documentation index](../README.md).

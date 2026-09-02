@@ -1,68 +1,65 @@
 # Executable baseline
 
-`IMPLEMENTATION.md` is the canonical statement of what the repository executes today. Planned capability belongs in [ROADMAP.md](ROADMAP.md) and the [P0 implementation backlog](docs/poc/IMPLEMENTATION-BACKLOG.md).
+`IMPLEMENTATION.md` is the canonical statement of what this repository executes today. Design documents may describe the P0 target; [ROADMAP.md](ROADMAP.md) records planned gates. When another document conflicts with this file about current capability, this file wins until the implementation or this record is changed.
 
-## Guided assessment UI
+## Current software boundary
 
-The Case App implements a persistent five-stage assessment shell: Overview, Collect, Assets, Findings, and Report. The dashboard recommends the next defensible action; passive observations require explicit selection before inventory changes; the inventory includes list and process-zone views; findings keep confidence separate from consequence; and report finalization remains blocked while required controls are incomplete.
+The repository contains three Android application boundaries plus a native passive-capture daemon:
 
-The open-source integration decisions, visual tokens, and remaining interaction gates are specified in [Open-source and UX implementation](docs/product/OPEN-SOURCE-AND-UX-IMPLEMENTATION.md).
+| Component | Current executable role |
+|---|---|
+| Case App | Guided site workflow, passive import/review, inventory reasoning, findings/report-readiness UI; no Android `INTERNET` permission |
+| Network Broker | Separately privileged active-network service for the compiled Modbus identity operation |
+| Capture Broker | Separate passive-capture Binder/FD boundary; debug builds stream a labeled CI fixture and release builds fail closed until the native backend is integrated |
+| Parser worker | Isolated-process parsing boundary for untrusted captures |
+| `atlas_capture` | Native `AF_PACKET` receive-only daemon compiled and tested on Linux virtual Ethernet; not yet integrated and qualified on the target phone image |
 
-This repository contains an executable safety slice for **P0-WATER**. It is narrower than the target product: it proves that Android can enforce authorization, constrain one OT operation, preserve evidence bytes, and keep general application code away from raw network sockets.
+The authoritative topology and privilege model are in [System and deployment](docs/architecture/SYSTEM-AND-DEPLOYMENT.md). Exact packet-producing and packet-receiving behavior is defined in [Network execution](docs/architecture/NETWORK-EXECUTION.md).
 
 ## Implemented behavior
 
-| Boundary | Executable behavior | Verification |
+| Area | Current behavior | Verification route |
 |---|---|---|
-| Case lifecycle | Draft → authorized → collecting/paused → reviewing → finalized with role gates and time window | JVM unit tests |
-| Execution grants | P-256 ECDSA signature, 60-second maximum lifetime, one-time nonce, CIDR/exclusion checks, and resource caps | JVM and device tests |
-| Network privilege | `case-app` has no `INTERNET`; only `network-broker` has socket access | Manifest policy script and emulator tests |
-| IPC | Exported broker service requires app-signature permission; AIDL carries bounded grants and an evidence file descriptor | Emulator tests |
-| Active OT identification | One bounded Modbus/TCP Read Device Identification request: FC `0x2B`, MEI `0x0E`, basic objects only | Codec and end-to-end tests |
-| Interface binding | Broker opens the socket through the explicitly granted Android `Network` handle | Code path and build test |
-| Replay journal | Consumed nonces are synchronously persisted before a socket job is accepted | Unit and static checks |
-| Parser isolation | Parser service is non-exported and runs in an Android isolated process | Manifest policy script and emulator tests |
-| Emergency stop | Closes active assessment sockets; service destruction cancels queued work | Code path |
-| Passive import | Bounded PCAP/PCAPNG import with SHA-256, timing, protocol, endpoint, role, confidence, and framing evidence | Sourced captures, PCAPNG, and UI tests |
-| Passive capture contract | Signature-protected broker, interface attestation, bounded time/byte request, and PCAP stream over a file descriptor | Static checks and API 29/35 emulation |
-| Native live capture | `AF_PACKET` daemon bound to one interface; bounded mode-0600 PCAP; no packet-send calls | Native compile, virtual SPAN capture, and zero-TX assertion |
-| Passive protocol parsing | Modbus/TCP, DNP3, IEC-104, BACnet/IP, EtherNet/IP, S7comm, IEC 61850 MMS candidate, OPC UA, and PROFINET framing | Parser tests; four protocols have sourced CI fixtures |
-| Assessment UI | Site setup, persistent stages, passive/active choice, pre-broker validation, and review-first inventory | API 29 and API 35 instrumentation |
+| Site workflow | Three-step site creation and a persistent Overview → Collect → Assets → Findings → Report shell | Android instrumentation |
+| Local prototype state | Site and working inventory state persist locally for the current PoC workflow | Android tests |
+| Passive import | Bounded PCAP/PCAPNG import, hashing, metadata extraction, parsing and explicit observation review before inventory mutation | JVM + Android tests with sourced captures |
+| Passive protocol parsing | Modbus/TCP, DNP3, IEC-104, BACnet/IP, EtherNet/IP, S7comm, IEC 61850 MMS candidate, OPC UA and PROFINET framing; sourced CI fixtures currently exercise a subset | Parser/unit/UI tests |
+| Capture Broker boundary | Signature-protected Binder service exposes interface inspection, bounded start and stop, and streams bytes through a file descriptor | API 29/35 emulation |
+| Native passive daemon | `AF_PACKET` receive on one interface, promiscuous membership, bounded classic PCAP output and no packet-send calls in the daemon source | Native compile, veth capture, symbol/syscall gate |
+| Active operation | One Modbus/TCP Read Device Identification request, FC `0x2B` / MEI `0x0E`, basic objects only, to one authorized IPv4 target on TCP/502 | Codec, policy and end-to-end tests |
+| Grant signing | Case App uses an Android Keystore EC key on `secp256r1`; grants are signed and verified with `SHA256withECDSA` | Domain tests + Android journey |
+| Grant policy | Maximum 60-second grant lifetime; exact target must be inside an authorized CIDR and outside exclusions; unit ID 0–247; one or two packet budget, ≤512 response bytes, ≤1 retry, ≤1500 ms timeout, concurrency one | `GrantPolicy` tests |
+| Replay state | Consumed nonces are persisted by the Network Broker in private `SharedPreferences` before an allowed execution proceeds | Broker/domain tests |
+| Interface use | Active socket is explicitly bound with Android `Network.bindSocket` before connect | Network Broker code + device tests |
+| Emergency stop | Network Broker closes active Modbus sockets; Capture Broker cancels its active capture worker | Code path + tests |
+| Analyst boundary | Imported/passive observations require explicit selection before they affect the working inventory | UI tests |
 
-## CI acceptance gate
+## What CI proves
 
-Every push to `main` and every pull request runs:
+The Android safety workflow exercises builds, architecture checks, JVM tests, lint, API 29/35 instrumentation, passive capture imports, the Capture Broker file-descriptor journey, active Modbus behavior against PyModbus/modbus-tk/Conpot, and the native receive-only capture gate.
 
-1. architecture invariant verification;
-2. documentation structure and local-reference verification;
-3. JVM unit tests;
-4. Android lint;
-5. debug APK assembly for the Case App, Network Broker, and Capture Broker;
-6. instrumentation tests on API 29 and API 35;
-7. signed UI-to-network-to-result journeys against PyModbus, Modbus-TK, and Conpot;
-8. native receive-only capture testing over a virtual SPAN link.
+The exact verification topology and retained artifacts are documented in [Testing](docs/testing/README.md). CI proves those software paths; it does not qualify a physical OT appliance or production network.
 
-The workflow installs a pinned Gradle 8.13 runtime. Reports, logs, screenshots, test XML, and debug APKs are retained as workflow artifacts.
+## Not implemented or not yet qualified
 
-## Deferred release gates
+The following are not current field-ready capabilities:
 
-This baseline is **not yet a professional water-sector assessment release**. The following remain incomplete:
+- integration of `atlas_capture` into the signed LineageOS appliance image with its final SELinux/init policy;
+- physical phone, powered hub, USB-Ethernet and SPAN/TAP qualification;
+- encrypted professional case database/artifact vault and production key lifecycle;
+- durable multi-user authorization/reviewer workflow;
+- deterministic signed HTML/PDF/JSON/CSV final assessment package;
+- production inventory/CMMS/CMDB connectors;
+- production Wi-Fi, BLE or serial collection packs;
+- OPC UA active discovery;
+- broad active discovery, subnet/port/unit-ID sweeps, register reads/writes, credentials, exploitation or control actions;
+- complete P0-WATER independent rehearsal and production release qualification.
 
-- physical phone, USB-Ethernet, SPAN/TAP, and custom-image qualification;
-- production encrypted case storage and key lifecycle;
-- reviewer signatures and deterministic HTML/PDF/JSON/CSV report packaging;
-- full evidence export and inventory connectors;
-- production Wi-Fi, BLE, and serial collection;
-- OPC UA active discovery after independent lab approval;
-- complete P0-WATER assessment rehearsal and external review.
+## Current-versus-target interpretation
 
-The current Modbus path must only be used on a network covered by written authorization.
+- [Requirements](docs/REQUIREMENTS.md) state what the product must eventually satisfy.
+- [P0-WATER](docs/poc/WATER-WASTEWATER-POC.md) defines the first product contract.
+- [Architecture](docs/architecture/README.md) defines the intended design boundaries.
+- [Roadmap](ROADMAP.md) records the remaining gate sequence.
 
-## Canonical design references
-
-- [P0-WATER specification](docs/poc/WATER-WASTEWATER-POC.md)
-- [System and deployment](docs/architecture/SYSTEM-AND-DEPLOYMENT.md)
-- [Network execution](docs/architecture/NETWORK-EXECUTION.md)
-- [Dedicated Android appliance](docs/architecture/DEDICATED-ANDROID-APPLIANCE.md)
-- [Security and threat model](docs/architecture/SECURITY-AND-THREAT-MODEL.md)
-- [End-to-end acceptance](docs/testing/E2E-ACCEPTANCE.md)
+Those documents must not be read as evidence that a target capability already executes.

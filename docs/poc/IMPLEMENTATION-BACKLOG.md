@@ -1,118 +1,105 @@
-# P0-WATER Implementation Backlog
+# P0-WATER implementation backlog
 
-The backlog is ordered as vertical, testable slices. No active protocol work starts before the evidence and policy foundations exist.
+This file owns **work items and dependencies**, not milestone status. The canonical M0–M7 status and exit outcomes are maintained in [ROADMAP.md](../../ROADMAP.md). Tickets below are grouped by the roadmap gate they primarily enable.
 
-## Milestones
+## M0 — build and supply chain
 
-| Milestone | Demonstrable outcome | Exit gate |
-|---|---|---|
-| M0 repository/build | Reproducible Android/Rust build and CI | Signed debug build, SBOM, unit-test report |
-| M1 offline case | Create authorized case, import CSV/artifacts, hash and export | No network code; state/audit tests pass |
-| M2 passive analysis | Parse golden PCAPNG and reconcile water assets | Parser fuzz baseline and golden results pass |
-| M3 field evidence | Photos, Wi-Fi/BLE observations and review queues | Permission/privacy tests pass |
-| M4 safe A1 | One allowlisted Modbus query, then OPC UA discovery | External packet recorder proves grant limits |
-| M5 live passive | H2 SPAN/TAP PCAPNG ingestion | 100 Mbps/30-minute capture gate |
-| M6 professional report | Reviewed findings and signed assessment package | Independent traceability review passes |
-| M7 rehearsal | Full four-hour lab assessment | Definition of done satisfied |
-
-## Epics and tickets
-
-### E0 Build and supply chain
-
-- E0-01 Create multi-module Gradle project and Rust NDK workspace.
+- E0-01 Maintain the multi-module Gradle/native workspace.
 - E0-02 Pin toolchains and dependencies; generate CycloneDX SBOM.
-- E0-03 Configure unit, instrumentation, fuzz and static-analysis CI.
-- E0-04 Add release signing and provenance workflow.
-- E0-05 Add third-party notices and license decision records.
+- E0-03 Maintain unit, instrumentation, fuzz and static-analysis CI.
+- E0-04 Add production release signing and provenance workflow.
+- E0-05 Maintain third-party notices and license decision records.
 
-### E1 Domain and encrypted storage
+## M1 — professional offline case
 
-- E1-01 Implement case state machine with transition tests.
-- E1-02 Implement authorization/scope/exclusion entities.
-- E1-03 Integrate current `sqlcipher-android`, not the retired legacy package; Zetetic documents the replacement and Room integration ([migration guide](https://www.zetetic.net/sqlcipher/sqlcipher-for-android-migration/)).
+- E1-01 Implement the professional case state machine and transition tests.
+- E1-02 Implement authorization, scope and exclusion entities.
+- E1-03 Integrate current `sqlcipher-android` for professional case storage.
 - E1-04 Implement per-case key creation/wrapping and lock timeout.
-- E1-05 Implement content-addressed artifact store and secure deletion.
+- E1-05 Implement content-addressed encrypted artifact storage and secure deletion.
 - E1-06 Implement canonical audit events and hash chain.
 - E1-07 Implement migrations and corrupted/tampered database handling.
-
-### E2 Import and evidence
-
 - E2-01 Storage Access Framework imports with streaming SHA-256.
 - E2-02 CSV mapping UI, preview, row errors and immutable source rows.
 - E2-03 PCAP/PCAPNG metadata inspection and sealing.
 - E2-04 Photo capture, EXIF policy, asset-tag linking and manual transcription.
-- E2-05 Export manifest and standalone verification CLI.
+- E2-05 Export manifest and standalone verification CLI foundation.
 
-### E3 Parser core
+## M2 — passive analysis and reconciliation
 
-- E3-01 Define protobuf parser request/result and JNI boundary.
-- E3-02 Isolated parser service using read-only file descriptors.
-- E3-03 Ethernet/802.1Q/ARP/IPv4/IPv6/TCP/UDP bounded parsers.
-- E3-04 DHCP, DNS/mDNS and LLDP metadata.
-- E3-05 TCP flow table/reassembly with hard limits.
-- E3-06 Modbus/TCP MBAP, function metadata and device-ID response.
-- E3-07 OPC UA HEL/ACK and discovery-response metadata.
-- E3-08 Corpus, fuzz harnesses, mutation/truncation tests and parser metrics.
+- E3-01 Maintain the typed parser request/result boundary.
+- E3-02 Keep untrusted parsing in an isolated process using read-only file descriptors.
+- E3-03 Complete bounded Ethernet/VLAN/ARP/IP/TCP/UDP parsing.
+- E3-04 Complete DHCP, DNS/mDNS and LLDP metadata.
+- E3-05 Complete bounded TCP flow/reassembly handling.
+- E3-06 Maintain Modbus/TCP passive and device-ID response parsing.
+- E3-07 Add only protocol parsers justified by the product contract and evidence priorities.
+- E3-08 Expand sourced corpus, fuzz harnesses, mutation/truncation tests and parser metrics.
+- E6-01 Maintain water taxonomy and normalized attribute dictionary.
+- E6-02 Implement endpoint construction and strong/weak identity keys.
+- E6-03 Implement deterministic candidate scoring.
+- E6-04 Implement durable reviewer merge/split/conflict workflow.
+- E6-05 Implement confidence reason display.
+- E6-06 Implement inventory metrics and exception export.
 
-### E4 Interfaces and capture
+## M3 — field evidence
 
-- E4-01 Enumerate Android `Network`, link properties and transports.
-- E4-02 USB host capability/permission UI based on Android’s USB APIs ([Android](https://developer.android.com/develop/connectivity/usb/host)).
-- E4-03 Pinned NIC compatibility probes and static-IP operator guidance.
-- E4-04 Wi-Fi scan records with permission/OS limitation handling.
-- E4-05 BLE advertisement records; no connection API exposed.
-- E4-06 Capture-accessory protocol: authenticated session, stream framing, status/drop counters and detach.
-- E4-07 PCAPNG rotation, progress, storage reserve and sealing.
+- E4-01 Enumerate relevant Android network/interface capabilities.
+- E4-02 Implement USB host capability and permission UI.
+- E4-03 Implement qualified NIC compatibility probes and static-IP guidance.
+- E4-04 Implement approved Wi-Fi observation with OS/permission limitations.
+- E4-05 Implement BLE advertisement observation with no connection API.
+- E2-04 Complete physical photo/nameplate evidence workflow and privacy controls.
 
-### E5 Policy and probes
+## M4 — safe active identity
 
-- E5-01 Ed25519 pack/profile verifier and rollback store.
-- E5-02 Scope matcher for CIDR/IP/MAC/interface/time/exclusions.
-- E5-03 Single-use execution grants and audit records.
-- E5-04 Foreground probe service and emergency stop.
-- E5-05 Per-socket network binding and alternate-route failure tests.
-- E5-06 Modbus 43/14 basic device-ID serializer/parser.
-- E5-07 OPC UA FindServers/GetEndpoints using a reviewed minimal open62541 subset or isolated native adapter.
-- E5-08 Golden packet, timeout, cancellation and packet-budget tests.
+- E5-01 Maintain signed profile/pack verification and rollback controls.
+- E5-02 Maintain CIDR/IP/interface/time/exclusion scope matching.
+- E5-03 Harden single-use execution grants and durable audit records.
+- E5-04 Harden foreground active execution and emergency stop.
+- E5-05 Expand per-socket binding and alternate-route failure tests.
+- E5-06 Maintain Modbus 43/14 basic device-ID serializer/parser and packet-budget proof.
+- E5-07 Admit a second active protocol only through a separately reviewed network-execution change and threat review.
+- E5-08 Maintain golden packet, timeout, cancellation, replay and negative-scope tests.
 
-### E6 Asset resolution
+## M5 — live passive
 
-- E6-01 Water taxonomy and normalized attribute dictionary.
-- E6-02 Endpoint construction and strong/weak identity keys.
-- E6-03 Deterministic candidate scoring.
-- E6-04 Reviewer merge/split/conflict workflow.
-- E6-05 Confidence calculation and reason display.
-- E6-06 Inventory metrics and exception CSV.
+- E4-06 Integrate the dedicated Android Capture Broker with the native `atlas_capture` backend.
+- E4-07 Implement bounded capture progress, storage reserve, detach handling and artifact sealing.
+- E4-08 Add init/SELinux policy and signed-image integration for the capture daemon.
+- E4-09 Enforce no-address/no-egress interface invariants in the appliance backend.
+- E4-10 Qualify supported phone, powered hub, USB Ethernet and SPAN/TAP combinations.
+- E4-11 Measure sustained throughput, drops, thermal behavior, suspend/reconnect and zero egress.
 
-### E7 Rules and report
+## M6 — professional report
 
-- E7-01 Versioned deterministic rule format and fixtures.
+- E7-01 Implement versioned deterministic water rules and fixtures.
 - E7-02 Implement WAT-ID rules.
 - E7-03 Implement WAT-NET rules.
 - E7-04 Implement WAT-ARC, WAT-WIR, WAT-LCM and WAT-EVD rules.
-- E7-05 Consequence/exposure scoring with confidence kept separate.
-- E7-06 Reviewer acceptance/rejection and corrective-action ownership.
-- E7-07 Normative JSON, HTML and PDF generation.
-- E7-08 ZIP manifest signing and external verification.
+- E7-05 Implement consequence/exposure scoring with confidence kept separate.
+- E7-06 Implement reviewer acceptance/rejection and corrective-action ownership.
+- E7-07 Generate normative machine-readable data and human-readable HTML/PDF output.
+- E7-08 Sign the finalized package and verify it externally.
 
-### E8 Assurance
+## M7 — assurance and rehearsal
 
-- E8-01 STRIDE/abuse-case threat model for app, accessory and packs.
-- E8-02 Mobile application security verification checklist.
-- E8-03 Parser and JNI external review.
-- E8-04 Packet-safety witnessed tests.
-- E8-05 Two-phone/two-NIC compatibility matrix.
-- E8-06 Full independent P0-WATER rehearsal.
-- E8-07 Legal/privacy/site-safety release approval.
+- E8-01 Maintain threat model and abuse cases for the current architecture.
+- E8-02 Complete mobile application security review.
+- E8-03 Complete parser/native external review.
+- E8-04 Complete witnessed packet-safety tests.
+- E8-05 Complete the compatibility matrix required by the P0 test plan.
+- E8-06 Run the independent P0-WATER rehearsal.
+- E8-07 Obtain legal/privacy/site-safety release approval.
 
-## Critical path
+## Dependency flow
 
 ```mermaid
 flowchart TD
   M0["M0 Build"] --> M1["M1 Offline case"]
   M1 --> M2["M2 Passive analysis"]
   M2 --> M3["M3 Field evidence"]
-  M2 --> M4["M4 Safe A1"]
+  M2 --> M4["M4 Safe active identity"]
   M2 --> M5["M5 Live passive"]
   M3 --> M6["M6 Report"]
   M4 --> M6
@@ -120,14 +107,6 @@ flowchart TD
   M6 --> M7["M7 Rehearsal"]
 ```
 
-## Staffing assumption for planning
+## Planning boundary
 
-Minimum competent team:
-
-- Android engineer;
-- Rust/parser engineer;
-- OT protocol and water-process engineer;
-- security/test engineer;
-- product/UX designer part-time.
-
-A single developer may prototype M0–M2, but M4–M7 require independent OT and security review. Estimates should be produced only after E0–E2 tickets have acceptance tests and the capture accessory is selected; the current repository does not provide defensible calendar or cost estimates.
+Calendar and cost estimates should be based on ticket acceptance criteria and measured hardware/integration work. The repository does not treat an unvalidated estimate as a product fact.

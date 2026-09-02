@@ -1,349 +1,146 @@
-# Water/Wastewater Professional Assessment PoC
+# P0-WATER product contract
 
-_Status: build specification. PoC code name: P0-WATER. This document is the product contract; anything not stated here is out of scope._
+_Status: target product contract. Current implementation status is maintained only in [IMPLEMENTATION.md](../../IMPLEMENTATION.md)._
+
+P0-WATER is the first bounded Atlas OT Scout assessment product. This document owns the **scope, permitted assessment modes, checks, deliverable and definition of done**. Procedure belongs in [ASSESSMENT-METHOD.md](ASSESSMENT-METHOD.md), exact network mechanics belong in [NETWORK-EXECUTION.md](../architecture/NETWORK-EXECUTION.md), and test detail belongs in [TEST-AND-ACCEPTANCE.md](TEST-AND-ACCEPTANCE.md).
 
 ## 1. Outcome
 
-An authorized assessor can use one Android kit to conduct a repeatable asset-inventory and network-exposure assessment of **one water/wastewater pumping or treatment control segment**, reconcile observations with the customer’s inventory, review evidence-linked findings, and export a signed professional report without cloud access.
+An authorized assessor can use one Atlas kit to assess **one water/wastewater pumping or treatment control segment**, reconcile approved evidence with the customer's expected inventory, review evidence-linked conditions and hand off an externally verifiable assessment package without a cloud dependency.
 
-This is not a penetration test, IEC 62443 certification, vulnerability exploit test or enterprise-wide monitoring deployment.
+P0-WATER is not a penetration test, certification audit, vulnerability exploit test or enterprise-wide monitoring deployment.
 
-## 2. Why this industry
+## 2. Assessment unit
 
-The first pack targets a bounded pumping/treatment segment because it has a recognizable control-system shape, safety-critical availability, distributed field assets and a credible Morocco route through ONEE Water. NIST SP 800-82 Rev. 3 explicitly requires OT security to account for performance, reliability and safety constraints ([NIST](https://csrc.nist.gov/pubs/sp/800/82/r3/final)). The PoC therefore emphasizes inventory integrity, architecture, exposed services and defensible evidence rather than aggressive discovery.
-
-No vendor installed base is assumed. The lab uses representative devices and simulators; a customer pack is configured only from approved design records and observed evidence.
-
-## 3. Assessment unit
-
-One case covers:
+One case is bounded to:
 
 - one legal entity and physical site;
 - one named process area;
 - one Layer-2 control segment/VLAN;
 - up to 64 imported asset records;
-- up to 256 passively observed endpoints;
-- up to 16 allowlisted A1-query targets;
-- one SPAN/TAP capture point or imported capture set;
+- up to 256 observed endpoints;
+- up to 16 allowlisted active-identity targets;
+- one approved passive capture point or imported capture set;
 - up to four hours of field collection;
 - one assessor and one reviewer;
 - one finalized report revision.
 
-A larger scope must be split into cases and later consolidated outside the PoC.
+Larger work is split into separate cases.
 
-## 4. Reference segment
+## 3. Roles
 
-```mermaid
-flowchart TD
-  SCADA["SCADA/HMI"] --> SW["Managed control switch"]
-  PLC["PLC or RTU"] --> SW
-  VFD["VFD / starter"] --> PLC
-  METER["Analyzer / meter"] --> PLC
-  GW["Protocol gateway"] --> SW
-  SW --> FW["Zone firewall/router"]
-  TAP["SPAN/TAP"] --> KIT["Atlas Android kit"]
-```
-
-The lab must contain at minimum:
-
-| ID | Component | Implementation |
-|---|---|---|
-| LAB-PLC-01 | PLC/RTU identity target | OpenPLC or physical lab PLC exposing Modbus/TCP |
-| LAB-HMI-01 | HMI/SCADA node | ScadaBR/FUXA or equivalent lab-only HMI |
-| LAB-UA-01 | OPC UA server | open62541 reference server with two endpoint policies |
-| LAB-SW-01 | Managed switch | VLAN + SPAN capable |
-| LAB-GW-01 | Router/firewall | OpenWrt appliance with explicit test rules |
-| LAB-UNK-01 | Unexpected endpoint | Linux host deliberately absent from seed inventory |
-| LAB-BLE-01 | BLE beacon | Configurable advertisement payload |
-| LAB-WIFI-01 | Access point | Separate lab SSID; no production credentials |
-| KIT-01 | Android device | Pinned device/build in compatibility matrix |
-| KIT-NIC-01 | USB Ethernet | Pinned VID:PID and powered hub |
-| KIT-CAP-01 | Capture accessory | Streams PCAPNG from SPAN/TAP, or approved import during early development |
-
-Synthetic unsafe conditions are created only in the isolated lab.
-
-## 5. User roles
-
-| Role | Rights |
+| Role | Product responsibility |
 |---|---|
-| Assessor | Create draft, import evidence, collect within grant, propose matches/findings |
-| Operational approver | Approve process scope, criticality and collection window |
-| Security approver | Approve interfaces, query profiles, targets, retention and export |
-| Reviewer | Accept/reject identity claims and findings; finalize report |
-| Pack administrator | Install signed packs; cannot alter a finalized case |
+| Assessor | Prepare the case, collect/import evidence, propose reconciliation and findings |
+| Operational approver | Approve process scope, criticality, operating window and stop authority |
+| Security approver | Approve interfaces, active targets, retention and export constraints |
+| Reviewer | Accept/reject material identity claims and findings and authorize finalization |
+| Pack administrator | Install approved signed content packs without changing finalized cases |
 
-One person may hold several roles in the lab, but the audit log records the role used for each approval.
+The audit trail records the role used for each approval or review action.
 
-## 6. End-to-end procedure
+## 4. Evidence modes
 
-### Phase 0 — Prepare
+| Mode | Purpose | Network effect | Product boundary |
+|---|---|---|---|
+| **H1 — exact active identity** | Resolve one documented identity gap | One compiled request to one approved target | Governed entirely by the [network-execution contract](../architecture/NETWORK-EXECUTION.md) |
+| **H2 — live passive** | Observe mirrored Ethernet evidence | Receive only from an approved SPAN/TAP path | Dedicated Android Capture Broker and confined native capture daemon; no claim of visibility from an ordinary access port |
+| **H3 — offline import** | Analyze customer- or lab-supplied PCAP/PCAPNG | No packets transmitted | Preserve source, hash, collection context and visibility limits |
+| **H4 — approved radio observation** | Record bounded Wi-Fi/BLE presence evidence | Android high-level scan APIs only | No Wi-Fi association/deauthentication, monitor-mode claim, BLE connection or GATT operation in P0 |
 
-1. Create case and select “Water/Wastewater P0.”
-2. Record site, process area, safety contact, dates and data classification.
-3. Import signed authorization PDF/photo and hash it.
-4. Enter allowed VLAN/CIDR, explicit IP/MAC targets, exclusions and stop conditions.
-5. Select H1/H2/H3/H4 capabilities.
-6. Import the customer CSV using a saved field map.
-7. Run preflight; no network action occurs.
+P0 defaults to the least intrusive mode that can answer the documented evidence question. The product must state when the selected visibility is insufficient.
 
-Preflight passes only when approvals, time window, scope, storage, battery/power, device integrity, pack signature and interface selection are valid.
+## 5. Assessment workflow
 
-### Phase 1 — Physical walkdown
+The normative method is [ASSESSMENT-METHOD.md](ASSESSMENT-METHOD.md). At product level the workflow is:
 
-For each selected cabinet or device:
+1. **Prepare** — establish authorization, scope, exclusions, data handling and stop conditions.
+2. **Collect** — acquire physical, imported, passive or explicitly approved active evidence.
+3. **Review** — preserve raw observations and review them before changing accepted inventory.
+4. **Reconcile** — make missing, unexpected, conflicting and probable matches explicit.
+5. **Assess** — run deterministic water-pack checks only where required evidence exists.
+6. **Finalize** — independent review, limitation check, immutable snapshot and signed export.
 
-- scan customer asset tag or enter it;
-- take an authorized nameplate/cabinet photo;
-- record location, device class, vendor/model/serial/firmware exactly as visible;
-- mark confidence and whether the device is in service;
-- link the physical record to an imported asset or create an unmatched candidate.
+## 6. Initial active operation
 
-OCR may suggest text but cannot create an accepted identity claim without review.
+The initial P0 active identity operation is **Modbus/TCP Read Device Identification, function `0x2B` / MEI `0x0E`, basic objects only**, to one exact authorized target.
 
-### Phase 2 — Passive collection
+No subnet scan, port scan, unit-ID sweep, register read/write, credential operation or generic socket command is part of the P0 product contract. Any future active protocol operation requires a separately approved architecture/profile and release evidence before it enters this contract.
 
-1. Connect the capture accessory to the authorized SPAN/TAP.
-2. Show interface, link speed, capture source and limitation banner.
-3. Capture for the approved duration; default 30 minutes.
-4. Display packet rate, drops, bytes, artifact rotation and storage remaining.
-5. Seal each PCAPNG artifact and parse offline.
-6. Never inject packets from H2 mode.
+## 7. Water assessment checks
 
-If only H3 import is available, the report states who collected the capture, where, when, tool/version and provided hash.
-
-### Phase 3 — Wireless observation
-
-- Perform Android Wi-Fi scan and record SSID/BSSID, security capabilities, channel/frequency and signal; Android scanning restrictions and lack of monitor mode are reported ([Android Wi-Fi scanning](https://developer.android.com/develop/connectivity/wifi/wifi-scan)).
-- Scan BLE advertisements for 60 seconds, recording address type, advertised name, service/manufacturer IDs and RSSI; do not connect to GATT ([Android BLE scan](https://developer.android.com/develop/connectivity/bluetooth/ble/find-ble-devices)).
-- The operator labels whether an observation is expected, related, unrelated or unknown.
-
-### Phase 4 — A1 identity queries
-
-A1 remains optional. The operator selects a target already imported or passively observed, reviews the exact request, and receives a one-time grant.
-
-PoC operations:
-
-- Modbus/TCP Read Device Identification, basic objects only.
-- OPC UA FindServers/GetEndpoints.
-- Optional single-host reachability or approved-port confirmation.
-
-The UI shows request count, timeout, interface and stop conditions before confirmation. There is no subnet scan, unit-ID sweep, register read, SNMP walk, login, browse or write.
-
-### Phase 5 — Reconcile
-
-The application produces four queues:
-
-1. imported asset not observed;
-2. observed candidate not in inventory;
-3. imported and observed records with conflicting attributes;
-4. probable matches requiring review.
-
-The assessor must accept/reject every high-impact merge. “Not observed” is never changed to “absent” without an explicit verification action and adequate visibility.
-
-### Phase 6 — Assess
-
-The water pack evaluates only evidence-supported checks:
-
-| Check ID | Condition | Output |
-|---|---|---|
-| WAT-ID-001 | Imported in-scope asset has no observation or physical confirmation | Inventory evidence gap |
-| WAT-ID-002 | Observed OT endpoint has no accepted inventory match | Unmanaged/undocumented candidate |
-| WAT-ID-003 | Serial/model/firmware conflicts across sources | Identity conflict |
-| WAT-ID-004 | Asset record exceeds customer freshness threshold | Stale record |
-| WAT-NET-001 | Modbus/TCP observed in cleartext | Cleartext industrial protocol exposure; not an exploit claim |
-| WAT-NET-002 | OPC UA endpoint offers SecurityPolicy None | Weak endpoint option; verify actual client use |
-| WAT-NET-003 | Management protocol/service observed contrary to declared policy | Service exposure exception |
-| WAT-ARC-001 | Communication crosses declared zone/conduit unexpectedly | Architecture exception |
-| WAT-WIR-001 | Wi-Fi/BLE item associated with the area is absent from inventory | Wireless inventory gap |
-| WAT-LCM-001 | Exact model/version matches a dated vendor end-of-support record | Lifecycle finding |
-| WAT-EVD-001 | Capture loss, insufficient duration or visibility limits conclusion | Evidence limitation |
-
-A finding contains condition, affected asset(s), raw evidence references, assessor interpretation, confidence, impact, recommendation, owner, due date and review state.
-
-### Phase 7 — Review and report
-
-The reviewer:
-
-- confirms scope and limitations;
-- resolves or accepts all critical identity conflicts;
-- accepts, rejects or defers every finding;
-- verifies no prohibited action occurred;
-- signs the final case.
-
-The export is generated from a read-only finalized snapshot.
-
-## 7. Professional report
-
-### Executive section
-
-- authorization and exact scope;
-- process-area description;
-- collection methods and limitations;
-- inventory reconciliation summary;
-- findings by severity and confidence;
-- top five prioritized actions;
-- statement of what was not tested.
-
-### Technical section
-
-- device and software inventory;
-- asset match matrix: imported ↔ observed ↔ physical;
-- network/communication summary;
-- wireless observations;
-- findings with evidence IDs;
-- query execution ledger;
-- methodology, pack versions and tool build;
-- artifact hash manifest and chain-of-custody summary.
-
-### Minimum metrics
-
-| Metric | Definition |
+| Check | Reportable condition |
 |---|---|
-| Inventory coverage | confirmed/probable in-scope imported assets ÷ in-scope imported assets |
-| Unexpected candidate count | observed candidates with no accepted imported match |
-| Conflict count | accepted asset groups containing contradictory identity attributes |
-| Identification quality | confirmed, probable, tentative and insufficient counts |
-| Evidence coverage | assets supported by two independent source types |
-| Capture quality | duration, packets, bytes, drop count and visibility type |
-| Active footprint | targets, requests, retries, timeouts and response count |
-| Reviewer effort | claims/findings reviewed and elapsed review time |
+| WAT-ID-001 | In-scope imported asset lacks adequate observation or physical confirmation |
+| WAT-ID-002 | Observed OT endpoint has no accepted inventory match |
+| WAT-ID-003 | Material model/serial/firmware identity conflict exists across sources |
+| WAT-ID-004 | Asset record exceeds the customer's accepted freshness threshold |
+| WAT-NET-001 | Modbus/TCP cleartext communication is observed and relevant to scope |
+| WAT-NET-002 | OPC UA evidence shows a SecurityPolicy None option; actual client use remains a separate conclusion |
+| WAT-NET-003 | A management service/protocol is observed contrary to a declared policy |
+| WAT-ARC-001 | Reviewer-confirmed communication conflicts with the declared zone/conduit model |
+| WAT-WIR-001 | An approved radio observation associated with the area has no accepted inventory record |
+| WAT-LCM-001 | Exact model/version matches a dated authoritative end-of-support source |
+| WAT-EVD-001 | Capture loss, duration or visibility is insufficient for the requested conclusion |
 
-## 8. Severity and confidence
+The evidence, confidence, consequence and finding-quality rules are defined once in [ASSESSMENT-METHOD.md](ASSESSMENT-METHOD.md).
 
-Severity is not CVSS unless a real CVE match is separately proven.
+## 8. Professional deliverable
 
-```text
-risk_score = consequence (1–5) × exposure (1–5)
-```
+A finalized P0 case must provide:
 
-Consequence is assigned by the operational owner using safety, availability, water quality/environment and financial criteria. Exposure is evidence-based: observed communication path, reachable service, segmentation context and compensating controls. Bands: Critical 20–25, High 12–19, Medium 6–11, Low 1–5.
+- exact authorization, scope, exclusions, methods and limitations;
+- reconciled asset state and unresolved exceptions;
+- reviewed findings linked to evidence;
+- communication/architecture evidence relevant to accepted findings;
+- active-operation ledger;
+- pack/tool/build identities needed for reproducibility;
+- artifact/hash manifest and audit-chain head;
+- deterministic machine-readable assessment data;
+- human-readable report output;
+- external signature/hash verification instructions.
 
-Confidence is separate:
+Raw captures are included only when retention/export authorization permits.
 
-- High: exact protocol/physical identity plus corroborating source.
-- Medium: specific network fingerprint plus consistent inventory.
-- Low: OUI, hostname, open port or uncorroborated manual assertion.
-
-A high-risk/low-confidence item is reported as “urgent verification,” not as a confirmed defect.
-
-## 9. Functional requirements
-
-### Case and authorization
-
-- POC-CASE-001: create, revise, cancel, expire, finalize and export a case using the defined state machine.
-- POC-CASE-002: block collection until all required authorization fields validate.
-- POC-CASE-003: require explicit exclusions and an emergency contact.
-- POC-CASE-004: prevent modification after finalization.
-
-### Evidence
-
-- POC-EVD-001: import PCAP/PCAPNG, CSV, PDF/image and JSON with SHA-256.
-- POC-EVD-002: preserve capture interface, timestamps, source, parser version and byte offsets.
-- POC-EVD-003: support photographs linked to a physical observation.
-- POC-EVD-004: produce a verifiable hash chain and signed manifest.
-
-### Collection
-
-- POC-COL-001: enumerate selected Ethernet, capture accessory, Wi-Fi and BLE capability.
-- POC-COL-002: live H2 capture at sustained 100 Mbps for 30 minutes with recorded drop count.
-- POC-COL-003: parse a 2 GiB PCAPNG without UI failure.
-- POC-COL-004: abort safely on detach, low storage, route change and expired authorization.
-
-### Active identity
-
-- POC-ACT-001: execute only compiled operations referenced by a valid signed profile.
-- POC-ACT-002: bind every socket to the approved Android network; no cellular fallback.
-- POC-ACT-003: enforce one target at a time, packet/retry/timeout budgets and cancellation.
-- POC-ACT-004: prove through packet capture that no unauthorized packet was emitted.
-
-### Reconciliation and findings
-
-- POC-REC-001: import up to 64 assets with mapping preview and row-level errors.
-- POC-REC-002: preserve conflicting claims and require review for ambiguous merges.
-- POC-REC-003: execute the eleven P0 water checks deterministically.
-- POC-REC-004: link every finding to evidence or mark it as assessor-authored context.
-
-### Reporting
-
-- POC-RPT-001: generate complete HTML/PDF/CSV/JSON offline.
-- POC-RPT-002: disclose visibility limits and distinguish not-observed from absent.
-- POC-RPT-003: generate the same normative JSON and finding set twice from the same finalized snapshot.
-- POC-RPT-004: verify the exported signature and every included artifact hash using an external CLI.
-
-## 10. Non-functional requirements
-
-- Cold launch under 3 seconds on the reference phone.
-- Common screens remain responsive while parsing; no main-thread I/O.
-- 100,000 normalized observations and 256 endpoints per case.
-- Parser memory ceiling 256 MiB; app total memory target below 768 MiB during a 2 GiB import.
-- No network connection required for create/import/parse/reconcile/report.
-- All app-private data encrypted at rest.
-- Zero third-party analytics and zero unapproved DNS/HTTP in an offline test.
-- French and English UI/report templates; Arabic layout is post-PoC.
-- Accessibility: scalable text, non-color status indicators, screen-reader labels.
-- Battery: four-hour walkdown with powered hub/capture accessory; phone must not be the sole power source for H2.
-
-## 11. Acceptance dataset
-
-The versioned lab corpus contains:
-
-- clean baseline capture;
-- truncated and malformed frames;
-- duplicate IP and reused MAC scenarios;
-- Modbus device-ID success, exception, timeout and malformed response;
-- OPC UA endpoints with secure-only and SecurityPolicy None configurations;
-- unexpected endpoint;
-- cross-zone communication;
-- BLE and Wi-Fi expected/unknown records;
-- customer CSV with clean, duplicate, missing and conflicting fields;
-- 10,000 mutation/fuzz seeds per binary parser.
-
-Expected assets, observations, matches and findings are stored as golden JSON.
-
-## 12. Definition of done
+## 9. Definition of done
 
 P0-WATER is complete only when:
 
-1. every functional requirement has an automated or witnessed test;
-2. the lab assessment produces the expected signed report;
-3. an independent reviewer can trace every reported fact to an artifact and byte range or physical record;
-4. a packet recorder proves the active executor stayed inside its grants;
-5. emergency stop closes active sockets and capture within one second;
-6. no critical/high mobile, parser or supply-chain finding remains open;
-7. the device/NIC/capture matrix has at least two phones, two NICs and one H2 capture path;
-8. a qualified OT reviewer signs the methodology and report template;
-9. the report states limitations without claiming certification or full vulnerability coverage;
-10. the full case can be completed offline.
+1. the requirements applicable to P0 have automated or witnessed verification;
+2. the complete assessment method can be executed offline on the supported appliance;
+3. every report fact can be traced to an artifact/byte range, physical record or explicitly identified assessor context;
+4. external packet evidence proves active execution stayed inside the approved network contract;
+5. live passive hardware satisfies the compatibility and zero-egress acceptance gates;
+6. parser, mobile, privacy and supply-chain release gates pass with no blocking finding;
+7. an independent OT reviewer accepts the methodology and report controls;
+8. deterministic export and external verification pass;
+9. limitations state what was not observed or tested without implying certification or complete coverage;
+10. the independent full rehearsal in [TEST-AND-ACCEPTANCE.md](TEST-AND-ACCEPTANCE.md) passes.
 
-## 13. Explicitly deferred
+## 10. Explicitly outside P0
 
-- Siemens S7/PROFINET active discovery;
-- EtherNet/IP/CIP active identity;
-- IEC 60870-5-104, IEC 61850 and DNP3 active operations;
-- BACnet Who-Is;
-- SNMP credentials or walks;
+- broad address/port/service discovery;
+- credential testing or authenticated enumeration;
+- register reads/writes or process-control actions;
+- exploitation or vulnerability proof;
+- active Siemens S7/PROFINET, EtherNet/IP/CIP, IEC-104, IEC 61850, DNP3, BACnet or SNMP operations;
 - serial Modbus/RS-485;
-- Wi-Fi monitor mode;
-- BLE GATT connection;
-- vulnerability scanning/exploitation;
-- credential testing;
-- customer CMDB/CMMS APIs;
+- Wi-Fi monitor mode or deauthentication;
+- BLE connection/GATT interaction;
 - cloud synchronization;
-- multi-case portfolio dashboard;
+- multi-case portfolio dashboards;
+- customer CMMS/CMDB APIs;
 - AI-generated actions or severity.
 
-These enter later only through a new threat review, protocol specification, test corpus and signed profile.
+## 11. Related authorities
 
-## 14. Implementation documents
-
-- [Architecture index](../architecture/README.md)
-- [System and deployment architecture](../architecture/SYSTEM-AND-DEPLOYMENT.md)
-- [Network execution architecture](../architecture/NETWORK-EXECUTION.md)
-- [Component contracts](../architecture/COMPONENT-CONTRACTS.md)
-- [Evidence and data architecture](../architecture/EVIDENCE-DATA-MODEL.md)
-- [Security architecture and threat model](../architecture/SECURITY-AND-THREAT-MODEL.md)
-- [Assessment method and report controls](ASSESSMENT-METHOD.md)
-- [Test and acceptance plan](TEST-AND-ACCEPTANCE.md)
-- [H2 capture accessory reference design](CAPTURE-ACCESSORY.md)
+- [Requirements baseline](../REQUIREMENTS.md)
+- [Assessment method](ASSESSMENT-METHOD.md)
+- [Test and acceptance](TEST-AND-ACCEPTANCE.md)
 - [Implementation backlog](IMPLEMENTATION-BACKLOG.md)
-- [Product requirements](../REQUIREMENTS.md)
+- [System and deployment architecture](../architecture/SYSTEM-AND-DEPLOYMENT.md)
+- [Network execution](../architecture/NETWORK-EXECUTION.md)
+- [Evidence data model](../architecture/EVIDENCE-DATA-MODEL.md)
+- [Security and threat model](../architecture/SECURITY-AND-THREAT-MODEL.md)
+- [Current implementation](../../IMPLEMENTATION.md)
+- [Roadmap](../../ROADMAP.md)
