@@ -22,6 +22,7 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | Why was an architecture choice made? | [ADR index](adr/README.md) | Historical decision record. Superseded ADRs remain history, not current design. |
 | What does CI prove? | [Testing](testing/README.md) | Verification evidence and proof boundary, not product definition. |
 | How does a user operate the current application? | [User guide](user-guide/README.md) | Concrete task instructions and safety decisions; capability status links to `IMPLEMENTATION.md`. |
+| Where is reader-facing product guidance? | [Wiki source](wiki/README.md) | Derivative knowledge base that explains the authoritative repository docs without redefining them. |
 | What does commercial evidence imply? | [Commercial diligence summary](business-development/DILIGENCE-SUMMARY.md) | Source-backed facts, analysis, risks and commercial unknowns. |
 | Where should Atlas compete in Morocco? | [Morocco market guide](business-development/MOROCCO-MARKET-GUIDE.md) | Segmentation, buying situations and stakeholder map derived from diligence. |
 | Which organizations and people should be approached? | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, current triggers, named public professionals, role relevance, public activity and contact routes. |
@@ -39,6 +40,7 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 7. **ADRs explain why.** Current architecture is maintained in the architecture section; superseded ADR text is not silently rewritten into a new decision.
 8. **Testing documents describe proof.** They may restate an invariant briefly to identify exactly what a test verifies and must retain the concrete environment, method, expected result and residual proof boundary.
 9. **Do not delete unique audience intelligence in the name of deduplication.** A prospect page needs people and triggers; a playbook needs motivations and message examples; a user manual needs step-by-step operation; an architecture contract needs implementable interfaces; a test plan needs actual acceptance conditions.
+10. **The Wiki explains Atlas; the repository defines Atlas.** Wiki pages are task-oriented derivative guidance and must link to repository authorities for mutable status, normative semantics, exact safety mechanics and release evidence.
 
 ## Audience utility test
 
@@ -59,9 +61,9 @@ Remove or replace with a link when it only copies a mutable status table, exact 
 
 | Audience or decision | Start here | Supporting section |
 |---|---|---|
-| Customer or prospect | [Prospect pitch](pitch/README.md) | [Guided demo](demo/README.md) |
+| Customer or prospect | [Prospect pitch](pitch/README.md) | [Wiki source](wiki/README.md) and [Guided demo](demo/README.md) |
 | Business developer | [Morocco business development](business-development/README.md) | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) and [commercial diligence](business-development/DILIGENCE-SUMMARY.md) |
-| Assessor | [User guide](user-guide/README.md) | [Assessment method](poc/ASSESSMENT-METHOD.md) |
+| Assessor | [User guide](user-guide/README.md) | [Wiki source](wiki/README.md) and [Assessment method](poc/ASSESSMENT-METHOD.md) |
 | Product owner | [P0-WATER specification](poc/WATER-WASTEWATER-POC.md) | [Requirements](REQUIREMENTS.md) and [Roadmap](../ROADMAP.md) |
 | Engineer | [Implementation](../IMPLEMENTATION.md) | [Architecture](architecture/README.md) |
 | Security reviewer | [Security model](architecture/SECURITY-AND-THREAT-MODEL.md) | [Network execution](architecture/NETWORK-EXECUTION.md) and [ADRs](adr/README.md) |
@@ -84,12 +86,14 @@ Remove or replace with a link when it only copies a mutable status table, exact 
 | [Research sources](research/README.md) | Shared technical and normative references |
 | [Testing](testing/README.md) | CI topology, testbeds and retained evidence |
 | [User guide](user-guide/README.md) | Operator instructions and screenshot-backed workflow |
+| [Wiki source](wiki/README.md) | Reader-facing task guides and explanatory knowledge-base pages; derivative and non-authoritative |
 
 ## Maintenance contract
 
 - Prefer a relative link to the authority document over a copied table or capability list.
 - When a summary is necessary, make it audience-specific and useful rather than mechanically shorter.
 - Preserve named people, project signals, workflow steps, acceptance evidence and other unique operational intelligence in the document that owns that audience task.
+- Keep Wiki pages derivative: explain decisions and workflows, then link to the repository authority for exact or mutable truth.
 - Pin individual CI runs only in provenance records that intentionally describe that historical artifact.
 - Use external citations next to factual market or technical claims.
 - Add every maintained document to its nearest section landing page.
