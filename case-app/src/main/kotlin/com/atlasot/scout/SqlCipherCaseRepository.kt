@@ -161,7 +161,8 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
         } catch (error: CaseVersionConflictException) {
             throw error
         } catch (error: SQLiteException) {
-            throw CaseIntegrityException("encrypted professional case database operation failed", error)
+            val detail = error.message?.takeIf { it.isNotBlank() } ?: error.javaClass.simpleName
+            throw CaseIntegrityException("encrypted professional case database operation failed: $detail", error)
         } finally {
             db?.close()
             databaseKey.fill(0)
@@ -169,13 +170,14 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
     }
 
     private fun ensureSchema(db: SQLiteDatabase) {
-        db.execSQL("PRAGMA foreign_keys = ON")
-        db.execSQL("PRAGMA secure_delete = ON")
-        val version = db.rawQuery("PRAGMA user_version", null).use { cursor ->
-            if (!cursor.moveToFirst()) throw CaseIntegrityException("unable to read professional case schema version")
+        db.setForeignKeyConstraintsEnabled(true)
+        val secureDelete = db.rawQuery("PRAGMA secure_delete = ON", null).use { cursor ->
+            if (!cursor.moveToFirst()) throw CaseIntegrityException("unable to configure SQLite secure_delete")
             cursor.getInt(0)
         }
-        when (version) {
+        if (secureDelete != 1) throw CaseIntegrityException("SQLite secure_delete did not enable")
+
+        when (val version = db.version) {
             0 -> {
                 db.beginTransaction()
                 try {
@@ -192,7 +194,7 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
                             "UNIQUE(case_number, revision))"
                     )
                     db.execSQL("CREATE INDEX idx_professional_cases_state ON professional_cases(state)")
-                    db.execSQL("PRAGMA user_version = $SCHEMA_VERSION")
+                    db.version = SCHEMA_VERSION
                     db.setTransactionSuccessful()
                 } finally {
                     db.endTransaction()
