@@ -14,13 +14,13 @@ This file owns **work items and dependencies**, not milestone status. The canoni
 
 - E1-01 Maintain the pure-domain professional case aggregate: typed IDs, assessment context/objective, guarded lifecycle, role separation, finalization and revision/supersession semantics.
 - E1-02 Integrate professional case context, objective, scope, stop conditions, data policy and authorization workflow into the Case App/application layer.
-- E1-03 Integrate current `sqlcipher-android` for professional case storage.
-- E1-04 Implement per-case key creation/wrapping and lock timeout.
+- E1-03 Expand the current SQLCipher aggregate-checkpoint repository into the normalized professional case/evidence schema defined by the data architecture.
+- E1-04 Extend the current Android-Keystore-wrapped random database key foundation with per-case artifact keys, lock timeout/re-authentication and production key recovery policy.
 - E1-05 Implement content-addressed encrypted artifact storage and secure deletion.
-- E1-06 Persist canonical audit events/hash chain and verify the chain on restore/export; the pure-domain hash-chain implementation remains the reference invariant.
-- E1-07 Implement migrations and corrupted/tampered database handling.
-- E1-08 Implement a repository/storage adapter with optimistic version checks so stale application state cannot overwrite newer professional decisions.
-- E1-09 Persist finalized snapshot material, audit head and supersession links without reopening finalized revisions.
+- E1-06 Persist canonical audit events/hash chain in normalized storage and verify the chain on restore/export; the current pure-domain chain and aggregate codec remain the reference invariants.
+- E1-07 Implement explicit schema migrations plus corrupted/tampered database and unavailable-key handling; the initial checkpoint schema currently fails closed on unsupported versions.
+- E1-08 Maintain optimistic expected-version checks while moving from the current aggregate checkpoint to normalized repositories so stale application state cannot overwrite newer professional decisions.
+- E1-09 Materialize finalized snapshot data, audit head and supersession links into immutable normalized storage/export views; the current aggregate checkpoint already round-trips the domain snapshot.
 - E1-10 Integrate durable operational/security approver and independent-reviewer identities/actions; one human may hold multiple roles only when policy permits and each action retains the role used.
 - E2-01 Storage Access Framework imports with streaming SHA-256.
 - E2-02 CSV mapping UI, preview, row errors and immutable source rows.

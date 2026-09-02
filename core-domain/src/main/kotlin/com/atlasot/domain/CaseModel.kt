@@ -420,7 +420,7 @@ data class FinalizedSnapshot(
 
 data class SupersessionResult(val superseded: AssessmentCase, val successor: AssessmentCase)
 
-class AssessmentCase private constructor(
+class AssessmentCase internal constructor(
     val id: CaseId,
     val caseNumber: String,
     val revision: Int,

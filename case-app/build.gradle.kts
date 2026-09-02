@@ -36,6 +36,8 @@ android {
 
 dependencies {
     implementation(project(":core-domain"))
+    implementation("net.zetetic:sqlcipher-android:4.18.0@aar")
+    implementation("androidx.sqlite:sqlite:2.7.0")
     testImplementation(kotlin("test-junit"))
     // The test-only content provider is instantiated in the instrumentation APK's
     // process before the target application. Package the runtime explicitly so a

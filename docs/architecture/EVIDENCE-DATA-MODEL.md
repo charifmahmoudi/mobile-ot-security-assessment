@@ -49,7 +49,9 @@ erDiagram
 
 One database per installation, with `case_id` on every case-owned table. SQLCipher uses a random 256-bit database key wrapped by an Android Keystore key. The current `sqlcipher-android` package is required; the legacy Android package is not allowed.
 
-Tables and essential indexes:
+The executable M1 foundation currently uses an encrypted `professional_cases` aggregate-checkpoint table containing a bounded deterministic representation of the complete `AssessmentCase`. That table exists to provide durable lifecycle restoration, optimistic version enforcement and integrity testing while the normalized schema is being built. It is **not** the target report/evidence schema, and report generation must not treat the checkpoint blob as a substitute for normalized professional records.
+
+The target normalized tables and essential indexes are:
 
 | Table | Primary/indexes |
 |---|---|
@@ -206,7 +208,7 @@ The DB administrator can still delete the database; the chain detects alteration
 
 Finalization is one SQL transaction:
 
-1. verify case state is Reviewing;
+1. verify case state is `READY_TO_FINALIZE` and the retained case review is accepted;
 2. verify authorization and collection ledger;
 3. require decisions for configured claim/finding gates;
 4. compute inventory and report metrics;
@@ -216,7 +218,7 @@ Finalization is one SQL transaction:
 8. append `CASE_FINALIZED` audit event;
 9. record audit head;
 10. insert immutable `final_snapshot`;
-11. change case state to Finalized;
+11. change case state to `FINALIZED`;
 12. commit.
 
 Report generation cannot query live mutable tables; it reads the materialized snapshot/export views.

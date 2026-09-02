@@ -184,7 +184,7 @@ Important invariants include:
 - finding confidence is separate from consequence/exposure;
 - a finding requires evidence and does not become accepted merely because a rule emitted it.
 
-Persistence, candidate scoring and reviewer UI remain separate implementation work.
+The professional aggregate itself now has durable encrypted checkpoint persistence. Normalized evidence-record persistence, candidate scoring and reviewer UI remain separate implementation work.
 
 ## 9. Finalized snapshot and revision lineage
 
@@ -203,21 +203,54 @@ Finalization creates a `FinalizedSnapshot` that binds:
 
 The report/export layer must render from this frozen snapshot/materialized representation rather than mutable working state. Signed JSON/CSV/HTML/PDF generation and external verification remain M6 work.
 
-## 10. Storage boundary still to implement
+## 10. Current persistence boundary and remaining M1 work
 
-The core-domain model deliberately has no Android, SQLCipher or filesystem dependency. Remaining M1 work is to persist and enforce the model through adapters that implement the [evidence/data architecture](EVIDENCE-DATA-MODEL.md), including:
+The core-domain model deliberately retains no Android, SQLCipher or filesystem dependency. Persistence is split into a domain representation and an Android adapter.
 
-- SQLCipher-backed professional case repository with optimistic version checks;
-- Android Keystore-backed database/per-case key lifecycle;
-- content-addressed encrypted artifact vault;
-- durable restoration with audit-chain verification;
-- migration/corruption/tamper handling;
-- Case App integration for role-aware authorization/reviewer actions;
-- materialized finalized snapshots/export views.
+### Executable foundation
 
-Until those adapters are integrated, the professional case lifecycle is an executable **domain invariant layer**, not yet a durable field-ready case store.
+The current code provides:
 
-## 11. Domain acceptance invariants
+- a versioned deterministic `CaseCodec` for the complete aggregate, including authorization, review decision, finalized snapshot and exact audit events;
+- explicit payload, string and collection bounds plus strict UTF-8 decoding;
+- an envelope SHA-256 that detects accidental or unauthenticated payload modification before domain restoration;
+- restore-time verification of audit-chain integrity, case state versus last event, authorization/scope/data-policy binding, review/finalization consistency, revision lineage and finalized-snapshot content hash;
+- a SQLCipher aggregate-checkpoint repository in the Case App process;
+- a random 256-bit database key wrapped with an Android Keystore AES-GCM key; the raw database key is not persisted in plaintext by the adapter;
+- optimistic expected-version enforcement so stale application state cannot silently overwrite newer professional decisions;
+- cross-checking of indexed row metadata against the decoded aggregate;
+- SQLCipher page-integrity and SQLite logical-integrity verification paths.
+
+The aggregate checkpoint is an implementation foundation, not the final report data model. The normalized storage contract in [EVIDENCE-DATA-MODEL.md](EVIDENCE-DATA-MODEL.md) remains authoritative for professional evidence/decision records.
+
+### Remaining M1 work
+
+Still required before the offline case is field-ready:
+
+- normalized SQLCipher persistence for artifacts, expected rows, observations, claims, reconciliation decisions, findings, reviews and execution records;
+- content-addressed encrypted artifact vault with per-case data keys and authenticated metadata;
+- production key lifecycle, lock timeout/re-authentication policy and recovery behavior for unavailable/replaced Keystore keys;
+- explicit schema migrations and migration fixtures beyond the initial aggregate-checkpoint schema;
+- retention and secure-deletion workflow;
+- Case App integration for role-aware authorization/reviewer actions and revision management;
+- materialized finalized snapshots/export views and external anchoring.
+
+The legacy `SiteRepository` used by existing PoC screens remains separate `SharedPreferences` state and must not be treated as professional case storage.
+
+## 11. Persistence acceptance invariants
+
+Persistence must preserve the domain rather than weaken it:
+
+1. encoding the same aggregate twice produces identical bytes;
+2. finalized and superseded aggregates round-trip with exact audit events and exact timestamp precision;
+3. modified/truncated/oversized or semantically inconsistent payloads are rejected before use;
+4. a loaded SQLCipher row must agree with the encoded aggregate identity, revision, state and version;
+5. a stale expected version cannot overwrite a newer aggregate;
+6. SQLCipher page integrity and SQLite logical integrity checks must pass for a healthy store;
+7. the encrypted database must not expose a plaintext SQLite header on disk;
+8. missing/corrupt wrapped-key metadata or an unavailable wrapping key fails closed rather than generating a replacement key for an existing store.
+
+## 12. Domain acceptance invariants
 
 The `core-domain` tests must maintain at least these properties:
 

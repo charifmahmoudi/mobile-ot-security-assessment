@@ -8,6 +8,8 @@ This section records **what a test environment proves and what evidence it retai
 | [Research testbeds](RESEARCH-TESTBEDS.md) | Protocol/emulator testbed provenance, versions and expected fixture behavior |
 | [Emulator screenshot provenance](EMULATOR-SCREENSHOTS.md) | Historical screenshot sources and reproduction paths |
 
-The executable CI source is [.github/workflows/android-ci.yml](../../.github/workflows/android-ci.yml). Pin a specific workflow run only when documenting provenance for an artifact produced by that run.
+The executable CI source is [.github/workflows/android-ci.yml](../../.github/workflows/android-ci.yml). Its JVM layer includes professional-case lifecycle, audit, finalized-snapshot and deterministic persistence/restore tests. Case App instrumentation additionally exercises the SQLCipher professional-case checkpoint, Android-Keystore-wrapped database-key path, optimistic stale-write rejection, database integrity checks and encrypted on-disk header boundary. These are software-boundary tests; they do not by themselves qualify the production key lifecycle, normalized evidence schema, artifact vault or physical appliance.
+
+Pin a specific workflow run only when documenting provenance for an artifact produced by that run.
 
 Return to the [documentation index](../README.md).

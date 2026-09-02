@@ -5,7 +5,7 @@
 | Gate | Status | Product outcome | Exit evidence |
 |---|---|---|---|
 | M0 Safety slice | Complete | Reproducible Android/JVM/native build with separated active/passive boundaries | Builds, architecture checks and emulated end-to-end journeys |
-| M1 Professional offline case | Partial | Authorization, encrypted case vault, audit chain and controlled export | Domain lifecycle/audit invariants now execute; remaining state, storage integrity, key-lifecycle and offline adapter tests |
+| M1 Professional offline case | Partial | Authorization, encrypted case vault, audit chain and controlled export | Domain lifecycle/audit plus encrypted SQLCipher aggregate checkpoint, Keystore-wrapped database key, verified restore and optimistic-version tests now execute; normalized evidence/artifact storage, production key lifecycle, full app workflow and export remain |
 | M2 Passive analysis | Partial | Production-grade PCAP/PCAPNG ingestion and water-asset reconciliation | Golden corpus, malformed-input/fuzz gates and reviewer workflow |
 | M3 Field evidence | Planned | Physical observations plus approved Wi-Fi/BLE evidence | Permission, privacy and provenance tests |
 | M4 Safe active identity | Partial | Qualified Modbus device identification plus separately approved next active profile | Independent packet traces and operation-budget proof |

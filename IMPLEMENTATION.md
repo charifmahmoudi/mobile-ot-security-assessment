@@ -8,8 +8,8 @@ The repository contains a pure domain layer, three Android application boundarie
 
 | Component | Current executable role |
 |---|---|
-| Core domain | Professional case lifecycle/authorization/audit/snapshot invariants, evidence-record contracts, grant/scope policy and deterministic parsing/business rules; no Android/storage dependency |
-| Case App | Guided site workflow, passive import/review, inventory reasoning, findings/report-readiness UI; no Android `INTERNET` permission |
+| Core domain | Professional case lifecycle/authorization/audit/snapshot invariants, deterministic bounded case persistence codec, evidence-record contracts, grant/scope policy and deterministic parsing/business rules; no Android/storage dependency |
+| Case App | Guided site workflow plus the encrypted professional-case repository adapter; passive import/review, inventory reasoning and findings/report-readiness UI; no Android `INTERNET` permission |
 | Network Broker | Separately privileged active-network service for the compiled Modbus identity operation |
 | Capture Broker | Separate passive-capture Binder/FD boundary; debug builds stream a labeled CI fixture and release builds fail closed until the native backend is integrated |
 | Parser worker | Isolated-process parsing boundary for untrusted captures |
@@ -23,9 +23,11 @@ The authoritative topology and privilege model are in [System and deployment](do
 |---|---|---|
 | Professional case domain | Typed case/actor/authorization/snapshot IDs; legal/site/process context; decision-oriented assessment objective; scope, evidence methods, stop conditions and data policy; guarded `DRAFT → ... → FINALIZED/SUPERSEDED` lifecycle; role-gated transitions; authorization bound to exact scope/data-policy fingerprints; reviewer acceptance gate; finalized snapshot hash; revision/supersession semantics | `core-domain` unit tests |
 | Professional audit chain | Append-only SHA-256 chained lifecycle events with actor role, object identity, details hash and previous-event hash; restoration rejects sequence/hash-chain tampering | `core-domain` unit tests |
+| Professional case persistence codec | Versioned deterministic binary aggregate representation with explicit size/string/collection bounds; exact `Instant` precision; complete audit/snapshot state; envelope digest; restore rejects malformed encodings and domain/audit/snapshot inconsistencies before returning the aggregate | `core-domain` persistence tests |
+| Encrypted professional case repository | Case App has a SQLCipher aggregate-checkpoint repository. A random 256-bit database key is wrapped by an Android Keystore AES-GCM key; row metadata is cross-checked against the restored aggregate; writes use optimistic expected-version checks; SQLCipher page integrity and SQLite logical integrity checks are exposed | API 29/35 instrumentation + JVM codec tests |
 | Professional evidence record contracts | Separate typed records for sealed artifacts, expected records, observations, identity claims, reconciliation decisions, findings and object-review decisions; provenance/evidence/confidence/consequence invariants enforced in pure domain code | `core-domain` unit tests |
 | Site workflow | Three-step site creation and a persistent Overview → Collect → Assets → Findings → Report shell | Android instrumentation |
-| Local prototype state | Site and working inventory state persist locally for the current PoC workflow | Android tests |
+| Legacy sample UI state | Site and working inventory state for the existing PoC screens still persist in private `SharedPreferences`; this store is not used as the professional-case repository | Android tests |
 | Passive import | Bounded PCAP/PCAPNG import, hashing, metadata extraction, parsing and explicit observation review before inventory mutation | JVM + Android tests with sourced captures |
 | Passive protocol parsing | Modbus/TCP, DNP3, IEC-104, BACnet/IP, EtherNet/IP, S7comm, IEC 61850 MMS candidate, OPC UA and PROFINET framing; sourced CI fixtures currently exercise a subset | Parser/unit/UI tests |
 | Capture Broker boundary | Signature-protected Binder service exposes interface inspection, bounded start and stop, and streams bytes through a file descriptor | API 29/35 emulation |
@@ -40,7 +42,7 @@ The authoritative topology and privilege model are in [System and deployment](do
 
 ## What CI proves
 
-The Android safety workflow exercises builds, architecture checks, JVM tests, lint, API 29/35 instrumentation, passive capture imports, the Capture Broker file-descriptor journey, active Modbus behavior against PyModbus/modbus-tk/Conpot, and the native receive-only capture gate. `core-domain` tests additionally exercise the professional case state machine, authorization binding, role gates, audit-chain verification, finalization/supersession and evidence-record invariants.
+The Android safety workflow exercises builds, architecture checks, JVM tests, lint, API 29/35 instrumentation, passive capture imports, the Capture Broker file-descriptor journey, active Modbus behavior against PyModbus/modbus-tk/Conpot, and the native receive-only capture gate. `core-domain` tests additionally exercise the professional case state machine, authorization binding, role gates, audit-chain verification, deterministic persistence/restore validation, finalization/supersession and evidence-record invariants. Case App instrumentation exercises encrypted professional-case creation/load/update, stale-write rejection, database integrity checks and the encrypted on-disk boundary.
 
 The exact verification topology and retained artifacts are documented in [Testing](docs/testing/README.md). CI proves those software paths; it does not qualify a physical OT appliance or production network.
 
@@ -48,8 +50,9 @@ The exact verification topology and retained artifacts are documented in [Testin
 
 The following are not current field-ready capabilities:
 
-- SQLCipher-backed professional case repository, encrypted content-addressed artifact vault and production key lifecycle; the professional case domain model now exists but is not yet persisted through this target storage;
-- Case App integration of the full role-aware professional lifecycle, including durable operational/security approvals, assessment objective, reviewer decisions and revision workflow;
+- the normalized SQLCipher evidence/decision schema, content-addressed encrypted artifact vault, per-case artifact-key lifecycle, retention/secure-deletion workflow and production migration/recovery tooling; the current encrypted repository is an aggregate checkpoint foundation rather than the completed evidence store;
+- Case App integration of the full role-aware professional lifecycle, including user-facing durable operational/security approvals, assessment-objective editing, reviewer decisions and revision workflow;
+- production lock timeout/re-authentication policy and recovery procedures for unavailable/replaced Android Keystore keys;
 - integration of `atlas_capture` into the signed LineageOS appliance image with its final SELinux/init policy;
 - physical phone, powered hub, USB-Ethernet and SPAN/TAP qualification;
 - deterministic signed HTML/PDF/JSON/CSV final assessment package and external verification tooling; the domain snapshot hash/finalization foundation now exists;
