@@ -76,7 +76,7 @@ The intended customer takeaway is not “Atlas found N IP addresses.” It is:
 
 ## Continue
 
-- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case)
-- [Reconciling Assets](Reconciling-Assets)
-- [Finalizing and Exporting](Finalizing-and-Exporting)
-- [Pilot Evaluation Guide](Pilot-Evaluation-Guide)
+- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case.md)
+- [Reconciling Assets](Reconciling-Assets.md)
+- [Finalizing and Exporting](Finalizing-and-Exporting.md)
+- [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md)

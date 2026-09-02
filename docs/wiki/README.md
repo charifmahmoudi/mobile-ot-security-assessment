@@ -8,7 +8,7 @@ Wiki pages are task-oriented explanations for assessors, evaluators, customers a
 
 ## Publishing status
 
-The GitHub Wiki is not initialized yet. These files are therefore maintained in the main repository so they can be reviewed, versioned and published once the Wiki is enabled. `Home.md` and `_Sidebar.md` use GitHub Wiki-compatible page names and links.
+The GitHub Wiki is not initialized yet. These files are therefore maintained in the main repository so they can be reviewed, versioned and published once the Wiki is enabled. `Home.md` and `_Sidebar.md` use GitHub Wiki-compatible page names and navigation.
 
 ## Source-of-truth rules
 
@@ -23,23 +23,23 @@ The GitHub Wiki is not initialized yet. These files are therefore maintained in 
 
 When a Wiki explanation conflicts with one of those authorities, the repository authority wins.
 
-## Page set
+## Wiki pages
 
-- `Home.md`
-- `Getting-Started.md`
-- `Pilot-Assessment-Walkthrough.md`
-- `Preparing-and-Authorizing-a-Case.md`
-- `Importing-the-Expected-Inventory.md`
-- `Collecting-Evidence.md`
-- `Reconciling-Assets.md`
-- `Reviewing-Findings-and-Limitations.md`
-- `Finalizing-and-Exporting.md`
-- `Evidence-and-Provenance.md`
-- `Field-Setup-and-Safety.md`
-- `Pilot-Evaluation-Guide.md`
-- `Technical-Overview.md`
-- `FAQ-and-Glossary.md`
-- `_Sidebar.md`
+- [Home](Home.md)
+- [Getting Started](Getting-Started.md)
+- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md)
+- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case.md)
+- [Importing the Expected Inventory](Importing-the-Expected-Inventory.md)
+- [Collecting Evidence](Collecting-Evidence.md)
+- [Reconciling Assets](Reconciling-Assets.md)
+- [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations.md)
+- [Finalizing and Exporting](Finalizing-and-Exporting.md)
+- [Evidence and Provenance](Evidence-and-Provenance.md)
+- [Field Setup and Safety](Field-Setup-and-Safety.md)
+- [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md)
+- [Technical Overview](Technical-Overview.md)
+- [FAQ and Glossary](FAQ-and-Glossary.md)
+- [Wiki sidebar source](_Sidebar.md)
 
 ## Editorial standard
 

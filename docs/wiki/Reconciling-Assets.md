@@ -73,6 +73,6 @@ An assessor may confirm, reject, leave unresolved, classify an unexpected observ
 
 Collect more only when a specific unresolved question justifies it. For example, a probable Modbus controller may have enough evidence to identify the vendor and address but not the exact model. If the exact target is authorized, a bounded Device Identification request may resolve that specific gap.
 
-Next: [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations).
+Next: [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations.md).
 
 For normative reconciliation semantics, see the repository [Assessment Method](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/poc/ASSESSMENT-METHOD.md).

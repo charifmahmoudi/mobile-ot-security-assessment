@@ -69,4 +69,4 @@ Limitations should remain visible in both detailed and executive-facing output w
 
 For evidence thresholds, confidence, reportability and review requirements, use the repository's [Assessment Method](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/poc/ASSESSMENT-METHOD.md) and [P0-WATER contract](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/poc/WATER-WASTEWATER-POC.md).
 
-Next: [Finalizing and Exporting](Finalizing-and-Exporting).
+Next: [Finalizing and Exporting](Finalizing-and-Exporting.md).

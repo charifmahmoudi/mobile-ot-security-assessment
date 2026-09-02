@@ -73,4 +73,4 @@ A failure is not permission to fall back to a broader discovery method.
 
 For the normative lifecycle, authorization fingerprinting and role gates, use the repository's [Professional Case Model](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/architecture/PROFESSIONAL-CASE-MODEL.md). For exact packet-producing authority, use [Network Execution](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/architecture/NETWORK-EXECUTION.md).
 
-Next: [Importing the Expected Inventory](Importing-the-Expected-Inventory).
+Next: [Importing the Expected Inventory](Importing-the-Expected-Inventory.md).

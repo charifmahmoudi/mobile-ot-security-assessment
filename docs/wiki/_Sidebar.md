@@ -1,28 +1,30 @@
+# Atlas Wiki navigation
+
 **Atlas OT Scout**
 
-- [Home](Home)
-- [Getting Started](Getting-Started)
-- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough)
+- [Home](Home.md)
+- [Getting Started](Getting-Started.md)
+- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md)
 
 **Using Atlas**
 
-- [Prepare and Authorize](Preparing-and-Authorizing-a-Case)
-- [Import Expected Inventory](Importing-the-Expected-Inventory)
-- [Collect Evidence](Collecting-Evidence)
-- [Reconcile Assets](Reconciling-Assets)
-- [Review Findings & Limitations](Reviewing-Findings-and-Limitations)
-- [Finalize & Export](Finalizing-and-Exporting)
+- [Prepare and Authorize](Preparing-and-Authorizing-a-Case.md)
+- [Import Expected Inventory](Importing-the-Expected-Inventory.md)
+- [Collect Evidence](Collecting-Evidence.md)
+- [Reconcile Assets](Reconciling-Assets.md)
+- [Review Findings & Limitations](Reviewing-Findings-and-Limitations.md)
+- [Finalize & Export](Finalizing-and-Exporting.md)
 
 **Understand the Method**
 
-- [Evidence & Provenance](Evidence-and-Provenance)
-- [Field Setup & Safety](Field-Setup-and-Safety)
-- [Pilot Evaluation Guide](Pilot-Evaluation-Guide)
+- [Evidence & Provenance](Evidence-and-Provenance.md)
+- [Field Setup & Safety](Field-Setup-and-Safety.md)
+- [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md)
 
 **Technical**
 
-- [Technical Overview](Technical-Overview)
-- [FAQ & Glossary](FAQ-and-Glossary)
+- [Technical Overview](Technical-Overview.md)
+- [FAQ & Glossary](FAQ-and-Glossary.md)
 
 ---
 

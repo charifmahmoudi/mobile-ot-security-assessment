@@ -62,4 +62,4 @@ The pilot target includes external package verification so a recipient can detec
 
 Do not treat a hash displayed in a report as equivalent to a complete release verification design; use the repository implementation and testing documents for the exact supported verification mechanism.
 
-See also [Evidence and Provenance](Evidence-and-Provenance) and [Pilot Evaluation Guide](Pilot-Evaluation-Guide).
+See also [Evidence and Provenance](Evidence-and-Provenance.md) and [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md).

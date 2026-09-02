@@ -35,7 +35,7 @@ That is better than a vague goal such as “scan the OT network.”
 7. **Assess** — create findings only when evidence is sufficient.
 8. **Review and finalize** — independent review precedes immutable finalization and export.
 
-See the [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough) for a worked example.
+See the [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md) for a worked example.
 
 ## Evidence methods
 
@@ -53,7 +53,7 @@ The application and pilot workflow are evolving. Do not infer field readiness fr
 
 ## Next steps
 
-- [Prepare and authorize a case](Preparing-and-Authorizing-a-Case)
-- [Import the expected inventory](Importing-the-Expected-Inventory)
-- [Collect evidence](Collecting-Evidence)
-- [Reconcile assets](Reconciling-Assets)
+- [Prepare and authorize a case](Preparing-and-Authorizing-a-Case.md)
+- [Import the expected inventory](Importing-the-Expected-Inventory.md)
+- [Collect evidence](Collecting-Evidence.md)
+- [Reconcile assets](Reconciling-Assets.md)

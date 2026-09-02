@@ -59,6 +59,6 @@ It does not answer:
 
 That distinction remains visible through the entire assessment.
 
-Next: [Collecting Evidence](Collecting-Evidence) and [Reconciling Assets](Reconciling-Assets).
+Next: [Collecting Evidence](Collecting-Evidence.md) and [Reconciling Assets](Reconciling-Assets.md).
 
 For normative data semantics, use the repository's [Evidence Data Model](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/architecture/EVIDENCE-DATA-MODEL.md).

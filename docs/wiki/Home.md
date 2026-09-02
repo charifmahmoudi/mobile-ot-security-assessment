@@ -14,7 +14,7 @@ A bounded assessment follows this path:
 
 **Prepare and authorize → import the expected inventory → collect or import evidence → review observations → reconcile expected and observed state → resolve selected identity gaps safely → review findings and limitations → finalize and export.**
 
-Start with the [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough) for the complete story.
+Start with the [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md) for the complete story.
 
 ## What Atlas is intended to deliver
 
@@ -36,23 +36,23 @@ The final goal is a reviewed assessment package, not a scanner device count.
 
 **Assessors and operators**
 
-- [Getting Started](Getting-Started)
-- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case)
-- [Collecting Evidence](Collecting-Evidence)
-- [Reconciling Assets](Reconciling-Assets)
-- [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations)
+- [Getting Started](Getting-Started.md)
+- [Preparing and Authorizing a Case](Preparing-and-Authorizing-a-Case.md)
+- [Collecting Evidence](Collecting-Evidence.md)
+- [Reconciling Assets](Reconciling-Assets.md)
+- [Reviewing Findings and Limitations](Reviewing-Findings-and-Limitations.md)
 
 **Customers and evaluators**
 
-- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough)
-- [Evidence and Provenance](Evidence-and-Provenance)
-- [Pilot Evaluation Guide](Pilot-Evaluation-Guide)
-- [FAQ and Glossary](FAQ-and-Glossary)
+- [Pilot Assessment Walkthrough](Pilot-Assessment-Walkthrough.md)
+- [Evidence and Provenance](Evidence-and-Provenance.md)
+- [Pilot Evaluation Guide](Pilot-Evaluation-Guide.md)
+- [FAQ and Glossary](FAQ-and-Glossary.md)
 
 **Technical readers**
 
-- [Technical Overview](Technical-Overview)
-- [Field Setup and Safety](Field-Setup-and-Safety)
+- [Technical Overview](Technical-Overview.md)
+- [Field Setup and Safety](Field-Setup-and-Safety.md)
 
 ## Important status boundary
 
@@ -60,4 +60,4 @@ The Wiki explains the product and intended pilot workflow. It is **not** the aut
 
 Before using Atlas in a demo, lab or field setting, check the repository's current [`IMPLEMENTATION.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md) and measured [`COMPATIBILITY-MATRIX.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/appliance/COMPATIBILITY-MATRIX.md).
 
-For exact product and safety contracts, use the repository documentation linked from [Technical Overview](Technical-Overview).
+For exact product and safety contracts, use the repository documentation linked from [Technical Overview](Technical-Overview.md).

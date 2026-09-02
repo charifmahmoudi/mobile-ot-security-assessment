@@ -56,4 +56,4 @@ If a target is unavailable, evidence is malformed, authority expires or the rout
 
 This page intentionally does not reproduce grant lifetimes, packet budgets, socket-binding rules or protocol constants. Those are defined in the repository's [Network Execution contract](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/architecture/NETWORK-EXECUTION.md).
 
-Next: [Reconciling Assets](Reconciling-Assets).
+Next: [Reconciling Assets](Reconciling-Assets.md).
