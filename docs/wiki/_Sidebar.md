@@ -8,5 +8,7 @@
 
 ---
 
+- [Project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/)
+- [Source repository](https://github.com/charifmahmoudi/mobile-ot-security-assessment)
 - [Current implementation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md)
 - [Engineering documentation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/docs/README.md)

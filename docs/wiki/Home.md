@@ -1,8 +1,12 @@
 # Atlas OT Scout
 
+[Project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/) · [Source repository and README](https://github.com/charifmahmoudi/mobile-ot-security-assessment) · [Current implementation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md)
+
 Atlas OT Scout helps an authorized assessor reconcile a customer's expected OT asset inventory with bounded field evidence and produce a reviewed, traceable assessment result.
 
 The first product focus is water and wastewater control environments.
+
+The purpose is not inventory accuracy for its own sake. Atlas is intended to reveal discrepancies before a maintenance shutdown, while the responsible team can still confirm the target, adapt the planned procedure and resources, or postpone the action before taking equipment out of service. The [project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/#case) presents this as the “Maintenance starts tomorrow” case.
 
 ## The question Atlas answers
 
@@ -55,4 +59,4 @@ See [Customer Pilot](Customer-Pilot.md).
 
 For collection boundaries, visibility limits and links to the exact engineering specifications, see [Safety & Technical Boundaries](Safety-and-Technical-Boundaries.md).
 
-Current executable capability is maintained in [`IMPLEMENTATION.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md).
+Current executable capability is maintained in [`IMPLEMENTATION.md`](https://github.com/charifmahmoudi/mobile-ot-security-assessment/blob/main/IMPLEMENTATION.md). Repository navigation, build instructions and the complete documentation map begin in the [main README](https://github.com/charifmahmoudi/mobile-ot-security-assessment#readme).

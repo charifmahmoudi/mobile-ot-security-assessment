@@ -2,6 +2,8 @@
 
 **A guided, offline OT evidence and assessment appliance for authorized water and wastewater work.**
 
+[Project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/) · [Operator and evaluation Wiki](https://github.com/charifmahmoudi/mobile-ot-security-assessment/wiki) · [Current implementation](IMPLEMENTATION.md)
+
 [![Android safety CI](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml)
 [![Documentation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml)
 
@@ -10,6 +12,19 @@ Atlas helps an authorized assessor turn incomplete inventories and bounded field
 The first product pack is **P0-WATER**, for one bounded drinking-water or wastewater control segment. Atlas is not a general-purpose scanner, exploitation framework, certification service or continuous-monitoring platform.
 
 This repository is a research prototype. The authoritative current capability matrix is [IMPLEMENTATION.md](IMPLEMENTATION.md); planned work and release gates are in [ROADMAP.md](ROADMAP.md). Do not infer implementation status from design, user, demo or commercial documents.
+
+## Maintenance starts tomorrow
+
+![Illustrative water-operations lead preparing maintenance with an Atlas field tablet beside a closed OT cabinet](website/public/media/atlas-field-case-hero.webp)
+
+The purpose is not inventory accuracy for its own sake. Atlas is intended to expose an equipment-identity discrepancy while there is still time to confirm the target, adapt the procedure, parts or expertise, or postpone the action before taking a pump out of service.
+
+| Bounded evidence | Reviewed handoff |
+|---|---|
+| ![Illustrative bounded Ethernet evidence path between a water-control cabinet and an Atlas tablet](website/public/media/atlas-field-case-evidence.webp) | ![Illustrative maintenance handoff using the reviewed Atlas evidence case](website/public/media/atlas-field-case-handoff.webp) |
+| Preserve what was declared, observed and protocol-identified without silently merging them. | Hand over the evidence, unresolved discrepancy and decision before the maintenance window begins. |
+
+These illustrations explain the intended workflow. They are not customer evidence or proof that the pictured hardware combination is qualified. See the [compatibility matrix](docs/appliance/COMPATIBILITY-MATRIX.md) and [current implementation](IMPLEMENTATION.md) for tested boundaries.
 
 ## How Atlas approaches an assessment
 
@@ -40,6 +55,8 @@ The normative assessment contract is [P0-WATER](docs/poc/WATER-WASTEWATER-POC.md
 | Morocco commercial research and execution | [Business development](docs/business-development/README.md) |
 | Prospect presentation | [Pitch](docs/pitch/README.md) and [guided demo](docs/demo/README.md) |
 | Complete documentation map | [Documentation index](docs/README.md) |
+| Concise operating and evaluation guide | [GitHub Wiki](https://github.com/charifmahmoudi/mobile-ot-security-assessment/wiki) |
+| Public project story and methodology-fit route | [Project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/) |
 
 ## Product principles
 
