@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "website/**"
+      - "docs/demo/atlas-ot-scout-emulator-demo.mp4"
       - ".github/workflows/website.yml"
   workflow_dispatch:
 
@@ -26,6 +27,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+
+      - name: Prepare real Atlas application media
+        run: bash website/scripts/prepare-media.sh
 
       - name: Build and upload Astro site
         uses: withastro/action@v6
