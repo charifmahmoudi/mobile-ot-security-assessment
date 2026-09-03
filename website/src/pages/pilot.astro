@@ -1,11 +1,110 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+const base = import.meta.env.BASE_URL;
 const repo = 'https://github.com/charifmahmoudi/mobile-ot-security-assessment';
 ---
-<SiteLayout title="Customer Pilot — Atlas OT Scout" description="A bounded Atlas evaluation starts with one real OT evidence question, a defined process area, authorized evidence methods and measurable customer value.">
-  <section class="bg-ink text-white"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><p class="font-mono text-xs uppercase tracking-[0.2em] text-atlas">Customer pilot</p><h1 class="mt-5 max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">Start with one real OT evidence question.</h1><p class="mt-7 max-w-3xl text-xl leading-9 text-white/60">For example: <span class="text-white">Does the installed control equipment in Pumping Area A match the inventory currently accepted by operations?</span></p></div></section>
-  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8"><div class="grid gap-5 lg:grid-cols-2"><div class="rounded-3xl border border-ink/10 bg-surface p-7 sm:p-8"><p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">Customer provides</p><ul class="mt-7 space-y-4 text-lg"><li class="flex gap-3"><span class="text-atlas">01</span><span>One defined site and process area</span></li><li class="flex gap-3"><span class="text-atlas">02</span><span>The existing accepted asset baseline</span></li><li class="flex gap-3"><span class="text-atlas">03</span><span>Operational context and responsible stakeholders</span></li><li class="flex gap-3"><span class="text-atlas">04</span><span>Approved evidence sources or capture access</span></li><li class="flex gap-3"><span class="text-atlas">05</span><span>Authorization, exclusions and stop conditions</span></li></ul></div><div class="rounded-3xl bg-graphite p-7 text-white sm:p-8"><p class="font-mono text-xs uppercase tracking-[0.18em] text-atlas">P0-WATER assessment unit</p><div class="mt-7 grid grid-cols-2 gap-3 text-sm"><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">1</strong><span class="mt-2 block text-white/45">site / process area</span></div><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">1</strong><span class="mt-2 block text-white/45">L2 segment / VLAN</span></div><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">≤64</strong><span class="mt-2 block text-white/45">imported asset records</span></div><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">≤256</strong><span class="mt-2 block text-white/45">observed endpoints</span></div><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">≤16</strong><span class="mt-2 block text-white/45">allowlisted active targets</span></div><div class="rounded-2xl bg-white/[.045] p-4"><strong class="block text-2xl">≤4h</strong><span class="mt-2 block text-white/45">field collection</span></div></div></div></div></section>
-  <section class="bg-surface"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8"><p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">Assessment</p><h2 class="mt-4 max-w-3xl text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">A controlled workflow, not an open-ended technology trial.</h2><ol class="mt-12 grid gap-3 md:grid-cols-3 lg:grid-cols-6">{[['01','Prepare'],['02','Collect'],['03','Review'],['04','Reconcile'],['05','Assess'],['06','Finalize']].map(([n,label]) => <li class="rounded-2xl border border-ink/10 bg-paper p-5"><span class="font-mono text-xs text-atlas">{n}</span><strong class="mt-8 block">{label}</strong></li>)}</ol><p class="mt-6 max-w-3xl leading-7 text-steel">The least intrusive adequate evidence source is used for the documented question. Active identity work is limited to explicitly approved targets and operations.</p></div></section>
-  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8"><div class="grid gap-12 lg:grid-cols-2"><div><p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">Customer receives</p><h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em]">An answer that can be reviewed and acted on.</h2></div><ul class="grid gap-3 sm:grid-cols-2">{['Reconciled asset baseline','Exceptions and unresolved questions','Evidence-linked findings','Visibility and assessment limitations','Active-operation ledger where applicable','Reviewed assessment package'].map((x) => <li class="rounded-2xl border border-ink/10 bg-surface p-5 font-semibold">{x}</li>)}</ul></div></section>
-  <section class="bg-ink text-white"><div class="mx-auto max-w-5xl px-5 py-20 sm:px-8"><p class="font-mono text-xs uppercase tracking-[0.18em] text-atlas">Success criterion</p><h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Did Atlas produce a materially more trustworthy view of the bounded OT area than the customer started with?</h2><p class="mt-6 max-w-3xl text-lg leading-8 text-white/55">A pilot is useful when discrepancies become clearer, evidence behind conclusions is inspectable, limitations are explicit, and the result improves a real operational or professional decision.</p><div class="mt-9 flex flex-wrap gap-3"><a class="rounded-full bg-atlas px-5 py-3 text-sm font-semibold text-ink" href={`${repo}/blob/main/docs/business-development/OFFER.md`}>Review evaluation terms</a><a class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold" href={`${repo}/wiki`}>Open the Wiki</a></div></div></section>
+<SiteLayout title="Customer Pilot — Atlas OT Scout" description="A bounded Atlas evaluation starts with one OT evidence question, a defined process area, authorized evidence methods and a measurable customer decision.">
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="blueprint-grid absolute inset-0 opacity-45"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:py-20">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-aqua">Customer pilot</p>
+        <h1 class="mt-5 text-5xl font-bold leading-[1.04] tracking-[-0.045em] sm:text-6xl">Start with one real OT evidence question.</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/64">Example: <strong class="text-white">Does the installed control equipment in Pumping Area A match the inventory currently accepted by operations?</strong></p>
+      </div>
+      <figure class="app-frame app-shadow overflow-hidden border-white/15 bg-white">
+        <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-handoff.jpg`} alt="Atlas OT Scout application during the recorded assessment handoff workflow" />
+        <figcaption class="flex items-center justify-between gap-3 border-t border-border bg-surface px-4 py-3 text-xs text-muted"><span>Actual recorded Atlas application</span><span class="font-bold text-blue">Review → Handoff</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <p class="section-label">Pilot path</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">A customer decision, not an open-ended technology trial.</h2>
+      <div class="mt-10 overflow-x-auto">
+        <div class="grid min-w-[900px] grid-cols-7 items-stretch">
+          {[
+            ['01','Question','What must the assessment answer?'],
+            ['02','Scope','Which exact process area is in bounds?'],
+            ['03','Inventory','What baseline does the customer currently accept?'],
+            ['04','Evidence','What collection methods are permitted?'],
+            ['05','Reconcile','What is confirmed, probable, conflicting or missing?'],
+            ['06','Review','Which conclusions does the assessor/reviewer accept?'],
+            ['07','Deliver','What result changes the customer decision?']
+          ].map(([n,title,copy], i) => (
+            <div class="relative flex">
+              <div class={`app-frame relative z-10 w-full bg-white p-4 ${i === 4 ? 'border-aqua ring-2 ring-aqua/20' : ''}`}>
+                <span class="text-xs font-black text-blue">{n}</span>
+                <h3 class="mt-5 font-bold">{title}</h3>
+                <p class="mt-2 text-xs leading-5 text-muted">{copy}</p>
+              </div>
+              {i < 6 && <span class="absolute -right-3 top-1/2 z-20 grid size-6 -translate-y-1/2 place-items-center rounded-full bg-navy text-xs text-aqua">→</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-surface">
+    <div class="mx-auto grid max-w-7xl gap-5 px-5 py-20 sm:px-8 lg:grid-cols-2">
+      <div class="app-frame bg-white p-6 sm:p-7">
+        <p class="section-label">Customer provides</p>
+        <ul class="mt-6 divide-y divide-border">
+          {['One defined site and process area','The existing accepted asset baseline','Operational context and responsible stakeholders','Approved evidence sources or capture access','Authorization, exclusions and stop conditions'].map((x,i) => <li class="flex gap-4 py-4 first:pt-0 last:pb-0"><span class="text-xs font-black text-aqua">0{i+1}</span><span class="font-semibold">{x}</span></li>)}
+        </ul>
+      </div>
+      <div class="app-frame overflow-hidden bg-navy text-white">
+        <div class="border-b border-white/10 px-6 py-5"><p class="text-xs font-bold uppercase tracking-[0.14em] text-aqua">P0-WATER assessment unit</p></div>
+        <div class="grid grid-cols-2">
+          {[
+            ['1','site / process area'],['1','L2 segment / VLAN'],['≤64','imported asset records'],['≤256','observed endpoints'],['≤16','allowlisted active targets'],['≤4h','field collection']
+          ].map(([value,label],i) => <div class={`p-5 ${i % 2 === 0 ? 'border-r border-white/10' : ''} ${i < 4 ? 'border-b border-white/10' : ''}`}><strong class="text-3xl text-white">{value}</strong><span class="mt-2 block text-sm text-white/48">{label}</span></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.72fr_1.28fr]">
+      <div>
+        <p class="section-label">Customer receives</p>
+        <h2 class="mt-3 text-4xl font-bold tracking-[-0.035em]">A reviewed answer with the unresolved parts still visible.</h2>
+      </div>
+      <div class="app-frame overflow-hidden bg-white">
+        {[
+          ['Reconciled asset baseline','What the evidence supports now.'],
+          ['Exceptions and unresolved questions','What still needs confirmation or correction.'],
+          ['Evidence-linked findings','Material conditions tied back to supporting evidence.'],
+          ['Visibility and assessment limitations','What was not observed, tested or supported.'],
+          ['Active-operation ledger','Where an approved active identity operation was used.'],
+          ['Reviewed assessment package','Human-readable and machine-readable handoff material.']
+        ].map(([title,copy],i) => <div class={`grid gap-1 px-5 py-4 sm:grid-cols-[.8fr_1.2fr] sm:gap-6 ${i < 5 ? 'border-b border-border' : ''}`}><strong class="text-sm">{title}</strong><span class="text-sm leading-6 text-muted">{copy}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pale">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <div class="grid gap-6 lg:grid-cols-[1fr_.75fr] lg:items-center">
+        <div>
+          <p class="section-label">Success criterion</p>
+          <h2 class="mt-3 max-w-4xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">Did Atlas produce a materially more trustworthy view of the bounded OT area than the customer started with?</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">The pilot earns a continuation decision only if discrepancies become clearer, conclusions are inspectable, limitations are explicit, and the result improves a real operational or professional decision.</p>
+        </div>
+        <div class="app-frame bg-white p-6">
+          <p class="text-sm font-bold">End-of-pilot decision</p>
+          <div class="mt-4 grid gap-2 text-sm">
+            <span class="rounded-[8px] bg-aqua/10 px-4 py-3 font-bold text-navy">Continue</span>
+            <span class="rounded-[8px] bg-blue/10 px-4 py-3 font-bold text-blue">Modify and retest</span>
+            <span class="rounded-[8px] bg-surface px-4 py-3 font-bold text-muted">Investigate procurement / deployment fit</span>
+            <span class="rounded-[8px] bg-danger/10 px-4 py-3 font-bold text-danger">Stop</span>
+          </div>
+          <div class="mt-5 flex flex-wrap gap-2"><a class="rounded-[9px] bg-blue px-4 py-2.5 text-sm font-bold text-white hover:bg-navy" href={`${repo}/blob/main/docs/business-development/OFFER.md`}>Evaluation terms ↗</a><a class="rounded-[9px] border border-border px-4 py-2.5 text-sm font-bold hover:bg-surface" href={`${repo}/wiki`}>Wiki ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </SiteLayout>
