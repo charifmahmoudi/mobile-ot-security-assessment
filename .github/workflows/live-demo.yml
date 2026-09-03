@@ -10,6 +10,8 @@ on:
       - "tools/record_live_demo.sh"
       - "tools/compose_guided_customer_story.py"
       - "tools/build_pitch_deck.js"
+      - "tools/brand_palette.py"
+      - "tools/retint_pitch_deck.py"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
   pull_request:
@@ -20,6 +22,8 @@ on:
       - "tools/record_live_demo.sh"
       - "tools/compose_guided_customer_story.py"
       - "tools/build_pitch_deck.js"
+      - "tools/brand_palette.py"
+      - "tools/retint_pitch_deck.py"
       - "tools/pymodbus-ci.Dockerfile"
       - ".github/workflows/live-demo.yml"
 
@@ -135,6 +139,7 @@ jobs:
         run: |
           npm install --no-save --no-package-lock pptxgenjs@4.0.0
           node tools/build_pitch_deck.js
+          python3 tools/retint_pitch_deck.py docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pptx
           rm -f docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           libreoffice --headless --nologo --nolockcheck \
             --convert-to pdf \
