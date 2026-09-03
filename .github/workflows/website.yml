@@ -28,6 +28,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
+      - name: Install media tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
       - name: Prepare real Atlas application media
         run: bash website/scripts/prepare-media.sh
 
