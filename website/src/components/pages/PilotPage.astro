@@ -1,0 +1,169 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { evaluationIssueUrl, repo, type Lang } from '../../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const base = import.meta.env.BASE_URL;
+const issue = evaluationIssueUrl(lang);
+
+const copy = fr ? {
+  title: 'Évaluation client — Atlas OT Scout',
+  description: "Une évaluation Atlas commence par une question OT réelle, une zone bornée, des méthodes autorisées et un résultat qui peut changer une décision client.",
+  label: 'Évaluation client',
+  h1: 'Commencer par une seule question OT réelle.',
+  example: "Exemple : l'équipement de contrôle installé dans la zone de pompage A correspond-il à l'inventaire actuellement accepté par l'exploitation ?",
+  cta: 'Ouvrir une demande GitHub',
+  pathLabel: "Parcours d'évaluation",
+  pathTitle: "Une décision client, pas un essai technologique ouvert.",
+  steps: [
+    ['01','Question','Quelle décision l’évaluation doit-elle éclairer ?'],
+    ['02','Périmètre','Quelle zone de procédé exacte est autorisée ?'],
+    ['03','Baseline','Quelle référence le client accepte-t-il aujourd’hui ?'],
+    ['04','Preuves','Quelles méthodes de collecte sont permises ?'],
+    ['05','Réconciliation','Qu’est-ce qui est corroboré, probable, en conflit ou non observé ?'],
+    ['06','Revue','Quelles conclusions sont acceptées et quelles limites restent ouvertes ?'],
+    ['07','Handoff','Quel résultat permet au client de décider de la suite ?'],
+  ],
+  provides: 'Le client fournit',
+  providesItems: ['Une zone de site / procédé définie','La baseline d’actifs actuellement acceptée','Le contexte opérationnel et les responsables','Les sources de preuves ou l’accès de capture approuvés','Les autorisations, exclusions et conditions d’arrêt'],
+  unit: "Unité P0-WATER",
+  receives: 'Le client reçoit',
+  receivesTitle: 'Une réponse revue, avec les zones d’incertitude encore visibles.',
+  receivesItems: [
+    ['Baseline réconciliée','Ce que les preuves soutiennent maintenant.'],
+    ['Exceptions et questions ouvertes','Ce qui nécessite encore confirmation ou correction.'],
+    ['Constats liés aux preuves','Les conditions matérielles rattachées à leurs éléments justificatifs.'],
+    ['Limites de visibilité','Ce qui n’a pas été observé, testé ou suffisamment étayé.'],
+    ['Journal des opérations actives','Les vérifications d’identité explicitement autorisées, lorsqu’elles ont été utilisées.'],
+    ['Package d’évaluation revu','Les éléments de handoff lisibles par l’humain et la machine.'],
+  ],
+  success: 'Critère de réussite',
+  successTitle: "Atlas produit-il une vue matériellement plus fiable de la zone OT que celle avec laquelle le client a commencé ?",
+  successBody: "La valeur n'est pas le nombre de paquets ou d'actifs découverts. Elle existe si les écarts deviennent plus clairs, les conclusions sont inspectables, les limites sont explicites et une décision réelle s'améliore.",
+  issueHint: "La demande GitHub est préremplie avec les éléments nécessaires pour qualifier le pilote. Ne publiez pas de données réseau confidentielles dans une issue publique.",
+} : {
+  title: 'Customer evaluation — Atlas OT Scout',
+  description: 'An Atlas evaluation starts with one real OT question, a bounded area, authorized methods, and an outcome that can change a customer decision.',
+  label: 'Customer evaluation',
+  h1: 'Start with one real OT question.',
+  example: 'Example: does the installed control equipment in Pumping Area A match the inventory currently accepted by operations?',
+  cta: 'Open a GitHub request',
+  pathLabel: 'Evaluation path',
+  pathTitle: 'A customer decision, not an open-ended technology trial.',
+  steps: [
+    ['01','Question','What decision should the evaluation support?'],
+    ['02','Scope','Which exact process area is authorized?'],
+    ['03','Baseline','What reference does the customer accept today?'],
+    ['04','Evidence','Which collection methods are permitted?'],
+    ['05','Reconcile','What is corroborated, probable, conflicting or not observed?'],
+    ['06','Review','Which conclusions are accepted and which limitations remain open?'],
+    ['07','Handoff','What result enables the customer to decide what happens next?'],
+  ],
+  provides: 'Customer provides',
+  providesItems: ['One defined site / process area','The currently accepted asset baseline','Operational context and responsible stakeholders','Approved evidence sources or capture access','Authorization, exclusions and stop conditions'],
+  unit: 'P0-WATER unit',
+  receives: 'Customer receives',
+  receivesTitle: 'A reviewed answer with uncertainty still visible.',
+  receivesItems: [
+    ['Reconciled baseline','What the evidence supports now.'],
+    ['Exceptions and open questions','What still needs confirmation or correction.'],
+    ['Evidence-linked findings','Material conditions tied to supporting evidence.'],
+    ['Visibility limitations','What was not observed, tested or adequately supported.'],
+    ['Active-operation ledger','Explicitly authorized identity checks, where used.'],
+    ['Reviewed assessment package','Human-readable and machine-readable handoff material.'],
+  ],
+  success: 'Success criterion',
+  successTitle: 'Did Atlas produce a materially more trustworthy view of the bounded OT area than the customer started with?',
+  successBody: 'Value is not the number of packets or discovered assets. It exists when discrepancies become clearer, conclusions are inspectable, limitations are explicit, and a real decision improves.',
+  issueHint: 'The GitHub request is pre-filled with the information needed to qualify the pilot. Do not post confidential network data in a public issue.',
+};
+---
+<SiteLayout title={copy.title} description={copy.description} lang={lang} page="pilot">
+  <section class="relative overflow-hidden bg-surface">
+    <div class="blueprint-grid-light absolute inset-0 opacity-65"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.82fr_1.18fr] lg:items-center lg:py-20">
+      <div>
+        <p class="section-label">{copy.label}</p>
+        <h1 class="mt-5 text-5xl font-black leading-[1.04] tracking-[-0.045em] text-navy sm:text-6xl">{copy.h1}</h1>
+        <p class="mt-6 max-w-2xl text-xl leading-9 text-muted">{copy.example}</p>
+        <a class="mt-8 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] hover:bg-navy" href={issue}>{copy.cta} →</a>
+        <p class="mt-4 max-w-xl text-xs leading-5 text-muted">{copy.issueHint}</p>
+      </div>
+      <figure class="app-frame app-shadow overflow-hidden bg-white">
+        <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-handoff.jpg`} alt={fr ? 'Application Atlas OT Scout pendant le workflow de handoff enregistré' : 'Atlas OT Scout application during the recorded handoff workflow'} />
+        <figcaption class="flex items-center justify-between border-t border-border bg-white px-4 py-3 text-xs text-muted"><span>{fr ? 'Sortie réelle de l’émulateur' : 'Actual emulator output'}</span><span class="font-bold text-blue">{fr ? 'Revue → handoff' : 'Review → handoff'}</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <p class="section-label">{copy.pathLabel}</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.pathTitle}</h2>
+      <div class="mt-10 overflow-x-auto pb-2">
+        <div class="grid min-w-[980px] grid-cols-7 items-stretch gap-2">
+          {copy.steps.map(([n,title,body], i) => (
+            <div class={`app-frame relative bg-white p-4 ${i === 4 ? 'border-blue shadow-[inset_0_0_0_1px_#2457d6]' : ''}`}>
+              <span class="text-xs font-black text-blue">{n}</span>
+              <h3 class="mt-5 font-bold text-navy">{title}</h3>
+              <p class="mt-2 text-xs leading-5 text-muted">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface">
+    <div class="mx-auto grid max-w-7xl gap-5 px-5 py-20 sm:px-8 lg:grid-cols-2">
+      <div class="app-frame bg-white p-6 sm:p-7">
+        <p class="section-label">{copy.provides}</p>
+        <ul class="mt-6 divide-y divide-border">
+          {copy.providesItems.map((item,i) => <li class="flex gap-4 py-4 first:pt-0 last:pb-0"><span class="text-xs font-black text-blue">0{i + 1}</span><span class="font-semibold text-navy">{item}</span></li>)}
+        </ul>
+      </div>
+      <div class="app-frame overflow-hidden bg-navy text-white">
+        <div class="border-b border-white/10 px-6 py-5"><p class="text-xs font-black uppercase tracking-[.14em] text-aqua">{copy.unit}</p></div>
+        <div class="grid grid-cols-2">
+          {[
+            ['1',fr ? 'site / zone de procédé' : 'site / process area'],['1','L2 segment / VLAN'],['≤64',fr ? 'actifs importés' : 'imported asset records'],['≤256',fr ? 'endpoints observés' : 'observed endpoints'],['≤16',fr ? 'cibles actives autorisées' : 'allowlisted active targets'],['≤4h',fr ? 'collecte terrain' : 'field collection'],
+          ].map(([value,label],i) => <div class={`p-5 ${i % 2 === 0 ? 'border-r border-white/10' : ''} ${i < 4 ? 'border-b border-white/10' : ''}`}><strong class="text-3xl">{value}</strong><span class="mt-2 block text-sm text-white/52">{label}</span></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.72fr_1.28fr]">
+      <div>
+        <p class="section-label">{copy.receives}</p>
+        <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy">{copy.receivesTitle}</h2>
+      </div>
+      <div class="app-frame overflow-hidden bg-white">
+        {copy.receivesItems.map(([title,body],i) => <div class={`grid gap-1 px-5 py-4 sm:grid-cols-[.8fr_1.2fr] sm:gap-6 ${i < copy.receivesItems.length - 1 ? 'border-b border-border' : ''}`}><strong class="text-sm text-navy">{title}</strong><span class="text-sm leading-6 text-muted">{body}</span></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pale-blue">
+    <div class="mx-auto grid max-w-7xl gap-8 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_.72fr] lg:items-center">
+      <div>
+        <p class="section-label">{copy.success}</p>
+        <h2 class="mt-3 max-w-4xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.successTitle}</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">{copy.successBody}</p>
+      </div>
+      <div class="app-frame bg-white p-6">
+        <p class="text-sm font-bold text-navy">{fr ? 'Décision de fin de pilote' : 'End-of-pilot decision'}</p>
+        <div class="mt-4 grid gap-2 text-sm">
+          <span class="rounded-[9px] bg-pale-teal px-4 py-3 font-bold text-success">{fr ? 'Continuer' : 'Continue'}</span>
+          <span class="rounded-[9px] bg-pale-amber px-4 py-3 font-bold text-amber">{fr ? 'Modifier et retester' : 'Modify and retest'}</span>
+          <span class="rounded-[9px] bg-surface px-4 py-3 font-bold text-muted">{fr ? 'Étudier le fit déploiement / achat' : 'Investigate deployment / procurement fit'}</span>
+          <span class="rounded-[9px] bg-white px-4 py-3 font-bold text-danger ring-1 ring-danger/25">{fr ? 'Arrêter' : 'Stop'}</span>
+        </div>
+        <div class="mt-5 grid gap-2"><a class="rounded-[9px] bg-blue px-4 py-2.5 text-center text-sm font-bold text-white hover:bg-navy" href={issue}>{copy.cta}</a><a class="rounded-[9px] border border-border px-4 py-2.5 text-center text-sm font-bold text-navy hover:bg-surface" href={`${repo}/blob/main/docs/business-development/OFFER.md`}>{fr ? 'Cadre de l’offre' : 'Evaluation terms'} ↗</a></div>
+      </div>
+    </div>
+  </section>
+</SiteLayout>
