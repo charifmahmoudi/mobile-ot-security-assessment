@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #0b223a;
-  --color-aqua: #00adb5;
-  --color-blue: #2563eb;
+  --color-navy: #0b1f33;
+  --color-text: #0b1f33;
+  --color-muted: #475569;
+  --color-slate: #334155;
+  --color-teal: #167a5a;
+  --color-success: #167a5a;
+  --color-aqua: #a7caff;
+  --color-blue: #2457d6;
+  --color-amber: #aa5210;
+  --color-danger: #b0232d;
+  --color-surface: #f4f7fb;
   --color-white: #ffffff;
-  --color-text: #16191f;
-  --color-muted: #5b6572;
-  --color-surface: #f6f8fb;
-  --color-border: #dae0e7;
-  --color-pale: #e9f0f7;
-  --color-danger: #be2e38;
-  --font-sans: Inter, Roboto, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --color-border: #cdd8e4;
+  --color-pale-teal: #eaf7f1;
+  --color-pale-amber: #fff1db;
+  --color-pale-blue: #edf3ff;
+  --color-pale: #edf3ff;
+  --font-sans: Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", ui-monospace, monospace;
 }
 
@@ -27,7 +34,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-white);
+  background: var(--color-surface);
   color: var(--color-text);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
@@ -35,7 +42,8 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-aqua) 30%, white);
+  background: var(--color-pale-blue);
+  color: var(--color-navy);
 }
 
 a, button, summary {
@@ -43,7 +51,7 @@ a, button, summary {
 }
 
 a:focus-visible, button:focus-visible, summary:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--color-aqua) 65%, white);
+  outline: 3px solid color-mix(in srgb, var(--color-blue) 72%, white);
   outline-offset: 3px;
 }
 
@@ -53,7 +61,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 }
 
 .app-shadow {
-  box-shadow: 0 18px 54px rgba(11, 34, 58, 0.15), 0 3px 10px rgba(11, 34, 58, 0.08);
+  box-shadow: 0 18px 54px rgba(11, 31, 51, 0.14), 0 3px 10px rgba(11, 31, 51, 0.07);
 }
 
 .status-chip {
@@ -70,15 +78,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 
 .blueprint-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+    linear-gradient(rgba(167,202,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,202,255,.08) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
 .blueprint-grid-light {
   background-image:
-    linear-gradient(rgba(11,34,58,.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(11,34,58,.045) 1px, transparent 1px);
+    linear-gradient(rgba(11,31,51,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,31,51,.045) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
