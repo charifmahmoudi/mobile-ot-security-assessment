@@ -10,15 +10,20 @@ on:
       - "case-app/src/main/kotlin/com/atlasot/scout/MainActivity.kt"
       - "tools/brand_palette.py"
       - ".github/workflows/website.yml"
+  pull_request:
+    paths:
+      - "website/**"
+      - "docs/demo/atlas-ot-scout-emulator-demo.mp4"
+      - "case-app/src/main/kotlin/com/atlasot/scout/MainActivity.kt"
+      - "tools/brand_palette.py"
+      - ".github/workflows/website.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: github-pages
+  group: github-pages-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -50,9 +55,13 @@ jobs:
 
   deploy:
     name: Deploy GitHub Pages
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
