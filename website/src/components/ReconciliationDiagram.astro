@@ -1,53 +1,47 @@
+---
+import type { Lang } from '../lib/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const rows = [
+  { asset:'PLC-P04', expected: fr ? 'contrôleur attendu' : 'expected controller', evidence:'OBS-014', evidenceText: fr ? 'identité forte' : 'strong identity evidence', state: fr ? 'CORROBORÉ' : 'CORROBORATED', tone:'success' },
+  { asset:'RTU-03', expected: fr ? 'RTU attendu' : 'expected RTU', evidence:'OBS-021', evidenceText: fr ? 'identité partielle' : 'partial identity evidence', state:'PROBABLE', tone:'amber' },
+  { asset:'PLC-P07', expected: fr ? 'modèle A attendu' : 'expected model A', evidence:'OBS-027', evidenceText: fr ? 'modèle B observé' : 'observed model B', state: fr ? 'CONFLIT' : 'CONFLICT', tone:'danger' },
+  { asset:'HMI-02', expected: fr ? 'HMI attendu' : 'expected HMI', evidence:'—', evidenceText: fr ? 'aucune preuve adéquate' : 'no adequate evidence', state: fr ? 'NON OBSERVÉ' : 'NOT OBSERVED', tone:'muted' },
+  { asset:'—', expected: fr ? 'aucun enregistrement attendu' : 'no expected record', evidence:'OBS-031', evidenceText: fr ? 'endpoint sans correspondance' : 'unmatched endpoint', state: fr ? 'INATTENDU' : 'UNEXPECTED', tone:'blue' },
+];
+const toneClasses = {
+  success: 'border-success/40 bg-pale-teal text-success',
+  amber: 'border-amber/40 bg-pale-amber text-amber',
+  danger: 'border-danger/40 bg-white text-danger',
+  muted: 'border-border bg-surface text-muted',
+  blue: 'border-blue/40 bg-pale-blue text-blue',
+};
+---
 <figure class="app-frame overflow-hidden bg-white">
   <div class="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-surface px-5 py-4">
     <div>
-      <p class="text-sm font-semibold text-text">Expected inventory → evidence → reviewed state</p>
-      <p class="mt-1 text-xs text-muted">Weak observations remain weak. Conflicts remain visible.</p>
+      <p class="text-sm font-bold text-navy">{fr ? 'Inventaire attendu → preuve → état revu' : 'Expected inventory → evidence → reviewed state'}</p>
+      <p class="mt-1 text-xs text-muted">{fr ? 'Une preuve faible reste faible. Un conflit reste visible.' : 'Weak evidence stays weak. Conflicts stay visible.'}</p>
     </div>
-    <span class="status-chip border-blue/25 bg-pale-blue text-blue">Evidence-backed reconciliation</span>
+    <span class="status-chip border-blue/25 bg-pale-blue text-blue">{fr ? 'Réconciliation fondée sur les preuves' : 'Evidence-backed reconciliation'}</span>
   </div>
   <div class="overflow-x-auto p-4 sm:p-6">
-    <svg class="mx-auto min-w-[780px]" viewBox="0 0 980 420" role="img" aria-labelledby="recon-title recon-desc">
-      <title id="recon-title">Atlas asset reconciliation example</title>
-      <desc id="recon-desc">Expected asset records are compared with approved observations and become confirmed, probable, conflict, not observed, or unexpected reviewed states.</desc>
-      <defs>
-        <marker id="arrow-teal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#167A5A" /></marker>
-        <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2457D6" /></marker>
-        <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#AA5210" /></marker>
-        <marker id="arrow-muted" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#475569" /></marker>
-      </defs>
-
-      <text x="24" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">EXPECTED INVENTORY</text>
-      <text x="366" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">APPROVED EVIDENCE</text>
-      <text x="748" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">REVIEWED STATE</text>
-
-      <g font-family="Roboto, system-ui, sans-serif">
-        <rect x="20" y="62" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="84" fill="#0B1F33" font-size="14" font-weight="700">PLC-P04</text><text x="38" y="103" fill="#475569" font-size="12">expected controller</text>
-        <rect x="365" y="62" width="230" height="54" rx="10" fill="#EAF7F1" stroke="#167A5A" /><text x="383" y="84" fill="#0B1F33" font-size="14" font-weight="700">OBS-014</text><text x="383" y="103" fill="#475569" font-size="12">strong identity evidence</text>
-        <line x1="252" y1="89" x2="357" y2="89" stroke="#167A5A" stroke-width="3" marker-end="url(#arrow-teal)" />
-        <line x1="597" y1="89" x2="733" y2="89" stroke="#167A5A" stroke-width="3" marker-end="url(#arrow-teal)" />
-        <rect x="748" y="62" width="205" height="54" rx="10" fill="#EAF7F1" stroke="#167A5A" /><circle cx="772" cy="89" r="6" fill="#167A5A" /><text x="788" y="94" fill="#167A5A" font-size="14" font-weight="800">CONFIRMED</text>
-
-        <rect x="20" y="136" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="158" fill="#0B1F33" font-size="14" font-weight="700">RTU-03</text><text x="38" y="177" fill="#475569" font-size="12">expected RTU</text>
-        <rect x="365" y="136" width="230" height="54" rx="10" fill="#EDF3FF" stroke="#2457D6" /><text x="383" y="158" fill="#0B1F33" font-size="14" font-weight="700">OBS-021</text><text x="383" y="177" fill="#475569" font-size="12">partial identity evidence</text>
-        <line x1="252" y1="163" x2="357" y2="163" stroke="#2457D6" stroke-width="3" marker-end="url(#arrow-blue)" />
-        <line x1="597" y1="163" x2="733" y2="163" stroke="#2457D6" stroke-width="3" marker-end="url(#arrow-blue)" />
-        <rect x="748" y="136" width="205" height="54" rx="10" fill="#EDF3FF" stroke="#2457D6" /><circle cx="772" cy="163" r="6" fill="#2457D6" /><text x="788" y="168" fill="#2457D6" font-size="14" font-weight="800">PROBABLE</text>
-
-        <rect x="20" y="210" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="232" fill="#0B1F33" font-size="14" font-weight="700">PLC-P07</text><text x="38" y="251" fill="#475569" font-size="12">expected model A</text>
-        <rect x="365" y="210" width="230" height="54" rx="10" fill="#FFFFFF" stroke="#B0232D" /><text x="383" y="232" fill="#0B1F33" font-size="14" font-weight="700">OBS-027</text><text x="383" y="251" fill="#475569" font-size="12">observed model B</text>
-        <line x1="252" y1="237" x2="357" y2="237" stroke="#B0232D" stroke-width="3" />
-        <line x1="597" y1="237" x2="733" y2="237" stroke="#B0232D" stroke-width="3" />
-        <rect x="748" y="210" width="205" height="54" rx="10" fill="#FFFFFF" stroke="#B0232D" /><circle cx="772" cy="237" r="6" fill="#B0232D" /><text x="788" y="242" fill="#B0232D" font-size="14" font-weight="800">CONFLICT</text>
-
-        <rect x="20" y="284" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="306" fill="#0B1F33" font-size="14" font-weight="700">HMI-02</text><text x="38" y="325" fill="#475569" font-size="12">expected HMI</text>
-        <line x1="252" y1="311" x2="733" y2="311" stroke="#475569" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow-muted)" />
-        <rect x="748" y="284" width="205" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><circle cx="772" cy="311" r="6" fill="#475569" /><text x="788" y="316" fill="#475569" font-size="14" font-weight="800">NOT OBSERVED</text>
-
-        <rect x="365" y="358" width="230" height="44" rx="10" fill="#FFF1DB" stroke="#AA5210" /><text x="383" y="385" fill="#0B1F33" font-size="14" font-weight="700">OBS-031 · unmatched endpoint</text>
-        <line x1="597" y1="380" x2="733" y2="380" stroke="#AA5210" stroke-width="3" marker-end="url(#arrow-amber)" />
-        <rect x="748" y="353" width="205" height="54" rx="10" fill="#FFF1DB" stroke="#AA5210" /><circle cx="772" cy="380" r="6" fill="#AA5210" /><text x="788" y="385" fill="#AA5210" font-size="14" font-weight="800">UNEXPECTED</text>
-      </g>
-    </svg>
+    <div class="min-w-[820px]">
+      <div class="grid grid-cols-[1fr_54px_1fr_54px_.82fr] px-2 pb-3 text-[11px] font-black uppercase tracking-[.12em] text-muted">
+        <span>{fr ? 'Inventaire attendu' : 'Expected inventory'}</span><span></span><span>{fr ? 'Preuve approuvée' : 'Approved evidence'}</span><span></span><span>{fr ? 'État revu' : 'Reviewed state'}</span>
+      </div>
+      <div class="space-y-3">
+        {rows.map((row) => (
+          <div class="grid grid-cols-[1fr_54px_1fr_54px_.82fr] items-stretch">
+            <div class="rounded-[10px] border border-border bg-surface px-4 py-3"><strong class="block text-sm text-navy">{row.asset}</strong><span class="mt-1 block text-xs text-muted">{row.expected}</span></div>
+            <div class="grid place-items-center text-lg font-black text-blue">→</div>
+            <div class="rounded-[10px] border border-border bg-white px-4 py-3"><strong class="block text-sm text-navy">{row.evidence}</strong><span class="mt-1 block text-xs text-muted">{row.evidenceText}</span></div>
+            <div class="grid place-items-center text-lg font-black text-blue">→</div>
+            <div class={`grid place-items-center rounded-[10px] border px-4 py-3 text-xs font-black tracking-[.06em] ${toneClasses[row.tone]}`}>{row.state}</div>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </figure>
