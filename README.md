@@ -15,13 +15,13 @@ This repository is a research prototype. The authoritative current capability ma
 
 ## From evidence to a maintenance decision
 
-![Atlas assessment overview: authorized process scope, separate evidence sources, human reconciliation and proceed, adapt or postpone outcomes](docs/media/atlas-assessment-overview.webp)
+![Atlas assessment overview: an authorized water-process scope, contextual and nameplate evidence, bounded Modbus device identification, human reconciliation and proceed, adapt or postpone outcomes](docs/media/atlas-assessment-overview.webp)
 
 Atlas keeps the authorized process boundary, the customer-declared baseline, the collected or imported evidence and the assessor's decision visible in one case. Those layers are reviewed together without silently merging an observation into the accepted inventory.
 
 The purpose is not inventory accuracy for its own sake. It is to expose an equipment-identity discrepancy while there is still time to confirm the target, adapt the procedure, parts or expertise, or postpone the action before taking a pump out of service.
 
-The illustration explains the intended assessment flow. It is not customer evidence or proof that any pictured hardware combination is qualified. See the [compatibility matrix](docs/appliance/COMPATIBILITY-MATRIX.md) and [current implementation](IMPLEMENTATION.md) for tested boundaries.
+The protocol example is the current bounded Modbus/TCP Read Device Identification operation: one authorized target on TCP/502, function `0x2B` / MEI `0x0E`, basic objects only. See [network execution](docs/architecture/NETWORK-EXECUTION.md) for the exact contract. The illustration is not customer evidence or proof that any pictured hardware combination is qualified; see the [compatibility matrix](docs/appliance/COMPATIBILITY-MATRIX.md) and [current implementation](IMPLEMENTATION.md) for tested boundaries.
 
 ## How Atlas approaches an assessment
 
