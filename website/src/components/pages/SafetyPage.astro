@@ -1,19 +1,18 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import EvidenceFlowDiagram from '../EvidenceFlowDiagram.astro';
-import { evaluationIssueUrl, repo, type Lang } from '../../lib/site';
+import { bookingUrl, repo, type Lang } from '../../lib/site';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fr = lang === 'fr';
 const base = import.meta.env.BASE_URL;
-const issue = evaluationIssueUrl(lang);
 
 const copy = fr ? {
   title: 'Sécurité & maîtrise — Atlas OT Scout',
   description: "Atlas privilégie les preuves passives, borne les opérations actives et conserve une frontière explicite entre observation et conclusion acceptée.",
   label: 'Sécurité & maîtrise',
-  h1: "Collecter des preuves sans transformer l'évaluation en activité réseau incontrôlée.",
+  h1: "Une chaîne de preuve n'est défendable que si la collecte l'est aussi.",
   intro: "Atlas sépare les preuves importées et passives des opérations actives explicitement autorisées, puis impose une revue avant toute conclusion d'inventaire.",
   rules: [
     ['Autorisation avant émission','Toute opération produisant des paquets doit rester dans le périmètre, la cible et la fenêtre approuvés.'],
@@ -26,12 +25,12 @@ const copy = fr ? {
   technical: 'Revue technique',
   technicalTitle: 'Les contrats exacts sont publics.',
   technicalBody: "Le site résume l'approche. Les reviewers peuvent inspecter directement l'état d'implémentation, le contrat réseau, le modèle de menace et les preuves de test.",
-  cta: 'Proposer une évaluation bornée',
+  cta: 'Challenger le modèle de sécurité',
 } : {
   title: 'Safety & Control — Atlas OT Scout',
   description: 'Atlas prefers passive evidence, bounds active operations, and keeps observation separate from accepted inventory conclusions.',
   label: 'Safety & control',
-  h1: 'Collect evidence without turning the assessment into uncontrolled network activity.',
+  h1: 'An evidence chain is defensible only when its collection is too.',
   intro: 'Atlas separates imported and passive evidence from explicitly authorized active operations, then requires review before inventory conclusions are accepted.',
   rules: [
     ['Authorization before transmission','Any packet-producing operation must stay inside the approved scope, target and window.'],
@@ -44,7 +43,7 @@ const copy = fr ? {
   technical: 'Technical review',
   technicalTitle: 'The exact contracts are public.',
   technicalBody: 'The site summarizes the approach. Reviewers can inspect implementation status, the network contract, the threat model and test evidence directly.',
-  cta: 'Propose a bounded evaluation',
+  cta: 'Challenge the security model',
 };
 ---
 <SiteLayout title={copy.title} description={copy.description} lang={lang} page="safety">
@@ -55,7 +54,7 @@ const copy = fr ? {
         <p class="text-xs font-black uppercase tracking-[.16em] text-aqua">{copy.label}</p>
         <h1 class="mt-5 text-5xl font-black leading-[1.04] tracking-[-0.045em] sm:text-6xl">{copy.h1}</h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-white/66">{copy.intro}</p>
-        <a class="mt-8 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-navy" href={issue}>{copy.cta}</a>
+        <a class="mt-8 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white transition hover:bg-white hover:text-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.cta}</a>
       </div>
       <figure class="app-frame app-shadow overflow-hidden border-white/15 bg-white">
         <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-collect.jpg`} alt={fr ? 'Application Atlas OT Scout pendant le workflow de collecte enregistré' : 'Atlas OT Scout application during the recorded collection workflow'} />
@@ -85,6 +84,7 @@ const copy = fr ? {
         <p class="section-label">{copy.technical}</p>
         <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy">{copy.technicalTitle}</h2>
         <p class="mt-5 leading-7 text-muted">{copy.technicalBody}</p>
+        <a class="mt-6 inline-block text-sm font-bold text-blue hover:text-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.cta} →</a>
       </div>
       <div class="app-frame overflow-hidden bg-white">
         {[
