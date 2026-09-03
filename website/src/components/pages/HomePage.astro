@@ -9,348 +9,147 @@ const base = import.meta.env.BASE_URL;
 const evaluation = sitePath(base, lang, 'pilot');
 
 const copy = fr ? {
-  title: 'La maintenance commence demain — Atlas OT Scout',
-  description: "Une histoire opérationnelle illustrée : comment Atlas OT Scout aide une équipe eau à préparer une intervention avec un périmètre borné, des preuves traçables et des inconnues explicites.",
-  kicker: 'Cas opérateur illustratif · Station de traitement des eaux',
+  title: 'Atlas OT Scout — preuves terrain OT pour la maintenance',
+  description: "Atlas OT Scout est un dispositif Android hors ligne qui rapproche inventaire déclaré, captures réseau, observations physiques et identification Modbus strictement autorisée avant une intervention OT.",
+  kicker: 'Preuves terrain OT hors ligne · Eau et assainissement',
   h1: 'La maintenance commence demain.',
-  intro: "Avant que le technicien ne touche l'armoire, l'équipe doit savoir ce qui est réellement là — et reconnaître honnêtement ce qu'elle ne sait pas encore.",
-  primary: 'Examiner ce workflow avec nous',
-  secondary: "Commencer l'histoire",
-  disclaimer: "Cas synthétique fondé sur les exigences produit. Il illustre la méthode ; il ne constitue pas une preuve client.",
-  questionLabel: 'La question opérationnelle',
-  question: "Pouvons-nous préparer cette intervention sans élargir le risque pour le procédé ?",
-  answer: "Atlas ne promet pas de tout découvrir. Il aide l'équipe à borner la question, utiliser la preuve la moins intrusive, conserver la provenance et transmettre les inconnues sans les maquiller en certitudes.",
-  chaptersLabel: 'Un cas, cinq décisions',
-  chaptersTitle: "La sécurité de l'intervention se décide avant la première connexion.",
-  chaptersIntro: "Suivez la préparation depuis l'appel de la veille jusqu'au handoff du matin. Chaque étape répond à une question professionnelle précise.",
+  definition: "Atlas OT Scout aide une équipe autorisée à déterminer quel actif OT est réellement concerné avant l'intervention.",
+  intro: "Le dispositif Android fonctionne hors ligne. Il rapproche l'inventaire déclaré, les fichiers PCAP/PCAPNG, les observations physiques et — uniquement avec une autorisation explicite — une identification Modbus/TCP sur une cible unique.",
+  primary: "Évaluer l'adéquation d'Atlas",
+  secondary: 'Voir le cas terrain',
+  facts: [['Entrées', 'Inventaire · capture · preuve terrain'], ['Méthode', 'Passif d’abord · actif strictement borné'], ['Livrable', 'Dossier de preuve revu et exportable']],
+  caseTag: 'Cas synthétique · Pas une référence client',
+  caseTitle: 'Pompe P-04 · contrôleur PLC-PUMP-04',
+  caseMeta: ['Cible documentée 10.20.4.18', 'Modbus/TCP observé', 'Fenêtre 07:00–08:15'],
+  caseIntro: "L'inventaire, le schéma et le trafic disponible ne s'accordent pas sur la révision du contrôleur. Atlas transforme cet écart en dossier de preuve vérifiable — pas en prétexte pour scanner le réseau.",
+  workflowLabel: 'Workflow inspectable',
+  workflowTitle: "Ce qu'Atlas fait, étape par étape",
+  workflowIntro: "Chaque étape conserve sa source, son niveau de preuve et sa décision de revue. Les valeurs d'origine ne sont jamais remplacées silencieusement.",
   steps: [
-    {
-      time: '16:42', label: "L'appel arrive", title: 'Demain, une pompe doit être maintenue.',
-      body: "L'inventaire indique un contrôleur. Le schéma en montre une autre révision. Une observation réseau plus ancienne ne suffit pas à trancher. Le problème n'est pas de lancer un scan : c'est de préparer une intervention défendable sans perturber l'exploitation.",
-      decision: 'Décision', decisionText: "Traiter l'écart comme une question de preuve, pas comme une invitation à découvrir plus large.",
-    },
-    {
-      time: '17:10', label: 'Le cadre est posé', title: 'Définir exactement ce qui peut se passer.',
-      body: "L'opérateur, le technicien et l'approbateur fixent l'équipement concerné, les exclusions, la fenêtre, les méthodes permises et les conditions d'arrêt. L'autorité reste locale, y compris sans Internet.",
-      decision: 'Garde-fou', decisionText: "Une expiration, un détachement, une alarme ou une demande opérateur arrête l'action — sans comportement de repli.",
-    },
-    {
-      time: '07:15', label: "Observer d'abord", title: "Réutiliser la preuve disponible avant de produire du trafic.",
-      body: "Atlas conserve séparément le dossier attendu, la capture autorisée et les observations de terrain. Les valeurs d'origine ne sont pas écrasées. Une adresse, un port ou un OUI reste une observation ; ce n'est pas encore une identité confirmée.",
-      decision: 'Principe', decisionText: "Passif et hors ligne d'abord. Une action active n'existe que pour un écart documenté et un objectif autorisé.",
-    },
-    {
-      time: '07:42', label: "L'inconnu reste visible", title: "L'identité ne tient pas suffisamment.",
-      body: "Le fournisseur et la fonction semblent cohérents, mais la révision reste en conflit. La preuve n'autorise pas une conclusion plus forte. Atlas marque l'identité probable, conserve la contradiction et protège l'équipement non résolu de l'intervention.",
-      decision: 'Arrêt sûr', decisionText: "Pas de sweep, pas de lecture de registres, pas d'hypothèse silencieuse. L'incertitude modifie le plan de travail.",
-    },
-    {
-      time: '08:05', label: 'Le handoff', title: 'La maintenance commence avec moins de suppositions.',
-      body: "Le technicien reçoit un paquet concis : ce qui a été observé, les sources, les limites, la décision de revue et l'exception encore ouverte. La tâche autorisée peut avancer ; le contrôleur non résolu reste explicitement hors intervention.",
-      decision: 'Résultat', decisionText: "Une décision de maintenance plus claire, avec une trace qu'un autre professionnel peut challenger.",
-    },
+    { num: '01', time: '16:42', title: 'Borner le cas et l’autorité', body: "L'équipe enregistre l'actif, la cible exacte, la fenêtre, les exclusions, les méthodes permises et les conditions d'arrêt. Sans ce contexte, aucune action réseau active n'est admise.", result: 'Cas C-2026-041 · une cible · autorité locale' },
+    { num: '02', time: '07:15', title: 'Exploiter la preuve passive', body: "Atlas importe hors ligne la fiche attendue et une capture PCAP/PCAPNG autorisée. Le trafic vers TCP/502 confirme un service Modbus/TCP ; il ne confirme pas à lui seul le modèle ou la révision.", result: 'E3 déclaré + E4 trafic passif · identité non confirmée' },
+    { num: '03', time: '07:32', title: 'Résoudre un écart précis, si autorisé', body: "Si l'écart justifie une preuve plus forte, Atlas peut exécuter une seule opération compilée vers la cible signée : Read Device Identification, fonction 0x2B / MEI 0x0E, objets de base uniquement.", result: 'E2 protocolaire · fournisseur, code produit, révision' },
+    { num: '04', time: '08:05', title: 'Faire revoir la conclusion', body: "L'évaluateur rapproche la déclaration, le trafic, l'identité protocolaire et la plaque physique. Le conflit reste visible jusqu'à une décision humaine ; l'export contient aussi les limites et les empreintes des sources.", result: 'Conclusion revue · exception conservée · export hors ligne' },
   ],
-  ledgerLabel: 'Dossier de preuve · 07:28',
-  ledgerTitle: 'Atlas sépare les couches au lieu de fabriquer une seule “vérité”.',
-  ledgerRows: [
-    ['Attendu', 'PLC-PUMP-04 · révision 3', 'Déclaré'],
-    ['Observé', '10.20.4.18 · trafic Modbus/TCP', 'Passif'],
-    ['Identité', 'Fournisseur et produit cohérents', 'Probable'],
-    ['Conflit', 'Révision différente', 'Non résolu'],
-  ],
-  methodsLabel: 'Ce que la méthode protège',
-  methodsTitle: "Une meilleure preuve n'a de valeur que si elle respecte l'exploitation.",
-  methods: [
-    ['Le procédé', "Les conditions d'exploitation et l'autorité d'arrêt priment sur la collecte."],
-    ['La décision', "Observation, affirmation, revue et conclusion restent des étapes distinctes."],
-    ['Le handoff', "Sources, confiance, contradictions et limites voyagent avec le résultat."],
-  ],
-  boundariesTitle: 'Ce qu’Atlas fait — et ce qu’il refuse de prétendre.',
-  does: ['Lie chaque observation à son contexte et à sa source', 'Aide à choisir la méthode adéquate la moins intrusive', 'Conserve les conflits et décisions de revue', 'Prépare un paquet vérifiable hors ligne'],
-  doesNot: ['Ne prouve pas que les actifs non observés sont absents', 'Ne transforme pas un port ouvert en vulnérabilité', 'Ne remplace pas l’autorité de l’opérateur ou le jugement professionnel', 'Ne certifie ni conformité ni couverture réseau complète'],
-  doesLabel: 'Atlas aide à', doesNotLabel: 'Atlas ne prétend pas',
+  passiveTitle: 'D’abord : aucune émission réseau',
+  passiveBody: "L'appareil analyse localement les sources déjà autorisées. Une adresse IP, un port ou un OUI reste un indice de contexte, jamais une identité inventée.",
+  activeLabel: 'Profil actif P0 exact',
+  activeTitle: 'Une opération. Une cible. Aucun élargissement.',
+  activeRows: [['Cible', '10.20.4.18 : 502 · Unit ID approuvé'], ['Requête', '0x2B · MEI 0x0E · Basic · Object 0x00'], ['Réponse bornée', 'Objets 0x00–0x02 · maximum 512 octets'], ['Arrêt', 'Expiration · détachement · demande opérateur']],
+  never: ['Pas de balayage de sous-réseau, de ports ou d’Unit ID', 'Pas de lecture ni écriture de registres', 'Pas de credentials, fuzzing, exploit ou socket arbitraire', 'Pas de repli vers une méthode plus large en cas d’échec'],
+  equipmentLabel: 'Illustration fondée sur un équipement réel',
+  equipmentTitle: 'Module Ethernet Schneider Modicon M580 BMENOC0301',
+  equipmentBody: "Le module représenté reprend la géométrie d'un véritable module M580 à trois ports, documenté pour Modbus/TCP et EtherNet/IP. L'environnement reprend l'implantation publique de la STEP de Khouribga. Ces références rendent la scène crédible ; elles ne constituent ni une affirmation de parc installé ni une référence client.",
+  equipmentLink: 'Voir la source constructeur',
+  environmentLink: 'Voir la référence de la STEP',
+  supportNote: "Atlas n'en déduit pas que toute cible retourne son identité : si la fonction n'est pas supportée, le résultat reste une preuve de service, pas un fournisseur ou un modèle inventé.",
+  ledgerLabel: 'Dossier de preuve · 07:48',
+  ledgerTitle: 'Les couches restent séparées jusqu’à la revue',
+  ledgerRows: [['E3 · Déclaré', 'PLC-PUMP-04 · M580 NOC · révision 3', 'À vérifier'], ['E4 · Passif', '10.20.4.18 · TCP/502 · Modbus/TCP', 'Observé'], ['E2 · Protocole', 'Fournisseur + code produit + révision', 'Collecté'], ['E1 · Physique', 'Plaque / numéro de série sur site', 'Référence forte'], ['Revue', 'Révision différente de la fiche attendue', 'Conflit ouvert']],
+  outputLabel: 'Livrable opérationnel',
+  outputTitle: 'Ce que reçoit l’équipe de maintenance',
+  outputs: [['Périmètre et autorité', 'Fenêtre, cibles, exclusions, méthodes admises et conditions d’arrêt.'], ['Registre de preuve', 'Chaque observation avec source, horodatage, niveau E1–E6 et empreinte.'], ['Décision de revue', 'Correspondance acceptée, rejetée ou laissée non résolue avec justification.'], ['Paquet exportable', 'Dossier hors ligne pour le handoff, sans dépendre d’un cloud au moment critique.']],
+  boundariesTitle: 'Ce qu’Atlas est — et ce qu’il n’est pas',
+  doesLabel: 'Atlas permet',
+  does: ['Inventaire OT ciblé et rapprochement de preuves', 'Analyse PCAP et PCAPNG hors ligne', 'Identification Modbus/TCP bornée lorsqu’elle est autorisée', 'Provenance, confiance, conflits et décisions de revue'],
+  doesNotLabel: 'Atlas ne prétend pas',
+  doesNot: ['Découvrir tous les actifs ou prouver l’absence des non-observés', 'Scanner un réseau ou tester l’exploitabilité', 'Certifier la conformité ou la couverture complète', 'Remplacer l’autorité opérateur et le jugement professionnel'],
   openLabel: 'Ingénierie inspectable',
-  openTitle: "Le récit est simple. Les limites techniques restent publiques.",
-  openBody: "Le site explique le problème humain. Le dépôt publie ce qui fonctionne aujourd'hui, le comportement réseau exact, le modèle de menace et les preuves de test.",
-  ctaLabel: 'Votre prochain cas',
-  ctaTitle: 'Quelle maintenance commence demain chez vous ?',
-  ctaBody: "Apportez une question opérationnelle anonymisée. Nous examinerons le périmètre, l'autorité, la preuve disponible et les conditions d'un essai borné — sans présentation commerciale générique.",
-  ctaSecondary: "Voir le cadre d'évaluation",
+  openTitle: 'Le comportement réseau exact est public.',
+  openBody: "Le dépôt publie l'implémentation actuelle, le contrat d'exécution réseau, la méthode de preuve, le modèle de menace et les tests.",
+  ctaLabel: 'Évaluation méthodologique',
+  ctaTitle: 'Atlas convient-il à votre prochain arrêt de maintenance ?',
+  ctaBody: "Apportez un cas anonymisé : actif attendu, preuve disponible, fenêtre d'intervention et autorité. En 30 minutes, nous vérifierons si le workflow Atlas peut répondre à la question sans élargir le risque opérationnel.",
+  ctaSecondary: "Lire le cadre d'évaluation",
 } : {
-  title: 'Maintenance starts tomorrow — Atlas OT Scout',
-  description: 'An illustrated operational story: how Atlas OT Scout helps a water team prepare maintenance with bounded scope, traceable evidence, and explicit unknowns.',
-  kicker: 'Illustrative operator case · Water treatment station',
+  title: 'Atlas OT Scout — field OT evidence for maintenance',
+  description: 'Atlas OT Scout is an offline Android appliance that reconciles declared inventory, network captures, physical observations, and strictly authorized Modbus identity before OT maintenance.',
+  kicker: 'Offline OT field evidence · Water and wastewater',
   h1: 'Maintenance starts tomorrow.',
-  intro: 'Before the technician touches the cabinet, the team needs to know what is actually there—and be honest about what it still does not know.',
-  primary: 'Review this workflow with us',
-  secondary: 'Start the story',
-  disclaimer: 'Synthetic case grounded in product requirements. It illustrates the method; it is not customer evidence.',
-  questionLabel: 'The operational question',
-  question: 'Can we prepare this intervention without expanding risk to the process?',
-  answer: 'Atlas does not promise to discover everything. It helps the team bound the question, use the least intrusive adequate evidence, preserve provenance, and hand off unknowns without dressing them up as certainty.',
-  chaptersLabel: 'One case, five decisions',
-  chaptersTitle: 'Safe maintenance is decided before the first connection.',
-  chaptersIntro: 'Follow the preparation from the call the evening before to the morning handoff. Each step answers one precise professional question.',
+  definition: 'Atlas OT Scout helps an authorized field team determine which OT asset is actually in scope before work begins.',
+  intro: 'The Android appliance works offline. It reconciles declared inventory, PCAP/PCAPNG files, physical observations, and—only with explicit authorization—one exact-target Modbus/TCP identity operation.',
+  primary: 'Assess Atlas fit',
+  secondary: 'See the field case',
+  facts: [['Inputs', 'Inventory · capture · field evidence'], ['Method', 'Passive first · exact active only'], ['Output', 'Reviewed, exportable evidence case']],
+  caseTag: 'Synthetic case · Not customer evidence',
+  caseTitle: 'Pump P-04 · controller PLC-PUMP-04',
+  caseMeta: ['Documented target 10.20.4.18', 'Modbus/TCP observed', 'Window 07:00–08:15'],
+  caseIntro: 'The inventory, drawing, and available traffic disagree on the controller revision. Atlas turns that discrepancy into a reviewable evidence case—not a reason to scan the network.',
+  workflowLabel: 'Inspectable workflow',
+  workflowTitle: 'What Atlas does, step by step',
+  workflowIntro: 'Every stage retains its source, evidence strength, and review decision. Original values are never silently replaced.',
   steps: [
-    {
-      time: '16:42', label: 'The call arrives', title: 'A pump needs maintenance tomorrow.',
-      body: 'The inventory names one controller. The drawing shows another revision. An older network observation cannot settle the difference. The problem is not to launch a scan; it is to prepare a defensible intervention without disturbing operations.',
-      decision: 'Decision', decisionText: 'Treat the discrepancy as an evidence question, not an invitation to discover more broadly.',
-    },
-    {
-      time: '17:10', label: 'The boundary is agreed', title: 'Define exactly what may happen.',
-      body: 'The operator, technician, and security approver agree the equipment, exclusions, window, permitted methods, and stop conditions. Authority stays local, including when no Internet is available.',
-      decision: 'Guardrail', decisionText: 'Expiry, detach, process alarm, or an operator request stops the action—with no fallback behavior.',
-    },
-    {
-      time: '07:15', label: 'Observe first', title: 'Reuse available evidence before producing traffic.',
-      body: 'Atlas keeps the expected record, authorized capture, and field observations separate. Original values are not overwritten. An address, port, or OUI remains an observation; it is not yet confirmed identity.',
-      decision: 'Principle', decisionText: 'Passive and offline first. An active action exists only for a documented gap and an authorized purpose.',
-    },
-    {
-      time: '07:42', label: 'The unknown stays visible', title: 'The identity does not hold strongly enough.',
-      body: 'Vendor and function appear consistent, but the revision remains in conflict. The evidence does not support a stronger claim. Atlas marks the identity probable, retains the contradiction, and keeps the unresolved equipment out of the intervention.',
-      decision: 'Safe stop', decisionText: 'No sweep, no register read, no silent assumption. The uncertainty changes the work plan.',
-    },
-    {
-      time: '08:05', label: 'The handoff', title: 'Maintenance begins with fewer assumptions.',
-      body: 'The technician receives a concise package: what was observed, the sources, limitations, review decision, and the open exception. The authorized task can proceed; the unresolved controller remains explicitly untouched.',
-      decision: 'Outcome', decisionText: 'A clearer maintenance decision, with a trail another professional can challenge.',
-    },
+    { num: '01', time: '16:42', title: 'Bound the case and authority', body: 'The team records the asset, exact target, operating window, exclusions, permitted methods, and stop conditions. Without that context, no active network action is admitted.', result: 'Case C-2026-041 · one target · local authority' },
+    { num: '02', time: '07:15', title: 'Use passive evidence first', body: 'Atlas imports the expected record and an authorized PCAP/PCAPNG capture offline. Traffic to TCP/502 confirms a Modbus/TCP service; by itself, it does not confirm the model or revision.', result: 'E3 declared + E4 passive traffic · identity unconfirmed' },
+    { num: '03', time: '07:32', title: 'Resolve one gap, if authorized', body: 'When the gap justifies stronger evidence, Atlas can execute one compiled operation to the signed target: Read Device Identification, function 0x2B / MEI 0x0E, basic objects only.', result: 'E2 protocol evidence · vendor, product code, revision' },
+    { num: '04', time: '08:05', title: 'Review the conclusion', body: 'The assessor reconciles the declaration, traffic, protocol identity, and physical label. A conflict remains visible until a human decision; the export includes limitations and source hashes.', result: 'Reviewed conclusion · exception retained · offline export' },
   ],
-  ledgerLabel: 'Evidence case · 07:28',
-  ledgerTitle: 'Atlas separates layers instead of manufacturing one “truth.”',
-  ledgerRows: [
-    ['Expected', 'PLC-PUMP-04 · revision 3', 'Declared'],
-    ['Observed', '10.20.4.18 · Modbus/TCP traffic', 'Passive'],
-    ['Identity', 'Vendor and product consistent', 'Probable'],
-    ['Conflict', 'Revision differs', 'Unresolved'],
-  ],
-  methodsLabel: 'What the method protects',
-  methodsTitle: 'Better evidence only matters when it respects operations.',
-  methods: [
-    ['The process', 'Operating conditions and local stop authority take priority over collection.'],
-    ['The decision', 'Observation, claim, review, and conclusion remain distinct stages.'],
-    ['The handoff', 'Sources, confidence, contradictions, and limitations travel with the result.'],
-  ],
-  boundariesTitle: 'What Atlas does—and what it refuses to claim.',
-  does: ['Binds each observation to its context and source', 'Helps choose the least intrusive adequate method', 'Preserves conflicts and review decisions', 'Prepares an offline-verifiable package'],
-  doesNot: ['Does not prove unobserved assets are absent', 'Does not turn an open port into a vulnerability', 'Does not replace operator authority or professional judgment', 'Does not certify compliance or complete network coverage'],
-  doesLabel: 'Atlas helps', doesNotLabel: 'Atlas does not claim',
+  passiveTitle: 'First: no network emission',
+  passiveBody: 'The appliance analyzes already-authorized sources locally. An IP address, open port, or OUI stays a contextual clue—never invented identity.',
+  activeLabel: 'Exact P0 active profile',
+  activeTitle: 'One operation. One target. No expansion.',
+  activeRows: [['Target', '10.20.4.18 : 502 · approved Unit ID'], ['Request', '0x2B · MEI 0x0E · Basic · Object 0x00'], ['Bounded response', 'Objects 0x00–0x02 · 512 bytes maximum'], ['Stop', 'Expiry · detach · operator request']],
+  never: ['No subnet, port, or Unit ID sweep', 'No process-register read or write', 'No credentials, fuzzing, exploitation, or arbitrary socket', 'No fallback to a broader method after failure'],
+  equipmentLabel: 'Illustration grounded in real equipment',
+  equipmentTitle: 'Schneider Modicon M580 BMENOC0301 Ethernet module',
+  equipmentBody: 'The illustrated module follows the geometry of a real three-port M580 module documented for Modbus/TCP and EtherNet/IP. The environment follows the public layout of the Khouribga wastewater treatment plant. These references make the scene credible; they are not an installed-base claim or a customer reference.',
+  equipmentLink: 'View the manufacturer source',
+  environmentLink: 'View the plant reference',
+  supportNote: 'Atlas does not infer that every target returns identity: when the function is unsupported, the result stays service evidence—not an invented vendor or model.',
+  ledgerLabel: 'Evidence case · 07:48',
+  ledgerTitle: 'Layers stay separate until review',
+  ledgerRows: [['E3 · Declared', 'PLC-PUMP-04 · M580 NOC · revision 3', 'Verify'], ['E4 · Passive', '10.20.4.18 · TCP/502 · Modbus/TCP', 'Observed'], ['E2 · Protocol', 'Vendor + product code + revision', 'Collected'], ['E1 · Physical', 'Site label / serial number', 'Strong reference'], ['Review', 'Revision differs from expected record', 'Conflict open']],
+  outputLabel: 'Operational deliverable',
+  outputTitle: 'What the maintenance team receives',
+  outputs: [['Scope and authority', 'Window, targets, exclusions, admitted methods, and stop conditions.'], ['Evidence register', 'Every observation with source, time, E1–E6 strength, and hash.'], ['Review decision', 'Match accepted, rejected, or left unresolved with rationale.'], ['Exportable package', 'Offline handoff package without a cloud dependency at the critical moment.']],
+  boundariesTitle: 'What Atlas is—and what it is not',
+  doesLabel: 'Atlas provides',
+  does: ['Targeted OT inventory and evidence reconciliation', 'Offline PCAP and PCAPNG analysis', 'Bounded Modbus/TCP identity when authorized', 'Provenance, confidence, conflicts, and review decisions'],
+  doesNotLabel: 'Atlas does not claim',
+  doesNot: ['Discover every asset or prove unobserved assets are absent', 'Scan a network or test exploitability', 'Certify compliance or complete coverage', 'Replace operator authority or professional judgment'],
   openLabel: 'Inspectable engineering',
-  openTitle: 'The story is simple. The technical limits remain public.',
-  openBody: 'The website explains the human problem. The repository publishes what works today, exact network behavior, the threat model, and test evidence.',
-  ctaLabel: 'Your next case',
-  ctaTitle: 'What maintenance starts tomorrow for you?',
-  ctaBody: 'Bring an anonymized operational question. We will review the scope, authority, available evidence, and conditions for a bounded evaluation—without a generic sales presentation.',
-  ctaSecondary: 'See the evaluation framework',
+  openTitle: 'The exact network behavior is public.',
+  openBody: 'The repository publishes the current implementation, network-execution contract, evidence method, threat model, and tests.',
+  ctaLabel: 'Methodology fit review',
+  ctaTitle: 'Does Atlas fit your next maintenance outage?',
+  ctaBody: 'Bring an anonymized case: expected asset, available evidence, maintenance window, and authority. In 30 minutes, we will determine whether the Atlas workflow can answer the question without expanding operational risk.',
+  ctaSecondary: 'Read the evaluation framework',
 };
 
-const hero = `${base}media/maintenance-tomorrow-hero.webp`;
-const scopeImage = `${base}media/maintenance-tomorrow-scope.webp`;
-const handoffImage = `${base}media/maintenance-tomorrow-handoff.webp`;
+const hero = `${base}media/atlas-field-case-hero.webp`;
+const evidenceImage = `${base}media/atlas-field-case-evidence.webp`;
+const handoffImage = `${base}media/atlas-field-case-handoff.webp`;
+const manufacturer = 'https://www.se.com/us/en/product/BMENOC0301/network-module-modicon-m580-ethernet-ip-modbus-tcp/';
+const stationReference = 'https://www.ocpgroup.ma/en/implementation-water-strategy';
 ---
 <SiteLayout title={copy.title} description={copy.description} lang={lang} page="home">
-  <section class="case-hero relative isolate min-h-[760px] overflow-hidden bg-navy text-white">
-    <img class="absolute inset-0 size-full object-cover object-center" src={hero} alt={fr ? "Responsable d'exploitation arrêtant une intervention devant une armoire de contrôle" : 'Operations lead pausing an intervention beside a control cabinet'} width="1672" height="941" fetchpriority="high" />
-    <div class="case-hero-shade absolute inset-0"></div>
-    <div class="relative mx-auto flex min-h-[760px] max-w-7xl items-end px-5 pb-14 pt-28 sm:px-8 lg:items-center lg:pb-20 lg:pt-20">
-      <div class="max-w-[700px]">
-        <p class="case-kicker">{copy.kicker}</p>
-        <h1 class="mt-5 max-w-3xl text-5xl font-black leading-[.96] tracking-[-.05em] sm:text-7xl lg:text-[5.8rem]">{copy.h1}</h1>
-        <p class="mt-7 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">{copy.intro}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a class="case-button case-button-primary" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary}</a>
-          <a class="case-button case-button-ghost" href="#case">{copy.secondary} ↓</a>
-        </div>
-        <p class="mt-7 max-w-xl border-l-2 border-aqua/65 pl-4 text-sm leading-6 text-white/62">{copy.disclaimer}</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-b border-border bg-white">
-    <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:py-20">
-      <p class="section-label pt-1">{copy.questionLabel}</p>
+  <section class="blueprint-grid-light border-b border-border bg-paper">
+    <div class="mx-auto grid min-h-[720px] max-w-7xl gap-10 px-5 pb-14 pt-16 sm:px-8 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:py-20">
       <div>
-        <h2 class="max-w-4xl text-3xl font-black leading-tight tracking-[-.035em] text-navy sm:text-5xl">{copy.question}</h2>
-        <p class="mt-6 max-w-3xl text-lg leading-8 text-muted">{copy.answer}</p>
+        <p class="case-kicker text-blue">{copy.kicker}</p>
+        <h1 class="mt-5 max-w-3xl text-5xl font-black leading-[.96] tracking-[-.05em] text-navy sm:text-7xl lg:text-[5.35rem]">{copy.h1}</h1>
+        <p class="mt-7 max-w-2xl text-2xl font-bold leading-9 text-navy">{copy.definition}</p>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{copy.intro}</p>
+        <div class="mt-8 flex flex-wrap gap-3"><a class="case-button case-button-primary" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary}</a><a class="case-button border border-border bg-white text-navy hover:border-blue hover:text-blue" href="#case">{copy.secondary} ↓</a></div>
       </div>
+      <figure class="technical-figure"><img src={hero} alt={fr ? "Responsable eau avec un appareil Atlas devant un module Ethernet M580 dans une armoire fermée" : "Water operations lead with an Atlas appliance beside an M580 Ethernet module in a closed cabinet"} width="1672" height="941" fetchpriority="high" /><figcaption><span>01</span><p>{copy.equipmentTitle}</p></figcaption></figure>
     </div>
+    <div class="border-t border-border bg-white/80"><dl class="mx-auto grid max-w-7xl divide-y divide-border px-5 sm:px-8 md:grid-cols-3 md:divide-x md:divide-y-0">{copy.facts.map(([term, value]) => <div class="py-5 md:px-7 first:pl-0"><dt class="font-mono text-xs font-bold uppercase tracking-[.12em] text-blue">{term}</dt><dd class="mt-2 font-bold text-navy">{value}</dd></div>)}</dl></div>
   </section>
 
-  <section id="case" class="scroll-mt-24 bg-paper">
-    <div class="mx-auto max-w-7xl px-5 pb-8 pt-20 sm:px-8 lg:pt-28">
-      <p class="section-label">{copy.chaptersLabel}</p>
-      <div class="mt-3 grid gap-6 lg:grid-cols-[1.25fr_.75fr] lg:items-end">
-        <h2 class="text-4xl font-black leading-[1.04] tracking-[-.045em] text-navy sm:text-6xl">{copy.chaptersTitle}</h2>
-        <p class="text-lg leading-8 text-muted">{copy.chaptersIntro}</p>
-      </div>
-    </div>
+  <section id="case" class="scroll-mt-24 border-b border-border bg-white"><div class="mx-auto grid max-w-7xl gap-9 px-5 py-16 sm:px-8 lg:grid-cols-[.78fr_1.22fr] lg:py-24"><div><p class="section-label">{copy.caseTag}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-navy">{copy.caseTitle}</h2></div><div><p class="max-w-3xl text-xl font-semibold leading-8 text-navy">{copy.caseIntro}</p><ul class="mt-7 flex flex-wrap gap-2">{copy.caseMeta.map(item => <li class="rounded-full border border-border bg-surface px-3 py-2 font-mono text-xs font-bold text-slate">{item}</li>)}</ul></div></div></section>
 
-    <article class="story-chapter mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.38fr_1fr] lg:py-24">
-      <header class="story-marker">
-        <span>01</span><time>{copy.steps[0].time}</time>
-      </header>
-      <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
-        <div>
-          <p class="case-eyebrow">{copy.steps[0].label}</p>
-          <h3 class="mt-3 text-4xl font-black tracking-[-.035em] text-navy">{copy.steps[0].title}</h3>
-          <p class="mt-5 text-lg leading-8 text-muted">{copy.steps[0].body}</p>
-        </div>
-        <aside class="decision-note">
-          <p>{copy.steps[0].decision}</p><strong>{copy.steps[0].decisionText}</strong>
-        </aside>
-      </div>
-    </article>
+  <section id="workflow" class="scroll-mt-24 bg-paper"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><p class="section-label">{copy.workflowLabel}</p><div class="mt-3 grid gap-6 lg:grid-cols-[1.2fr_.8fr] lg:items-end"><h2 class="text-4xl font-black tracking-[-.045em] text-navy sm:text-6xl">{copy.workflowTitle}</h2><p class="text-lg leading-8 text-muted">{copy.workflowIntro}</p></div><div class="mt-12 border-y border-border">{copy.steps.map((step, i) => <article class={`workflow-row grid gap-5 py-8 lg:grid-cols-[.18fr_.55fr_1.4fr_1fr] lg:items-start ${i < copy.steps.length - 1 ? 'border-b border-border' : ''}`}><span class="font-mono text-3xl font-black text-blue">{step.num}</span><time class="pt-1 font-mono text-sm font-bold text-muted">{step.time}</time><div><h3 class="text-2xl font-black tracking-[-.025em] text-navy">{step.title}</h3><p class="mt-3 leading-7 text-muted">{step.body}</p></div><p class="workflow-result">{step.result}</p></article>)}</div></div></section>
 
-    <article class="story-chapter border-y border-border bg-white">
-      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.38fr_1fr] lg:py-24">
-        <header class="story-marker"><span>02</span><time>{copy.steps[1].time}</time></header>
-        <div>
-          <div class="grid gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-end">
-            <div>
-              <p class="case-eyebrow">{copy.steps[1].label}</p>
-              <h3 class="mt-3 text-4xl font-black tracking-[-.035em] text-navy">{copy.steps[1].title}</h3>
-              <p class="mt-5 text-lg leading-8 text-muted">{copy.steps[1].body}</p>
-            </div>
-            <aside class="decision-note"><p>{copy.steps[1].decision}</p><strong>{copy.steps[1].decisionText}</strong></aside>
-          </div>
-          <figure class="story-image mt-10">
-            <img src={scopeImage} alt={fr ? "Équipe définissant le périmètre et l'arrêt local avant l'intervention" : 'Team agreeing scope and local stop authority before the intervention'} width="1672" height="941" loading="lazy" decoding="async" />
-          </figure>
-        </div>
-      </div>
-    </article>
+  <section class="border-y border-aqua/15 bg-navy text-white"><div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[.92fr_1.08fr] lg:items-center lg:py-28"><div><p class="case-eyebrow text-aqua">{copy.activeLabel}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] sm:text-5xl">{copy.activeTitle}</h2><div class="mt-8 overflow-hidden rounded-xl border border-white/15 bg-white/[.045]"><dl>{copy.activeRows.map(([term, value], i) => <div class={`grid gap-2 px-5 py-4 sm:grid-cols-[.42fr_1fr] ${i < copy.activeRows.length - 1 ? 'border-b border-white/10' : ''}`}><dt class="text-sm font-bold text-aqua">{term}</dt><dd class="font-mono text-sm text-white/85">{value}</dd></div>)}</dl></div><ul class="mt-7 grid gap-3">{copy.never.map(item => <li class="boundary-dark">{item}</li>)}</ul></div><div><figure class="technical-figure technical-figure-dark"><img src={evidenceImage} alt={fr ? "Module Ethernet M580 relié à un chemin de capture approuvé et à un appareil Atlas" : "M580 Ethernet module connected through an approved capture path to an Atlas appliance"} width="1672" height="941" loading="lazy" decoding="async" /></figure><div class="mt-5 border-l-2 border-aqua/70 pl-5"><h3 class="font-bold text-white">{copy.passiveTitle}</h3><p class="mt-2 text-sm leading-6 text-white/62">{copy.passiveBody}</p></div></div></div></section>
 
-    <article class="story-chapter bg-navy text-white">
-      <div class="blueprint-grid mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.38fr_1fr] lg:py-24">
-        <header class="story-marker story-marker-dark"><span>03</span><time>{copy.steps[2].time}</time></header>
-        <div class="grid gap-10 lg:grid-cols-[.88fr_1.12fr] lg:items-start">
-          <div>
-            <p class="case-eyebrow text-aqua">{copy.steps[2].label}</p>
-            <h3 class="mt-3 text-4xl font-black tracking-[-.035em]">{copy.steps[2].title}</h3>
-            <p class="mt-5 text-lg leading-8 text-white/68">{copy.steps[2].body}</p>
-            <aside class="decision-note decision-note-dark mt-7"><p>{copy.steps[2].decision}</p><strong>{copy.steps[2].decisionText}</strong></aside>
-          </div>
-          <div class="evidence-ledger">
-            <div class="border-b border-white/12 px-5 py-4">
-              <p class="font-mono text-xs uppercase tracking-[.12em] text-aqua">{copy.ledgerLabel}</p>
-              <h4 class="mt-2 text-lg font-bold">{copy.ledgerTitle}</h4>
-            </div>
-            <dl>
-              {copy.ledgerRows.map(([term, value, state], i) => (
-                <div class={`grid gap-3 px-5 py-4 sm:grid-cols-[.55fr_1.25fr_.6fr] ${i < copy.ledgerRows.length - 1 ? 'border-b border-white/10' : ''}`}>
-                  <dt class="text-sm font-bold text-white/55">{term}</dt>
-                  <dd class="font-mono text-sm text-white/90">{value}</dd>
-                  <dd class={`text-sm font-bold sm:text-right ${i === copy.ledgerRows.length - 1 ? 'text-warning' : 'text-aqua'}`}>{state}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </div>
-      </div>
-    </article>
+  <section class="border-b border-border bg-white"><div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start lg:py-24"><div><p class="section-label">{copy.equipmentLabel}</p><h2 class="mt-3 text-3xl font-black tracking-[-.035em] text-navy">{copy.equipmentTitle}</h2><p class="mt-5 leading-7 text-muted">{copy.equipmentBody}</p><p class="mt-4 border-l-2 border-amber pl-4 text-sm leading-6 text-muted">{copy.supportNote}</p><div class="mt-5 flex flex-wrap gap-x-5 gap-y-2"><a class="font-bold text-blue hover:underline" href={manufacturer} target="_blank" rel="noreferrer">{copy.equipmentLink} ↗</a><a class="font-bold text-blue hover:underline" href={stationReference} target="_blank" rel="noreferrer">{copy.environmentLink} ↗</a></div></div><div class="evidence-ledger-light"><div class="border-b border-border px-5 py-5"><p class="font-mono text-xs font-bold uppercase tracking-[.12em] text-blue">{copy.ledgerLabel}</p><h3 class="mt-2 text-xl font-black text-navy">{copy.ledgerTitle}</h3></div><dl>{copy.ledgerRows.map(([term, value, state], i) => <div class={`grid gap-2 px-5 py-4 sm:grid-cols-[.62fr_1.35fr_.7fr] ${i < copy.ledgerRows.length - 1 ? 'border-b border-border' : ''}`}><dt class="text-sm font-bold text-muted">{term}</dt><dd class="font-mono text-sm text-navy">{value}</dd><dd class={`text-sm font-bold sm:text-right ${i === copy.ledgerRows.length - 1 ? 'text-amber' : 'text-teal'}`}>{state}</dd></div>)}</dl></div></div></section>
 
-    <article class="story-chapter border-b border-border bg-sand">
-      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.38fr_1fr] lg:py-24">
-        <header class="story-marker"><span>04</span><time>{copy.steps[3].time}</time></header>
-        <div class="grid gap-8 lg:grid-cols-[1.05fr_.95fr] lg:items-start">
-          <div>
-            <p class="case-eyebrow text-amber">{copy.steps[3].label}</p>
-            <h3 class="mt-3 text-4xl font-black tracking-[-.035em] text-navy">{copy.steps[3].title}</h3>
-            <p class="mt-5 text-lg leading-8 text-muted">{copy.steps[3].body}</p>
-          </div>
-          <aside class="safe-stop">
-            <p>{copy.steps[3].decision}</p>
-            <strong>{copy.steps[3].decisionText}</strong>
-          </aside>
-        </div>
-      </div>
-    </article>
+  <section id="deliverable" class="scroll-mt-24 bg-surface"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><div class="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-center"><div><p class="section-label">{copy.outputLabel}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.outputTitle}</h2><div class="mt-9 grid gap-5 sm:grid-cols-2">{copy.outputs.map(([title, body], i) => <article class="deliverable-card"><span>0{i + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div><figure class="technical-figure"><img src={handoffImage} alt={fr ? "Responsable et technicien examinant le dossier de preuve Atlas avant maintenance" : "Operations lead and technician reviewing the Atlas evidence case before maintenance"} width="1672" height="941" loading="lazy" decoding="async" /></figure></div></div></section>
 
-    <article class="story-chapter bg-white">
-      <div class="mx-auto grid max-w-7xl gap-8 px-5 py-16 sm:px-8 lg:grid-cols-[.38fr_1fr] lg:py-24">
-        <header class="story-marker"><span>05</span><time>{copy.steps[4].time}</time></header>
-        <div>
-          <div class="grid gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-end">
-            <div>
-              <p class="case-eyebrow">{copy.steps[4].label}</p>
-              <h3 class="mt-3 text-4xl font-black tracking-[-.035em] text-navy">{copy.steps[4].title}</h3>
-              <p class="mt-5 text-lg leading-8 text-muted">{copy.steps[4].body}</p>
-            </div>
-            <aside class="decision-note"><p>{copy.steps[4].decision}</p><strong>{copy.steps[4].decisionText}</strong></aside>
-          </div>
-          <figure class="story-image mt-10">
-            <img src={handoffImage} alt={fr ? "Responsable transmettant un dossier de preuve à l'équipe de maintenance" : 'Operations lead handing an evidence package to the maintenance team'} width="1672" height="941" loading="lazy" decoding="async" />
-          </figure>
-        </div>
-      </div>
-    </article>
-  </section>
+  <section id="boundaries" class="scroll-mt-24 border-y border-border bg-white"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24"><h2 class="max-w-4xl text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.boundariesTitle}</h2><div class="mt-10 grid overflow-hidden rounded-xl border border-border lg:grid-cols-2"><div class="p-7 lg:p-9"><p class="case-eyebrow text-teal">{copy.doesLabel}</p><ul class="mt-6 space-y-4">{copy.does.map(item => <li class="boundary-item boundary-item-yes">{item}</li>)}</ul></div><div class="border-t border-border bg-surface p-7 lg:border-l lg:border-t-0 lg:p-9"><p class="case-eyebrow text-amber">{copy.doesNotLabel}</p><ul class="mt-6 space-y-4">{copy.doesNot.map(item => <li class="boundary-item boundary-item-no">{item}</li>)}</ul></div></div></div></section>
 
-  <section id="methode" class="scroll-mt-24 border-y border-border bg-paper">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-      <p class="section-label">{copy.methodsLabel}</p>
-      <h2 class="mt-3 max-w-4xl text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.methodsTitle}</h2>
-      <div class="mt-10 grid gap-px overflow-hidden rounded-[18px] border border-border bg-border md:grid-cols-3">
-        {copy.methods.map(([title, body], i) => (
-          <article class="bg-white p-7 lg:p-9">
-            <span class="font-mono text-xs font-bold text-blue">0{i + 1}</span>
-            <h3 class="mt-8 text-2xl font-black tracking-[-.025em] text-navy">{title}</h3>
-            <p class="mt-4 leading-7 text-muted">{body}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
+  <section class="bg-navy text-white"><div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p class="case-eyebrow text-aqua">{copy.openLabel}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em]">{copy.openTitle}</h2><p class="mt-5 text-lg leading-8 text-white/65">{copy.openBody}</p></div><div class="overflow-hidden rounded-xl border border-white/12 bg-white/[.045]">{[[fr ? 'Implémentation actuelle' : 'Current implementation', `${repo}/blob/main/IMPLEMENTATION.md`],[fr ? 'Exécution réseau exacte' : 'Exact network execution', `${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`],[fr ? 'Méthode de preuve' : 'Evidence method', `${repo}/blob/main/docs/poc/ASSESSMENT-METHOD.md`],[fr ? 'Modèle de menace' : 'Threat model', `${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`]].map(([label, href], i) => <a class={`flex items-center justify-between px-5 py-4 text-sm font-bold transition hover:bg-white/[.07] hover:text-aqua ${i < 3 ? 'border-b border-white/10' : ''}`} href={href}><span>{label}</span><span aria-hidden="true">↗</span></a>)}</div></div></section>
 
-  <section class="bg-white">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-      <h2 class="max-w-4xl text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.boundariesTitle}</h2>
-      <div class="mt-10 grid overflow-hidden rounded-[18px] border border-border lg:grid-cols-2">
-        <div class="p-7 lg:p-9">
-          <p class="case-eyebrow text-teal">{copy.doesLabel}</p>
-          <ul class="mt-6 space-y-4">
-            {copy.does.map(item => <li class="boundary-item boundary-item-yes">{item}</li>)}
-          </ul>
-        </div>
-        <div class="border-t border-border bg-surface p-7 lg:border-l lg:border-t-0 lg:p-9">
-          <p class="case-eyebrow text-amber">{copy.doesNotLabel}</p>
-          <ul class="mt-6 space-y-4">
-            {copy.doesNot.map(item => <li class="boundary-item boundary-item-no">{item}</li>)}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-aqua/15 bg-navy text-white">
-    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
-      <div>
-        <p class="case-eyebrow text-aqua">{copy.openLabel}</p>
-        <h2 class="mt-3 text-4xl font-black tracking-[-.04em] sm:text-5xl">{copy.openTitle}</h2>
-        <p class="mt-5 max-w-2xl text-lg leading-8 text-white/65">{copy.openBody}</p>
-      </div>
-      <div class="overflow-hidden rounded-[16px] border border-white/12 bg-white/[.045]">
-        {[
-          [fr ? 'Implémentation et limites actuelles' : 'Current implementation and limitations', `${repo}/blob/main/IMPLEMENTATION.md`],
-          [fr ? 'Exécution réseau exacte' : 'Exact network execution', `${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`],
-          [fr ? 'Méthode d’évaluation' : 'Assessment method', `${repo}/blob/main/docs/poc/ASSESSMENT-METHOD.md`],
-          [fr ? 'Sécurité et modèle de menace' : 'Security and threat model', `${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`],
-        ].map(([label,href], i) => <a class={`flex items-center justify-between px-5 py-4 text-sm font-bold transition hover:bg-white/[.07] hover:text-aqua ${i < 3 ? 'border-b border-white/10' : ''}`} href={href}><span>{label}</span><span aria-hidden="true">↗</span></a>)}
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-blue text-white">
-    <div class="mx-auto max-w-5xl px-5 py-20 text-center sm:px-8 lg:py-28">
-      <p class="case-eyebrow text-white/65">{copy.ctaLabel}</p>
-      <h2 class="mt-4 text-4xl font-black tracking-[-.045em] sm:text-6xl">{copy.ctaTitle}</h2>
-      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/78">{copy.ctaBody}</p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <a class="case-button bg-white text-navy hover:bg-aqua" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary} →</a>
-        <a class="case-button border border-white/30 text-white hover:bg-white/10" href={evaluation}>{copy.ctaSecondary}</a>
-      </div>
-    </div>
-  </section>
+  <section class="bg-blue text-white"><div class="mx-auto max-w-5xl px-5 py-20 text-center sm:px-8 lg:py-28"><p class="case-eyebrow text-white/65">{copy.ctaLabel}</p><h2 class="mt-4 text-4xl font-black tracking-[-.045em] sm:text-6xl">{copy.ctaTitle}</h2><p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/78">{copy.ctaBody}</p><div class="mt-8 flex flex-wrap justify-center gap-3"><a class="case-button bg-white text-navy hover:bg-aqua" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary} →</a><a class="case-button border border-white/30 text-white hover:bg-white/10" href={evaluation}>{copy.ctaSecondary}</a></div></div></section>
 </SiteLayout>
