@@ -4,7 +4,7 @@ const base = import.meta.env.BASE_URL;
 const repo = 'https://github.com/charifmahmoudi/mobile-ot-security-assessment';
 const wiki = `${repo}/wiki`;
 ---
-<header class="sticky top-0 z-50 border-b border-white/10 bg-navy text-white shadow-[0_2px_12px_rgba(11,34,58,.18)]">
+<header class="sticky top-0 z-50 border-b border-aqua/15 bg-navy text-white shadow-[0_2px_12px_rgba(11,31,51,.18)]">
   <div class="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 sm:px-8">
     <Brand />
     <nav class="hidden items-center gap-7 text-sm md:flex" aria-label="Primary navigation">
@@ -13,16 +13,16 @@ const wiki = `${repo}/wiki`;
       <a class="text-white/70 transition hover:text-white" href={`${base}pilot/`}>Pilot</a>
       <a class="text-white/70 transition hover:text-white" href={wiki}>Wiki</a>
       <a class="text-white/70 transition hover:text-white" href={repo}>GitHub</a>
-      <a class="rounded-[9px] bg-aqua px-4 py-2.5 font-semibold text-navy transition hover:bg-white" href={`${base}pilot/`}>Evaluate Atlas</a>
+      <a class="rounded-[9px] bg-blue px-4 py-2.5 font-semibold text-white transition hover:bg-white hover:text-navy" href={`${base}pilot/`}>Evaluate Atlas</a>
     </nav>
     <details class="relative md:hidden">
-      <summary class="cursor-pointer list-none rounded-[9px] border border-white/20 px-3 py-2 text-sm text-white">Menu</summary>
+      <summary class="cursor-pointer list-none rounded-[9px] border border-aqua/30 px-3 py-2 text-sm text-white">Menu</summary>
       <nav class="absolute right-0 mt-3 grid w-60 gap-1 rounded-[10px] border border-border bg-white p-2 text-text shadow-xl" aria-label="Mobile navigation">
-        <a class="rounded-lg px-3 py-2 hover:bg-surface" href={`${base}#product`}>Product</a>
-        <a class="rounded-lg px-3 py-2 hover:bg-surface" href={`${base}safety/`}>Safety &amp; Trust</a>
-        <a class="rounded-lg px-3 py-2 hover:bg-surface" href={`${base}pilot/`}>Pilot</a>
-        <a class="rounded-lg px-3 py-2 hover:bg-surface" href={wiki}>Wiki</a>
-        <a class="rounded-lg px-3 py-2 hover:bg-surface" href={repo}>GitHub</a>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={`${base}#product`}>Product</a>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={`${base}safety/`}>Safety &amp; Trust</a>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={`${base}pilot/`}>Pilot</a>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={wiki}>Wiki</a>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={repo}>GitHub</a>
       </nav>
     </details>
   </div>
