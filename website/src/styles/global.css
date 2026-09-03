@@ -18,6 +18,9 @@
   --color-pale-amber: #fff1db;
   --color-pale-blue: #edf3ff;
   --color-pale: #edf3ff;
+  --color-paper: #f7f4ed;
+  --color-sand: #f1e4cf;
+  --color-warning: #f3b26a;
   --font-sans: Roboto, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", ui-monospace, monospace;
 }
@@ -65,6 +68,135 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   font-weight: 800;
   letter-spacing: .14em;
   text-transform: uppercase;
+}
+.case-hero-shade {
+  background:
+    linear-gradient(90deg, rgba(7, 20, 34, .94) 0%, rgba(7, 20, 34, .79) 38%, rgba(7, 20, 34, .2) 68%, rgba(7, 20, 34, .08) 100%),
+    linear-gradient(0deg, rgba(7, 20, 34, .74) 0%, transparent 46%);
+}
+.case-kicker,
+.case-eyebrow {
+  font-size: .75rem;
+  font-weight: 850;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.case-kicker { color: var(--color-aqua); }
+.case-eyebrow { color: var(--color-blue); }
+.case-button {
+  display: inline-flex;
+  min-height: 2.875rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .7rem;
+  padding: .75rem 1.1rem;
+  font-size: .875rem;
+  font-weight: 800;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.case-button-primary {
+  background: var(--color-blue);
+  color: white;
+  box-shadow: 0 10px 30px rgba(36, 87, 214, .28);
+}
+.case-button-primary:hover { background: white; color: var(--color-navy); }
+.case-button-ghost { border: 1px solid rgba(255, 255, 255, .32); color: white; }
+.case-button-ghost:hover { background: rgba(255, 255, 255, .1); }
+.story-chapter { position: relative; }
+.story-marker {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  color: var(--color-blue);
+  font-family: var(--font-mono);
+}
+.story-marker span {
+  font-size: 3.25rem;
+  font-weight: 900;
+  letter-spacing: -.08em;
+  line-height: 1;
+}
+.story-marker time {
+  border-left: 1px solid var(--color-border);
+  padding-left: 1rem;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.story-marker-dark { color: var(--color-aqua); }
+.story-marker-dark time { border-color: rgba(255,255,255,.18); }
+.decision-note {
+  border-left: 3px solid var(--color-blue);
+  background: var(--color-pale-blue);
+  padding: 1.25rem 1.4rem;
+}
+.decision-note p,
+.safe-stop p {
+  color: var(--color-blue);
+  font-size: .7rem;
+  font-weight: 850;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+.decision-note strong,
+.safe-stop strong {
+  display: block;
+  margin-top: .65rem;
+  color: var(--color-navy);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+.decision-note-dark {
+  border-color: var(--color-aqua);
+  background: rgba(255,255,255,.055);
+}
+.decision-note-dark p { color: var(--color-aqua); }
+.decision-note-dark strong { color: white; }
+.story-image {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-navy);
+  box-shadow: 0 26px 70px rgba(11,31,51,.16);
+}
+.story-image img { display: block; width: 100%; height: auto; }
+.evidence-ledger {
+  overflow: hidden;
+  border: 1px solid rgba(167,202,255,.24);
+  border-radius: 1rem;
+  background: rgba(255,255,255,.045);
+  box-shadow: 0 24px 80px rgba(0,0,0,.2);
+}
+.safe-stop {
+  border: 1px solid color-mix(in srgb, var(--color-amber) 38%, white);
+  border-top: 5px solid var(--color-amber);
+  border-radius: 1rem;
+  background: white;
+  padding: 1.5rem;
+  box-shadow: 0 18px 50px rgba(87, 44, 8, .08);
+}
+.safe-stop p { color: var(--color-amber); }
+.boundary-item {
+  position: relative;
+  padding-left: 1.9rem;
+  color: var(--color-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.boundary-item::before {
+  position: absolute;
+  left: 0;
+  top: .05rem;
+  font-family: var(--font-mono);
+  font-weight: 900;
+}
+.boundary-item-yes::before { content: '✓'; color: var(--color-teal); }
+.boundary-item-no::before { content: '—'; color: var(--color-amber); }
+@media (max-width: 1023px) {
+  .case-hero-shade {
+    background:
+      linear-gradient(0deg, rgba(7,20,34,.96) 0%, rgba(7,20,34,.7) 58%, rgba(7,20,34,.12) 100%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

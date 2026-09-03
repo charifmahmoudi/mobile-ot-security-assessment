@@ -16,24 +16,25 @@ const pilot = sitePath(base, lang, 'pilot');
   <div class="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 sm:px-8">
     <Brand href={home} />
     <nav class="hidden items-center gap-6 text-sm md:flex" aria-label={fr ? 'Navigation principale' : 'Primary navigation'}>
+      <a class="text-white/72 transition hover:text-white" href={`${home}#case`}>{fr ? 'Le cas' : 'The case'}</a>
       <a class="text-white/72 transition hover:text-white" href={`${home}#methode`}>{fr ? 'Méthode' : 'Method'}</a>
       <a class="text-white/72 transition hover:text-white" href={safety}>{fr ? 'Sécurité' : 'Safety'}</a>
       <a class="text-white/72 transition hover:text-white" href={pilot}>{fr ? 'Évaluation' : 'Evaluation'}</a>
-      <a class="text-white/72 transition hover:text-white" href={wiki}>Wiki</a>
       <a class="text-white/72 transition hover:text-white" href={repo}>GitHub</a>
       <a class="rounded-[8px] border border-aqua/30 px-2.5 py-2 text-xs font-black tracking-[.08em] text-aqua transition hover:bg-aqua/10" href={switchHref} lang={switchLang} hreflang={switchLang}>{fr ? 'EN' : 'FR'}</a>
-      <a class="rounded-[9px] bg-blue px-4 py-2.5 font-semibold text-white transition hover:bg-white hover:text-navy" href={bookingUrl} target="_blank" rel="noreferrer">{fr ? 'Planifier une revue' : 'Book a method review'}</a>
+      <a class="rounded-[9px] bg-blue px-4 py-2.5 font-semibold text-white transition hover:bg-white hover:text-navy" href={bookingUrl} target="_blank" rel="noreferrer">{fr ? 'Discuter un cas' : 'Discuss a case'}</a>
     </nav>
     <details class="relative md:hidden">
       <summary class="cursor-pointer list-none rounded-[9px] border border-aqua/30 px-3 py-2 text-sm text-white">Menu</summary>
       <nav class="absolute right-0 mt-3 grid w-72 gap-1 rounded-[10px] border border-border bg-white p-2 text-navy shadow-xl" aria-label={fr ? 'Navigation mobile' : 'Mobile navigation'}>
+        <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={`${home}#case`}>{fr ? 'Le cas maintenance' : 'The maintenance case'}</a>
         <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={`${home}#methode`}>{fr ? 'Méthode' : 'Method'}</a>
         <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={safety}>{fr ? 'Sécurité & maîtrise' : 'Safety & control'}</a>
         <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={pilot}>{fr ? 'Évaluation méthodologique' : 'Methodology evaluation'}</a>
         <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={wiki}>Wiki</a>
         <a class="rounded-lg px-3 py-2 hover:bg-pale-blue" href={repo}>GitHub</a>
         <a class="mt-1 rounded-lg border border-border px-3 py-2 font-bold text-blue hover:bg-pale-blue" href={switchHref} lang={switchLang} hreflang={switchLang}>{fr ? 'English' : 'Français'}</a>
-        <a class="rounded-lg bg-blue px-3 py-2 font-bold text-white" href={bookingUrl} target="_blank" rel="noreferrer">{fr ? 'Planifier une revue' : 'Book a method review'}</a>
+        <a class="rounded-lg bg-blue px-3 py-2 font-bold text-white" href={bookingUrl} target="_blank" rel="noreferrer">{fr ? 'Discuter un cas' : 'Discuss a case'}</a>
       </nav>
     </details>
   </div>
