@@ -11,13 +11,17 @@ const evaluation = sitePath(base, lang, 'pilot');
 const copy = fr ? {
   title: 'Atlas OT Scout — projet open source d’évaluation OT terrain',
   description: "Atlas OT Scout est un prototype open source d’évaluation OT terrain pour l’eau et l’assainissement, exécuté hors ligne sur un appareil Android dédié.",
-  kicker: 'Projet open source · Évaluation OT terrain',
+  kicker: 'Prototype open source · Eau et assainissement',
   h1: 'Atlas OT Scout',
-  definition: "Atlas regroupe dans un même dossier l'inventaire OT attendu, les observations réseau et les vérifications terrain avant maintenance.",
-  intro: "Ce prototype de recherche est destiné aux exploitants eau, équipes de maintenance et praticiens de la cybersécurité OT. Il fonctionne hors ligne sur un appareil Android dédié. Le périmètre actuel couvre l'analyse PCAP/PCAPNG et, avec autorisation explicite, l'identification Modbus/TCP d'une cible définie.",
+  definition: "Atlas OT Scout est un prototype d'évaluation ciblée de l'inventaire et de l'exposition réseau OT sur le terrain.",
+  intro: "Il aide un praticien autorisé, avec l'exploitant, à vérifier quels actifs se trouvent dans un périmètre défini, quelles preuves soutiennent leur identité et quels écarts doivent rester ouverts avant une intervention. L'application Android dédiée fonctionne hors ligne.",
   primary: "Évaluer l'adéquation d'Atlas",
   secondary: 'Voir le cas terrain',
-  facts: [['Objectif', "Réduire l'incertitude avant une intervention OT"], ['Utilisateurs', 'Exploitation eau · maintenance · cybersécurité OT'], ['Périmètre P0', 'PCAP/PCAPNG · identité Modbus ciblée']],
+  facts: [['Question', 'Quels actifs OT sont réellement concernés ?'], ['Sources', 'Inventaire · PCAP/PCAPNG · relevé terrain'], ['Résultat', 'Conclusion revue · preuves et limites jointes']],
+  projectLabel: 'Le projet',
+  projectTitle: 'Un outil de terrain pour répondre à une question OT précise.',
+  projectBody: "Atlas organise une évaluation sur un segment eau ou assainissement défini. Il réunit les données attendues, les observations disponibles et les décisions de revue dans un dossier unique. Le périmètre P0 actuel couvre l'analyse passive de captures réseau et une identification Modbus/TCP strictement ciblée lorsqu'elle est autorisée.",
+  projectQuestions: [['Présence', 'Les actifs attendus ont-ils été observés dans le périmètre ?'], ['Identité', 'Quelles sources soutiennent le fournisseur, le produit et la révision ?'], ['Écart', 'Quelles contradictions doivent être résolues avant la maintenance ?']],
   caseTag: 'Cas d’usage illustratif · Pompe P-04',
   caseTitle: 'La maintenance commence demain.',
   caseMeta: ['Cible documentée 10.20.4.18', 'Modbus/TCP observé', 'Fenêtre 07:00–08:15'],
@@ -40,9 +44,6 @@ const copy = fr ? {
   evidenceModelLabel: 'Modèle de preuve',
   evidenceModelTitle: "Observer un service ne suffit pas à identifier un actif.",
   evidenceModelBody: "Atlas conserve séparément la déclaration, l'observation réseau, la réponse protocolaire et le relevé physique. Une conclusion n'est créée qu'après rapprochement et revue. Si la fonction d'identification n'est pas supportée, le résultat reste une preuve de service Modbus/TCP.",
-  manufacturerLink: 'Modicon M580 BMENOC0301',
-  environmentLink: 'STEP de Khouribga',
-  referenceLabel: 'Références visuelles',
   ledgerLabel: 'Dossier de preuve · 07:48',
   ledgerTitle: 'Les couches restent séparées jusqu’à la revue',
   ledgerRows: [['E3 · Déclaré', 'PLC-PUMP-04 · M580 NOC · révision 3', 'À vérifier'], ['E4 · Passif', '10.20.4.18 · TCP/502 · Modbus/TCP', 'Observé'], ['E2 · Protocole', 'Fournisseur + code produit + révision', 'Collecté'], ['E1 · Physique', 'Plaque / numéro de série sur site', 'Référence forte'], ['Revue', 'Révision différente de la fiche attendue', 'Conflit ouvert']],
@@ -64,13 +65,17 @@ const copy = fr ? {
 } : {
   title: 'Atlas OT Scout — open-source field OT assessment project',
   description: 'Atlas OT Scout is an open-source field OT assessment prototype for water and wastewater, running offline on a dedicated Android appliance.',
-  kicker: 'Open-source project · Field OT assessment',
+  kicker: 'Open-source prototype · Water and wastewater',
   h1: 'Atlas OT Scout',
-  definition: 'Atlas brings expected OT inventory, network observations, and field verification into one case before maintenance.',
-  intro: 'This research prototype is designed for water operators, maintenance teams, and OT security practitioners. It runs offline on a dedicated Android appliance. The current scope covers PCAP/PCAPNG analysis and, with explicit authorization, Modbus/TCP identification of one defined target.',
+  definition: 'Atlas OT Scout is a prototype for targeted field assessment of OT inventory and network exposure.',
+  intro: 'It helps an authorized practitioner, working with the operator, determine which assets are present in a defined scope, what evidence supports their identity, and which discrepancies must remain open before an intervention. The dedicated Android application works offline.',
   primary: 'Assess Atlas fit',
   secondary: 'See the field case',
-  facts: [['Purpose', 'Reduce uncertainty before an OT intervention'], ['Users', 'Water operations · maintenance · OT security'], ['Current P0 scope', 'PCAP/PCAPNG · targeted Modbus identity']],
+  facts: [['Question', 'Which OT assets are actually in scope?'], ['Sources', 'Inventory · PCAP/PCAPNG · field record'], ['Result', 'Reviewed conclusion · evidence and limits attached']],
+  projectLabel: 'The project',
+  projectTitle: 'A field tool for answering one precise OT question.',
+  projectBody: 'Atlas structures an assessment on one defined water or wastewater segment. It brings expected records, available observations, and review decisions into one case. The current P0 covers passive packet-capture analysis and one strictly targeted Modbus/TCP identity operation when authorized.',
+  projectQuestions: [['Presence', 'Were the expected assets observed inside the assessment scope?'], ['Identity', 'Which sources support the vendor, product, and revision?'], ['Discrepancy', 'Which contradictions must be resolved before maintenance?']],
   caseTag: 'Illustrative use case · Pump P-04',
   caseTitle: 'Maintenance starts tomorrow.',
   caseMeta: ['Documented target 10.20.4.18', 'Modbus/TCP observed', 'Window 07:00–08:15'],
@@ -93,9 +98,6 @@ const copy = fr ? {
   evidenceModelLabel: 'Evidence model',
   evidenceModelTitle: 'Observing a service is not enough to identify an asset.',
   evidenceModelBody: 'Atlas keeps the declaration, network observation, protocol response, and physical record separate. A conclusion is created only after reconciliation and review. If device identification is unsupported, the result remains Modbus/TCP service evidence.',
-  manufacturerLink: 'Modicon M580 BMENOC0301',
-  environmentLink: 'Khouribga wastewater treatment plant',
-  referenceLabel: 'Visual references',
   ledgerLabel: 'Evidence case · 07:48',
   ledgerTitle: 'Layers stay separate until review',
   ledgerRows: [['E3 · Declared', 'PLC-PUMP-04 · M580 NOC · revision 3', 'Verify'], ['E4 · Passive', '10.20.4.18 · TCP/502 · Modbus/TCP', 'Observed'], ['E2 · Protocol', 'Vendor + product code + revision', 'Collected'], ['E1 · Physical', 'Site label / serial number', 'Strong reference'], ['Review', 'Revision differs from expected record', 'Conflict open']],
@@ -119,12 +121,10 @@ const copy = fr ? {
 const hero = `${base}media/atlas-field-case-hero.webp`;
 const evidenceImage = `${base}media/atlas-field-case-evidence.webp`;
 const handoffImage = `${base}media/atlas-field-case-handoff.webp`;
-const manufacturer = 'https://www.se.com/us/en/product/BMENOC0301/network-module-modicon-m580-ethernet-ip-modbus-tcp/';
-const stationReference = 'https://www.ocpgroup.ma/en/implementation-water-strategy';
 ---
 <SiteLayout title={copy.title} description={copy.description} lang={lang} page="home">
   <section id="project" class="blueprint-grid-light scroll-mt-24 border-b border-border bg-paper">
-    <div class="mx-auto grid min-h-[720px] max-w-7xl gap-10 px-5 pb-14 pt-16 sm:px-8 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:py-20">
+    <div class="mx-auto grid min-h-[660px] max-w-7xl gap-10 px-5 pb-14 pt-16 sm:px-8 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:py-20">
       <div>
         <p class="case-kicker text-blue">{copy.kicker}</p>
         <h1 class="mt-5 max-w-3xl text-5xl font-black leading-[.96] tracking-[-.05em] text-navy sm:text-7xl lg:text-[5.35rem]">{copy.h1}</h1>
@@ -137,13 +137,26 @@ const stationReference = 'https://www.ocpgroup.ma/en/implementation-water-strate
     <div class="border-t border-border bg-white/80"><dl class="mx-auto grid max-w-7xl divide-y divide-border px-5 sm:px-8 md:grid-cols-3 md:divide-x md:divide-y-0">{copy.facts.map(([term, value]) => <div class="py-5 md:px-7 first:pl-0"><dt class="font-mono text-xs font-bold uppercase tracking-[.12em] text-blue">{term}</dt><dd class="mt-2 font-bold text-navy">{value}</dd></div>)}</dl></div>
   </section>
 
+  <section class="border-b border-border bg-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:py-24">
+      <div>
+        <p class="section-label">{copy.projectLabel}</p>
+        <h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.projectTitle}</h2>
+        <p class="mt-6 text-lg leading-8 text-muted">{copy.projectBody}</p>
+      </div>
+      <div class="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:self-end">
+        {copy.projectQuestions.map(([title, body], i) => <article class="bg-surface p-5"><span class="font-mono text-xs font-black text-blue">0{i + 1}</span><h3 class="mt-5 text-lg font-black text-navy">{title}</h3><p class="mt-3 text-sm leading-6 text-muted">{body}</p></article>)}
+      </div>
+    </div>
+  </section>
+
   <section id="case" class="scroll-mt-24 border-b border-border bg-white"><div class="mx-auto grid max-w-7xl gap-9 px-5 py-16 sm:px-8 lg:grid-cols-[.78fr_1.22fr] lg:py-24"><div><p class="section-label">{copy.caseTag}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-navy">{copy.caseTitle}</h2></div><div><p class="max-w-3xl text-xl font-semibold leading-8 text-navy">{copy.caseIntro}</p><ul class="mt-7 flex flex-wrap gap-2">{copy.caseMeta.map(item => <li class="rounded-full border border-border bg-surface px-3 py-2 font-mono text-xs font-bold text-slate">{item}</li>)}</ul></div></div></section>
 
   <section id="workflow" class="scroll-mt-24 bg-paper"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><p class="section-label">{copy.workflowLabel}</p><div class="mt-3 grid gap-6 lg:grid-cols-[1.2fr_.8fr] lg:items-end"><h2 class="text-4xl font-black tracking-[-.045em] text-navy sm:text-6xl">{copy.workflowTitle}</h2><p class="text-lg leading-8 text-muted">{copy.workflowIntro}</p></div><div class="mt-12 border-y border-border">{copy.steps.map((step, i) => <article class={`workflow-row grid gap-5 py-8 lg:grid-cols-[.18fr_.55fr_1.4fr_1fr] lg:items-start ${i < copy.steps.length - 1 ? 'border-b border-border' : ''}`}><span class="font-mono text-3xl font-black text-blue">{step.num}</span><time class="pt-1 font-mono text-sm font-bold text-muted">{step.time}</time><div><h3 class="text-2xl font-black tracking-[-.025em] text-navy">{step.title}</h3><p class="mt-3 leading-7 text-muted">{step.body}</p></div><p class="workflow-result">{step.result}</p></article>)}</div></div></section>
 
   <section class="border-y border-aqua/15 bg-navy text-white"><div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[.92fr_1.08fr] lg:items-center lg:py-28"><div><p class="case-eyebrow text-aqua">{copy.activeLabel}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] sm:text-5xl">{copy.activeTitle}</h2><div class="mt-8 overflow-hidden rounded-xl border border-white/15 bg-white/[.045]"><dl>{copy.activeRows.map(([term, value], i) => <div class={`grid gap-2 px-5 py-4 sm:grid-cols-[.42fr_1fr] ${i < copy.activeRows.length - 1 ? 'border-b border-white/10' : ''}`}><dt class="text-sm font-bold text-aqua">{term}</dt><dd class="font-mono text-sm text-white/85">{value}</dd></div>)}</dl></div><ul class="mt-7 grid gap-3">{copy.never.map(item => <li class="boundary-dark">{item}</li>)}</ul></div><div><figure class="technical-figure technical-figure-dark"><img src={evidenceImage} alt={fr ? "Module Ethernet M580 relié à un chemin de capture approuvé et à un appareil Atlas" : "M580 Ethernet module connected through an approved capture path to an Atlas appliance"} width="1672" height="941" loading="lazy" decoding="async" /></figure><div class="mt-5 border-l-2 border-aqua/70 pl-5"><h3 class="font-bold text-white">{copy.passiveTitle}</h3><p class="mt-2 text-sm leading-6 text-white/62">{copy.passiveBody}</p></div></div></div></section>
 
-  <section class="border-b border-border bg-white"><div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start lg:py-24"><div><p class="section-label">{copy.evidenceModelLabel}</p><h2 class="mt-3 text-3xl font-black tracking-[-.035em] text-navy">{copy.evidenceModelTitle}</h2><p class="mt-5 leading-7 text-muted">{copy.evidenceModelBody}</p><p class="mt-6 font-mono text-xs font-bold uppercase tracking-[.1em] text-muted">{copy.referenceLabel}</p><div class="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-sm"><a class="font-bold text-blue hover:underline" href={manufacturer} target="_blank" rel="noreferrer">{copy.manufacturerLink} ↗</a><a class="font-bold text-blue hover:underline" href={stationReference} target="_blank" rel="noreferrer">{copy.environmentLink} ↗</a></div></div><div class="evidence-ledger-light"><div class="border-b border-border px-5 py-5"><p class="font-mono text-xs font-bold uppercase tracking-[.12em] text-blue">{copy.ledgerLabel}</p><h3 class="mt-2 text-xl font-black text-navy">{copy.ledgerTitle}</h3></div><dl>{copy.ledgerRows.map(([term, value, state], i) => <div class={`grid gap-2 px-5 py-4 sm:grid-cols-[.62fr_1.35fr_.7fr] ${i < copy.ledgerRows.length - 1 ? 'border-b border-border' : ''}`}><dt class="text-sm font-bold text-muted">{term}</dt><dd class="font-mono text-sm text-navy">{value}</dd><dd class={`text-sm font-bold sm:text-right ${i === copy.ledgerRows.length - 1 ? 'text-amber' : 'text-teal'}`}>{state}</dd></div>)}</dl></div></div></section>
+  <section class="border-b border-border bg-white"><div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start lg:py-24"><div><p class="section-label">{copy.evidenceModelLabel}</p><h2 class="mt-3 text-3xl font-black tracking-[-.035em] text-navy">{copy.evidenceModelTitle}</h2><p class="mt-5 leading-7 text-muted">{copy.evidenceModelBody}</p></div><div class="evidence-ledger-light"><div class="border-b border-border px-5 py-5"><p class="font-mono text-xs font-bold uppercase tracking-[.12em] text-blue">{copy.ledgerLabel}</p><h3 class="mt-2 text-xl font-black text-navy">{copy.ledgerTitle}</h3></div><dl>{copy.ledgerRows.map(([term, value, state], i) => <div class={`grid gap-2 px-5 py-4 sm:grid-cols-[.62fr_1.35fr_.7fr] ${i < copy.ledgerRows.length - 1 ? 'border-b border-border' : ''}`}><dt class="text-sm font-bold text-muted">{term}</dt><dd class="font-mono text-sm text-navy">{value}</dd><dd class={`text-sm font-bold sm:text-right ${i === copy.ledgerRows.length - 1 ? 'text-amber' : 'text-teal'}`}>{state}</dd></div>)}</dl></div></div></section>
 
   <section id="deliverable" class="scroll-mt-24 bg-surface"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><div class="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-center"><div><p class="section-label">{copy.outputLabel}</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-navy sm:text-5xl">{copy.outputTitle}</h2><div class="mt-9 grid gap-5 sm:grid-cols-2">{copy.outputs.map(([title, body], i) => <article class="deliverable-card"><span>0{i + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div><figure class="technical-figure"><img src={handoffImage} alt={fr ? "Responsable et technicien examinant le dossier de preuve Atlas avant maintenance" : "Operations lead and technician reviewing the Atlas evidence case before maintenance"} width="1672" height="941" loading="lazy" decoding="async" /></figure></div></div></section>
 
