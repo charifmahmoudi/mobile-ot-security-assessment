@@ -13,18 +13,15 @@ The first product pack is **P0-WATER**, for one bounded drinking-water or wastew
 
 This repository is a research prototype. The authoritative current capability matrix is [IMPLEMENTATION.md](IMPLEMENTATION.md); planned work and release gates are in [ROADMAP.md](ROADMAP.md). Do not infer implementation status from design, user, demo or commercial documents.
 
-## Maintenance starts tomorrow
+## From evidence to a maintenance decision
 
-![Illustrative water-operations lead preparing maintenance with an Atlas field tablet beside a closed OT cabinet](website/public/media/atlas-field-case-hero.webp)
+![Atlas assessment overview: authorized process scope, separate evidence sources, human reconciliation and proceed, adapt or postpone outcomes](docs/media/atlas-assessment-overview.webp)
 
-The purpose is not inventory accuracy for its own sake. Atlas is intended to expose an equipment-identity discrepancy while there is still time to confirm the target, adapt the procedure, parts or expertise, or postpone the action before taking a pump out of service.
+Atlas keeps the authorized process boundary, the customer-declared baseline, the collected or imported evidence and the assessor's decision visible in one case. Those layers are reviewed together without silently merging an observation into the accepted inventory.
 
-| Bounded evidence | Reviewed handoff |
-|---|---|
-| ![Illustrative bounded Ethernet evidence path between a water-control cabinet and an Atlas tablet](website/public/media/atlas-field-case-evidence.webp) | ![Illustrative maintenance handoff using the reviewed Atlas evidence case](website/public/media/atlas-field-case-handoff.webp) |
-| Preserve what was declared, observed and protocol-identified without silently merging them. | Hand over the evidence, unresolved discrepancy and decision before the maintenance window begins. |
+The purpose is not inventory accuracy for its own sake. It is to expose an equipment-identity discrepancy while there is still time to confirm the target, adapt the procedure, parts or expertise, or postpone the action before taking a pump out of service.
 
-These illustrations explain the intended workflow. They are not customer evidence or proof that the pictured hardware combination is qualified. See the [compatibility matrix](docs/appliance/COMPATIBILITY-MATRIX.md) and [current implementation](IMPLEMENTATION.md) for tested boundaries.
+The illustration explains the intended assessment flow. It is not customer evidence or proof that any pictured hardware combination is qualified. See the [compatibility matrix](docs/appliance/COMPATIBILITY-MATRIX.md) and [current implementation](IMPLEMENTATION.md) for tested boundaries.
 
 ## How Atlas approaches an assessment
 
