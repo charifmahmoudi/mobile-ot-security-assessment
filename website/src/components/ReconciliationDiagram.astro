@@ -4,48 +4,49 @@
       <p class="text-sm font-semibold text-text">Expected inventory → evidence → reviewed state</p>
       <p class="mt-1 text-xs text-muted">Weak observations remain weak. Conflicts remain visible.</p>
     </div>
-    <span class="status-chip border-aqua/25 bg-aqua/10 text-navy">Evidence-backed reconciliation</span>
+    <span class="status-chip border-blue/25 bg-pale-blue text-blue">Evidence-backed reconciliation</span>
   </div>
   <div class="overflow-x-auto p-4 sm:p-6">
     <svg class="mx-auto min-w-[780px]" viewBox="0 0 980 420" role="img" aria-labelledby="recon-title recon-desc">
       <title id="recon-title">Atlas asset reconciliation example</title>
       <desc id="recon-desc">Expected asset records are compared with approved observations and become confirmed, probable, conflict, not observed, or unexpected reviewed states.</desc>
       <defs>
-        <marker id="arrow-aqua" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#00ADB5" /></marker>
-        <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2563EB" /></marker>
-        <marker id="arrow-muted" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9AA3AD" /></marker>
+        <marker id="arrow-teal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#167A5A" /></marker>
+        <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2457D6" /></marker>
+        <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#AA5210" /></marker>
+        <marker id="arrow-muted" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#475569" /></marker>
       </defs>
 
-      <text x="24" y="34" fill="#5B6572" font-size="13" font-weight="700" letter-spacing="1.5">EXPECTED INVENTORY</text>
-      <text x="366" y="34" fill="#5B6572" font-size="13" font-weight="700" letter-spacing="1.5">APPROVED EVIDENCE</text>
-      <text x="748" y="34" fill="#5B6572" font-size="13" font-weight="700" letter-spacing="1.5">REVIEWED STATE</text>
+      <text x="24" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">EXPECTED INVENTORY</text>
+      <text x="366" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">APPROVED EVIDENCE</text>
+      <text x="748" y="34" fill="#475569" font-size="13" font-weight="700" letter-spacing="1.5">REVIEWED STATE</text>
 
-      <g font-family="system-ui, sans-serif">
-        <rect x="20" y="62" width="230" height="54" rx="10" fill="#F6F8FB" stroke="#DAE0E7" /><text x="38" y="84" fill="#16191F" font-size="14" font-weight="700">PLC-P04</text><text x="38" y="103" fill="#5B6572" font-size="12">expected controller</text>
-        <rect x="365" y="62" width="230" height="54" rx="10" fill="#E9F0F7" stroke="#B8C7D8" /><text x="383" y="84" fill="#16191F" font-size="14" font-weight="700">OBS-014</text><text x="383" y="103" fill="#5B6572" font-size="12">strong identity evidence</text>
-        <line x1="252" y1="89" x2="357" y2="89" stroke="#00ADB5" stroke-width="3" marker-end="url(#arrow-aqua)" />
-        <line x1="597" y1="89" x2="733" y2="89" stroke="#00ADB5" stroke-width="3" marker-end="url(#arrow-aqua)" />
-        <rect x="748" y="62" width="205" height="54" rx="10" fill="#E4F8F8" stroke="#00ADB5" /><circle cx="772" cy="89" r="6" fill="#00ADB5" /><text x="788" y="94" fill="#0B223A" font-size="14" font-weight="800">CONFIRMED</text>
+      <g font-family="Roboto, system-ui, sans-serif">
+        <rect x="20" y="62" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="84" fill="#0B1F33" font-size="14" font-weight="700">PLC-P04</text><text x="38" y="103" fill="#475569" font-size="12">expected controller</text>
+        <rect x="365" y="62" width="230" height="54" rx="10" fill="#EAF7F1" stroke="#167A5A" /><text x="383" y="84" fill="#0B1F33" font-size="14" font-weight="700">OBS-014</text><text x="383" y="103" fill="#475569" font-size="12">strong identity evidence</text>
+        <line x1="252" y1="89" x2="357" y2="89" stroke="#167A5A" stroke-width="3" marker-end="url(#arrow-teal)" />
+        <line x1="597" y1="89" x2="733" y2="89" stroke="#167A5A" stroke-width="3" marker-end="url(#arrow-teal)" />
+        <rect x="748" y="62" width="205" height="54" rx="10" fill="#EAF7F1" stroke="#167A5A" /><circle cx="772" cy="89" r="6" fill="#167A5A" /><text x="788" y="94" fill="#167A5A" font-size="14" font-weight="800">CONFIRMED</text>
 
-        <rect x="20" y="136" width="230" height="54" rx="10" fill="#F6F8FB" stroke="#DAE0E7" /><text x="38" y="158" fill="#16191F" font-size="14" font-weight="700">RTU-03</text><text x="38" y="177" fill="#5B6572" font-size="12">expected RTU</text>
-        <rect x="365" y="136" width="230" height="54" rx="10" fill="#EEF3FF" stroke="#B8C9F6" /><text x="383" y="158" fill="#16191F" font-size="14" font-weight="700">OBS-021</text><text x="383" y="177" fill="#5B6572" font-size="12">partial identity evidence</text>
-        <line x1="252" y1="163" x2="357" y2="163" stroke="#2563EB" stroke-width="3" marker-end="url(#arrow-blue)" />
-        <line x1="597" y1="163" x2="733" y2="163" stroke="#2563EB" stroke-width="3" marker-end="url(#arrow-blue)" />
-        <rect x="748" y="136" width="205" height="54" rx="10" fill="#EEF3FF" stroke="#2563EB" /><circle cx="772" cy="163" r="6" fill="#2563EB" /><text x="788" y="168" fill="#0B223A" font-size="14" font-weight="800">PROBABLE</text>
+        <rect x="20" y="136" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="158" fill="#0B1F33" font-size="14" font-weight="700">RTU-03</text><text x="38" y="177" fill="#475569" font-size="12">expected RTU</text>
+        <rect x="365" y="136" width="230" height="54" rx="10" fill="#EDF3FF" stroke="#2457D6" /><text x="383" y="158" fill="#0B1F33" font-size="14" font-weight="700">OBS-021</text><text x="383" y="177" fill="#475569" font-size="12">partial identity evidence</text>
+        <line x1="252" y1="163" x2="357" y2="163" stroke="#2457D6" stroke-width="3" marker-end="url(#arrow-blue)" />
+        <line x1="597" y1="163" x2="733" y2="163" stroke="#2457D6" stroke-width="3" marker-end="url(#arrow-blue)" />
+        <rect x="748" y="136" width="205" height="54" rx="10" fill="#EDF3FF" stroke="#2457D6" /><circle cx="772" cy="163" r="6" fill="#2457D6" /><text x="788" y="168" fill="#2457D6" font-size="14" font-weight="800">PROBABLE</text>
 
-        <rect x="20" y="210" width="230" height="54" rx="10" fill="#F6F8FB" stroke="#DAE0E7" /><text x="38" y="232" fill="#16191F" font-size="14" font-weight="700">PLC-P07</text><text x="38" y="251" fill="#5B6572" font-size="12">expected model A</text>
-        <rect x="365" y="210" width="230" height="54" rx="10" fill="#FFF1F2" stroke="#E7A5AA" /><text x="383" y="232" fill="#16191F" font-size="14" font-weight="700">OBS-027</text><text x="383" y="251" fill="#5B6572" font-size="12">observed model B</text>
-        <line x1="252" y1="237" x2="357" y2="237" stroke="#BE2E38" stroke-width="3" />
-        <line x1="597" y1="237" x2="733" y2="237" stroke="#BE2E38" stroke-width="3" />
-        <rect x="748" y="210" width="205" height="54" rx="10" fill="#FFF1F2" stroke="#BE2E38" /><circle cx="772" cy="237" r="6" fill="#BE2E38" /><text x="788" y="242" fill="#7A1D24" font-size="14" font-weight="800">CONFLICT</text>
+        <rect x="20" y="210" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="232" fill="#0B1F33" font-size="14" font-weight="700">PLC-P07</text><text x="38" y="251" fill="#475569" font-size="12">expected model A</text>
+        <rect x="365" y="210" width="230" height="54" rx="10" fill="#FFFFFF" stroke="#B0232D" /><text x="383" y="232" fill="#0B1F33" font-size="14" font-weight="700">OBS-027</text><text x="383" y="251" fill="#475569" font-size="12">observed model B</text>
+        <line x1="252" y1="237" x2="357" y2="237" stroke="#B0232D" stroke-width="3" />
+        <line x1="597" y1="237" x2="733" y2="237" stroke="#B0232D" stroke-width="3" />
+        <rect x="748" y="210" width="205" height="54" rx="10" fill="#FFFFFF" stroke="#B0232D" /><circle cx="772" cy="237" r="6" fill="#B0232D" /><text x="788" y="242" fill="#B0232D" font-size="14" font-weight="800">CONFLICT</text>
 
-        <rect x="20" y="284" width="230" height="54" rx="10" fill="#F6F8FB" stroke="#DAE0E7" /><text x="38" y="306" fill="#16191F" font-size="14" font-weight="700">HMI-02</text><text x="38" y="325" fill="#5B6572" font-size="12">expected HMI</text>
-        <line x1="252" y1="311" x2="733" y2="311" stroke="#9AA3AD" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow-muted)" />
-        <rect x="748" y="284" width="205" height="54" rx="10" fill="#F6F8FB" stroke="#9AA3AD" /><circle cx="772" cy="311" r="6" fill="#9AA3AD" /><text x="788" y="316" fill="#5B6572" font-size="14" font-weight="800">NOT OBSERVED</text>
+        <rect x="20" y="284" width="230" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><text x="38" y="306" fill="#0B1F33" font-size="14" font-weight="700">HMI-02</text><text x="38" y="325" fill="#475569" font-size="12">expected HMI</text>
+        <line x1="252" y1="311" x2="733" y2="311" stroke="#475569" stroke-width="2" stroke-dasharray="7 7" marker-end="url(#arrow-muted)" />
+        <rect x="748" y="284" width="205" height="54" rx="10" fill="#F4F7FB" stroke="#CDD8E4" /><circle cx="772" cy="311" r="6" fill="#475569" /><text x="788" y="316" fill="#475569" font-size="14" font-weight="800">NOT OBSERVED</text>
 
-        <rect x="365" y="358" width="230" height="44" rx="10" fill="#E4F8F8" stroke="#00ADB5" /><text x="383" y="385" fill="#16191F" font-size="14" font-weight="700">OBS-031 · unmatched endpoint</text>
-        <line x1="597" y1="380" x2="733" y2="380" stroke="#00ADB5" stroke-width="3" marker-end="url(#arrow-aqua)" />
-        <rect x="748" y="353" width="205" height="54" rx="10" fill="#E4F8F8" stroke="#00ADB5" /><circle cx="772" cy="380" r="6" fill="#00ADB5" /><text x="788" y="385" fill="#0B223A" font-size="14" font-weight="800">UNEXPECTED</text>
+        <rect x="365" y="358" width="230" height="44" rx="10" fill="#FFF1DB" stroke="#AA5210" /><text x="383" y="385" fill="#0B1F33" font-size="14" font-weight="700">OBS-031 · unmatched endpoint</text>
+        <line x1="597" y1="380" x2="733" y2="380" stroke="#AA5210" stroke-width="3" marker-end="url(#arrow-amber)" />
+        <rect x="748" y="353" width="205" height="54" rx="10" fill="#FFF1DB" stroke="#AA5210" /><circle cx="772" cy="380" r="6" fill="#AA5210" /><text x="788" y="385" fill="#AA5210" font-size="14" font-weight="800">UNEXPECTED</text>
       </g>
     </svg>
   </div>
