@@ -3,6 +3,7 @@ export type Page = 'home' | 'safety' | 'pilot';
 
 export const repo = 'https://github.com/charifmahmoudi/mobile-ot-security-assessment';
 export const wiki = `${repo}/wiki`;
+export const bookingUrl = 'https://calendar.app.google/jYG6MXGrGHncnjAUA';
 
 export function sitePath(base: string, lang: Lang, page: Page = 'home'): string {
   const prefix = lang === 'fr' ? base : `${base}en/`;
