@@ -2,95 +2,115 @@
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import ProductMedia from '../ProductMedia.astro';
 import ReconciliationDiagram from '../ReconciliationDiagram.astro';
-import { evaluationIssueUrl, repo, type Lang } from '../../lib/site';
+import { bookingUrl, repo, sitePath, type Lang } from '../../lib/site';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fr = lang === 'fr';
 const base = import.meta.env.BASE_URL;
-const issue = evaluationIssueUrl(lang);
+const evaluation = sitePath(base, lang, 'pilot');
 
 const copy = fr ? {
-  title: 'Atlas OT Scout — Réconciliation OT fondée sur les preuves',
-  description: "Atlas OT Scout rapproche l'inventaire OT attendu des preuves terrain autorisées pour produire une référence revue, traçable et explicite sur ses incertitudes.",
-  kicker: 'Évaluation OT fondée sur les preuves',
-  h1: 'Faites de votre inventaire OT une référence défendable.',
-  intro: "Atlas rapproche les enregistrements attendus des preuves terrain autorisées, expose les écarts et conserve l'incertitude jusqu'à la revue humaine.",
-  primary: 'Demander une évaluation',
-  secondary: 'Voir le résultat',
-  boundary: "Pas de découverte agressive. Pas d'exploitation. Une question bornée, des preuves traçables, une décision revue.",
-  resultLabel: "Ce que l'évaluation produit",
-  resultTitle: "Un état OT plus fiable que l'inventaire de départ.",
-  resultBody: "Atlas ne transforme pas une adresse IP ou un nom d'hôte en vérité d'inventaire. Les correspondances faibles restent probables, les conflits restent visibles et les éléments non observés restent distincts des absences confirmées.",
-  expected: 'attendus', corroborated: 'corroborés', probable: 'probables', conflict: 'conflit', unexpected: 'inattendu', notObserved: 'non observés',
-  flowLabel: 'Méthode',
-  flowTitle: 'De la question client au handoff revu.',
-  steps: [
-    ['01','Cadrer','Définir la zone de procédé, la question, les exclusions et l’autorité.'],
-    ['02','Collecter','Choisir la source de preuve la moins intrusive qui puisse répondre à la question.'],
-    ['03','Revoir','Conserver la provenance avant d’accepter une identité ou une modification d’inventaire.'],
-    ['04','Réconcilier','Rendre explicites les états corroboré, probable, conflit, inattendu et non observé.'],
-    ['05','Remettre','Livrer les décisions, preuves, constats et limites dans un résultat revu.'],
+  title: 'Atlas OT Scout — Preuves OT pour l’audit industriel',
+  description: "Atlas OT Scout aide les praticiens de l'audit industriel à préserver la provenance, revoir les affirmations d'identité et rendre les limites explicites avant toute conclusion OT.",
+  kicker: "Pour les praticiens de l'audit industriel et de la cybersécurité OT",
+  h1: 'Des conclusions OT que votre méthodologie peut défendre.',
+  intro: "Atlas transforme inventaires, captures et vérifications autorisées en une chaîne de preuves revue. Chaque conclusion conserve sa provenance, son niveau de confiance, ses contradictions et ses limites.",
+  primary: 'Planifier une revue méthodologique',
+  secondary: 'Voir un cas de preuve',
+  boundary: "Hors ligne · Passif d'abord · Opérations actives bornées · Revue humaine obligatoire",
+  proofLabel: 'Cas illustratif',
+  proofTitle: "Une adresse observée ne devient pas automatiquement une vérité d'inventaire.",
+  proofBody: "Ce parcours synthétique montre comment Atlas sépare la source, l'observation, l'affirmation et la décision. Il illustre la méthode ; il ne constitue pas une preuve client.",
+  example: [
+    ['Dossier attendu','PLC-PUMP-04 · révision 3'],
+    ['Observation passive','10.20.4.18 · trafic Modbus/TCP'],
+    ["Vérification autorisée","Fournisseur et produit concordants · révision différente"],
+    ['Décision de revue','Identité probable · révision non résolue'],
+    ['Action suivante','Vérifier la plaque signalétique lors de la prochaine visite autorisée'],
   ],
-  useLabel: "Cas d'usage",
-  useTitle: 'Commencer là où une preuve peut changer une décision réelle.',
+  methodLabel: 'Valeur méthodologique',
+  methodTitle: "Renforcer la chaîne de preuve sans remplacer le jugement de l'auditeur.",
+  values: [
+    ['Provenance conservée',"Chaque observation reste liée à sa source, son hash, son contexte et ses limites de visibilité."],
+    ['Couches séparées',"La preuve brute, l'affirmation d'identité, la décision de réconciliation et le constat ne sont pas confondus."],
+    ['Revue explicite',"Une observation ne modifie l'inventaire de travail qu'après une décision humaine traçable."],
+    ['Incertitude visible',"Probable, conflictuel, inattendu et non observé restent des états utiles — pas des défauts à masquer."],
+  ],
+  fitLabel: 'Intégration',
+  fitTitle: "Atlas soutient votre méthode ; il ne prétend pas devenir votre méthode.",
+  fitBody: "Le praticien et le client gardent la responsabilité de l'autorisation, de l'interprétation professionnelle et de l'acceptation finale. Atlas organise la couche de preuve et l'historique de revue nécessaires pour challenger une conclusion.",
+  fitSteps: ['Votre méthode et votre périmètre','Preuves et réconciliation Atlas','Revue indépendante','Rapport et QA existants'],
+  usesLabel: "Questions à tester",
+  usesTitle: "Commencer par une seule question de preuve réelle.",
   uses: [
-    ['Réconciliation de baseline', "Tester si les preuves disponibles soutiennent l'inventaire actuellement accepté par l'exploitation."],
-    ['Mise en service & handover', "Faire ressortir les écarts d'identité avant que les dossiers projet deviennent la vérité opérationnelle."],
-    ['Avant maintenance', "Établir un point de départ borné et traçable avant une maintenance ou une modernisation."],
+    ["Fit méthodologique","Le modèle de preuve, de confiance et de revue répond-il aux exigences de votre cabinet ou équipe ?"],
+    ['Réconciliation de baseline',"Les preuves autorisées soutiennent-elles réellement l'inventaire actuellement accepté ?"],
+    ['Qualité du handoff',"Un reviewer peut-il challenger les conclusions sans dépendre de la mémoire du collecteur ?"],
   ],
   trustLabel: 'Ingénierie ouverte',
-  trustTitle: 'Les affirmations techniques sont vérifiables.',
-  trustBody: "Le site explique la valeur. Le dépôt maintient l'état d'implémentation, le comportement réseau exact, le modèle de sécurité et les preuves de test.",
-  ctaTitle: 'Commencez par une seule question OT réelle.',
-  ctaBody: "La demande ouvre une issue GitHub préremplie. Décrivez le site, le périmètre, la baseline et la décision que l'évaluation doit éclairer.",
+  trustTitle: 'Les affirmations techniques et les limites sont inspectables.',
+  trustBody: "Le site résume la valeur. Le dépôt publie ce qui s'exécute aujourd'hui, le comportement réseau exact, le modèle de menace et les preuves de test.",
+  ctaTitle: 'Votre méthode accepterait-elle cette chaîne de preuve ?',
+  ctaBody: "Apportez un workflow anonymisé, un exemple de réconciliation ou une exigence de QA. La première revue sert à identifier le fit, les contrôles manquants et le bon périmètre d'évaluation.",
+  ctaSecondary: "Voir le cadre d'évaluation",
 } : {
-  title: 'Atlas OT Scout — Evidence-backed OT reconciliation',
-  description: 'Atlas OT Scout reconciles expected OT inventory with authorized field evidence to produce a reviewed, traceable baseline with explicit uncertainty.',
-  kicker: 'Evidence-backed OT assessment',
-  h1: 'Make your OT inventory defensible.',
-  intro: 'Atlas reconciles expected records with authorized field evidence, exposes discrepancies, and preserves uncertainty until human review.',
-  primary: 'Request an evaluation',
-  secondary: 'See the result',
-  boundary: 'No aggressive discovery. No exploitation. One bounded question, traceable evidence, one reviewed decision.',
-  resultLabel: 'Assessment outcome',
-  resultTitle: 'A more trustworthy OT state than the starting inventory.',
-  resultBody: 'Atlas does not turn an IP address or hostname into inventory truth. Weak matches stay probable, conflicts stay visible, and not-observed records remain distinct from confirmed absence.',
-  expected: 'expected', corroborated: 'corroborated', probable: 'probable', conflict: 'conflict', unexpected: 'unexpected', notObserved: 'not observed',
-  flowLabel: 'Method',
-  flowTitle: 'From the customer question to a reviewed handoff.',
-  steps: [
-    ['01','Scope','Define the process area, question, exclusions and authority.'],
-    ['02','Collect','Choose the least intrusive evidence source that can answer the question.'],
-    ['03','Review','Preserve provenance before accepting identity or inventory changes.'],
-    ['04','Reconcile','Keep corroborated, probable, conflict, unexpected and not-observed states explicit.'],
-    ['05','Handoff','Return decisions, evidence, findings and limitations in a reviewed result.'],
+  title: 'Atlas OT Scout — OT evidence for industrial assessment',
+  description: 'Atlas OT Scout helps industrial-assessment practitioners preserve provenance, review identity claims, and keep limitations explicit before accepting OT conclusions.',
+  kicker: 'For industrial-assessment and OT-security practitioners',
+  h1: 'OT conclusions your methodology can defend.',
+  intro: 'Atlas turns inventories, captures, and authorized checks into a reviewed evidence chain. Every conclusion retains its provenance, confidence, contradictions, and limitations.',
+  primary: 'Book a methodology review',
+  secondary: 'See an evidence case',
+  boundary: 'Offline · Passive first · Bounded active operations · Human review required',
+  proofLabel: 'Illustrative case',
+  proofTitle: 'An observed address does not automatically become inventory truth.',
+  proofBody: 'This synthetic journey shows how Atlas separates source, observation, claim, and decision. It illustrates the method; it is not customer evidence.',
+  example: [
+    ['Expected record','PLC-PUMP-04 · revision 3'],
+    ['Passive observation','10.20.4.18 · Modbus/TCP traffic'],
+    ['Authorized check','Vendor and product match · revision differs'],
+    ['Review decision','Identity probable · revision unresolved'],
+    ['Next action','Verify the nameplate during the next authorized visit'],
   ],
-  useLabel: 'Use cases',
-  useTitle: 'Start where evidence can change a real decision.',
+  methodLabel: 'Methodology value',
+  methodTitle: 'Strengthen the evidence chain without replacing assessor judgment.',
+  values: [
+    ['Preserved provenance','Each observation stays linked to its source, hash, context, and visibility limitations.'],
+    ['Separated layers','Raw evidence, identity claims, reconciliation decisions, and findings are not collapsed together.'],
+    ['Explicit review','An observation changes the working inventory only after a traceable human decision.'],
+    ['Visible uncertainty','Probable, conflicting, unexpected, and not observed remain useful states—not defects to hide.'],
+  ],
+  fitLabel: 'Integration',
+  fitTitle: 'Atlas supports your method; it does not claim to become your method.',
+  fitBody: 'The practitioner and customer remain responsible for authorization, professional interpretation, and final acceptance. Atlas organizes the evidence and review history needed to challenge a conclusion.',
+  fitSteps: ['Your method and scope','Atlas evidence and reconciliation','Independent review','Existing report and QA'],
+  usesLabel: 'Questions to test',
+  usesTitle: 'Start with one real evidence question.',
   uses: [
-    ['Baseline reconciliation','Test whether available evidence supports the inventory currently accepted by operations.'],
-    ['Commissioning & handover','Expose identity discrepancies before project records become operational truth.'],
-    ['Pre-maintenance baseline','Establish a bounded, traceable starting state before maintenance or modernization.'],
+    ['Methodology fit','Does the evidence, confidence, and review model satisfy your firm or team requirements?'],
+    ['Baseline reconciliation','Does the authorized evidence actually support the currently accepted inventory?'],
+    ['Handoff quality','Can a reviewer challenge conclusions without depending on the collector’s memory?'],
   ],
   trustLabel: 'Open engineering',
-  trustTitle: 'Technical claims are inspectable.',
-  trustBody: 'The website explains the value. The repository maintains implementation status, exact network behavior, the security model and test evidence.',
-  ctaTitle: 'Start with one real OT question.',
-  ctaBody: 'The request opens a pre-filled GitHub issue. Describe the site, scope, starting baseline, and the decision the evaluation should support.',
+  trustTitle: 'Technical claims and limitations are inspectable.',
+  trustBody: 'The website summarizes the value. The repository publishes what executes today, exact network behavior, the threat model, and test evidence.',
+  ctaTitle: 'Would your methodology accept this evidence chain?',
+  ctaBody: 'Bring an anonymized workflow, reconciliation example, or QA requirement. The first review identifies fit, missing controls, and an appropriate evaluation scope.',
+  ctaSecondary: 'See the evaluation framework',
 };
 ---
 <SiteLayout title={copy.title} description={copy.description} lang={lang} page="home">
   <section class="relative overflow-hidden bg-surface">
     <div class="blueprint-grid-light absolute inset-0 opacity-60"></div>
-    <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-14 sm:px-8 lg:min-h-[720px] lg:grid-cols-[.82fr_1.18fr] lg:py-20">
+    <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-14 sm:px-8 lg:min-h-[720px] lg:grid-cols-[.86fr_1.14fr] lg:py-20">
       <div class="max-w-xl">
         <p class="section-label">{copy.kicker}</p>
         <h1 class="mt-4 text-5xl font-black leading-[1.02] tracking-[-0.045em] text-navy sm:text-6xl">{copy.h1}</h1>
         <p class="mt-6 text-lg leading-8 text-muted">{copy.intro}</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a class="rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] transition hover:bg-navy" href={issue}>{copy.primary}</a>
-          <a class="rounded-[11px] border border-border bg-white px-5 py-3 text-sm font-bold text-navy transition hover:border-blue hover:text-blue" href="#resultat">{copy.secondary}</a>
+          <a class="rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] transition hover:bg-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary}</a>
+          <a class="rounded-[11px] border border-border bg-white px-5 py-3 text-sm font-bold text-navy transition hover:border-blue hover:text-blue" href="#preuve">{copy.secondary}</a>
         </div>
         <div class="mt-8 rounded-[14px] bg-navy px-5 py-4 text-sm leading-6 text-white/72 shadow-[0_10px_28px_rgba(11,31,51,.16)]">
           <span class="mr-2 font-black text-aqua">●</span>{copy.boundary}
@@ -100,62 +120,74 @@ const copy = fr ? {
     </div>
   </section>
 
-  <section id="resultat" class="scroll-mt-24 border-y border-border bg-white">
+  <section id="preuve" class="scroll-mt-24 border-y border-border bg-white">
     <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
-      <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+      <div class="grid gap-10 lg:grid-cols-[.76fr_1.24fr] lg:items-end">
         <div>
-          <p class="section-label">{copy.resultLabel}</p>
-          <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.resultTitle}</h2>
+          <p class="section-label">{copy.proofLabel}</p>
+          <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.proofTitle}</h2>
         </div>
-        <p class="max-w-2xl text-lg leading-8 text-muted lg:justify-self-end">{copy.resultBody}</p>
+        <p class="max-w-2xl text-lg leading-8 text-muted lg:justify-self-end">{copy.proofBody}</p>
       </div>
-
-      <div class="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
-        <div class="app-frame bg-navy p-5 text-white"><strong class="text-3xl">18</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-aqua">{copy.expected}</span></div>
-        <div class="app-frame bg-pale-teal p-5"><strong class="text-3xl text-success">12</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.corroborated}</span></div>
-        <div class="app-frame bg-pale-amber p-5"><strong class="text-3xl text-amber">2</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.probable}</span></div>
-        <div class="app-frame bg-white p-5"><strong class="text-3xl text-danger">1</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.conflict}</span></div>
-        <div class="app-frame bg-pale-blue p-5"><strong class="text-3xl text-blue">1</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.unexpected}</span></div>
-        <div class="app-frame bg-surface p-5"><strong class="text-3xl text-slate">2</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.notObserved}</span></div>
-      </div>
-
-      <div class="mt-8"><ReconciliationDiagram lang={lang} /></div>
-    </div>
-  </section>
-
-  <section id="produit" class="bg-surface">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
-      <p class="section-label">{copy.flowLabel}</p>
-      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.flowTitle}</h2>
       <ol class="mt-10 grid overflow-hidden rounded-[14px] border border-border bg-white md:grid-cols-5">
-        {copy.steps.map(([n,title,body], i) => (
-          <li class={`min-h-56 p-5 ${i < 4 ? 'border-b border-border md:border-b-0 md:border-r' : ''}`}>
-            <span class="grid size-8 place-items-center rounded-full bg-blue text-xs font-black text-white">{n}</span>
-            <h3 class="mt-7 text-lg font-bold text-navy">{title}</h3>
+        {copy.example.map(([title,body], i) => (
+          <li class={`min-h-48 p-5 ${i < copy.example.length - 1 ? 'border-b border-border md:border-b-0 md:border-r' : ''}`}>
+            <span class="text-xs font-black text-blue">0{i + 1}</span>
+            <h3 class="mt-6 text-sm font-bold text-navy">{title}</h3>
             <p class="mt-3 text-sm leading-6 text-muted">{body}</p>
           </li>
         ))}
       </ol>
+      <div class="mt-8"><ReconciliationDiagram lang={lang} /></div>
     </div>
   </section>
 
-  <section class="bg-navy text-white">
-    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
-      <p class="text-xs font-black uppercase tracking-[.14em] text-aqua">{copy.useLabel}</p>
-      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] sm:text-5xl">{copy.useTitle}</h2>
-      <div class="mt-10 grid gap-4 md:grid-cols-3">
-        {copy.uses.map(([title,body], i) => (
-          <article class="rounded-[14px] border border-aqua/20 bg-white/[.045] p-6">
-            <span class="text-xs font-black text-aqua">0{i + 1}</span>
-            <h3 class="mt-7 text-xl font-bold">{title}</h3>
-            <p class="mt-3 leading-7 text-white/62">{body}</p>
+  <section id="methode" class="scroll-mt-24 bg-surface">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
+      <p class="section-label">{copy.methodLabel}</p>
+      <h2 class="mt-3 max-w-4xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.methodTitle}</h2>
+      <div class="mt-10 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border md:grid-cols-2">
+        {copy.values.map(([title,body], i) => (
+          <article class="bg-white p-6 sm:p-7">
+            <span class="grid size-8 place-items-center rounded-full bg-pale-blue text-xs font-black text-blue">0{i + 1}</span>
+            <h3 class="mt-6 text-xl font-bold text-navy">{title}</h3>
+            <p class="mt-3 leading-7 text-muted">{body}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
+  <section class="bg-navy text-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+      <div>
+        <p class="text-xs font-black uppercase tracking-[.14em] text-aqua">{copy.fitLabel}</p>
+        <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] sm:text-5xl">{copy.fitTitle}</h2>
+        <p class="mt-5 leading-7 text-white/65">{copy.fitBody}</p>
+      </div>
+      <ol class="grid gap-3 sm:grid-cols-2">
+        {copy.fitSteps.map((step,i) => <li class="rounded-[12px] border border-aqua/20 bg-white/[.045] p-5"><span class="text-xs font-black text-aqua">0{i + 1}</span><strong class="mt-5 block text-lg">{step}</strong></li>)}
+      </ol>
+    </div>
+  </section>
+
   <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <p class="section-label">{copy.usesLabel}</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.usesTitle}</h2>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {copy.uses.map(([title,body], i) => (
+          <article class="app-frame bg-surface p-6">
+            <span class="text-xs font-black text-blue">0{i + 1}</span>
+            <h3 class="mt-7 text-xl font-bold text-navy">{title}</h3>
+            <p class="mt-3 leading-7 text-muted">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-surface">
     <div class="mx-auto grid max-w-7xl gap-8 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_.92fr] lg:items-center">
       <div>
         <p class="section-label">{copy.trustLabel}</p>
@@ -164,7 +196,7 @@ const copy = fr ? {
       </div>
       <div class="app-frame overflow-hidden bg-white">
         {[
-          [fr ? 'Implémentation actuelle' : 'Current implementation', `${repo}/blob/main/IMPLEMENTATION.md`],
+          [fr ? 'Implémentation et limites actuelles' : 'Current implementation and limitations', `${repo}/blob/main/IMPLEMENTATION.md`],
           [fr ? 'Exécution réseau exacte' : 'Exact network execution', `${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`],
           [fr ? 'Sécurité & menaces' : 'Security & threat model', `${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`],
           [fr ? 'Preuves de test' : 'Verification evidence', `${repo}/tree/main/docs/testing`],
@@ -174,12 +206,15 @@ const copy = fr ? {
     </div>
   </section>
 
-  <section class="border-t border-border bg-pale-blue">
+  <section class="bg-pale-blue">
     <div class="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8">
-      <p class="section-label">{fr ? 'Évaluation contrôlée' : 'Controlled evaluation'}</p>
+      <p class="section-label">{fr ? 'Revue de fit' : 'Fit review'}</p>
       <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.ctaTitle}</h2>
       <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted">{copy.ctaBody}</p>
-      <a class="mt-7 inline-block rounded-[11px] bg-blue px-6 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.20)] hover:bg-navy" href={issue}>{copy.primary} →</a>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a class="rounded-[11px] bg-blue px-6 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.20)] hover:bg-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.primary} →</a>
+        <a class="rounded-[11px] border border-border bg-white px-6 py-3 text-sm font-bold text-navy hover:border-blue hover:text-blue" href={evaluation}>{copy.ctaSecondary}</a>
+      </div>
     </div>
   </section>
 </SiteLayout>
