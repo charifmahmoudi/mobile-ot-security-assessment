@@ -32,7 +32,13 @@ Exact evaluation duration, acquisition/setup choices and consulting terms are ma
 - [Guided customer-story video](../demo/atlas-ot-scout-emulator-demo.mp4) — application footage with explanatory composition.
 - [Video provenance](../demo/VIDEO-SCRIPT.md) — how the video is produced and what the footage proves.
 - [`tools/build_pitch_deck.js`](../../tools/build_pitch_deck.js) — reproducible deck source.
+- [`tools/retint_pitch_deck.py`](../../tools/retint_pitch_deck.py) — normalizes generated slide/theme colors to the Android application palette without altering screenshots or embedded video.
+- [`tools/brand_palette.py`](../../tools/brand_palette.py) — reads the palette directly from the application source.
 - [`tools/compose_guided_customer_story.py`](../../tools/compose_guided_customer_story.py) — reproducible video composition.
+
+## Visual identity
+
+The Android application owns the Atlas color palette. The live-demo workflow builds the editable PPTX, applies the application palette to DrawingML/theme colors, verifies that no independent explicit slide colors remain, and only then exports the PDF. This prevents the presentation and product UI from drifting into separate visual identities.
 
 ## Claim boundary
 
