@@ -1,0 +1,185 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProductMedia from '../ProductMedia.astro';
+import ReconciliationDiagram from '../ReconciliationDiagram.astro';
+import { evaluationIssueUrl, repo, type Lang } from '../../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const base = import.meta.env.BASE_URL;
+const issue = evaluationIssueUrl(lang);
+
+const copy = fr ? {
+  title: 'Atlas OT Scout — Réconciliation OT fondée sur les preuves',
+  description: "Atlas OT Scout rapproche l'inventaire OT attendu des preuves terrain autorisées pour produire une référence revue, traçable et explicite sur ses incertitudes.",
+  kicker: 'Évaluation OT fondée sur les preuves',
+  h1: 'Faites de votre inventaire OT une référence défendable.',
+  intro: "Atlas rapproche les enregistrements attendus des preuves terrain autorisées, expose les écarts et conserve l'incertitude jusqu'à la revue humaine.",
+  primary: 'Demander une évaluation',
+  secondary: 'Voir le résultat',
+  boundary: "Pas de découverte agressive. Pas d'exploitation. Une question bornée, des preuves traçables, une décision revue.",
+  resultLabel: "Ce que l'évaluation produit",
+  resultTitle: "Un état OT plus fiable que l'inventaire de départ.",
+  resultBody: "Atlas ne transforme pas une adresse IP ou un nom d'hôte en vérité d'inventaire. Les correspondances faibles restent probables, les conflits restent visibles et les éléments non observés restent distincts des absences confirmées.",
+  expected: 'attendus', corroborated: 'corroborés', probable: 'probables', conflict: 'conflit', unexpected: 'inattendu', notObserved: 'non observés',
+  flowLabel: 'Méthode',
+  flowTitle: 'De la question client au handoff revu.',
+  steps: [
+    ['01','Cadrer','Définir la zone de procédé, la question, les exclusions et l’autorité.'],
+    ['02','Collecter','Choisir la source de preuve la moins intrusive qui puisse répondre à la question.'],
+    ['03','Revoir','Conserver la provenance avant d’accepter une identité ou une modification d’inventaire.'],
+    ['04','Réconcilier','Rendre explicites les états corroboré, probable, conflit, inattendu et non observé.'],
+    ['05','Remettre','Livrer les décisions, preuves, constats et limites dans un résultat revu.'],
+  ],
+  useLabel: "Cas d'usage",
+  useTitle: 'Commencer là où une preuve peut changer une décision réelle.',
+  uses: [
+    ['Réconciliation de baseline', "Tester si les preuves disponibles soutiennent l'inventaire actuellement accepté par l'exploitation."],
+    ['Mise en service & handover', "Faire ressortir les écarts d'identité avant que les dossiers projet deviennent la vérité opérationnelle."],
+    ['Avant maintenance', "Établir un point de départ borné et traçable avant une maintenance ou une modernisation."],
+  ],
+  trustLabel: 'Ingénierie ouverte',
+  trustTitle: 'Les affirmations techniques sont vérifiables.',
+  trustBody: "Le site explique la valeur. Le dépôt maintient l'état d'implémentation, le comportement réseau exact, le modèle de sécurité et les preuves de test.",
+  ctaTitle: 'Commencez par une seule question OT réelle.',
+  ctaBody: "La demande ouvre une issue GitHub préremplie. Décrivez le site, le périmètre, la baseline et la décision que l'évaluation doit éclairer.",
+} : {
+  title: 'Atlas OT Scout — Evidence-backed OT reconciliation',
+  description: 'Atlas OT Scout reconciles expected OT inventory with authorized field evidence to produce a reviewed, traceable baseline with explicit uncertainty.',
+  kicker: 'Evidence-backed OT assessment',
+  h1: 'Make your OT inventory defensible.',
+  intro: 'Atlas reconciles expected records with authorized field evidence, exposes discrepancies, and preserves uncertainty until human review.',
+  primary: 'Request an evaluation',
+  secondary: 'See the result',
+  boundary: 'No aggressive discovery. No exploitation. One bounded question, traceable evidence, one reviewed decision.',
+  resultLabel: 'Assessment outcome',
+  resultTitle: 'A more trustworthy OT state than the starting inventory.',
+  resultBody: 'Atlas does not turn an IP address or hostname into inventory truth. Weak matches stay probable, conflicts stay visible, and not-observed records remain distinct from confirmed absence.',
+  expected: 'expected', corroborated: 'corroborated', probable: 'probable', conflict: 'conflict', unexpected: 'unexpected', notObserved: 'not observed',
+  flowLabel: 'Method',
+  flowTitle: 'From the customer question to a reviewed handoff.',
+  steps: [
+    ['01','Scope','Define the process area, question, exclusions and authority.'],
+    ['02','Collect','Choose the least intrusive evidence source that can answer the question.'],
+    ['03','Review','Preserve provenance before accepting identity or inventory changes.'],
+    ['04','Reconcile','Keep corroborated, probable, conflict, unexpected and not-observed states explicit.'],
+    ['05','Handoff','Return decisions, evidence, findings and limitations in a reviewed result.'],
+  ],
+  useLabel: 'Use cases',
+  useTitle: 'Start where evidence can change a real decision.',
+  uses: [
+    ['Baseline reconciliation','Test whether available evidence supports the inventory currently accepted by operations.'],
+    ['Commissioning & handover','Expose identity discrepancies before project records become operational truth.'],
+    ['Pre-maintenance baseline','Establish a bounded, traceable starting state before maintenance or modernization.'],
+  ],
+  trustLabel: 'Open engineering',
+  trustTitle: 'Technical claims are inspectable.',
+  trustBody: 'The website explains the value. The repository maintains implementation status, exact network behavior, the security model and test evidence.',
+  ctaTitle: 'Start with one real OT question.',
+  ctaBody: 'The request opens a pre-filled GitHub issue. Describe the site, scope, starting baseline, and the decision the evaluation should support.',
+};
+---
+<SiteLayout title={copy.title} description={copy.description} lang={lang} page="home">
+  <section class="relative overflow-hidden bg-surface">
+    <div class="blueprint-grid-light absolute inset-0 opacity-60"></div>
+    <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-14 sm:px-8 lg:min-h-[720px] lg:grid-cols-[.82fr_1.18fr] lg:py-20">
+      <div class="max-w-xl">
+        <p class="section-label">{copy.kicker}</p>
+        <h1 class="mt-4 text-5xl font-black leading-[1.02] tracking-[-0.045em] text-navy sm:text-6xl">{copy.h1}</h1>
+        <p class="mt-6 text-lg leading-8 text-muted">{copy.intro}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] transition hover:bg-navy" href={issue}>{copy.primary}</a>
+          <a class="rounded-[11px] border border-border bg-white px-5 py-3 text-sm font-bold text-navy transition hover:border-blue hover:text-blue" href="#resultat">{copy.secondary}</a>
+        </div>
+        <div class="mt-8 rounded-[14px] bg-navy px-5 py-4 text-sm leading-6 text-white/72 shadow-[0_10px_28px_rgba(11,31,51,.16)]">
+          <span class="mr-2 font-black text-aqua">●</span>{copy.boundary}
+        </div>
+      </div>
+      <ProductMedia lang={lang} />
+    </div>
+  </section>
+
+  <section id="resultat" class="scroll-mt-24 border-y border-border bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+        <div>
+          <p class="section-label">{copy.resultLabel}</p>
+          <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.resultTitle}</h2>
+        </div>
+        <p class="max-w-2xl text-lg leading-8 text-muted lg:justify-self-end">{copy.resultBody}</p>
+      </div>
+
+      <div class="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <div class="app-frame bg-navy p-5 text-white"><strong class="text-3xl">18</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-aqua">{copy.expected}</span></div>
+        <div class="app-frame bg-pale-teal p-5"><strong class="text-3xl text-success">12</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.corroborated}</span></div>
+        <div class="app-frame bg-pale-amber p-5"><strong class="text-3xl text-amber">2</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.probable}</span></div>
+        <div class="app-frame bg-white p-5"><strong class="text-3xl text-danger">1</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.conflict}</span></div>
+        <div class="app-frame bg-pale-blue p-5"><strong class="text-3xl text-blue">1</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.unexpected}</span></div>
+        <div class="app-frame bg-surface p-5"><strong class="text-3xl text-slate">2</strong><span class="mt-6 block text-xs font-bold uppercase tracking-[.08em] text-muted">{copy.notObserved}</span></div>
+      </div>
+
+      <div class="mt-8"><ReconciliationDiagram lang={lang} /></div>
+    </div>
+  </section>
+
+  <section id="produit" class="bg-surface">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-24">
+      <p class="section-label">{copy.flowLabel}</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.flowTitle}</h2>
+      <ol class="mt-10 grid overflow-hidden rounded-[14px] border border-border bg-white md:grid-cols-5">
+        {copy.steps.map(([n,title,body], i) => (
+          <li class={`min-h-56 p-5 ${i < 4 ? 'border-b border-border md:border-b-0 md:border-r' : ''}`}>
+            <span class="grid size-8 place-items-center rounded-full bg-blue text-xs font-black text-white">{n}</span>
+            <h3 class="mt-7 text-lg font-bold text-navy">{title}</h3>
+            <p class="mt-3 text-sm leading-6 text-muted">{body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-navy text-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <p class="text-xs font-black uppercase tracking-[.14em] text-aqua">{copy.useLabel}</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-0.035em] sm:text-5xl">{copy.useTitle}</h2>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {copy.uses.map(([title,body], i) => (
+          <article class="rounded-[14px] border border-aqua/20 bg-white/[.045] p-6">
+            <span class="text-xs font-black text-aqua">0{i + 1}</span>
+            <h3 class="mt-7 text-xl font-bold">{title}</h3>
+            <p class="mt-3 leading-7 text-white/62">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-7xl gap-8 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_.92fr] lg:items-center">
+      <div>
+        <p class="section-label">{copy.trustLabel}</p>
+        <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy">{copy.trustTitle}</h2>
+        <p class="mt-5 max-w-2xl leading-7 text-muted">{copy.trustBody}</p>
+      </div>
+      <div class="app-frame overflow-hidden bg-white">
+        {[
+          [fr ? 'Implémentation actuelle' : 'Current implementation', `${repo}/blob/main/IMPLEMENTATION.md`],
+          [fr ? 'Exécution réseau exacte' : 'Exact network execution', `${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`],
+          [fr ? 'Sécurité & menaces' : 'Security & threat model', `${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`],
+          [fr ? 'Preuves de test' : 'Verification evidence', `${repo}/tree/main/docs/testing`],
+          [fr ? 'Code source' : 'Source code', repo],
+        ].map(([label,href], i) => <a class={`flex items-center justify-between px-5 py-4 text-sm font-bold text-navy transition hover:bg-pale-blue hover:text-blue ${i < 4 ? 'border-b border-border' : ''}`} href={href}><span>{label}</span><span aria-hidden="true">↗</span></a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-pale-blue">
+    <div class="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8">
+      <p class="section-label">{fr ? 'Évaluation contrôlée' : 'Controlled evaluation'}</p>
+      <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy sm:text-5xl">{copy.ctaTitle}</h2>
+      <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted">{copy.ctaBody}</p>
+      <a class="mt-7 inline-block rounded-[11px] bg-blue px-6 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.20)] hover:bg-navy" href={issue}>{copy.primary} →</a>
+    </div>
+  </section>
+</SiteLayout>
