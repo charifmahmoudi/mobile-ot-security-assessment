@@ -15,6 +15,19 @@ Compatibility is exact and evidence-based. Family names such as “Galaxy S20”
 
 Current Lineage device information and exact models: https://wiki.lineageos.org/devices/x1s/
 
+## Tablet screening candidates
+
+The tablets below satisfy the first application-level screen: their shipping Android versions are newer than the Case App's Android 10 (`minSdk 29`) baseline, and Samsung documents a USB-C data interface suitable for later powered-hub and Ethernet testing. They may be used to evaluate the Atlas interface and imported-PCAP workflow on stock Android.
+
+They are **not qualified Atlas appliances**. No device-specific Atlas `userdebug` image, Capture Broker/daemon integration, bootloader path, USB NIC tuple or zero-egress evidence exists for either tablet. Live passive capture must remain unavailable until the complete physical acceptance sequence below passes.
+
+| Tablet | Exact identity to buy | Why it is screened | Atlas status | Purchase links |
+|---|---|---|---|---|
+| Galaxy Tab Active5 Pro Wi-Fi | `SM-X350`; 128 GB SKU `SM-X350NZGAN20`; 256 GB SKU `SM-X350NZGEN20` | Rugged 10.1-inch field form factor, USB 3.2 Gen 1, removable 10,100 mAh battery | **Preferred tablet qualification candidate**; stock-Android application/imported-PCAP evaluation only; not tested | [Samsung 128 GB](https://www.samsung.com/us/business/tablets/galaxy-tab-active5-pro/buy/galaxy-tab-active5-pro-128gb-wi-fi-sku-sm-x350nzgan20/) · [Amazon 128 GB](https://www.amazon.com/dp/B0F9FJVPQL) |
+| Galaxy Tab Active4 Pro Wi-Fi | `SM-T630`; 64 GB SKU `SM-T630NZKAN20`; 128 GB SKU `SM-T630NZKEN20` | Rugged 10.1-inch field form factor, USB 3.2 Gen 1, removable 7,600 mAh battery and no-battery mode | **Secondary tablet qualification candidate**; stock-Android application/imported-PCAP evaluation only; not tested | [Samsung 128 GB](https://www.samsung.com/us/business/tablets/galaxy-tab-active/buy/galaxy-tab-active4-pro-128gb-wi-fi-sm-t630nzken20/) · [Amazon 64 GB](https://www.amazon.com/dp/B0BBT3867D) |
+
+Purchase links are procurement aids, not compatibility evidence or availability guarantees. Confirm the exact model and SKU on the seller page before ordering; do not substitute a cellular, carrier or regional variant. Samsung's technical specifications are the screening sources for the [Active5 Pro Wi-Fi](https://www.samsung.com/ch/business/tablets/galaxy-tab-active/galaxy-tab-active5-pro-sm-x350nzgaeee/) and [Active4 Pro](https://news.samsung.com/global/introducing-the-galaxy-tab-active4-pro-a-ruggedized-device-designed-for-the-new-mobile-workforce). The first acquired tablet must still be enrolled by exact hardware identity and tested with the intended hub, NIC and SPAN/TAP path.
+
 ## Root and image compatibility
 
 | Method | Emulator | Selected Samsung | Security interpretation |
