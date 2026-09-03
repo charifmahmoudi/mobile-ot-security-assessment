@@ -1,11 +1,91 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import EvidenceFlowDiagram from '../components/EvidenceFlowDiagram.astro';
 const base = import.meta.env.BASE_URL;
 const repo = 'https://github.com/charifmahmoudi/mobile-ot-security-assessment';
 ---
-<SiteLayout title="Safety & Trust — Atlas OT Scout" description="Atlas uses bounded authorization, passive-first evidence collection, exact active operations, explicit limitations and open engineering contracts.">
-  <section class="bg-ink text-white"><div class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28"><p class="font-mono text-xs uppercase tracking-[0.2em] text-atlas">Safety &amp; Trust</p><h1 class="mt-5 max-w-4xl text-5xl font-semibold tracking-[-0.05em] sm:text-6xl">Evidence collection should not create a new operational risk.</h1><p class="mt-7 max-w-2xl text-lg leading-8 text-white/60">Atlas is designed around explicit authority, least-intrusive evidence collection, review before acceptance, and limitations that remain visible in the final result.</p></div></section>
-  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8"><div class="grid gap-px overflow-hidden rounded-3xl border border-ink/10 bg-ink/10 md:grid-cols-2">{[['Authorization before transmission','Packet-producing behavior must stay inside the approved case scope and operation.'],['Passive first','Imported or mirrored evidence is preferred when it can answer the documented question.'],['Exact active operations','The initial bounded active path is one Modbus/TCP Read Device Identification request to one exact authorized target—not a subnet or port scan.'],['Evidence before conclusions','Raw observations, identity claims and accepted inventory decisions remain distinct so uncertainty can be reviewed.'],['Offline workflow','The core assessment workflow does not depend on a cloud service to collect, reconcile or hand off evidence.'],['Limitations stay visible','Visibility gaps, insufficient evidence and unresolved conflicts remain part of the result rather than being converted into certainty.']].map(([title,copy], i) => (<article class="bg-paper p-7 sm:p-8"><span class="font-mono text-xs text-atlas">0{i+1}</span><h2 class="mt-7 text-2xl font-semibold tracking-[-0.025em]">{title}</h2><p class="mt-4 max-w-xl leading-7 text-steel">{copy}</p></article>))}</div></section>
-  <section class="bg-surface"><div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[.75fr_1.25fr]"><div><p class="font-mono text-xs uppercase tracking-[0.18em] text-steel">Technical review</p><h2 class="mt-4 text-4xl font-semibold tracking-[-0.04em]">The exact contracts are public.</h2><p class="mt-5 leading-7 text-steel">The website summarizes the approach. Technical reviewers can inspect the current implementation, network contract, threat model and test evidence directly.</p></div><div class="grid gap-3 sm:grid-cols-2"><a class="rounded-2xl border border-ink/10 bg-paper p-5 hover:border-atlas/40" href={`${repo}/blob/main/IMPLEMENTATION.md`}><strong>Implementation status</strong><span class="mt-2 block text-sm leading-6 text-steel">What executes today and what remains deferred.</span></a><a class="rounded-2xl border border-ink/10 bg-paper p-5 hover:border-atlas/40" href={`${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`}><strong>Network execution</strong><span class="mt-2 block text-sm leading-6 text-steel">Exact active/passive behavior and stop boundaries.</span></a><a class="rounded-2xl border border-ink/10 bg-paper p-5 hover:border-atlas/40" href={`${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`}><strong>Security model</strong><span class="mt-2 block text-sm leading-6 text-steel">Threats, controls and residual risks.</span></a><a class="rounded-2xl border border-ink/10 bg-paper p-5 hover:border-atlas/40" href={`${repo}/tree/main/docs/testing`}><strong>Verification evidence</strong><span class="mt-2 block text-sm leading-6 text-steel">CI topology, testbeds and proof boundaries.</span></a></div></div></section>
-  <section class="mx-auto max-w-4xl px-5 py-20 sm:px-8"><div class="rounded-3xl border border-signal/30 bg-signal/[.07] p-7 sm:p-9"><p class="font-mono text-xs uppercase tracking-[0.18em] text-signal">Current status</p><h2 class="mt-4 text-2xl font-semibold">P0-WATER is progressing toward controlled customer-pilot qualification.</h2><p class="mt-4 leading-7 text-steel">This site describes the product method and target pilot contract. Current executable capabilities and remaining release gates are maintained in the repository rather than inferred from marketing material.</p><div class="mt-6 flex flex-wrap gap-3"><a class="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white" href={`${repo}/blob/main/IMPLEMENTATION.md`}>Current implementation</a><a class="rounded-full border border-ink/15 px-5 py-2.5 text-sm font-semibold" href={`${repo}/blob/main/ROADMAP.md`}>Roadmap</a></div></div><p class="mt-10 text-center text-sm text-steel">Considering a bounded evaluation? <a class="font-semibold text-ink underline decoration-atlas/40 underline-offset-4" href={`${base}pilot/`}>Review the pilot model.</a></p></section>
+<SiteLayout title="Safety & Trust — Atlas OT Scout" description="Atlas OT Scout uses explicit authorization, passive-first evidence collection, exact active operations, review boundaries and explicit limitations.">
+  <section class="relative overflow-hidden bg-navy text-white">
+    <div class="blueprint-grid absolute inset-0 opacity-45"></div>
+    <div class="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:items-center lg:py-20">
+      <div>
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-aqua">Safety &amp; Trust</p>
+        <h1 class="mt-5 text-5xl font-bold leading-[1.04] tracking-[-0.045em] sm:text-6xl">Collect evidence without turning the assessment into uncontrolled network activity.</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-white/66">Atlas separates imported and passive evidence from exact authorized active operations, then places review between observation and accepted conclusions.</p>
+      </div>
+      <figure class="app-frame app-shadow overflow-hidden border-white/15 bg-white">
+        <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-collect.jpg`} alt="Atlas OT Scout application during the recorded evidence collection workflow" />
+        <figcaption class="flex items-center justify-between gap-3 border-t border-border bg-surface px-4 py-3 text-xs text-muted"><span>Actual recorded Atlas application</span><span class="font-bold text-blue">Collect → Review</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <p class="section-label">Network and review boundary</p>
+      <h2 class="mt-3 max-w-4xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">The evidence path is explicit.</h2>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">The product should be able to explain where evidence came from, what network effect was authorized, what was reviewed, and what remains unresolved.</p>
+      <div class="mt-10"><EvidenceFlowDiagram /></div>
+    </div>
+  </section>
+
+  <section class="border-y border-border bg-surface">
+    <div class="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[
+          ['01','Authorization before transmission','Packet-producing behavior stays inside the approved case scope, exact target and compiled operation.'],
+          ['02','Passive first','Imported or mirrored evidence is preferred whenever it can answer the documented question.'],
+          ['03','Exact active operations','The initial active path is one Modbus Device Identification request to one authorized target—not a subnet or port scan.'],
+          ['04','Evidence before conclusions','Raw observations and identity claims remain distinct from accepted inventory decisions.'],
+          ['05','Offline workflow','Collection, reconciliation and handoff do not require a cloud service.'],
+          ['06','Limitations stay visible','Insufficient visibility, conflicts and unresolved evidence remain part of the result.']
+        ].map(([n,title,copy]) => (
+          <article class="app-frame bg-white p-6">
+            <span class="grid size-8 place-items-center rounded-[8px] bg-pale text-xs font-black text-blue">{n}</span>
+            <h3 class="mt-7 text-xl font-bold">{title}</h3>
+            <p class="mt-3 leading-7 text-muted">{copy}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.72fr_1.28fr]">
+      <div>
+        <p class="section-label">Technical review</p>
+        <h2 class="mt-3 text-4xl font-bold tracking-[-0.035em]">Verify the boundaries in the repository.</h2>
+        <p class="mt-5 leading-7 text-muted">This page is the short version. The exact execution and proof contracts remain inspectable.</p>
+      </div>
+      <div class="app-frame overflow-hidden bg-white">
+        {[
+          ['Current implementation','What executes today and what remains deferred.',`${repo}/blob/main/IMPLEMENTATION.md`],
+          ['Network execution','Exact active/passive behavior, authorization and stop boundaries.',`${repo}/blob/main/docs/architecture/NETWORK-EXECUTION.md`],
+          ['Security model','Threats, controls and residual risks.',`${repo}/blob/main/docs/architecture/SECURITY-AND-THREAT-MODEL.md`],
+          ['Verification evidence','CI topology, testbeds and proof boundaries.',`${repo}/tree/main/docs/testing`]
+        ].map(([title,copy,href], i) => (
+          <a class={`grid gap-1 px-5 py-4 transition hover:bg-pale ${i < 3 ? 'border-b border-border' : ''}`} href={href}>
+            <span class="flex items-center justify-between text-sm font-bold"><span>{title}</span><span>↗</span></span>
+            <span class="text-sm leading-6 text-muted">{copy}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-pale">
+    <div class="mx-auto max-w-5xl px-5 py-16 sm:px-8">
+      <div class="app-frame border-blue/25 bg-white p-6 sm:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-5">
+          <div class="max-w-3xl">
+            <p class="section-label">Current product status</p>
+            <h2 class="mt-3 text-2xl font-bold">P0-WATER is progressing toward controlled customer-pilot qualification.</h2>
+            <p class="mt-4 leading-7 text-muted">Current executable capability and remaining release gates are published separately from the target pilot contract.</p>
+          </div>
+          <a class="rounded-[9px] bg-blue px-5 py-3 text-sm font-bold text-white hover:bg-navy" href={`${repo}/blob/main/IMPLEMENTATION.md`}>Current implementation ↗</a>
+        </div>
+      </div>
+      <p class="mt-8 text-center text-sm text-muted">Considering a bounded evaluation? <a class="font-bold text-blue hover:text-navy" href={`${base}pilot/`}>Review the pilot model →</a></p>
+    </div>
+  </section>
 </SiteLayout>
