@@ -163,6 +163,7 @@ jobs:
             docs/pitch/Atlas-OT-Scout-Pitch-and-Demo.pdf
           if ! git diff --cached --quiet; then
             git commit -m "Refresh guided customer story and prospect pitch"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
       - name: Publish guided story, deck and provenance
