@@ -1,41 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0b1519;
-  --color-graphite: #15262c;
-  --color-steel: #45616a;
-  --color-paper: #f4f3ed;
-  --color-surface: #fcfdfb;
-  --color-atlas: #27a99a;
-  --color-evidence: #4b8f70;
-  --color-signal: #d69a35;
-  --color-conflict: #c45f48;
-  --color-muted: #98a6a9;
-  --font-sans: "IBM Plex Sans", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --color-navy: #0b223a;
+  --color-aqua: #00adb5;
+  --color-blue: #2563eb;
+  --color-white: #ffffff;
+  --color-text: #16191f;
+  --color-muted: #5b6572;
+  --color-surface: #f6f8fb;
+  --color-border: #dae0e7;
+  --color-pale: #e9f0f7;
+  --color-danger: #be2e38;
+  --font-sans: Inter, Roboto, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", ui-monospace, monospace;
 }
 
 :root {
   color-scheme: light;
-  background: var(--color-paper);
+  background: var(--color-surface);
 }
 
 html {
   scroll-behavior: smooth;
-  background: var(--color-paper);
+  background: var(--color-surface);
 }
 
 body {
   margin: 0;
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-white);
+  color: var(--color-text);
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-atlas) 28%, transparent);
+  background: color-mix(in srgb, var(--color-aqua) 30%, white);
 }
 
 a, button, summary {
@@ -43,34 +43,51 @@ a, button, summary {
 }
 
 a:focus-visible, button:focus-visible, summary:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--color-atlas) 70%, white);
-  outline-offset: 4px;
-  border-radius: 4px;
+  outline: 3px solid color-mix(in srgb, var(--color-aqua) 65%, white);
+  outline-offset: 3px;
 }
 
-.grid-fade {
+.app-frame {
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.app-shadow {
+  box-shadow: 0 18px 54px rgba(11, 34, 58, 0.15), 0 3px 10px rgba(11, 34, 58, 0.08);
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  border-width: 1px;
+  border-radius: 999px;
+  padding: 0.36rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.blueprint-grid {
   background-image:
-    linear-gradient(to right, rgba(152,166,169,.10) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(152,166,169,.10) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
   background-size: 32px 32px;
-  mask-image: linear-gradient(to bottom, black 15%, transparent 92%);
 }
 
-.instrument-shadow {
-  box-shadow: 0 24px 80px rgba(11, 21, 25, 0.16);
+.blueprint-grid-light {
+  background-image:
+    linear-gradient(rgba(11,34,58,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,34,58,.045) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-.reveal {
-  animation: settle .7s cubic-bezier(.2,.7,.2,1) both;
-}
-
-.reveal-delay-1 { animation-delay: .08s; }
-.reveal-delay-2 { animation-delay: .16s; }
-.reveal-delay-3 { animation-delay: .24s; }
-
-@keyframes settle {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.section-label {
+  color: var(--color-blue);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 @media (prefers-reduced-motion: reduce) {
