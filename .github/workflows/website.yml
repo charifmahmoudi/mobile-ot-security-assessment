@@ -7,6 +7,8 @@ on:
     paths:
       - "website/**"
       - "docs/demo/atlas-ot-scout-emulator-demo.mp4"
+      - "case-app/src/main/kotlin/com/atlasot/scout/MainActivity.kt"
+      - "tools/brand_palette.py"
       - ".github/workflows/website.yml"
   workflow_dispatch:
 
@@ -27,6 +29,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+
+      - name: Verify website palette against Android application
+        run: python3 tools/brand_palette.py --verify-website website/src/styles/global.css
 
       - name: Install media tooling
         run: |
