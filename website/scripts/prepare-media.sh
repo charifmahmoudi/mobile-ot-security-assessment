@@ -17,20 +17,20 @@ cp "$SOURCE" "$OUT/atlas-ot-scout-demo.mp4"
 
 duration="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$SOURCE")"
 
-extract_frame() {
+extract_at() {
   local name="$1"
-  local fraction="$2"
-  local timestamp
-  timestamp="$(awk -v d="$duration" -v f="$fraction" 'BEGIN { printf "%.3f", d * f }')"
+  local timestamp="$2"
   ffmpeg -hide_banner -loglevel error -y \
     -ss "$timestamp" -i "$SOURCE" -frames:v 1 \
     -vf "scale=1280:-2:force_original_aspect_ratio=decrease" \
     -q:v 2 "$OUT/$name.jpg"
 }
 
-# Sample the composed, CI-recorded application story at three distinct stages.
-extract_frame "atlas-collect" 0.22
-extract_frame "atlas-reconcile" 0.55
-extract_frame "atlas-handoff" 0.82
+# Stable moments in the composed 109-second customer story.
+# These are intentionally explicit rather than percentage-based so the labels
+# keep matching the product stage if the final video duration changes slightly.
+extract_at "atlas-collect" 24
+extract_at "atlas-reconcile" 40
+extract_at "atlas-handoff" 94
 
 printf 'Prepared Atlas website media from %s (duration %ss)\n' "$SOURCE" "$duration"
