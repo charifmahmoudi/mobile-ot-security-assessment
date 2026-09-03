@@ -1,25 +1,24 @@
 ---
-import { evaluationIssueUrl, repo, sitePath, wiki, type Lang } from '../lib/site';
+import { bookingUrl, repo, sitePath, wiki, type Lang } from '../lib/site';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fr = lang === 'fr';
 const base = import.meta.env.BASE_URL;
-const issue = evaluationIssueUrl(lang);
 ---
 <footer class="border-t border-aqua/15 bg-navy text-white">
   <div class="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 md:grid-cols-[1.35fr_1fr]">
     <div>
       <p class="text-lg font-bold">Atlas OT Scout</p>
-      <p class="mt-2 max-w-xl text-sm leading-6 text-white/58">{fr ? 'Réconciliation OT hors ligne, bornée et fondée sur les preuves pour des évaluations autorisées.' : 'Offline, bounded, evidence-backed OT reconciliation for authorized assessment work.'}</p>
-      <a class="mt-4 inline-block text-sm font-bold text-aqua hover:text-white" href={issue}>{fr ? 'Demander une évaluation' : 'Request an evaluation'} →</a>
+      <p class="mt-2 max-w-xl text-sm leading-6 text-white/58">{fr ? 'Une chaîne de preuves OT hors ligne, bornée et revue pour les praticiens de l’audit industriel.' : 'A bounded, offline and reviewed OT evidence chain for industrial-assessment practitioners.'}</p>
+      <a class="mt-4 inline-block text-sm font-bold text-aqua hover:text-white" href={bookingUrl} target="_blank" rel="noreferrer">{fr ? 'Planifier une revue méthodologique' : 'Book a methodology review'} →</a>
     </div>
     <div class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/65 md:justify-end">
       <a class="hover:text-aqua" href={sitePath(base, lang, 'safety')}>{fr ? 'Sécurité' : 'Safety'}</a>
-      <a class="hover:text-aqua" href={sitePath(base, lang, 'pilot')}>{fr ? 'Pilote' : 'Pilot'}</a>
+      <a class="hover:text-aqua" href={sitePath(base, lang, 'pilot')}>{fr ? 'Évaluation' : 'Evaluation'}</a>
       <a class="hover:text-aqua" href={wiki}>Wiki</a>
       <a class="hover:text-aqua" href={`${repo}/blob/main/IMPLEMENTATION.md`}>{fr ? 'Implémentation' : 'Implementation'}</a>
       <a class="hover:text-aqua" href={repo}>GitHub</a>
     </div>
   </div>
-  <div class="border-t border-white/10 px-5 py-5 text-center text-xs text-white/42">{fr ? 'Prototype de recherche · Les capacités exécutables actuelles sont maintenues dans IMPLEMENTATION.md.' : 'Research prototype · Current executable capability is maintained in IMPLEMENTATION.md.'}</div>
+  <div class="border-t border-white/10 px-5 py-5 text-center text-xs text-white/42">{fr ? 'Prototype de recherche · Les capacités exécutables et les limites actuelles sont publiées dans IMPLEMENTATION.md.' : 'Research prototype · Current executable capability and limitations are published in IMPLEMENTATION.md.'}</div>
 </footer>
