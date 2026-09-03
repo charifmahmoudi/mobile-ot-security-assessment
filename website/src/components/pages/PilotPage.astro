@@ -1,83 +1,88 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { evaluationIssueUrl, repo, type Lang } from '../../lib/site';
+import { bookingUrl, repo, type Lang } from '../../lib/site';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const fr = lang === 'fr';
 const base = import.meta.env.BASE_URL;
-const issue = evaluationIssueUrl(lang);
 
 const copy = fr ? {
-  title: 'Évaluation client — Atlas OT Scout',
-  description: "Une évaluation Atlas commence par une question OT réelle, une zone bornée, des méthodes autorisées et un résultat qui peut changer une décision client.",
-  label: 'Évaluation client',
-  h1: 'Commencer par une seule question OT réelle.',
-  example: "Exemple : l'équipement de contrôle installé dans la zone de pompage A correspond-il à l'inventaire actuellement accepté par l'exploitation ?",
-  cta: 'Ouvrir une demande GitHub',
-  pathLabel: "Parcours d'évaluation",
-  pathTitle: "Une décision client, pas un essai technologique ouvert.",
+  title: 'Évaluation méthodologique — Atlas OT Scout',
+  description: "Évaluer Atlas sur une question de preuve OT bornée avant d'envisager un pilote appareil ou une intégration plus large.",
+  label: 'Évaluation méthodologique',
+  h1: 'Testez Atlas contre une exigence réelle de votre méthode.',
+  intro: "La première étape n'est pas un déploiement. C'est une revue privée du modèle de preuve, des contrôles, des limites et du workflow de QA autour d'un cas anonymisé.",
+  cta: 'Planifier la revue',
+  pathLabel: "Progression d'évaluation",
+  pathTitle: "Du challenge méthodologique à une décision d'évaluation bornée.",
   steps: [
-    ['01','Question','Quelle décision l’évaluation doit-elle éclairer ?'],
-    ['02','Périmètre','Quelle zone de procédé exacte est autorisée ?'],
-    ['03','Baseline','Quelle référence le client accepte-t-il aujourd’hui ?'],
-    ['04','Preuves','Quelles méthodes de collecte sont permises ?'],
-    ['05','Réconciliation','Qu’est-ce qui est corroboré, probable, en conflit ou non observé ?'],
-    ['06','Revue','Quelles conclusions sont acceptées et quelles limites restent ouvertes ?'],
-    ['07','Handoff','Quel résultat permet au client de décider de la suite ?'],
+    ['01','Question','Quelle affirmation ou décision OT doit être défendable ?'],
+    ['02','Méthode','Quelles preuves, rôles et gates votre méthode exige-t-elle ?'],
+    ['03','Exemple','Quel cas anonymisé ou synthétique permet de tester le fit ?'],
+    ['04','Revue','Où Atlas conserve-t-il — ou perd-il — le contexte nécessaire ?'],
+    ['05','Écart','Quels contrôles, exports ou intégrations restent manquants ?'],
+    ['06','Périmètre','Une évaluation appareil de 30 jours est-elle justifiée et sûre ?'],
+    ['07','Décision','Continuer, modifier, intégrer, construire soi-même ou arrêter ?'],
   ],
-  provides: 'Le client fournit',
-  providesItems: ['Une zone de site / procédé définie','La baseline d’actifs actuellement acceptée','Le contexte opérationnel et les responsables','Les sources de preuves ou l’accès de capture approuvés','Les autorisations, exclusions et conditions d’arrêt'],
-  unit: "Unité P0-WATER",
-  receives: 'Le client reçoit',
-  receivesTitle: 'Une réponse revue, avec les zones d’incertitude encore visibles.',
-  receivesItems: [
-    ['Baseline réconciliée','Ce que les preuves soutiennent maintenant.'],
-    ['Exceptions et questions ouvertes','Ce qui nécessite encore confirmation ou correction.'],
-    ['Constats liés aux preuves','Les conditions matérielles rattachées à leurs éléments justificatifs.'],
-    ['Limites de visibilité','Ce qui n’a pas été observé, testé ou suffisamment étayé.'],
-    ['Journal des opérations actives','Les vérifications d’identité explicitement autorisées, lorsqu’elles ont été utilisées.'],
-    ['Package d’évaluation revu','Les éléments de handoff lisibles par l’humain et la machine.'],
+  brings: 'Vous apportez',
+  bringsItems: ["Une question d'audit ou de réconciliation",'Les exigences de votre méthode ou QA','Un exemple anonymisé ou synthétique','Les contraintes de preuve et de conservation','Le critère qui permettrait de conclure au fit'],
+  reviewLabel: 'La revue examine',
+  reviewTitle: 'La preuve, la décision et les limites — séparément.',
+  reviewItems: [
+    ['Provenance','La source et le contexte nécessaires à la réutilisation de la preuve.'],
+    ['Identité','Les attributs qui soutiennent réellement une affirmation sur un actif.'],
+    ['Confiance et conflit','Les raisons pour lesquelles une correspondance reste probable ou non résolue.'],
+    ['Autorisation','La portée, les exclusions et les opérations réseau admises.'],
+    ['Revue','Le rôle et la décision de la personne qui accepte ou rejette la conclusion.'],
+    ['Handoff','Ce que votre rapport ou processus QA devra recevoir.'],
   ],
-  success: 'Critère de réussite',
-  successTitle: "Atlas produit-il une vue matériellement plus fiable de la zone OT que celle avec laquelle le client a commencé ?",
-  successBody: "La valeur n'est pas le nombre de paquets ou d'actifs découverts. Elle existe si les écarts deviennent plus clairs, les conclusions sont inspectables, les limites sont explicites et une décision réelle s'améliore.",
-  issueHint: "La demande GitHub est préremplie avec les éléments nécessaires pour qualifier le pilote. Ne publiez pas de données réseau confidentielles dans une issue publique.",
+  nextLabel: 'Étape suivante optionnelle',
+  nextTitle: "Une évaluation appareil gratuite de 30 jours, seulement si le fit mérite d'être mesuré.",
+  nextBody: "L'évaluation porte sur une question, une zone, des méthodes autorisées et des critères de réussite convenus. Elle peut être prolongée une fois jusqu'à 60 jours par accord mutuel. Elle ne crée ni abonnement automatique ni obligation de licence propriétaire.",
+  limitsTitle: 'Le prototype a des limites publiées.',
+  limitsBody: "L'application exécute aujourd'hui des parcours de preuve, de réconciliation et de revue vérifiés en CI. Le package final signé HTML/PDF/JSON/CSV, l'intégration complète du daemon sur téléphone et la qualification physique restent des travaux de release publiés dans IMPLEMENTATION.md.",
+  success: 'Décision utile',
+  successTitle: "Atlas améliore-t-il la défendabilité ou l'effort de revue de votre workflow ?",
+  successBody: "Le résultat doit identifier un gain mesurable, un fit insuffisant ou les changements exacts nécessaires. L'intérêt général pour la technologie n'est pas un critère de réussite.",
 } : {
-  title: 'Customer evaluation — Atlas OT Scout',
-  description: 'An Atlas evaluation starts with one real OT question, a bounded area, authorized methods, and an outcome that can change a customer decision.',
-  label: 'Customer evaluation',
-  h1: 'Start with one real OT question.',
-  example: 'Example: does the installed control equipment in Pumping Area A match the inventory currently accepted by operations?',
-  cta: 'Open a GitHub request',
-  pathLabel: 'Evaluation path',
-  pathTitle: 'A customer decision, not an open-ended technology trial.',
+  title: 'Methodology evaluation — Atlas OT Scout',
+  description: 'Evaluate Atlas against one bounded OT evidence question before considering a device pilot or broader integration.',
+  label: 'Methodology evaluation',
+  h1: 'Test Atlas against a real requirement in your method.',
+  intro: 'The first step is not a deployment. It is a private review of the evidence model, controls, limitations, and QA workflow around an anonymized case.',
+  cta: 'Book the review',
+  pathLabel: 'Evaluation progression',
+  pathTitle: 'From methodology challenge to a bounded evaluation decision.',
   steps: [
-    ['01','Question','What decision should the evaluation support?'],
-    ['02','Scope','Which exact process area is authorized?'],
-    ['03','Baseline','What reference does the customer accept today?'],
-    ['04','Evidence','Which collection methods are permitted?'],
-    ['05','Reconcile','What is corroborated, probable, conflicting or not observed?'],
-    ['06','Review','Which conclusions are accepted and which limitations remain open?'],
-    ['07','Handoff','What result enables the customer to decide what happens next?'],
+    ['01','Question','Which OT claim or decision must be defensible?'],
+    ['02','Method','Which evidence, roles, and gates does your method require?'],
+    ['03','Example','Which anonymized or synthetic case can test the fit?'],
+    ['04','Review','Where does Atlas preserve—or lose—necessary context?'],
+    ['05','Gap','Which controls, exports, or integrations are still missing?'],
+    ['06','Scope','Is a free 30-day device evaluation justified and safe?'],
+    ['07','Decision','Continue, modify, integrate, self-build, or stop?'],
   ],
-  provides: 'Customer provides',
-  providesItems: ['One defined site / process area','The currently accepted asset baseline','Operational context and responsible stakeholders','Approved evidence sources or capture access','Authorization, exclusions and stop conditions'],
-  unit: 'P0-WATER unit',
-  receives: 'Customer receives',
-  receivesTitle: 'A reviewed answer with uncertainty still visible.',
-  receivesItems: [
-    ['Reconciled baseline','What the evidence supports now.'],
-    ['Exceptions and open questions','What still needs confirmation or correction.'],
-    ['Evidence-linked findings','Material conditions tied to supporting evidence.'],
-    ['Visibility limitations','What was not observed, tested or adequately supported.'],
-    ['Active-operation ledger','Explicitly authorized identity checks, where used.'],
-    ['Reviewed assessment package','Human-readable and machine-readable handoff material.'],
+  brings: 'You bring',
+  bringsItems: ['One assessment or reconciliation question','Your methodology or QA requirements','An anonymized or synthetic example','Evidence and retention constraints','A criterion that would demonstrate fit'],
+  reviewLabel: 'The review examines',
+  reviewTitle: 'Evidence, decision, and limitations—separately.',
+  reviewItems: [
+    ['Provenance','The source and context required to reuse the evidence.'],
+    ['Identity','The attributes that genuinely support an asset claim.'],
+    ['Confidence and conflict','Why a match remains probable or unresolved.'],
+    ['Authorization','Admitted scope, exclusions, and network operations.'],
+    ['Review','The role and decision of the person accepting or rejecting the conclusion.'],
+    ['Handoff','What your reporting or QA process would need to receive.'],
   ],
-  success: 'Success criterion',
-  successTitle: 'Did Atlas produce a materially more trustworthy view of the bounded OT area than the customer started with?',
-  successBody: 'Value is not the number of packets or discovered assets. It exists when discrepancies become clearer, conclusions are inspectable, limitations are explicit, and a real decision improves.',
-  issueHint: 'The GitHub request is pre-filled with the information needed to qualify the pilot. Do not post confidential network data in a public issue.',
+  nextLabel: 'Optional next step',
+  nextTitle: 'A free 30-day device evaluation, only when the fit deserves measurement.',
+  nextBody: 'The evaluation covers one question, one area, authorized methods, and agreed success criteria. It may be extended once to a maximum of 60 days by mutual agreement. It creates no automatic subscription or proprietary licence obligation.',
+  limitsTitle: 'The prototype has published limitations.',
+  limitsBody: 'The application currently executes CI-verified evidence, reconciliation, and review paths. Signed final HTML/PDF/JSON/CSV packages, complete on-phone daemon integration, and physical qualification remain published release work in IMPLEMENTATION.md.',
+  success: 'Useful decision',
+  successTitle: 'Does Atlas improve the defensibility or review effort of your workflow?',
+  successBody: 'The outcome should identify a measurable gain, insufficient fit, or the exact changes required. General interest in the technology is not a success criterion.',
 };
 ---
 <SiteLayout title={copy.title} description={copy.description} lang={lang} page="pilot">
@@ -87,13 +92,12 @@ const copy = fr ? {
       <div>
         <p class="section-label">{copy.label}</p>
         <h1 class="mt-5 text-5xl font-black leading-[1.04] tracking-[-0.045em] text-navy sm:text-6xl">{copy.h1}</h1>
-        <p class="mt-6 max-w-2xl text-xl leading-9 text-muted">{copy.example}</p>
-        <a class="mt-8 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] hover:bg-navy" href={issue}>{copy.cta} →</a>
-        <p class="mt-4 max-w-xl text-xs leading-5 text-muted">{copy.issueHint}</p>
+        <p class="mt-6 max-w-2xl text-xl leading-9 text-muted">{copy.intro}</p>
+        <a class="mt-8 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white shadow-[0_8px_22px_rgba(36,87,214,.22)] hover:bg-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.cta} →</a>
       </div>
       <figure class="app-frame app-shadow overflow-hidden bg-white">
-        <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-handoff.jpg`} alt={fr ? 'Application Atlas OT Scout pendant le workflow de handoff enregistré' : 'Atlas OT Scout application during the recorded handoff workflow'} />
-        <figcaption class="flex items-center justify-between border-t border-border bg-white px-4 py-3 text-xs text-muted"><span>{fr ? 'Sortie réelle de l’émulateur' : 'Actual emulator output'}</span><span class="font-bold text-blue">{fr ? 'Revue → handoff' : 'Review → handoff'}</span></figcaption>
+        <img class="block aspect-video w-full object-cover" src={`${base}media/atlas-handoff.jpg`} alt={fr ? 'Application Atlas OT Scout pendant le workflow de revue enregistré' : 'Atlas OT Scout application during the recorded review workflow'} />
+        <figcaption class="flex items-center justify-between border-t border-border bg-white px-4 py-3 text-xs text-muted"><span>{fr ? 'Sortie réelle de l’émulateur' : 'Actual emulator output'}</span><span class="font-bold text-blue">{fr ? 'Preuve → revue' : 'Evidence → review'}</span></figcaption>
       </figure>
     </div>
   </section>
@@ -105,7 +109,7 @@ const copy = fr ? {
       <div class="mt-10 overflow-x-auto pb-2">
         <div class="grid min-w-[980px] grid-cols-7 items-stretch gap-2">
           {copy.steps.map(([n,title,body], i) => (
-            <div class={`app-frame relative bg-white p-4 ${i === 4 ? 'border-blue shadow-[inset_0_0_0_1px_#2457d6]' : ''}`}>
+            <div class={`app-frame relative bg-white p-4 ${i === 3 ? 'border-blue shadow-[inset_0_0_0_1px_#2457d6]' : ''}`}>
               <span class="text-xs font-black text-blue">{n}</span>
               <h3 class="mt-5 font-bold text-navy">{title}</h3>
               <p class="mt-2 text-xs leading-5 text-muted">{body}</p>
@@ -119,31 +123,31 @@ const copy = fr ? {
   <section class="bg-surface">
     <div class="mx-auto grid max-w-7xl gap-5 px-5 py-20 sm:px-8 lg:grid-cols-2">
       <div class="app-frame bg-white p-6 sm:p-7">
-        <p class="section-label">{copy.provides}</p>
+        <p class="section-label">{copy.brings}</p>
         <ul class="mt-6 divide-y divide-border">
-          {copy.providesItems.map((item,i) => <li class="flex gap-4 py-4 first:pt-0 last:pb-0"><span class="text-xs font-black text-blue">0{i + 1}</span><span class="font-semibold text-navy">{item}</span></li>)}
+          {copy.bringsItems.map((item,i) => <li class="flex gap-4 py-4 first:pt-0 last:pb-0"><span class="text-xs font-black text-blue">0{i + 1}</span><span class="font-semibold text-navy">{item}</span></li>)}
         </ul>
       </div>
-      <div class="app-frame overflow-hidden bg-navy text-white">
-        <div class="border-b border-white/10 px-6 py-5"><p class="text-xs font-black uppercase tracking-[.14em] text-aqua">{copy.unit}</p></div>
-        <div class="grid grid-cols-2">
-          {[
-            ['1',fr ? 'site / zone de procédé' : 'site / process area'],['1','L2 segment / VLAN'],['≤64',fr ? 'actifs importés' : 'imported asset records'],['≤256',fr ? 'endpoints observés' : 'observed endpoints'],['≤16',fr ? 'cibles actives autorisées' : 'allowlisted active targets'],['≤4h',fr ? 'collecte terrain' : 'field collection'],
-          ].map(([value,label],i) => <div class={`p-5 ${i % 2 === 0 ? 'border-r border-white/10' : ''} ${i < 4 ? 'border-b border-white/10' : ''}`}><strong class="text-3xl">{value}</strong><span class="mt-2 block text-sm text-white/52">{label}</span></div>)}
-        </div>
+      <div class="app-frame overflow-hidden bg-white">
+        <div class="border-b border-border px-6 py-5"><p class="section-label">{copy.reviewLabel}</p><h2 class="mt-3 text-2xl font-black text-navy">{copy.reviewTitle}</h2></div>
+        {copy.reviewItems.map(([title,body],i) => <div class={`grid gap-1 px-5 py-3.5 sm:grid-cols-[.72fr_1.28fr] sm:gap-5 ${i < copy.reviewItems.length - 1 ? 'border-b border-border' : ''}`}><strong class="text-sm text-navy">{title}</strong><span class="text-sm leading-6 text-muted">{body}</span></div>)}
       </div>
     </div>
   </section>
 
   <section class="border-y border-border bg-white">
-    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.72fr_1.28fr]">
+    <div class="mx-auto grid max-w-7xl gap-8 px-5 py-20 sm:px-8 lg:grid-cols-[1fr_.82fr] lg:items-start">
       <div>
-        <p class="section-label">{copy.receives}</p>
-        <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy">{copy.receivesTitle}</h2>
+        <p class="section-label">{copy.nextLabel}</p>
+        <h2 class="mt-3 text-4xl font-black tracking-[-0.035em] text-navy">{copy.nextTitle}</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">{copy.nextBody}</p>
+        <a class="mt-7 inline-block rounded-[11px] bg-blue px-5 py-3 text-sm font-bold text-white hover:bg-navy" href={bookingUrl} target="_blank" rel="noreferrer">{copy.cta} →</a>
       </div>
-      <div class="app-frame overflow-hidden bg-white">
-        {copy.receivesItems.map(([title,body],i) => <div class={`grid gap-1 px-5 py-4 sm:grid-cols-[.8fr_1.2fr] sm:gap-6 ${i < copy.receivesItems.length - 1 ? 'border-b border-border' : ''}`}><strong class="text-sm text-navy">{title}</strong><span class="text-sm leading-6 text-muted">{body}</span></div>)}
-      </div>
+      <aside class="app-frame bg-pale-amber p-6">
+        <h3 class="text-xl font-bold text-navy">{copy.limitsTitle}</h3>
+        <p class="mt-3 text-sm leading-6 text-muted">{copy.limitsBody}</p>
+        <a class="mt-5 inline-block text-sm font-bold text-blue hover:text-navy" href={`${repo}/blob/main/IMPLEMENTATION.md`}>{fr ? 'Lire la baseline exécutable' : 'Read the executable baseline'} ↗</a>
+      </aside>
     </div>
   </section>
 
@@ -155,14 +159,13 @@ const copy = fr ? {
         <p class="mt-5 max-w-3xl text-lg leading-8 text-muted">{copy.successBody}</p>
       </div>
       <div class="app-frame bg-white p-6">
-        <p class="text-sm font-bold text-navy">{fr ? 'Décision de fin de pilote' : 'End-of-pilot decision'}</p>
+        <p class="text-sm font-bold text-navy">{fr ? 'Décision issue de la revue' : 'Review decision'}</p>
         <div class="mt-4 grid gap-2 text-sm">
-          <span class="rounded-[9px] bg-pale-teal px-4 py-3 font-bold text-success">{fr ? 'Continuer' : 'Continue'}</span>
-          <span class="rounded-[9px] bg-pale-amber px-4 py-3 font-bold text-amber">{fr ? 'Modifier et retester' : 'Modify and retest'}</span>
-          <span class="rounded-[9px] bg-surface px-4 py-3 font-bold text-muted">{fr ? 'Étudier le fit déploiement / achat' : 'Investigate deployment / procurement fit'}</span>
-          <span class="rounded-[9px] bg-white px-4 py-3 font-bold text-danger ring-1 ring-danger/25">{fr ? 'Arrêter' : 'Stop'}</span>
+          <span class="rounded-[9px] bg-pale-teal px-4 py-3 font-bold text-success">{fr ? 'Tester sur un périmètre borné' : 'Test on a bounded scope'}</span>
+          <span class="rounded-[9px] bg-pale-amber px-4 py-3 font-bold text-amber">{fr ? 'Adapter puis re-challenger' : 'Adapt and challenge again'}</span>
+          <span class="rounded-[9px] bg-surface px-4 py-3 font-bold text-muted">{fr ? 'Construire / intégrer indépendamment' : 'Self-build / integrate independently'}</span>
+          <span class="rounded-[9px] bg-white px-4 py-3 font-bold text-danger ring-1 ring-danger/25">{fr ? 'Arrêter : fit insuffisant' : 'Stop: insufficient fit'}</span>
         </div>
-        <div class="mt-5 grid gap-2"><a class="rounded-[9px] bg-blue px-4 py-2.5 text-center text-sm font-bold text-white hover:bg-navy" href={issue}>{copy.cta}</a><a class="rounded-[9px] border border-border px-4 py-2.5 text-center text-sm font-bold text-navy hover:bg-surface" href={`${repo}/blob/main/docs/business-development/OFFER.md`}>{fr ? 'Cadre de l’offre' : 'Evaluation terms'} ↗</a></div>
       </div>
     </div>
   </section>
