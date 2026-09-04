@@ -48,7 +48,7 @@ jobs:
           lintDebug assembleDebug
       - name: Publish reports and APKs
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: android-static-results
           if-no-files-found: warn
@@ -93,7 +93,7 @@ jobs:
           script: bash tools/run_ui_e2e.sh
       - name: Publish emulator reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: emulator-api-${{ matrix.api-level }}
           if-no-files-found: warn
@@ -161,7 +161,7 @@ jobs:
           fi
       - name: Publish active E2E evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: active-e2e-${{ matrix.target }}
           if-no-files-found: warn
