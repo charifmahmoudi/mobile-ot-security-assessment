@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Compile documentation verifier
         run: python3 -m py_compile tools/verify_documentation.py
       - name: Verify documentation
