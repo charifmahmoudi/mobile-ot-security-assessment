@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private Atlas evaluation
+    url: https://calendar.app.google/jYG6MXGrGHncnjAUA
+    about: Discuss a customer, site or operational context without publishing sensitive details.
+  - name: Security vulnerability
+    url: https://github.com/charifmahmoudi/mobile-ot-security-assessment/security/advisories/new
+    about: Report a vulnerability privately. Do not open a public issue.
+  - name: Operator and evaluation guide
+    url: https://github.com/charifmahmoudi/mobile-ot-security-assessment/wiki
+    about: Review the assessment workflow, boundaries and pilot expectations first.

@@ -2,7 +2,7 @@
 name: Research claim
 about: Add or correct an evidence-backed market, account, vendor or protocol claim
 title: "research: "
-labels: research
+labels: "type: research"
 ---
 
 ## Claim and scope

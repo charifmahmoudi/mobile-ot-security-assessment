@@ -88,3 +88,9 @@ Device and emulator acceptance paths are defined by [.github/workflows/android-c
 - [Contributing](CONTRIBUTING.md)
 - [Governance](GOVERNANCE.md)
 - [Security policy](SECURITY.md)
+- [Support and private contact routes](SUPPORT.md)
+- [Release policy](RELEASING.md)
+
+## License and contribution status
+
+No software license or contributor agreement has been selected. The source is publicly viewable, but publication alone does not grant permission to use, modify or redistribute it. External implementation contributions remain paused until a `LICENSE` file and contribution terms are established.

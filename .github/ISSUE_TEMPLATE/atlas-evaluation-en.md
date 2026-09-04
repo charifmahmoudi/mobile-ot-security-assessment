@@ -8,11 +8,11 @@ assignees: ''
 
 ## Organization and site
 
-Organization:
+Do not publish customer names, site names, contacts, addresses, network identifiers, packet data or other sensitive operational information in this public issue. Share those details only during a [private evaluation call](https://calendar.app.google/jYG6MXGrGHncnjAUA).
 
-Site / process area:
+Sector: drinking water / wastewater / other
 
-Contact:
+Process area, described generically:
 
 ## Question to answer
 

@@ -2,7 +2,7 @@
 name: Design proposal
 about: Propose an architecture, UX, data or safety decision
 title: "design: "
-labels: design
+labels: "type: design"
 ---
 
 ## Problem

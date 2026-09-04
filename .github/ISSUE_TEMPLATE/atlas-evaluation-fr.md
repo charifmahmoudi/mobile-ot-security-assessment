@@ -8,11 +8,11 @@ assignees: ''
 
 ## Organisation et site
 
-Organisation :
+Ne publiez pas dans cette issue publique de nom de client, de site, de contact, d'adresse, d'identifiant réseau, de capture réseau ou d'autre information opérationnelle sensible. Partagez ces éléments uniquement pendant un [échange d'évaluation privé](https://calendar.app.google/jYG6MXGrGHncnjAUA).
 
-Site / zone de procédé :
+Secteur : eau potable / assainissement / autre
 
-Contact :
+Zone de procédé, décrite de manière générique :
 
 ## Question à résoudre
 
