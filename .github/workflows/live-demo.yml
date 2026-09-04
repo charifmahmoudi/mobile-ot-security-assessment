@@ -132,7 +132,7 @@ jobs:
             -frames:v 1 \
             docs/user-guide/screenshots/09-active-pymodbus-api35.png
           test -s docs/user-guide/screenshots/09-active-pymodbus-api35.png
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22"
       - name: Build guided prospect deck and PDF
