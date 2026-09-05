@@ -1,0 +1,18 @@
+{
+  "fixture_version": 1,
+  "case_id": "GOLDEN-WATER-001",
+  "case_number": "ATLAS-PILOT-001",
+  "assessment_pack": "P0-WATER",
+  "customer": "North River Water Utility",
+  "site": "North River Treatment Plant",
+  "process_area": "Raw-water intake pumping control segment",
+  "question": "Does the installed pumping-control equipment match the approved maintenance baseline?",
+  "requested_decision": "Approve tomorrow's maintenance scope or resolve named inventory exceptions first",
+  "scope_cidrs": ["10.0.2.2/32"],
+  "excluded_addresses": ["10.0.2.15"],
+  "approved_methods": ["H3_OFFLINE_IMPORT", "H1_EXACT_ACTIVE_IDENTITY"],
+  "allowlisted_modbus_target": {"ipv4": "10.0.2.2", "port": 502, "unit_id": 1, "operation": "MODBUS_DEVICE_ID_BASIC"},
+  "stop_conditions": ["PROCESS_ALARM", "NETWORK_INSTABILITY", "APPROVER_REQUEST", "MANUAL_STOP"],
+  "data_policy": {"classification": "customer-confidential", "retain_payloads": false, "include_raw_captures_in_export": false, "retention_days": 30},
+  "expected_outcomes": {"confirmed": 2, "probable": 1, "not_observed": 1, "unexpected": 1, "report_blockers": 2}
+}

@@ -27,6 +27,12 @@ The mobile parser now accepts classic PCAP and PCAPNG. CI converts the pinned Mo
 
 An emulator passing is evidence of protocol interoperability, not evidence that every physical PLC behaves identically. Hardware validation remains a separate release gate.
 
+## Golden Customer Assessment endpoint
+
+`testdata/golden-customer-assessment/` is the immutable pilot integration fixture. `tools/golden_ot_emulator.py` exposes only the Modbus basic device-identification response named by that case. The API 29/35 harness starts it before installing the real applications, verifies routing from the Android emulator, and retains its readiness/request log even though issue #6 does not require the case-persistence scenario to transmit a packet.
+
+The same fixture also carries the customer-declared inventory seed, deterministic passive observations and expected reconciliation/report blockers. Later pilot tests extend these inputs; they must not replace them with developer-local state or an external mutable service.
+
 ## Exact end-to-end boundary
 
 The live CI journey is `authorization UI → Android Keystore signature → Binder → broker policy → Android Network binding → TCP/502 → emulator → raw response pipe → identity/service classification → result UI`. It does not bypass the application with a host-side scanner. Passive CI is `content URI → bounded parser → protocol/asset evidence → analyst review UI` and performs no network operation.

@@ -7,6 +7,9 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import com.atlasot.domain.AssessmentCase
+import com.atlasot.domain.ActorId
+import com.atlasot.domain.ActorRef
+import com.atlasot.domain.ActorRole
 import com.atlasot.domain.CaseCodec
 import com.atlasot.domain.CaseId
 import com.atlasot.domain.CaseIntegrityException
@@ -122,6 +125,75 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
         }
     }
 
+    fun saveNewCase(case: AssessmentCase, participants: ProfessionalCaseParticipants) {
+        val payload = CaseCodec.encode(case)
+        val payloadHash = CaseCodec.payloadHash(payload)
+        withDatabase { db ->
+            db.beginTransaction()
+            try {
+                if (currentVersion(db, case.id) != null) {
+                    throw CaseIntegrityException("professional case identity already exists")
+                }
+                try {
+                    db.execSQL(
+                        "INSERT INTO professional_cases " +
+                            "(id, case_number, revision, state, version, created_at, payload, payload_sha256) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                        arrayOf<Any>(
+                            case.id.value, case.caseNumber, case.revision, case.state.name, case.version,
+                            case.createdAt.toString(), payload, payloadHash,
+                        ),
+                    )
+                    saveParticipants(db, case.id, participants)
+                } catch (error: SQLiteConstraintException) {
+                    throw CaseIntegrityException("professional case identity or revision already exists", error)
+                }
+                db.setTransactionSuccessful()
+            } finally {
+                db.endTransaction()
+            }
+        }
+    }
+
+    fun saveParticipants(caseId: CaseId, participants: ProfessionalCaseParticipants) {
+        withDatabase { db -> saveParticipants(db, caseId, participants) }
+    }
+
+    private fun saveParticipants(db: SQLiteDatabase, caseId: CaseId, participants: ProfessionalCaseParticipants) {
+        db.execSQL(
+            "INSERT OR REPLACE INTO professional_case_participants " +
+                "(case_id, assessor_id, assessor_name, operational_id, operational_name, security_id, security_name, reviewer_id, reviewer_name) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            arrayOf<Any>(
+                caseId.value,
+                participants.assessor.id.value,
+                participants.assessor.displayName,
+                participants.operationalApprover.id.value,
+                participants.operationalApprover.displayName,
+                participants.securityApprover.id.value,
+                participants.securityApprover.displayName,
+                participants.independentReviewer.id.value,
+                participants.independentReviewer.displayName,
+            ),
+        )
+    }
+
+    fun loadParticipants(caseId: CaseId): ProfessionalCaseParticipants? = withDatabase { db ->
+        db.rawQuery(
+            "SELECT assessor_id, assessor_name, operational_id, operational_name, security_id, security_name, reviewer_id, reviewer_name " +
+                "FROM professional_case_participants WHERE case_id = ?",
+            arrayOf(caseId.value),
+        ).use { cursor ->
+            if (!cursor.moveToFirst()) return@withDatabase null
+            ProfessionalCaseParticipants(
+                ActorRef(ActorId(cursor.getString(0)), cursor.getString(1), ActorRole.ASSESSOR),
+                ActorRef(ActorId(cursor.getString(2)), cursor.getString(3), ActorRole.OPERATIONAL_APPROVER),
+                ActorRef(ActorId(cursor.getString(4)), cursor.getString(5), ActorRole.SECURITY_APPROVER),
+                ActorRef(ActorId(cursor.getString(6)), cursor.getString(7), ActorRole.REVIEWER),
+            )
+        }
+    }
+
     /** Performs SQLCipher page-HMAC verification plus SQLite logical integrity verification. */
     fun verifyIntegrity() {
         withDatabase { db ->
@@ -194,6 +266,17 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
                             "UNIQUE(case_number, revision))"
                     )
                     db.execSQL("CREATE INDEX idx_professional_cases_state ON professional_cases(state)")
+                    createParticipantsTable(db)
+                    db.version = SCHEMA_VERSION
+                    db.setTransactionSuccessful()
+                } finally {
+                    db.endTransaction()
+                }
+            }
+            1 -> {
+                db.beginTransaction()
+                try {
+                    createParticipantsTable(db)
                     db.version = SCHEMA_VERSION
                     db.setTransactionSuccessful()
                 } finally {
@@ -205,9 +288,20 @@ class SqlCipherCaseRepository(context: Context) : CaseRepository {
         }
     }
 
+    private fun createParticipantsTable(db: SQLiteDatabase) {
+        db.execSQL(
+            "CREATE TABLE professional_case_participants (" +
+                "case_id TEXT PRIMARY KEY NOT NULL REFERENCES professional_cases(id) ON DELETE CASCADE, " +
+                "assessor_id TEXT NOT NULL, assessor_name TEXT NOT NULL, " +
+                "operational_id TEXT NOT NULL, operational_name TEXT NOT NULL, " +
+                "security_id TEXT NOT NULL, security_name TEXT NOT NULL, " +
+                "reviewer_id TEXT NOT NULL, reviewer_name TEXT NOT NULL)"
+        )
+    }
+
     companion object {
         const val DATABASE_NAME = "atlas-professional-v1.db"
-        private const val SCHEMA_VERSION = 1
+        private const val SCHEMA_VERSION = 2
     }
 }
 

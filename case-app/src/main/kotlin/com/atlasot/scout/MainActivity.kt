@@ -32,6 +32,7 @@ class MainActivity : Activity() {
 
     private val worker = Executors.newSingleThreadExecutor()
     private lateinit var repository: SiteRepository
+    private lateinit var professionalCases: ProfessionalCaseApplication
     private lateinit var content: LinearLayout
     private var site: SiteProfile? = null
     private var brokerConnection: ServiceConnection? = null
@@ -49,6 +50,7 @@ class MainActivity : Activity() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
         repository = SiteRepository(this)
+        professionalCases = ProfessionalCaseApplication(SqlCipherCaseRepository(this))
         window.statusBarColor = SURFACE
         window.navigationBarColor = SURFACE
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -195,6 +197,20 @@ class MainActivity : Activity() {
             content.addView(siteCard(item).apply { if (index == 0) id = SITE_CARD_ID })
         }
         content.addView(button("Create a new site", NEW_SITE_ACTION_ID, false, ::renderNewSite))
+        content.addView(section("Professional cases", "Scope, authority and decisions are stored in the encrypted case record."))
+        professionalCases.list().forEach { summary ->
+            content.addView(card(
+                "${summary.caseNumber} · revision ${summary.revision}",
+                "${summary.state.name.replace('_', ' ')}\nResume the durable professional workspace",
+                accent = if (summary.state == CaseState.AUTHORIZED || summary.state == CaseState.COLLECTING) TEAL else BLUE,
+            ).apply {
+                setOnClickListener { renderProfessionalCase(summary.id) }
+                if (summary.id.value == GoldenCustomerAssessment.CASE_ID) id = PROFESSIONAL_CASE_CARD_ID
+            })
+        }
+        if (professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) == null) {
+            content.addView(button("Prepare Golden Customer Assessment", PROFESSIONAL_CASE_ACTION_ID, false, ::renderGoldenCasePreparation))
+        }
         content.addView(section("What the assessment produces", "The product is valuable when it supports a decision—not when it merely counts devices."))
         content.addView(card("CONTROLLED HANDOFF",
             "• Evidence-backed inventory changes\n• Unknown and conflicting identities to resolve\n• Communication observations with stated limitations\n• Explicit readiness blockers before report issue", accent = BLUE))
@@ -202,6 +218,138 @@ class MainActivity : Activity() {
             id = STATUS_VIEW_ID; gravity = Gravity.CENTER; setPadding(0, dp(20), 0, 0)
         })
     }
+
+    private fun renderGoldenCasePreparation() {
+        val now = Instant.now()
+        val fixture = GoldenCustomerAssessment.input(now)
+        page("Professional case · prepare", fixture.caseNumber, "Review the bounded assessment before requesting approval", ::renderSiteSelection)
+        content.addView(banner("GOLDEN CUSTOMER ASSESSMENT", "Deterministic water-treatment pilot fixture · no packet is sent during preparation"))
+        content.addView(section("Operational context", "Evidence remains bound to this legal entity, site and process area."))
+        content.addView(keyValue("Customer", fixture.legalEntity))
+        content.addView(keyValue("Site", fixture.site))
+        content.addView(keyValue("Process area", fixture.processArea))
+        content.addView(section("Decision", "Collection exists to answer a named operational question."))
+        content.addView(card("ASSESSMENT QUESTION", fixture.question + "\n\nRequested outcome\n" + fixture.requestedDecision, accent = BLUE))
+        content.addView(section("Exact authority requested", "The active boundary is one /32 target; Atlas cannot broaden it."))
+        content.addView(keyValue("Scope", fixture.scopeCidrs.joinToString()))
+        content.addView(keyValue("Exclusion", fixture.excludedAddresses.joinToString()))
+        content.addView(keyValue("Methods", "H3 offline import · H1 Modbus 43/14 basic identity"))
+        content.addView(keyValue("Window", "Four hours from approval"))
+        content.addView(keyValue("Stop", "Process alarm · instability · approver request · manual stop"))
+        content.addView(section("Data policy", "Policy changes require a new matching authorization fingerprint."))
+        content.addView(keyValue("Classification", fixture.classification))
+        content.addView(keyValue("Raw capture export", "Not permitted"))
+        content.addView(keyValue("Retention", "30 days"))
+        content.addView(keyValue("Destination", fixture.exportDestination.orEmpty()))
+        content.addView(section("Named professional roles", "Each action retains the role used, even if customer policy permits one person to hold more than one role."))
+        content.addView(keyValue("Assessor", fixture.participants.assessor.displayName))
+        content.addView(keyValue("Operational approver", fixture.participants.operationalApprover.displayName))
+        content.addView(keyValue("Security approver", fixture.participants.securityApprover.displayName))
+        content.addView(keyValue("Independent reviewer", fixture.participants.independentReviewer.displayName))
+        val error = txt("", 13f, DANGER).apply { id = PROFESSIONAL_CASE_ERROR_ID }
+        content.addView(error)
+        content.addView(button("Create case and request approval", CREATE_PROFESSIONAL_CASE_ID) {
+            runCatching { professionalCases.createPrepared(fixture, now) }
+                .onSuccess { renderProfessionalCase(it.id) }
+                .onFailure { error.text = it.message ?: "Unable to create the professional case." }
+        })
+    }
+
+    private fun renderProfessionalCase(caseId: CaseId) {
+        val professionalCase = requireNotNull(professionalCases.load(caseId))
+        val participants = requireNotNull(professionalCases.participants(caseId))
+        page(
+            "Professional case · revision ${professionalCase.revision}",
+            professionalCase.caseNumber,
+            professionalCase.state.name.replace('_', ' '),
+            ::renderSiteSelection,
+        )
+        content.addView(banner(
+            "CURRENT SCOPE AND AUTHORITY",
+            "${professionalCase.context.legalEntity} · ${professionalCase.context.site}\n${professionalCase.context.processArea}",
+            PROFESSIONAL_CASE_STATUS_ID,
+        ))
+        content.addView(keyValue("Assessment pack", professionalCase.context.assessmentPack))
+        content.addView(section("Assessment purpose", professionalCase.objective.question))
+        content.addView(card("REQUESTED DECISION", professionalCase.objective.requestedDecision, accent = BLUE))
+        content.addView(section("Boundaries", "These values are part of the authorization fingerprint."))
+        content.addView(keyValue("Active scope", professionalCase.scope.cidrs.joinToString(transform = ::cidrToText)))
+        content.addView(keyValue("Excluded", professionalCase.scope.excludedAddresses.joinToString { addressToText(it) }))
+        content.addView(keyValue("Methods", professionalCase.scope.evidenceMethods.sortedBy { it.name }.joinToString { it.name }))
+        content.addView(keyValue("Stop conditions", professionalCase.stopConditions.sortedBy { it.name }.joinToString { it.name }))
+        content.addView(keyValue("Data policy", professionalCase.dataPolicy.classification))
+        content.addView(keyValue("Raw export", if (professionalCase.dataPolicy.includeRawCapturesInExport) "Permitted" else "Not permitted"))
+        content.addView(keyValue("Export destination", professionalCase.dataPolicy.exportDestination ?: "No export destination"))
+        content.addView(keyValue("Delete after", professionalCase.dataPolicy.deleteAfter?.toString() ?: "No automatic deletion date"))
+        content.addView(keyValue("Authorization window", professionalCase.authorization?.let { "${it.validFrom} — ${it.validUntil}" } ?: "Pending approval"))
+        content.addView(section("Professional roles", "Approval identities are recorded in the professional aggregate; the planned reviewer stays in encrypted case metadata."))
+        content.addView(keyValue("Assessor", participants.assessor.displayName))
+        content.addView(keyValue("Operational approver", participants.operationalApprover.displayName))
+        content.addView(keyValue("Security approver", participants.securityApprover.displayName))
+        content.addView(keyValue("Independent reviewer", participants.independentReviewer.displayName))
+
+        when (professionalCase.state) {
+            CaseState.AWAITING_AUTHORIZATION -> renderCaseAuthorizationControls(professionalCase)
+            CaseState.AUTHORIZED -> {
+                content.addView(banner("AUTHORIZED", "Both required approvals match scope ${professionalCase.scopeHash.value.take(12)}… and data policy ${professionalCase.dataPolicyHash.value.take(12)}…"))
+                content.addView(button("Start protected collection", START_PROFESSIONAL_COLLECTION_ID) {
+                    runCatching { professionalCases.startCollection(caseId, Instant.now()) }
+                        .onSuccess { renderProfessionalCase(caseId) }
+                        .onFailure { renderProfessionalCaseFailure(caseId, it) }
+                })
+            }
+            CaseState.COLLECTING -> content.addView(banner("PROTECTED COLLECTION AVAILABLE", "The Case App will still ask the domain operation guard before issuing any signed broker grant."))
+            else -> content.addView(banner("COLLECTION UNAVAILABLE", "The professional lifecycle is ${professionalCase.state.name.replace('_', ' ')}."))
+        }
+        content.addView(section("Audit trail", "Integrity-verified lifecycle actions restored from encrypted persistence."))
+        professionalCase.auditTrail.events.takeLast(8).forEach { event ->
+            content.addView(keyValue("#${event.sequence} ${event.type.name}", "${event.actor.displayName} · ${event.actor.role.name}"))
+        }
+    }
+
+    private fun renderCaseAuthorizationControls(professionalCase: AssessmentCase) {
+        content.addView(section("Required approvals", "Protected collection remains unavailable until both actions are recorded."))
+        val operations = CheckBox(this).apply {
+            id = OPERATIONAL_APPROVAL_ID
+            text = "Operational approval · process window and stop authority"
+            setTextColor(NAVY)
+        }
+        val security = CheckBox(this).apply {
+            id = SECURITY_APPROVAL_ID
+            text = "Security approval · target, method, retention and export"
+            setTextColor(NAVY)
+        }
+        content.addView(operations)
+        content.addView(security)
+        val error = txt("", 13f, DANGER).apply { id = PROFESSIONAL_CASE_ERROR_ID }
+        content.addView(error)
+        content.addView(button("Record approvals", RECORD_APPROVALS_ID) {
+            val now = Instant.now()
+            runCatching {
+                val proposal = professionalCases.proposeAuthorization(
+                    professionalCase.id,
+                    operations.isChecked,
+                    security.isChecked,
+                    now.minusSeconds(1),
+                    now.plusSeconds(4 * 3600),
+                    "${professionalCase.caseNumber}|${professionalCase.scopeHash}|${professionalCase.dataPolicyHash}|${now.epochSecond}",
+                    now,
+                )
+                professionalCases.authorize(professionalCase.id, proposal, now.plusMillis(1))
+            }.onSuccess { renderProfessionalCase(professionalCase.id) }
+                .onFailure { error.text = it.message ?: "Both approvals are required." }
+        })
+    }
+
+    private fun renderProfessionalCaseFailure(caseId: CaseId, error: Throwable) {
+        page("Professional case", "Protected action blocked", "The domain guard failed closed", { renderProfessionalCase(caseId) })
+        content.addView(card("ACTION REQUIRED", error.message ?: error.javaClass.simpleName, accent = DANGER))
+    }
+
+    private fun addressToText(address: Int): String = listOf(24, 16, 8, 0)
+        .joinToString(".") { ((address ushr it) and 0xff).toString() }
+
+    private fun cidrToText(cidr: IPv4Cidr): String = "${addressToText(cidr.network)}/${cidr.prefix}"
 
     private fun renderNewSite() {
         siteDraft = SiteDraft()
@@ -442,38 +590,46 @@ class MainActivity : Activity() {
     private fun renderAssessmentSetup() {
         val current = requireNotNull(site)
         page("Authorized active check", "Identify one Modbus device", current.name, ::renderScanMenu)
+        val collectingSummary = professionalCases.list().firstOrNull { it.state == CaseState.COLLECTING }
+        if (collectingSummary == null) {
+            content.addView(card(
+                "PROFESSIONAL AUTHORITY REQUIRED",
+                "A confirmation checkbox cannot authorize network activity. Create the professional case, record both approvals, and start its protected collection window first. No register reads or writes are available.",
+                ACTIVE_LIMITS_ID,
+                AMBER,
+            ))
+            content.addView(button("Open professional cases", PROFESSIONAL_CASE_ACTION_ID, false, ::renderSiteSelection))
+            return
+        }
+        val collectingCase = requireNotNull(professionalCases.load(collectingSummary.id))
         content.addView(step("1", "Work order"))
-        val caseId = field("Case reference", "Work order or assessment ID", CASE_FIELD_ID, "P0-WATER-001")
-        val area = field("Process area", "Area inside the selected site", SITE_FIELD_ID, current.location.substringBefore('·').trim())
+        val caseId = field("Case reference", "Professional case", CASE_FIELD_ID, collectingCase.id.value).apply { isEnabled = false }
+        field("Process area", "Bound professional context", SITE_FIELD_ID, collectingCase.context.processArea).apply { isEnabled = false }
         content.addView(step("2", "Exact target and scope"))
-        val target = field("Target controller IPv4", "Canonical IPv4 address", TARGET_FIELD_ID, "10.0.2.2")
-        val scope = field("Authorized IPv4 scope (CIDR)", "Written allowlist", SCOPE_FIELD_ID, "10.0.2.0/24")
+        val allowedCidrs = collectingCase.scope.cidrs
+            .sortedWith(compareBy<IPv4Cidr> { it.network }.thenBy { it.prefix })
+            .map(::cidrToText)
+        val defaultTarget = collectingCase.scope.cidrs
+            .firstOrNull { it.prefix == 32 }
+            ?.let { addressToText(it.network) }
+            .orEmpty()
+        val target = field("Target controller IPv4", "Canonical IPv4 address", TARGET_FIELD_ID, defaultTarget)
+        field("Authorized IPv4 scope (CIDR)", "Professional case allowlist", SCOPE_FIELD_ID, allowedCidrs.joinToString()).apply { isEnabled = false }
         val unit = field("Modbus unit ID", "0–247", UNIT_FIELD_ID, "1")
         content.addView(banner("ACTIVE LIMITS", "1 identity request  ·  TCP/502  ·  1.5 s timeout  ·  no register reads or writes", ACTIVE_LIMITS_ID))
-        content.addView(step("3", "Authorization"))
-        val approval = CheckBox(this).apply {
-            text = "I confirm written operational and security authorization for this target, scope and time window."
-            id = AUTHORIZATION_CHECK_ID; textSize = 15f; setTextColor(NAVY)
-            buttonTintList = android.content.res.ColorStateList.valueOf(TEAL); setPadding(0, dp(8), 0, dp(10))
-        }
-        content.addView(approval)
+        content.addView(step("3", "Domain authorization"))
+        content.addView(banner("AUTHORIZED CASE", "${collectingCase.caseNumber} · ${collectingCase.authorization?.id}\nScope and data-policy fingerprints verified after encrypted restore."))
         val error = txt("", 13f, DANGER).apply { id = VALIDATION_MESSAGE_ID }
         content.addView(error)
-        val start = button("Authorize and identify", ACTIVE_ACTION_ID) {
+        val start = button("Identify within case authority", ACTIVE_ACTION_ID) {
             val unitId = unit.text.toString().toIntOrNull()
             val valid = runCatching {
-                require(caseId.text.isNotBlank()) { "Enter the work-order or case reference." }
-                require(area.text.isNotBlank()) { "Enter the process area." }
                 require(unitId != null && unitId in 0..247) { "Use a Modbus unit ID from 0 to 247." }
-                val targetAddress = IPv4Cidr.parseAddress(target.text.toString())
-                require(IPv4Cidr.parse(scope.text.toString()).contains(targetAddress)) {
-                    "Target is outside the authorized CIDR. The app will not expand the scope."
-                }
+                professionalCases.assertOperationAllowed(collectingCase.id, target.text.toString(), Instant.now())
             }
             if (valid.isFailure) error.text = valid.exceptionOrNull()?.message ?: "Review the fields."
-            else runActiveDiscovery(caseId.text.toString(), area.text.toString(), target.text.toString(), scope.text.toString(), unitId!!)
-        }.apply { isEnabled = false; alpha = .45f }
-        approval.setOnCheckedChangeListener { _, checked -> start.isEnabled = checked; start.alpha = if (checked) 1f else .45f }
+            else runActiveDiscovery(caseId.text.toString(), target.text.toString(), unitId!!)
+        }
         content.addView(start)
     }
 
@@ -797,12 +953,12 @@ class MainActivity : Activity() {
         content.addView(button("Collect more evidence", primary = false, action = ::renderScanMenu))
     }
 
-    fun runActiveDiscovery(caseId: String, area: String, target: String, scope: String, unitId: Int) {
+    fun runActiveDiscovery(caseId: String, target: String, unitId: Int) {
         page("Authorized active check", "Contacting " + target, "One constrained request · no reads or writes", ::renderAssessmentSetup)
         content.addView(card("SIGNED GRANT ACCEPTED", "Waiting for the isolated Network Broker on TCP/502…", ACTIVE_RESULT_ID, BLUE))
         val connection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-                worker.execute { executeGrant(IAtlasNetworkBroker.Stub.asInterface(service), caseId, area, target, scope, unitId) }
+                worker.execute { executeGrant(IAtlasNetworkBroker.Stub.asInterface(service), caseId, target, unitId) }
             }
             override fun onServiceDisconnected(name: ComponentName?) {
                 runOnUiThread { renderFailure("Network Broker disconnected", "No additional packet was sent.") }
@@ -813,8 +969,9 @@ class MainActivity : Activity() {
             renderFailure("Network Broker unavailable", "Install the matching signed broker before active assessment.")
     }
 
-    private fun executeGrant(broker: IAtlasNetworkBroker, caseId: String, area: String, target: String, scope: String, unitId: Int) {
+    private fun executeGrant(broker: IAtlasNetworkBroker, caseId: String, target: String, unitId: Int) {
         runCatching {
+            val professionalCase = professionalCases.assertOperationAllowed(CaseId(caseId), target, Instant.now())
             val interfaces = broker.inspectInterfaces(byteArrayOf()).toString(Charsets.UTF_8)
             val matches = Regex("""\{"handle":(\d+),"ethernet":(true|false),"wifi":(true|false)\}""").findAll(interfaces).toList()
             val selected = matches.firstOrNull { it.groupValues[2] == "true" } ?: matches.firstOrNull()
@@ -824,8 +981,12 @@ class MainActivity : Activity() {
             val key = grantKeyPair()
             require(broker.provisionGrantKey(key.public.encoded).toString(Charsets.UTF_8) == "PROVISIONED")
             val now = Instant.now()
-            val grant = ExecutionGrant(UUID.randomUUID().toString(), caseId, sha256(caseId + "|" + area + "|" + scope + "|" + target + "|" + unitId),
-                Operation.MODBUS_DEVICE_ID_BASIC, selected.groupValues[1].toLong(), target, 502, unitId, setOf(scope), emptySet(),
+            professionalCase.assertOperationAllowed(Operation.MODBUS_DEVICE_ID_BASIC, IPv4Cidr.parseAddress(target), now)
+            val authorizationHash = requireNotNull(professionalCase.authorizationHash) { "professional case authorization is missing" }
+            val exclusions = professionalCase.scope.excludedAddresses.mapTo(linkedSetOf(), ::addressToText)
+            val allowedCidrs = professionalCase.scope.cidrs.mapTo(linkedSetOf(), ::cidrToText)
+            val grant = ExecutionGrant(UUID.randomUUID().toString(), caseId, authorizationHash,
+                Operation.MODBUS_DEVICE_ID_BASIC, selected.groupValues[1].toLong(), target, 502, unitId, allowedCidrs, exclusions,
                 2, 512, 0, 1500, 1, now, now.plusSeconds(30), UUID.randomUUID().toString())
             val payload = ExecutionGrantWire.encode(grant)
             val pipe = ParcelFileDescriptor.createPipe()
@@ -1007,9 +1168,6 @@ class MainActivity : Activity() {
             generateKeyPair()
         }
     }
-    private fun sha256(value: String) = MessageDigest.getInstance("SHA-256").digest(value.toByteArray())
-        .joinToString("") { "%02x".format(it.toInt() and 0xff) }
-
     companion object {
         const val STATUS_VIEW_ID = 0x41544C41
         const val SCREEN_TITLE_ID = 0x41544C42
@@ -1056,6 +1214,15 @@ class MainActivity : Activity() {
         const val REPORT_NAV_ID = 0x41544C6B
         const val CONTINUE_SETUP_ID = 0x41544C6C
         const val VENDORS_CONTINUE_ID = 0x41544C6D
+        const val PROFESSIONAL_CASE_ACTION_ID = 0x41544C6E
+        const val CREATE_PROFESSIONAL_CASE_ID = 0x41544C6F
+        const val PROFESSIONAL_CASE_CARD_ID = 0x41544C70
+        const val PROFESSIONAL_CASE_STATUS_ID = 0x41544C71
+        const val OPERATIONAL_APPROVAL_ID = 0x41544C72
+        const val SECURITY_APPROVAL_ID = 0x41544C73
+        const val RECORD_APPROVALS_ID = 0x41544C74
+        const val START_PROFESSIONAL_COLLECTION_ID = 0x41544C75
+        const val PROFESSIONAL_CASE_ERROR_ID = 0x41544C76
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")

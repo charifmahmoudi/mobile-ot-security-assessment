@@ -33,6 +33,8 @@ jobs:
         run: python3 tools/verify_architecture.py
       - name: Verify documentation structure
         run: python3 tools/verify_documentation.py
+      - name: Verify Golden Customer Assessment fixture
+        run: python3 tools/verify_golden_fixture.py
       - name: Exercise AF_PACKET capture daemon on a virtual SPAN link
         run: bash tools/test_capture_daemon.sh
       - name: Unit tests, lint, and debug APKs
@@ -90,7 +92,7 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: bash tools/run_ui_e2e.sh
+          script: bash tools/run_pilot_case_e2e.sh && bash tools/run_ui_e2e.sh
       - name: Publish emulator reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -101,6 +103,8 @@ jobs:
             **/build/reports/androidTests/**
             **/build/outputs/androidTest-results/**
             build/emulator-screenshots/**/*.png
+            build/pilot-e2e/**
+            testdata/golden-customer-assessment/**
 
   active-testbed:
     name: Active E2E • ${{ matrix.target }}

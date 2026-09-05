@@ -1,0 +1,14 @@
+{
+  "fixture_version": 1,
+  "reconciliation": [
+    {"asset_tag": "PLC-RWI-01", "outcome": "confirmed", "required_evidence": ["approved_inventory", "modbus_device_identity"]},
+    {"asset_tag": "HMI-RWI-01", "outcome": "probable", "required_evidence": ["approved_inventory", "passive_peer_observation"]},
+    {"asset_tag": "VFD-RWI-01", "outcome": "not_observed", "limitation": "bounded sample does not prove absence"},
+    {"asset_tag": "ENG-RWI-01", "outcome": "excluded", "reason": "vendor-managed engineering workstation"},
+    {"ipv4": "10.0.2.9", "outcome": "unexpected", "required_action": "review before inventory mutation"}
+  ],
+  "reporting": {
+    "ready": false,
+    "blockers": ["unexpected endpoint requires disposition", "VFD requires evidence or explicit not-observed acceptance"]
+  }
+}

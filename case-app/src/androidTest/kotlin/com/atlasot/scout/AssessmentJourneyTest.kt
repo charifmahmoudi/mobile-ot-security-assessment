@@ -69,9 +69,10 @@ class AssessmentJourneyTest {
             capture("04-collection-methods")
             scenario.onActivity { it.findViewById<View>(MainActivity.ACTIVE_SCAN_OPTION_ID).performClick() }
             scenario.onActivity { activity ->
-                val active = activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
-                assertFalse(active.isEnabled)
-                assertTrue(screenText(activity).contains("no register reads or writes"))
+                assertTrue(activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID) == null)
+                val text = screenText(activity)
+                assertTrue(text.contains("PROFESSIONAL AUTHORITY REQUIRED") || text.contains("Domain authorization"))
+                assertTrue(text.contains("no register reads or writes"))
             }
             capture("05-active-authorization")
         }
@@ -168,13 +169,13 @@ class AssessmentJourneyTest {
     }
 
     @Test fun outOfScopeTargetIsStoppedBeforeBrokerContact() {
+        prepareCollectingProfessionalCase("OUT-OF-SCOPE")
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             navigateToActiveSetup(scenario)
             scenario.onActivity { activity ->
                 activity.findViewById<EditText>(MainActivity.TARGET_FIELD_ID).setText("192.0.2.5")
-                activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
                 activity.findViewById<View>(MainActivity.ACTIVE_ACTION_ID).performClick()
-                assertTrue(screenText(activity).contains("outside the authorized CIDR"))
+                assertTrue(screenText(activity).contains("outside case scope"))
                 assertTrue(screenText(activity).contains("Identify one Modbus device"))
             }
             capture("06-out-of-scope-blocked")
@@ -221,12 +222,10 @@ class AssessmentJourneyTest {
         val arguments = InstrumentationRegistry.getArguments()
         assumeTrue(arguments.getString("activeTest") == "true")
         val expected = arguments.getString("expectedIdentity") ?: "MODBUS/TCP"
+        prepareCollectingProfessionalCase("ACTIVE-E2E")
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             navigateToActiveSetup(scenario)
             scenario.onActivity { activity ->
-                activity.findViewById<EditText>(MainActivity.CASE_FIELD_ID).setText("E2E-WATER-001")
-                activity.findViewById<EditText>(MainActivity.SITE_FIELD_ID).setText("CI treatment cell")
-                activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
                 val active = activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID)
                 assertTrue(active.isEnabled)
                 active.performClick()
@@ -248,6 +247,27 @@ class AssessmentJourneyTest {
             it.findViewById<View>(MainActivity.PRIMARY_ACTION_ID).performClick()
             it.findViewById<View>(MainActivity.ACTIVE_SCAN_OPTION_ID).performClick()
         }
+    }
+
+    private fun prepareCollectingProfessionalCase(suffix: String) {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val app = ProfessionalCaseApplication(SqlCipherCaseRepository(context))
+        val now = java.time.Instant.now()
+        val id = "E2E-$suffix-${Build.VERSION.SDK_INT}"
+        val existing = app.load(com.atlasot.domain.CaseId(id))
+        if (existing?.state == com.atlasot.domain.CaseState.COLLECTING) return
+        if (existing?.state == com.atlasot.domain.CaseState.AUTHORIZED) {
+            app.startCollection(existing.id, now)
+            return
+        }
+        val awaiting = existing ?: app.createPrepared(GoldenCustomerAssessment.input(now, id), now)
+        require(awaiting.state == com.atlasot.domain.CaseState.AWAITING_AUTHORIZATION)
+        val proposal = app.proposeAuthorization(
+            awaiting.id, true, true, now.minusSeconds(1), now.plusSeconds(3600),
+            "instrumentation authorization $id", now.plusMillis(10),
+        )
+        app.authorize(awaiting.id, proposal, now.plusMillis(20))
+        app.startCollection(awaiting.id, now.plusMillis(30))
     }
 
     private fun screenText(activity: MainActivity): String =

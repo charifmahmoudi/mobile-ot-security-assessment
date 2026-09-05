@@ -16,6 +16,12 @@ Choose the authorized operating context before collecting evidence. The included
 
 Evidence assigned to the wrong site or process area can produce a misleading working inventory.
 
+### Establish professional authority first
+
+For the pilot journey, choose **Prepare Golden Customer Assessment**. Review the customer, site, process area, assessment question, requested decision, exact `/32` target, exclusion, approved methods, stop conditions, data policy and named roles. Creating the record moves it to `AWAITING_AUTHORIZATION`; it does not unlock collection.
+
+Record the operational and security approvals as distinct actions. Atlas binds the resulting authorization to the exact scope and data-policy fingerprints. Start protected collection only after the workspace reports `AUTHORIZED`. Closing and reopening the app resumes the same encrypted case and audit history.
+
 ## 2. Create a site workspace
 
 | Site and industry | Technology context | Review and create |
@@ -92,17 +98,16 @@ Do not infer hardware qualification from the existence of this screen; use [IMPL
 
 ## 7. Identify one authorized Modbus device
 
-Before starting, obtain the exact authorization context required by the assessment: one target IPv4 address, approved CIDR/scope, Modbus unit ID and valid operating window.
+Before starting, open an authorized professional case and start its protected collection window. The Case App restores the recorded authorization, exact scope and data policy before it offers the active identity action.
 
 ![Active authorization and exact scope form](screenshots/05-active-authorization-api35.png)
 
-1. Enter the case/work reference and process context requested by the UI.
-2. Enter the exact target, approved CIDR and unit ID.
-3. Review the displayed operation boundary.
-4. Compare entered values with the authorization source.
-5. Confirm and execute once.
+1. Confirm that the displayed case reference and process area match the professional workspace.
+2. Enter the exact target and Modbus unit ID; the authorized CIDR is read from the case.
+3. Review the displayed operation boundary and restored authorization identity.
+4. Execute once. The domain guard checks collecting state, time, operation, target scope and exclusions again immediately before the broker grant is issued.
 
-If the target is outside the entered scope, stop rather than widening the scope to make validation pass.
+If the target is outside the case scope, Atlas refuses the action. Return to preparation/approval rather than widening the scope to make validation pass.
 
 ![Out-of-scope target blocked locally](screenshots/06-out-of-scope-blocked-api35.png)
 

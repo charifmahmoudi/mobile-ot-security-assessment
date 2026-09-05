@@ -1,0 +1,12 @@
+{
+  "artifact_id": "golden-passive-001",
+  "source": "deterministic pilot fixture",
+  "method": "H3_OFFLINE_IMPORT",
+  "sha256": "c0b03fcd9b3733ca214488e8f1e9bb3f75dd045adb0660aad5cad55f766704d4",
+  "visibility": "Synthetic metadata for the bounded fixture; absence is not evidence of absence.",
+  "observations": [
+    {"ipv4": "10.0.2.2", "protocol": "Modbus/TCP", "port": 502, "claim": "service_observed"},
+    {"ipv4": "10.0.2.3", "protocol": "Modbus/TCP", "port": 502, "claim": "communication_peer_observed"},
+    {"ipv4": "10.0.2.9", "protocol": "EtherNet/IP", "port": 44818, "claim": "unexpected_endpoint_candidate"}
+  ]
+}

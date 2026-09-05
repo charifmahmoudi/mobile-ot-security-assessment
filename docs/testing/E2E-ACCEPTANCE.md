@@ -36,6 +36,9 @@ The Android Capture Broker journey and native-daemon veth gate are complementary
 
 | Journey | Required observable result |
 |---|---|
+| Golden professional case | Empty app → deterministic case preparation → named operational/security approvals → `AUTHORIZED` |
+| Process restart | Host force-stops the Case App; a second instrumentation invocation restores the same authorization, revision, actors and audit chain from SQLCipher |
+| Authorization negatives | Missing approval, expired window and stale scope fingerprint remain blocked by the application/domain boundary |
 | Site onboarding | Site → technology context → review → workspace |
 | Guided shell | Overview → Collect → Assets → Findings → Report readiness |
 | Passive import | Supported captures produce bounded reviewable observations |
@@ -68,6 +71,8 @@ Depending on the workflow job, retained evidence includes:
 - emulator instrumentation logs;
 - screenshot checkpoints;
 - controlled protocol-endpoint logs;
+- the exact Golden Customer Assessment fixture inputs and fixture-verification log;
+- separate pilot create/resume instrumentation transcripts for API 29 and API 35;
 - native capture output and zero-send evidence.
 
 The executable source of truth for CI is [.github/workflows/android-ci.yml](../../.github/workflows/android-ci.yml) plus the referenced runner scripts.

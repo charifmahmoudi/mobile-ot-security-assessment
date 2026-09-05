@@ -1,0 +1,5 @@
+source_record_id,asset_tag,expected_vendor,expected_model,expected_ipv4,process_role,scope_status
+NRWU-PLC-001,PLC-RWI-01,Schneider Electric,Modicon M580,10.0.2.2,Intake pump controller,in_scope
+NRWU-HMI-001,HMI-RWI-01,Schneider Electric,Magelis GTU,10.0.2.3,Operator HMI,in_scope
+NRWU-VFD-001,VFD-RWI-01,ABB,ACS880,10.0.2.4,Pump variable-frequency drive,in_scope
+NRWU-ENG-001,ENG-RWI-01,Dell,Latitude 5430 Rugged,10.0.2.15,Vendor engineering workstation,excluded
