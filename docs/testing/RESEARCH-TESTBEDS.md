@@ -29,7 +29,7 @@ An emulator passing is evidence of protocol interoperability, not evidence that 
 
 ## Golden Customer Assessment endpoint
 
-`testdata/golden-customer-assessment/` is the immutable pilot integration fixture. `tools/golden_ot_emulator.py` exposes only the Modbus basic device-identification response named by that case. The API 29/35 harness starts it before installing the real applications, verifies routing from the Android emulator, and retains its readiness/request log even though issue #6 does not require the case-persistence scenario to transmit a packet.
+`testdata/golden-customer-assessment/` is the immutable pilot integration fixture. `tools/golden_ot_emulator.py` exposes only the Modbus basic device-identification response named by that case. The API 29/35 harness waits for both the Android emulator and OT endpoint to become ready before installing the real applications, and retains the endpoint readiness/request log even though issue #6 does not require the case-persistence scenario to transmit a packet. The independent active E2E matrix proves the Android-to-OT network path.
 
 The same fixture also carries the customer-declared inventory seed, deterministic passive observations and expected reconciliation/report blockers. Later pilot tests extend these inputs; they must not replace them with developer-local state or an external mutable service.
 

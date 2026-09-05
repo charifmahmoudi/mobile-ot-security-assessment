@@ -22,14 +22,14 @@ trap cleanup EXIT
 
 ready=false
 for attempt in $(seq 1 30); do
-  if nc -z 127.0.0.1 502 && adb shell 'toybox nc -z -w 2 10.0.2.2 502'; then
+  if nc -z 127.0.0.1 502 && [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]; then
     ready=true
     break
   fi
   sleep 1
 done
 if [ "$ready" != true ]; then
-  echo "Android emulator could not route to the deterministic OT emulator" >&2
+  echo "Android emulator or deterministic OT emulator did not become ready" >&2
   exit 1
 fi
 
