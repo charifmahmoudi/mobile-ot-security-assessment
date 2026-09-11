@@ -1,6 +1,8 @@
 # Product design
 
-This section translates the P0-WATER specification and commercial/practitioner evidence into user outcomes, role archetypes, interactions and demonstrations.
+This section translates the product vision, P0-WATER specification and practitioner evidence into user outcomes, role archetypes, interactions and demonstrations.
+
+- [Product vision](PRODUCT-VISION.md) — the first adoptable product, complete platform direction, capability boundary and adoption gates.
 
 - [Evidence-backed personas](PERSONAS.md) — role archetypes derived from public prospect/workflow evidence, with observed context separated from unvalidated product and commercial hypotheses.
 - [User stories](USER-STORIES.md) — persona-driven professional decisions and acceptance outcomes across prepare, authorize, collect, reconcile, review, handoff and evaluation journeys.
