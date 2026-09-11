@@ -30,7 +30,6 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | Which organizations and people should be approached? | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, current triggers, named public professionals, role relevance, public activity and contact routes. |
 | How should outreach be executed? | [Marketing playbook](business-development/MARKETING-PLAYBOOK.md) | Role motivations, account-specific conversation starters, messages, channels and campaign execution. |
 | What exactly is offered commercially? | [Evaluation and services offer](business-development/OFFER.md) | Evaluation duration, adoption choices, setup and consulting terms. |
-| What are the software and project-name permissions? | [Apache License](../LICENSE) and [trademark policy](../TRADEMARKS.md) | Core software permissions, third-party licensing boundary and project-brand usage. |
 
 ## Anti-duplication rules
 
