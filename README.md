@@ -4,6 +4,8 @@
 
 [Project website](https://charifmahmoudi.github.io/mobile-ot-security-assessment/) · [Operator and evaluation Wiki](https://github.com/charifmahmoudi/mobile-ot-security-assessment/wiki) · [Current implementation](IMPLEMENTATION.md)
 
+The product direction is defined in [Product vision](docs/product/PRODUCT-VISION.md): a narrow, externally reproducible assessment instrument first, expanding into governed scanning, installable capabilities, confidence-aware visualization and a community-extensible OT platform.
+
 [![Android safety CI](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/android-ci.yml)
 [![Documentation](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml/badge.svg?branch=main)](https://github.com/charifmahmoudi/mobile-ot-security-assessment/actions/workflows/documentation.yml)
 
@@ -65,7 +67,9 @@ The normative assessment contract is [P0-WATER](docs/poc/WATER-WASTEWATER-POC.md
 
 ## Build and verify
 
-Prerequisites: JDK 17, Android SDK, Python 3 and Gradle 8.13.
+Prerequisites: JDK 17, Android SDK and Python 3. The repository pins Gradle
+8.13 in `gradle/wrapper/gradle-wrapper.properties`; until the official wrapper
+JAR is generated, a local Gradle 8.13 installation is required.
 
 ```bash
 python3 tools/verify_documentation.py
@@ -93,4 +97,13 @@ Device and emulator acceptance paths are defined by [.github/workflows/android-c
 
 ## License and contribution status
 
-No software license or contributor agreement has been selected. The source is publicly viewable, but publication alone does not grant permission to use, modify or redistribute it. External implementation contributions remain paused until a `LICENSE` file and contribution terms are established.
+Atlas OT Scout is licensed under the [Apache License 2.0](LICENSE). This
+permits use, modification, redistribution and commercial integration subject
+to the license terms. Third-party libraries, protocol implementations, models
+and datasets retain their own licenses; see their notices and capability
+metadata before redistribution. The project name and logos are governed by
+the [trademark policy](TRADEMARKS.md).
+
+Contributions are governed by [CONTRIBUTING.md](CONTRIBUTING.md) and
+[GOVERNANCE.md](GOVERNANCE.md). This license does not authorize scanning or
+assessment of systems without explicit permission.
