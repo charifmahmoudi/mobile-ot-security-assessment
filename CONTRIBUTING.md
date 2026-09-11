@@ -54,4 +54,13 @@ Writes, control actions, exploitation, credential attacks, and broad scanning ar
 
 ## Licensing
 
-No project license or contributor agreement has been selected. Do not submit implementation contributions under an assumed license; contribution terms must be established first.
+The project is licensed under the [Apache License 2.0](LICENSE). Contributions
+are accepted under the same license unless a separate written agreement says
+otherwise. By submitting a contribution, you represent that you have the
+right to submit it under these terms. Do not include third-party code, models,
+datasets or generated artifacts unless their license and provenance are
+documented and compatible with the contribution.
+
+The project currently uses a lightweight contributor process rather than a
+separate CLA. The maintainer may introduce a DCO or CLA in a future governance
+decision, with notice before it becomes a contribution requirement.
