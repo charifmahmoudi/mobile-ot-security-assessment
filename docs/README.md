@@ -9,6 +9,8 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | Question | Authority | Rule |
 |---|---|---|
 | What is Atlas? | [Root README](../README.md) | Product-level description only. |
+| What is the first product and complete vision? | [Product vision](product/PRODUCT-VISION.md) | Adoption wedge, complete platform boundary and staged expansion. |
+| How is GitHub planning automated? | [Planning automation](PLANNING-AUTOMATION.md) | Human/agent ownership, readiness, Projects and workflow permissions. |
 | What must the product do? | [Requirements](REQUIREMENTS.md) | Stable normative `MUST/SHOULD/MAY` requirements and IDs. |
 | What exactly is P0-WATER? | [P0 specification](poc/WATER-WASTEWATER-POC.md) | Scope, permitted modes, checks, deliverable and definition of done. |
 | How is an assessment performed and judged? | [Assessment method](poc/ASSESSMENT-METHOD.md) | Authorization, evidence hierarchy, reconciliation, finding and review method. |
@@ -28,6 +30,7 @@ This is the canonical map and ownership contract for Atlas OT Scout documentatio
 | Which organizations and people should be approached? | [Prospect intelligence directory](business-development/PROSPECT-DIRECTORY.md) | Account facts, current triggers, named public professionals, role relevance, public activity and contact routes. |
 | How should outreach be executed? | [Marketing playbook](business-development/MARKETING-PLAYBOOK.md) | Role motivations, account-specific conversation starters, messages, channels and campaign execution. |
 | What exactly is offered commercially? | [Evaluation and services offer](business-development/OFFER.md) | Evaluation duration, adoption choices, setup and consulting terms. |
+| What are the software and project-name permissions? | [Apache License](../LICENSE) and [trademark policy](../TRADEMARKS.md) | Core software permissions, third-party licensing boundary and project-brand usage. |
 
 ## Anti-duplication rules
 
