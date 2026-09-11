@@ -1,0 +1,32 @@
+name: Atlas planning bootstrap
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened, edited, labeled, milestoned, assigned, unassigned]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  planning:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate repository planning configuration
+        run: python3 tools/validate_planning.py
+      - name: Create labels and adoption milestones
+        env:
+          GH_TOKEN: ${{ secrets.ATLAS_GITHUB_TOKEN || github.token }}
+        run: bash tools/sync_github_planning.sh labels-milestones
+      - name: Create or locate Project
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ secrets.ATLAS_PROJECTS_TOKEN || secrets.ATLAS_GITHUB_TOKEN || github.token }}
+        run: bash tools/sync_github_planning.sh project
+      - name: Validate issue readiness
+        env:
+          GH_TOKEN: ${{ secrets.ATLAS_GITHUB_TOKEN || github.token }}
+        run: bash tools/sync_github_planning.sh validate
