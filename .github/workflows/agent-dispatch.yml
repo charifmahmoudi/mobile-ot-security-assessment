@@ -1,0 +1,28 @@
+name: Atlas agent readiness
+
+on:
+  issues:
+    types: [labeled, edited]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate implementation contract
+        env:
+          GH_TOKEN: ${{ secrets.ATLAS_GITHUB_TOKEN || github.token }}
+          ISSUE_NUMBER: ${{ inputs.issue_number || github.event.issue.number }}
+        run: python3 tools/validate_agent_issue.py "$ISSUE_NUMBER"
+      - name: Report boundary
+        run: echo 'Readiness passed; agent assignment, merge and closure remain explicit human actions.'
