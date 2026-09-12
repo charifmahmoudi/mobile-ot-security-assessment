@@ -61,12 +61,7 @@ project)
   todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
   progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
   update_status_query='mutation($project:ID!,$item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:$project,itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
-  while IFS=  printf '%s\n' "$project_json"
-  ;;
-validate) echo 'Planning metadata validation complete.' ;;
-*) echo "unknown mode: $mode" >&2; exit 2 ;;
-esac
-\t' read -r item_id issue_number; do
+  while IFS=$'\\t' read -r item_id issue_number; do
     [ -n "$item_id" ] || continue
     target_option="$todo_option_id"
     case "$issue_number" in 19|61|62|63) target_option="$progress_option_id" ;; esac
