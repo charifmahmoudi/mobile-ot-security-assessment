@@ -48,11 +48,13 @@ project)
   gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id" >/dev/null 2>&1 || true
   # Existing Project views are preserved; view creation is intentionally manual to avoid duplicates.
   add_item_query='mutation($project:ID!,$content:ID!){addProjectV2ItemById(input:{projectId:$project,contentId:$content}){item{id}}}'
-  status_query='query($login:String!,$number:Int!){user(login:$login){projectV2(number:$number){fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}}}}}'
-  status_json=$(gh api graphql -f query="$status_query" -F login="$owner_login" -F number="$project_number")
-  status_field_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .id')
-  todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
-  progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
+  status_query='query($project:ID!){node(id:$project){... on ProjectV2{fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}}}}}'
+  status_json=$(gh api graphql -f query="$status_query" -F project="$project_id")
+  status_field_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
+  todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
+  progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
+  [ -n "$status_field_id" ] && [ "$status_field_id" != "null" ] || { echo "Status field not found on project $project_id." >&2; exit 1; }
+  [ -n "$todo_option_id" ] && [ "$todo_option_id" != "null" ] || { echo "Todo status option not found." >&2; exit 1; }
   update_status_query='mutation($project:ID!,$item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:$project,itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
   issue_count=0
   status_count=0
