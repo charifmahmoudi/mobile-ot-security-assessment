@@ -30,13 +30,22 @@ project)
   owner_login=$(gh api user --jq .login)
   owner_id=$(gh api user --jq .node_id)
   repo_id=$(gh api "repos/${repo}" --jq .node_id)
-  query='mutation($owner:ID!,$title:String!){createProjectV2(input:{ownerId:$owner,title:$title}){projectV2{id number url title}}}'
-  project_json=$(gh api graphql -f query="$query" -F owner="$owner_id" -F title='Atlas Product Delivery')
-  project_id=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.id')
+  project_title='Atlas Product Delivery'
+  lookup_query='query($login:String!){user(login:$login){projectsV2(first:100){nodes{id number url title}}}}'
+  existing_projects=$(gh api graphql -f query="$lookup_query" -F login="$owner_login")
+  project_id=$(printf '%s' "$existing_projects" | jq -r --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title) | .id' | head -n 1)
+  if [ -z "$project_id" ]; then
+    create_query='mutation($owner:ID!,$title:String!){createProjectV2(input:{ownerId:$owner,title:$title}){projectV2{id number url title}}}'
+    project_json=$(gh api graphql -f query="$create_query" -F owner="$owner_id" -F title="$project_title")
+    project_id=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.id')
+    project_number=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.number')
+  else
+    project_number=$(printf '%s' "$existing_projects" | jq -r --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title) | .number' | head -n 1)
+    project_json=$(printf '%s' "$existing_projects" | jq -c --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title)' | head -n 1)
+  fi
   test -n "$project_id" -a "$project_id" != "null"
   link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(input:{projectId:$project,repositoryId:$repository}){clientMutationId}}'
-  gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id"
-  project_number=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.number')
+  gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id" >/dev/null 2>&1 || true
   views_json=$(gh api "users/$owner_login/projectsV2/$project_number/views" 2>/dev/null || printf '[]')
   if ! printf '%s' "$views_json" | jq -e '.[]? | select(.name == "Delivery Board")' >/dev/null 2>&1; then
     gh api --method POST "users/$owner_login/projectsV2/$project_number/views" -f name='Delivery Board' -f layout='board'
