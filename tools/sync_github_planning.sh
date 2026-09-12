@@ -47,11 +47,14 @@ project)
   link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(input:{projectId:$project,repositoryId:$repository}){clientMutationId}}'
   gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id" >/dev/null 2>&1 || true
   # Existing Project views are preserved; view creation is intentionally manual to avoid duplicates.
-  add_item_query='mutation(\$project:ID!,\$content:ID!){addProjectV2ItemById(input:{projectId:\$project,contentId:\$content}){item{id}}}'
+  add_item_query='mutation($project:ID!,$content:ID!){addProjectV2ItemById(input:{projectId:$project,contentId:$content}){item{id}}}'
+  issue_count=0
   while IFS= read -r issue_node_id; do
     [ -n "$issue_node_id" ] || continue
-    gh api graphql -f query="$add_item_query" -F project="$project_id" -F content="$issue_node_id" >/dev/null 2>&1 || true
+    gh api graphql -f query="$add_item_query" -F project="$project_id" -F content="$issue_node_id" >/dev/null
+    issue_count=$((issue_count + 1))
   done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[].node_id')
+  echo "Imported $issue_count open issues into project $project_number."
   printf '%s\n' "$project_json"
   ;;
 validate) echo 'Planning metadata validation complete.' ;;
