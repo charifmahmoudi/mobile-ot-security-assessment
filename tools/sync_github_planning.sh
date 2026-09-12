@@ -47,7 +47,7 @@ project)
   link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(input:{projectId:$project,repositoryId:$repository}){clientMutationId}}'
   gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id" >/dev/null 2>&1 || true
   views_json=$(gh api "users/$owner_login/projectsV2/$project_number/views" 2>/dev/null || printf '[]')
-  if ! printf '%s' "$views_json" | jq -e '.[]? | select(.name == "Delivery Board")' >/dev/null 2>&1; then
+  if ! printf '%s' "$views_json" | jq -e '(.[]?, .views[]?) | select(.name == "Delivery Board")' >/dev/null 2>&1; then
     gh api --method POST "users/$owner_login/projectsV2/$project_number/views" -f name='Delivery Board' -f layout='board'
   fi
   add_item_query='mutation(\$project:ID!,\$content:ID!){addProjectV2ItemById(input:{projectId:\$project,contentId:\$content}){item{id}}}'
