@@ -33,7 +33,7 @@ project)
   project_json=$(gh api graphql -f query="$query" -F owner="$owner_id" -F title='Atlas Product Delivery')
   project_id=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.id')
   test -n "$project_id" -a "$project_id" != "null"
-  link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(projectId:$project,repositoryId:$repository){projectV2{id}}}'
+  link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(input:{projectId:$project,repositoryId:$repository}){clientMutationId}}'
   gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id"
   printf '%s\n' "$project_json"
   ;;
