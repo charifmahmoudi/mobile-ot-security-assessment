@@ -54,6 +54,26 @@ project)
     gh api graphql -f query="$add_item_query" -F project="$project_id" -F content="$issue_node_id" >/dev/null
     issue_count=$((issue_count + 1))
   done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[].node_id')
+  # Align the existing default Status field without creating duplicate views.
+  status_query='query($login:String!,$number:Int!){user(login:$login){projectV2(number:$number){id fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}} items(first:100){nodes{id content{... on Issue{number}}}}}}}'
+  status_json=$(gh api graphql -f query="$status_query" -F login="$owner_login" -F number="$project_number")
+  status_field_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .id')
+  todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
+  progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.user.projectV2.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
+  update_status_query='mutation($project:ID!,$item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:$project,itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
+  while IFS=  printf '%s\n' "$project_json"
+  ;;
+validate) echo 'Planning metadata validation complete.' ;;
+*) echo "unknown mode: $mode" >&2; exit 2 ;;
+esac
+\t' read -r item_id issue_number; do
+    [ -n "$item_id" ] || continue
+    target_option="$todo_option_id"
+    case "$issue_number" in 19|61|62|63) target_option="$progress_option_id" ;; esac
+    [ -n "$target_option" ] && [ "$target_option" != "null" ] || continue
+    gh api graphql -f query="$update_status_query" -F project="$project_id" -F item="$item_id" -F field="$status_field_id" -F option="$target_option" >/dev/null
+  done < <(printf '%s' "$status_json" | jq -r '.data.user.projectV2.items.nodes[] | select(.content.number != null) | [.id,.content.number] | @tsv')
+  echo "Aligned default project Status field."
   echo "Imported $issue_count open issues into project $project_number."
   printf '%s\n' "$project_json"
   ;;
