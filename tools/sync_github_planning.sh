@@ -28,8 +28,14 @@ labels-milestones)
   ;;
 project)
   owner_id=$(gh api user --jq .node_id)
+  repo_id=$(gh api "repos/${repo}" --jq .node_id)
   query='mutation($owner:ID!,$title:String!){createProjectV2(input:{ownerId:$owner,title:$title}){projectV2{id number url title}}}'
-  gh api graphql -f query="$query" -F owner="$owner_id" -F title='Atlas Product Delivery'
+  project_json=$(gh api graphql -f query="$query" -F owner="$owner_id" -F title='Atlas Product Delivery')
+  project_id=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.id')
+  test -n "$project_id" -a "$project_id" != "null"
+  link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(projectId:$project,repositoryId:$repository){projectV2{id}}}'
+  gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id"
+  printf '%s\n' "$project_json"
   ;;
 validate) echo 'Planning metadata validation complete.' ;;
 *) echo "unknown mode: $mode" >&2; exit 2 ;;
