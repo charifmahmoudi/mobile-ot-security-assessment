@@ -50,6 +50,11 @@ project)
   if ! printf '%s' "$views_json" | jq -e '.[]? | select(.name == "Delivery Board")' >/dev/null 2>&1; then
     gh api --method POST "users/$owner_login/projectsV2/$project_number/views" -f name='Delivery Board' -f layout='board'
   fi
+  add_item_query='mutation(\$project:ID!,\$content:ID!){addProjectV2ItemById(input:{projectId:\$project,contentId:\$content}){item{id}}}'
+  while IFS= read -r issue_node_id; do
+    [ -n "$issue_node_id" ] || continue
+    gh api graphql -f query="$add_item_query" -F project="$project_id" -F content="$issue_node_id" >/dev/null 2>&1 || true
+  done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[].node_id')
   printf '%s\n' "$project_json"
   ;;
 validate) echo 'Planning metadata validation complete.' ;;
