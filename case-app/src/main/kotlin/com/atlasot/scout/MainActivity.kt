@@ -361,8 +361,8 @@ class MainActivity : Activity() {
         content.addView(keyValue("Export destination", professionalCase.dataPolicy.exportDestination ?: "No export destination"))
         content.addView(keyValue("Delete after", professionalCase.dataPolicy.deleteAfter?.toString() ?: "No automatic deletion date"))
         content.addView(keyValue("Authorization window", professionalCase.authorization?.let { "${it.validFrom} — ${it.validUntil}" } ?: "Pending approval"))
-        if (professionalCase.supersedesSnapshotId != null) {
-            content.addView(keyValue("Supersedes snapshot", professionalCase.supersedesSnapshotId.value))
+        professionalCase.supersedesSnapshotId?.let { snapshotId ->
+            content.addView(keyValue("Supersedes snapshot", snapshotId.value))
         }
         professionalCase.finalizedSnapshot?.let { content.addView(keyValue("Finalized snapshot", it.id.value)) }
         content.addView(section("Professional roles", "Approval identities, reviewer decisions and revision lineage are restored from encrypted case metadata."))
