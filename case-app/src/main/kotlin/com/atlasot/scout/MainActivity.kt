@@ -1101,12 +1101,13 @@ class MainActivity : Activity() {
         val unresolved = assets.count { it.reviewState == "Needs review" }
         val activeProfessionalCase = professionalCaseFor(current)
         val professionalCase = reportableProfessionalCaseFor(current)
+        val activeReviewerAccepted = activeProfessionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         val professionalGateSatisfied = if (current.sample) {
-            professionalCase?.authorization != null &&
-            professionalCase?.finalizedSnapshot != null &&
-                reviewerAccepted
+            activeProfessionalCase?.state == CaseState.FINALIZED &&
+                activeProfessionalCase.authorization != null &&
+                activeReviewerAccepted
         } else {
             true
         }
