@@ -33,7 +33,7 @@ def load_issue_body(issue, repo, body_override=None):
 def main():
     issue = sys.argv[1] if len(sys.argv) > 1 else os.environ.get('ISSUE_NUMBER')
     repo = os.environ.get('GITHUB_REPOSITORY', 'charifmahmoudi/mobile-ot-security-assessment')
-    body_override = os.environ.get('ISSUE_BODY') or None
+    body_override = os.environ.get('ISSUE_BODY') if os.environ.get('ISSUE_BODY_PRESENT') == 'true' else None
     body = load_issue_body(issue, repo, body_override)
     missing = missing_sections(body)
     if missing:
