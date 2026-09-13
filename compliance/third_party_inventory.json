@@ -380,7 +380,7 @@
       "notice_required": true,
       "usage_boundary": "CI-only deck-to-PDF conversion.",
       "redistribution_status": "review-required",
-      "tracked_from_repo": false,
+      "tracked_from_repo": true,
       "bom_type": "application"
     },
     {
@@ -392,7 +392,7 @@
       "notice_required": true,
       "usage_boundary": "CI-only PDF metadata validation.",
       "redistribution_status": "review-required",
-      "tracked_from_repo": false,
+      "tracked_from_repo": true,
       "bom_type": "application"
     },
     {
@@ -404,7 +404,7 @@
       "notice_required": true,
       "usage_boundary": "CI-only guided-story composition helpers.",
       "redistribution_status": "allowed",
-      "tracked_from_repo": false,
+      "tracked_from_repo": true,
       "bom_type": "application"
     },
     {
@@ -416,7 +416,7 @@
       "notice_required": true,
       "usage_boundary": "CI-only guided-story image processing.",
       "redistribution_status": "allowed",
-      "tracked_from_repo": false,
+      "tracked_from_repo": true,
       "bom_type": "application"
     },
     {
@@ -428,7 +428,7 @@
       "notice_required": true,
       "usage_boundary": "CI-only guided-story image composition.",
       "redistribution_status": "allowed",
-      "tracked_from_repo": false,
+      "tracked_from_repo": true,
       "bom_type": "application"
     },
     {

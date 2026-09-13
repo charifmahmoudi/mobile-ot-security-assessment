@@ -22,7 +22,6 @@ KOTLIN_DEP_RE = re.compile(r'kotlin\("([a-z-]+)"\)')
 WORKFLOW_USE_RE = re.compile(r'uses:\s*([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@v?[0-9A-Za-z_.-]+)')
 PIP_PIN_RE = re.compile(r'pip install[^\n]*\s([A-Za-z0-9_.-]+)==([0-9A-Za-z_.-]+)')
 NPM_PIN_RE = re.compile(r'npm install[^\n]*\s([@A-Za-z0-9_.\-/]+)@([0-9A-Za-z_.-]+)')
-APT_BLOCK_RE = re.compile(r'apt-get install[^\n]*(?:\\\n\s*[^\n]+)*', re.MULTILINE)
 SHA_LINE_RE = re.compile(r'^([0-9a-f]{64})\s+\$fixture_dir/([^\s]+)$', re.MULTILINE)
 GRADLE_VERSION_RE = re.compile(r'gradle-version:\s*"?([0-9A-Za-z_.-]+)"?')
 JAVA_VERSION_RE = re.compile(r'java-version:\s*"?([0-9A-Za-z_.-]+)"?')
@@ -56,6 +55,9 @@ def discover_repository_inputs() -> set[str]:
         kotlin_version = kotlin_version or version
 
     for gradle_file in REPO_ROOT.glob("**/*.gradle.kts"):
+        rel_parts = gradle_file.relative_to(REPO_ROOT).parts
+        if any(part in {".gradle", "build"} for part in rel_parts):
+            continue
         text = _read(gradle_file)
         for coord, _ in GRADLE_COORD_RE.findall(text):
             group, artifact, version = coord.split(":", 2)
@@ -66,8 +68,13 @@ def discover_repository_inputs() -> set[str]:
                     discovered.add(f"maven:org.jetbrains.kotlin:kotlin-{dep}@{kotlin_version}")
 
     package_json = json.loads(_read(REPO_ROOT / "website" / "package.json"))
-    for name, version in sorted(package_json.get("dependencies", {}).items()):
-        discovered.add(f"npm:{name}@{version}")
+    for section in ("dependencies", "devDependencies"):
+        for name, version in sorted(package_json.get(section, {}).items()):
+            if not re.fullmatch(r"[0-9]+(?:\.[0-9]+){1,3}(?:[-+][0-9A-Za-z.-]+)?", version):
+                raise ValueError(
+                    f"website/package.json must pin exact versions; found {name}={version!r}"
+                )
+            discovered.add(f"npm:{name}@{version}")
 
     for path in [
         REPO_ROOT / "tools" / "pymodbus-ci.Dockerfile",
@@ -85,14 +92,7 @@ def discover_repository_inputs() -> set[str]:
             discovered.add(f"github-action:{action}")
         for pkg, version in NPM_PIN_RE.findall(text):
             discovered.add(f"npm:{pkg}@{version}")
-        for block in APT_BLOCK_RE.findall(text):
-            tokens = [t for t in re.split(r"\s+", block.replace("\\", " ")) if t]
-            for token in tokens:
-                if token.startswith("-") or token in {"apt-get", "install", "&&"}:
-                    continue
-                if token.endswith(";"):
-                    token = token[:-1]
-                discovered.add(f"apt:{token}@runner-default")
+        discovered.update(extract_apt_packages(text))
         for version in GRADLE_VERSION_RE.findall(text):
             discovered.add(f"tooling:gradle@{version}")
         for version in JAVA_VERSION_RE.findall(text):
@@ -104,20 +104,66 @@ def discover_repository_inputs() -> set[str]:
 
     android_ci = _read(REPO_ROOT / ".github" / "workflows" / "android-ci.yml")
     clone_match = re.search(r'git clone --filter=blob:none\s+(https://[^\s]+)\s+([^\n]+)', android_ci)
-    checkout_match = re.search(r'git -C\s+conpot-upstream\s+checkout\s+([0-9a-f]{40})', android_ci)
-    if clone_match and checkout_match:
+    if clone_match:
         repo_url = clone_match.group(1)
-        commit = checkout_match.group(1)
-        discovered.add(f"git-source:{repo_url}@{commit}")
+        clone_dir = clone_match.group(2).strip()
+        checkout_match = re.search(
+            rf'git -C\s+{re.escape(clone_dir)}\s+checkout\s+([0-9a-f]{{40}})',
+            android_ci,
+        )
+        if checkout_match:
+            commit = checkout_match.group(1)
+            discovered.add(f"git-source:{repo_url}@{commit}")
 
     fetch_script = _read(REPO_ROOT / "tools" / "fetch_research_pcaps.sh")
+    discovered.update(extract_ci_assets(fetch_script))
+
+    return discovered
+
+
+def extract_ci_assets(fetch_script: str) -> set[str]:
     urls = re.findall(r'^\s*(https://[^\s\\]+)\s*\\$', fetch_script, re.MULTILINE)
     output_names = re.findall(r'--output "\$fixture_dir/([^"]+)"', fetch_script)
+    if len(urls) != len(output_names):
+        raise ValueError(
+            "tools/fetch_research_pcaps.sh has mismatched CI asset declarations: "
+            f"{len(urls)} URLs but {len(output_names)} --output targets"
+        )
     sha_by_file = {filename: sha for sha, filename in SHA_LINE_RE.findall(fetch_script)}
-    for url, filename in zip(urls, output_names):
-        sha = sha_by_file.get(filename, "missing-sha")
-        discovered.add(f"ci-asset:{filename}@{sha}")
+    missing_sha = sorted(filename for filename in output_names if filename not in sha_by_file)
+    if missing_sha:
+        raise ValueError(
+            "tools/fetch_research_pcaps.sh has CI assets without SHA pins: "
+            + ", ".join(missing_sha)
+        )
+    return {
+        f"ci-asset:{filename}@{sha_by_file[filename]}"
+        for _, filename in zip(urls, output_names)
+    }
 
+
+def extract_apt_packages(workflow_text: str) -> set[str]:
+    discovered: set[str] = set()
+    lines = workflow_text.splitlines()
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        if "apt-get install" not in line:
+            index += 1
+            continue
+
+        install_segment = line.split("apt-get install", 1)[1]
+        block_lines = [install_segment]
+        while lines[index].rstrip().endswith("\\") and index + 1 < len(lines):
+            index += 1
+            block_lines.append(lines[index])
+
+        tokens = [t.rstrip(";") for t in re.split(r"\s+", " ".join(block_lines).replace("\\", " ")) if t]
+        for token in tokens:
+            if token.startswith("-") or token in {"&&"}:
+                continue
+            discovered.add(f"apt:{token}@runner-default")
+        index += 1
     return discovered
 
 
@@ -172,6 +218,8 @@ def validate_inventory(inventory: dict, discovered: set[str]) -> tuple[list[str]
 
 
 def license_block(license_value: str) -> list[dict]:
+    if any(operator in license_value for operator in (" AND ", " OR ", " WITH ")):
+        return [{"license": {"expression": license_value}}]
     if re.fullmatch(r"[A-Za-z0-9-.+]+", license_value) and any(c.isdigit() for c in license_value):
         return [{"license": {"id": license_value}}]
     if re.fullmatch(r"[A-Za-z][A-Za-z0-9-.+]+", license_value) and " " not in license_value and "/" not in license_value:
@@ -234,12 +282,14 @@ def check_mode() -> int:
     inventory = load_inventory()
     errors, flagged = validate_inventory(inventory, discovered)
     generated = format_json(build_sbom(inventory))
-    if SBOM_PATH.exists() and SBOM_PATH.read_text(encoding="utf-8") != generated:
-        errors.append(
-            f"{SBOM_PATH.relative_to(REPO_ROOT)} is out of date. Run: python3 tools/third_party_inventory.py --refresh"
-        )
     if not SBOM_PATH.exists():
         errors.append(f"missing {SBOM_PATH.relative_to(REPO_ROOT)}")
+    else:
+        committed = SBOM_PATH.read_text(encoding="utf-8")
+        if committed != generated:
+            errors.append(
+                f"{SBOM_PATH.relative_to(REPO_ROOT)} is out of date. Run: python3 tools/third_party_inventory.py --refresh"
+            )
 
     if errors:
         print("third-party inventory: FAIL", file=sys.stderr)
