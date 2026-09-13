@@ -51,15 +51,23 @@ project)
 
   items_json=$(gh project item-list "$project_number" --owner "$owner_login" --format json --limit 100)
   status_count=0
+  progress_count=0
   while read -r item_id issue_number; do
     [ -n "$item_id" ] || continue
     target_option="$todo_option_id"
-    case "$issue_number" in 19|61|62|63) target_option="$progress_option_id" ;; esac
+    case "$issue_number" in
+      19|61|62|63)
+        target_option="$progress_option_id"
+        progress_count=$((progress_count + 1))
+        echo "Moving issue #$issue_number to In Progress."
+        ;;
+    esac
     gh project item-edit --id "$item_id" --project-id "$project_id" --field-id "$status_field_id" --single-select-option-id "$target_option" >/dev/null
     status_count=$((status_count + 1))
-  done < <(printf '%s' "$items_json" | jq -r '.items[] | select(.content.number != null) | [.id,.content.number] | @tsv')
+  done < <(printf '%s' "$items_json" | jq -r '.items[] | select(.content.number != null) | "\(.id) \(.content.number)"')
 
   [ "$status_count" -gt 0 ] || { echo "No project item statuses were updated." >&2; exit 1; }
+  [ "$progress_count" -eq 4 ] || { echo "Expected 4 In Progress assignments, updated $progress_count." >&2; exit 1; }
   echo "Imported $issue_count open issues into project $project_number."
   echo "Updated $status_count project item statuses."
   printf '%s\n' "$project_json"
