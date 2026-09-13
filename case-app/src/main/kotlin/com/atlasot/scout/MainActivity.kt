@@ -1062,6 +1062,13 @@ class MainActivity : Activity() {
         val professionalCase = professionalCaseFor(current)
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
+        val professionalGateSatisfied = if (current.sample) {
+            professionalCase?.finalizedSnapshot != null &&
+                professionalCase.authorization != null &&
+                reviewerAccepted
+        } else {
+            true
+        }
         page("Report readiness", current.name, "Professional handoff checklist · " + current.reportLanguage, ::renderWorkspace, WorkspaceSection.REPORT)
         content.addView(card("STEP 5 OF 5 · REPORT",
             "The report remains blocked until required context, review and approval records are complete.", accent = BLUE))
@@ -1085,9 +1092,7 @@ class MainActivity : Activity() {
             "Timestamps: Africa/Casablanca  ·  Evidence hashes: SHA-256", accent = TEAL))
         val ready = assets.isNotEmpty() &&
             unresolved == 0 &&
-            professionalCase?.finalizedSnapshot != null &&
-            professionalCase.authorization != null &&
-            reviewerAccepted
+            professionalGateSatisfied
         content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
             if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
         })
