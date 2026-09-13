@@ -24,13 +24,29 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
       - name: Validate pull request contract
         env:
-          GH_TOKEN: ${{ github.token }}
           PR_BODY: ${{ github.event.pull_request.body }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: python3 tools/validate_pull_request.py "$PR_NUMBER"
+        run: |
+          python3 - <<'PY'
+          import os
+
+          required = [
+              '## Contract',
+              '## Dependencies',
+              '## Failure behavior',
+              '## Tests and evidence',
+              '## Evidence artifact',
+              '## Documentation impact',
+              '## Human validation still required',
+              '## Acceptance-criterion mapping',
+          ]
+          body = os.environ.get('PR_BODY') or ''
+          missing = [section for section in required if section not in body]
+          if missing:
+              raise SystemExit('pull request contract is incomplete; missing: ' + ', '.join(missing))
+          print('pull request contract: PASS')
+          PY
       - name: Report boundary
         run: echo 'PR contract passed; automated checks prove software/documentation paths only, not physical or customer qualification.'
 
