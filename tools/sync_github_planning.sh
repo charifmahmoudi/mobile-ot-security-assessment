@@ -32,7 +32,7 @@ project)
   repo_id=$(gh api "repos/${repo}" --jq .node_id)
   project_title='Atlas Product Delivery'
   lookup_query='query($login:String!){user(login:$login){projectsV2(first:100){nodes{id number url title}}}}'
-  project_row=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" --jq '.data.user.projectsV2.nodes[] | select(.title == "Atlas Product Delivery") | [.id,.number] | @tsv' | head -n 1)
+  project_row=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" --jq '.data.user.projectsV2.nodes[] | select(.title == "Atlas Product Delivery") | [.id,.number] | @tsv')
   read -r project_id project_number <<< "$project_row"
   project_json=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" --jq '.data.user.projectsV2.nodes[] | select(.title == "Atlas Product Delivery")' | head -n 1)
   test -n "$project_id" -a "$project_id" != "null"
