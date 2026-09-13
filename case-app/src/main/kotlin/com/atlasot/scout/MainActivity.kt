@@ -1064,7 +1064,6 @@ class MainActivity : Activity() {
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         val professionalGateSatisfied = if (current.sample) {
             professionalCase?.finalizedSnapshot != null &&
-                professionalCase.authorization != null &&
                 reviewerAccepted
         } else {
             true
