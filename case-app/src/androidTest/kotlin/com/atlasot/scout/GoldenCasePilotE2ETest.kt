@@ -137,6 +137,20 @@ class GoldenCasePilotE2ETest {
                 assertTrue(screenText(activity).contains("AWAITING AUTHORIZATION"))
             }
             capture("14-golden-case-successor")
+            scenario.onActivity { activity ->
+                activity.renderHome()
+                activity.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                activity.findViewById<View>(MainActivity.REPORT_NAV_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("Signed authorization record"))
+                assertTrue(text.contains("Independent reviewer"))
+                assertTrue(text.contains("Resolve readiness blockers"))
+                assertTrue(!activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
+            }
         }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val repository = SqlCipherCaseRepository(context)

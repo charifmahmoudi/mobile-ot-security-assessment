@@ -199,6 +199,7 @@ class MainActivity : Activity() {
         }
         content.addView(button("Create a new site", NEW_SITE_ACTION_ID, false, ::renderNewSite))
         content.addView(section("Professional cases", "Scope, authority and decisions are stored in the encrypted case record."))
+        val activeCaseId = activeProfessionalCaseId()
         professionalCases.list().forEach { summary ->
             content.addView(card(
                 "${summary.caseNumber} · revision ${summary.revision}",
@@ -206,7 +207,9 @@ class MainActivity : Activity() {
                 accent = if (summary.state == CaseState.AUTHORIZED || summary.state == CaseState.COLLECTING) TEAL else BLUE,
             ).apply {
                 setOnClickListener { renderProfessionalCase(summary.id) }
-                if (summary.id.value == GoldenCustomerAssessment.CASE_ID) id = PROFESSIONAL_CASE_CARD_ID
+                if (summary.id == activeCaseId || (activeCaseId == null && summary.id.value == GoldenCustomerAssessment.CASE_ID)) {
+                    id = PROFESSIONAL_CASE_CARD_ID
+                }
             })
         }
         if (professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) == null) {
@@ -330,6 +333,7 @@ class MainActivity : Activity() {
     }
 
     private fun renderProfessionalCase(caseId: CaseId) {
+        setActiveProfessionalCaseId(caseId)
         val professionalCase = requireNotNull(professionalCases.load(caseId))
         val participants = requireNotNull(professionalCases.participants(caseId))
         page(
@@ -521,7 +525,24 @@ class MainActivity : Activity() {
         field.text.toString().trim().also { require(it.isNotBlank()) { "$label is required." } }
 
     private fun professionalCaseFor(site: SiteProfile): AssessmentCase? =
-        if (site.sample) professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) else null
+        if (site.sample) {
+            activeProfessionalCaseId()?.let(professionalCases::load)
+                ?: professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID))
+        } else {
+            null
+        }
+
+    private fun activeProfessionalCaseId(): CaseId? =
+        getSharedPreferences(PROFESSIONAL_CASE_PREFERENCES, Context.MODE_PRIVATE)
+            .getString(ACTIVE_PROFESSIONAL_CASE_KEY, null)
+            ?.let(::CaseId)
+
+    private fun setActiveProfessionalCaseId(caseId: CaseId) {
+        getSharedPreferences(PROFESSIONAL_CASE_PREFERENCES, Context.MODE_PRIVATE)
+            .edit()
+            .putString(ACTIVE_PROFESSIONAL_CASE_KEY, caseId.value)
+            .apply()
+    }
 
     private fun addressToText(address: Int): String = listOf(24, 16, 8, 0)
         .joinToString(".") { ((address ushr it) and 0xff).toString() }
@@ -1066,6 +1087,7 @@ class MainActivity : Activity() {
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         val professionalGateSatisfied = if (current.sample) {
+            professionalCase?.authorization != null &&
             professionalCase?.finalizedSnapshot != null &&
                 reviewerAccepted
         } else {
@@ -1448,6 +1470,8 @@ class MainActivity : Activity() {
         const val CREATE_SUCCESSOR_CASE_ID = 0x41544C92
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
+        private const val PROFESSIONAL_CASE_PREFERENCES = "professional-case-workspace"
+        private const val ACTIVE_PROFESSIONAL_CASE_KEY = "active-professional-case-id"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")
         private val VENDORS = listOf("Siemens", "Schneider Electric", "Rockwell Automation", "ABB", "Emerson", "Honeywell", "Yokogawa", "Endress+Hauser", "Phoenix Contact", "WAGO")
         private val NAVY = Color.rgb(11, 31, 51)
