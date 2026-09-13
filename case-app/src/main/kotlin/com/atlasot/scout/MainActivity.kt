@@ -532,6 +532,18 @@ class MainActivity : Activity() {
             null
         }
 
+    private fun reportableProfessionalCaseFor(site: SiteProfile): AssessmentCase? {
+        if (!site.sample) return null
+        val active = professionalCaseFor(site) ?: return null
+        return professionalCases.list()
+            .filter {
+                it.caseNumber == active.caseNumber &&
+                    it.state in setOf(CaseState.FINALIZED, CaseState.SUPERSEDED)
+            }
+            .maxByOrNull { it.revision }
+            ?.let { professionalCases.load(it.id) }
+    }
+
     private fun activeProfessionalCaseId(): CaseId? =
         getSharedPreferences(PROFESSIONAL_CASE_PREFERENCES, Context.MODE_PRIVATE)
             .getString(ACTIVE_PROFESSIONAL_CASE_KEY, null)
@@ -1083,7 +1095,7 @@ class MainActivity : Activity() {
         val current = requireNotNull(site)
         val assets = repository.assets(current.id)
         val unresolved = assets.count { it.reviewState == "Needs review" }
-        val professionalCase = professionalCaseFor(current)
+        val professionalCase = reportableProfessionalCaseFor(current)
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         val professionalGateSatisfied = if (current.sample) {

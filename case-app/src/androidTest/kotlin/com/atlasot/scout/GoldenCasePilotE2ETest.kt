@@ -148,6 +148,8 @@ class GoldenCasePilotE2ETest {
                 val text = screenText(activity)
                 assertTrue(text.contains("Signed authorization record"))
                 assertTrue(text.contains("Independent reviewer"))
+                assertTrue(text.contains("AUTH-ATLAS-PILOT-001-R1"))
+                assertTrue(text.contains("Accepted by Omar Tazi"))
                 assertTrue(text.contains("Resolve readiness blockers"))
                 assertTrue(!activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
             }
