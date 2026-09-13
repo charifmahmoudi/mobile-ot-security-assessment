@@ -1129,7 +1129,7 @@ class MainActivity : Activity() {
         val ready = assets.isNotEmpty() &&
             unresolved == 0 &&
             professionalGateSatisfied
-        content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
+        content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID) {
             if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
         })
         content.addView(txt("Final package export remains disabled until deterministic signed PDF/JSON/CSV materialization is implemented.", 12f, MUTED).apply {
