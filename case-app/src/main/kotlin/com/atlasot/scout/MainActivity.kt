@@ -22,6 +22,7 @@ import java.io.InputStream
 import java.security.*
 import java.security.spec.ECGenParameterSpec
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.UUID
 import java.util.concurrent.Executors
 
@@ -296,6 +297,7 @@ class MainActivity : Activity() {
                 require(selectedStopConditions.isNotEmpty()) { "Select at least one stop condition." }
                 val retention = retentionDays.text.toString().trim().toLongOrNull()
                     ?: throw IllegalArgumentException("Enter retention in whole days.")
+                require(retention > 0) { "Retention must be at least one day." }
                 val preparedInput = fixture.copy(
                     caseNumber = caseNumber.text.toString().trim(),
                     legalEntity = legalEntity.text.toString().trim(),
@@ -311,7 +313,7 @@ class MainActivity : Activity() {
                     retainPayloads = retainPayloads.isChecked,
                     includeRawCapturesInExport = includeRawExport.isChecked,
                     exportDestination = exportDestination.text.toString().trim().ifBlank { null },
-                    deleteAfter = submittedAt.plusSeconds(retention * 24 * 3600),
+                    deleteAfter = submittedAt.plus(retention, ChronoUnit.DAYS),
                     stopConditions = selectedStopConditions,
                     participants = ProfessionalCaseParticipants(
                         actorRef("assessor", assessor.text.toString()),
@@ -1079,7 +1081,10 @@ class MainActivity : Activity() {
         content.addView(section("Deliverable", "The final package will contain a signed PDF, machine-readable JSON, inventory CSV and evidence manifest."))
         content.addView(card("REPORT SETTINGS", current.reportLanguage + "  ·  Local retention " + current.retentionDays + " days\n" +
             "Timestamps: Africa/Casablanca  ·  Evidence hashes: SHA-256", accent = TEAL))
-        val ready = assets.isNotEmpty() && unresolved == 0
+        val ready = assets.isNotEmpty() &&
+            unresolved == 0 &&
+            professionalCase?.authorization != null &&
+            reviewerAccepted
         content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
             if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
         })
