@@ -535,9 +535,10 @@ class MainActivity : Activity() {
     private fun reportableProfessionalCaseFor(site: SiteProfile): AssessmentCase? {
         if (!site.sample) return null
         val active = professionalCaseFor(site) ?: return null
+        val activeBaseCaseNumber = baseCaseNumber(active.caseNumber)
         return professionalCases.list()
             .filter {
-                it.caseNumber == active.caseNumber &&
+                baseCaseNumber(it.caseNumber) == activeBaseCaseNumber &&
                     it.state in setOf(CaseState.FINALIZED, CaseState.SUPERSEDED)
             }
             .maxByOrNull { it.revision }
@@ -555,6 +556,8 @@ class MainActivity : Activity() {
             .putString(ACTIVE_PROFESSIONAL_CASE_KEY, caseId.value)
             .apply()
     }
+
+    private fun baseCaseNumber(caseNumber: String): String = caseNumber.replace(Regex("-R\\d+$"), "")
 
     private fun addressToText(address: Int): String = listOf(24, 16, 8, 0)
         .joinToString(".") { ((address ushr it) and 0xff).toString() }
