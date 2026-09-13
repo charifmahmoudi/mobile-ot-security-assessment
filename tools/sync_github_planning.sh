@@ -31,18 +31,11 @@ project)
   owner_id=$(gh api user --jq .node_id)
   repo_id=$(gh api "repos/${repo}" --jq .node_id)
   project_title='Atlas Product Delivery'
-  lookup_query='query($login:String!){user(login:$login){projectsV2(first:100){nodes{id number url title}}}}'
-  existing_projects=$(gh api graphql -f query="$lookup_query" -F login="$owner_login")
-  project_id=$(printf '%s' "$existing_projects" | jq -r --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title) | .id' | head -n 1)
-  if [ -z "$project_id" ]; then
-    create_query='mutation($owner:ID!,$title:String!){createProjectV2(input:{ownerId:$owner,title:$title}){projectV2{id number url title}}}'
-    project_json=$(gh api graphql -f query="$create_query" -F owner="$owner_id" -F title="$project_title")
-    project_id=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.id')
-    project_number=$(printf '%s' "$project_json" | jq -r '.data.createProjectV2.projectV2.number')
-  else
-    project_number=$(printf '%s' "$existing_projects" | jq -r --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title) | .number' | head -n 1)
-    project_json=$(printf '%s' "$existing_projects" | jq -c --arg title "$project_title" '.data.user.projectsV2.nodes[] | select(.title == $title)' | head -n 1)
-  fi
+  # This repository already owns Project #6. Use its stable node ID directly;
+  # the user-project lookup can return an invalid truncated ID in Actions.
+  project_id='PVT_kwHOAF0O6M4BjTV4'
+  project_number=6
+  project_json='{"id":"PVT_kwHOAF0O6M4BjTV4","number":6,"url":"https://github.com/users/charifmahmoudi/projects/6","title":"Atlas Product Delivery"}'
   test -n "$project_id" -a "$project_id" != "null"
   link_query='mutation($project:ID!,$repository:ID!){linkProjectV2ToRepository(input:{projectId:$project,repositoryId:$repository}){clientMutationId}}'
   gh api graphql -f query="$link_query" -F project="$project_id" -F repository="$repo_id" >/dev/null 2>&1 || true
