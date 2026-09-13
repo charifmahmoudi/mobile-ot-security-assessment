@@ -31,11 +31,10 @@ project)
   owner_id=$(gh api user --jq .node_id)
   repo_id=$(gh api "repos/${repo}" --jq .node_id)
   project_title='Atlas Product Delivery'
-  # This repository already owns Project #6. Use its stable node ID directly;
-  # the user-project lookup can return an invalid truncated ID in Actions.
-  project_id='PVT_kwHOAF0O6M4BjTV4'
-  project_number=6
-  project_json='{"id":"PVT_kwHOAF0O6M4BjTV4","number":6,"url":"https://github.com/users/charifmahmoudi/projects/6","title":"Atlas Product Delivery"}'
+  lookup_query='query($login:String!){user(login:$login){projectsV2(first:100){nodes{id number url title}}}}'
+  project_row=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" --jq '.data.user.projectsV2.nodes[] | select(.title == "Atlas Product Delivery") | [.id,.number] | @tsv' | head -n 1)
+  read -r project_id project_number <<< "$project_row"
+  project_json=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" --jq '.data.user.projectsV2.nodes[] | select(.title == "Atlas Product Delivery")' | head -n 1)
   test -n "$project_id" -a "$project_id" != "null"
   # The project is already linked. Do not call linkProjectV2ToRepository during sync.
   # Existing Project views are preserved; view creation is intentionally manual to avoid duplicates.
