@@ -1,0 +1,53 @@
+name: License and SBOM inventory
+
+on:
+  push:
+    paths:
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "**/build.gradle.kts"
+      - "website/package.json"
+      - "tools/fetch_research_pcaps.sh"
+      - "tools/*ci.Dockerfile"
+      - ".github/workflows/*.yml"
+      - "compliance/third_party_inventory.json"
+      - "compliance/atlas-third-party-sbom.cdx.json"
+      - "tools/third_party_inventory.py"
+      - "tools/test_third_party_inventory.py"
+      - ".github/workflows/license-sbom.yml"
+  pull_request:
+    paths:
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "**/build.gradle.kts"
+      - "website/package.json"
+      - "tools/fetch_research_pcaps.sh"
+      - "tools/*ci.Dockerfile"
+      - ".github/workflows/*.yml"
+      - "compliance/third_party_inventory.json"
+      - "compliance/atlas-third-party-sbom.cdx.json"
+      - "tools/third_party_inventory.py"
+      - "tools/test_third_party_inventory.py"
+      - ".github/workflows/license-sbom.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify third-party inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate third-party inventory and SBOM consistency
+        run: python3 tools/third_party_inventory.py --check
+      - name: Unit test third-party inventory validator
+        run: python3 -m unittest tools/test_third_party_inventory.py
+      - name: Publish SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: atlas-third-party-sbom
+          if-no-files-found: error
+          path: compliance/atlas-third-party-sbom.cdx.json
