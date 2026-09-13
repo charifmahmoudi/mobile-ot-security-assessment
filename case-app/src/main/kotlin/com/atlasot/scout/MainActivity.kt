@@ -1095,6 +1095,7 @@ class MainActivity : Activity() {
         val current = requireNotNull(site)
         val assets = repository.assets(current.id)
         val unresolved = assets.count { it.reviewState == "Needs review" }
+        val activeProfessionalCase = professionalCaseFor(current)
         val professionalCase = reportableProfessionalCaseFor(current)
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
@@ -1130,7 +1131,15 @@ class MainActivity : Activity() {
             unresolved == 0 &&
             professionalGateSatisfied
         content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID) {
-            if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
+            when {
+                ready -> renderReportPreview()
+                unresolved > 0 -> renderInventory("Needs review")
+                !professionalGateSatisfied -> {
+                    val blockerCase = activeProfessionalCase ?: professionalCase
+                    if (blockerCase != null) renderProfessionalCase(blockerCase.id) else renderSiteSelection()
+                }
+                else -> renderInventory("All assets")
+            }
         })
         content.addView(txt("Final package export remains disabled until deterministic signed PDF/JSON/CSV materialization is implemented.", 12f, MUTED).apply {
             setPadding(0, dp(10), 0, 0)

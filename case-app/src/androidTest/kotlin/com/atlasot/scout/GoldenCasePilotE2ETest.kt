@@ -152,6 +152,12 @@ class GoldenCasePilotE2ETest {
                 assertTrue(text.contains("Accepted by Omar Tazi"))
                 assertTrue(text.contains("Resolve readiness blockers"))
                 assertTrue(activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
+                activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("AWAITING AUTHORIZATION"))
+                assertTrue(text.contains("ATLAS-PILOT-001-R2"))
             }
         }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
