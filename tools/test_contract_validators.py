@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
+import sys
 import unittest
 from pathlib import Path
+
+TOOLS_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(TOOLS_DIR))
 
 import validate_agent_issue
 import validate_pull_request
 
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = TOOLS_DIR.parent
 
 
 class ContractValidatorTest(unittest.TestCase):
