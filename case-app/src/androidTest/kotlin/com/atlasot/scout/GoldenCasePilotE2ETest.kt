@@ -151,8 +151,8 @@ class GoldenCasePilotE2ETest {
                 assertTrue(text.contains("AUTH-ATLAS-PILOT-001-R1"))
                 assertTrue(text.contains("Accepted by Omar Tazi"))
                 assertTrue(text.contains("Resolve readiness blockers"))
-                assertTrue(activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
-                activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).performClick()
+                assertTrue(!activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
+                activity.findViewById<View>(MainActivity.REPORT_BLOCKERS_ACTION_ID).performClick()
             }
             scenario.onActivity { activity ->
                 val text = screenText(activity)

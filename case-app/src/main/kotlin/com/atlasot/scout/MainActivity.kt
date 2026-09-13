@@ -1130,17 +1130,22 @@ class MainActivity : Activity() {
         val ready = assets.isNotEmpty() &&
             unresolved == 0 &&
             professionalGateSatisfied
-        content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID) {
-            when {
-                ready -> renderReportPreview()
-                unresolved > 0 -> renderInventory("Needs review")
-                !professionalGateSatisfied -> {
-                    val blockerCase = activeProfessionalCase ?: professionalCase
-                    if (blockerCase != null) renderProfessionalCase(blockerCase.id) else renderSiteSelection()
-                }
-                else -> renderInventory("All assets")
-            }
+        content.addView(button("Preview draft report", REPORT_ACTION_ID) { renderReportPreview() }.apply {
+            isEnabled = ready
+            alpha = if (ready) 1f else 0.5f
         })
+        if (!ready) {
+            content.addView(button("Resolve readiness blockers", REPORT_BLOCKERS_ACTION_ID, false) {
+                when {
+                    unresolved > 0 -> renderInventory("Needs review")
+                    !professionalGateSatisfied -> {
+                        val blockerCase = activeProfessionalCase ?: professionalCase
+                        if (blockerCase != null) renderProfessionalCase(blockerCase.id) else renderSiteSelection()
+                    }
+                    else -> renderInventory("All assets")
+                }
+            })
+        }
         content.addView(txt("Final package export remains disabled until deterministic signed PDF/JSON/CSV materialization is implemented.", 12f, MUTED).apply {
             setPadding(0, dp(10), 0, 0)
         })
@@ -1444,6 +1449,7 @@ class MainActivity : Activity() {
         const val LIVE_CAPTURE_ACTION_ID = 0x41544C63
         const val FINDINGS_SUMMARY_ID = 0x41544C64
         const val REPORT_ACTION_ID = 0x41544C65
+        const val REPORT_BLOCKERS_ACTION_ID = 0x41544C93
         const val CONTINUE_ACTION_ID = 0x41544C66
         const val OVERVIEW_NAV_ID = 0x41544C67
         const val COLLECT_NAV_ID = 0x41544C68
