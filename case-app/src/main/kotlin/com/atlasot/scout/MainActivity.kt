@@ -1137,6 +1137,7 @@ class MainActivity : Activity() {
         if (!ready) {
             content.addView(button("Resolve readiness blockers", REPORT_BLOCKERS_ACTION_ID, false) {
                 when {
+                    assets.isEmpty() -> renderWorkspace()
                     unresolved > 0 -> renderInventory("Needs review")
                     !professionalGateSatisfied -> {
                         val blockerCase = activeProfessionalCase ?: professionalCase
