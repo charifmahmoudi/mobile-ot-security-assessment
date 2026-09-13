@@ -513,8 +513,12 @@ class MainActivity : Activity() {
         val cleanName = displayName.trim()
         require(cleanName.isNotBlank()) { "${role.name.replace('_', ' ').lowercase().replaceFirstChar { it.uppercase() }} name is required." }
         val slug = cleanName.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
+        require(slug.isNotBlank()) { "Use letters or digits in the ${role.name.replace('_', ' ').lowercase()} name." }
         return ActorRef(ActorId("$prefix-$slug"), cleanName, role)
     }
+
+    private fun professionalCaseFor(site: SiteProfile): AssessmentCase? =
+        if (site.sample) professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) else null
 
     private fun addressToText(address: Int): String = listOf(24, 16, 8, 0)
         .joinToString(".") { ((address ushr it) and 0xff).toString() }
@@ -1055,9 +1059,7 @@ class MainActivity : Activity() {
         val current = requireNotNull(site)
         val assets = repository.assets(current.id)
         val unresolved = assets.count { it.reviewState == "Needs review" }
-        val professionalCase = professionalCases.list()
-            .lastOrNull { it.state != CaseState.SUPERSEDED }
-            ?.let { professionalCases.load(it.id) }
+        val professionalCase = professionalCaseFor(current)
         val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
         val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
         page("Report readiness", current.name, "Professional handoff checklist · " + current.reportLanguage, ::renderWorkspace, WorkspaceSection.REPORT)
