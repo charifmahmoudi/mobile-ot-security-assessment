@@ -39,14 +39,14 @@ project)
   # The project is already linked. Do not call linkProjectV2ToRepository during sync.
   # Existing Project views are preserved; view creation is intentionally manual to avoid duplicates.
   add_item_query='mutation($project:ID!,$content:ID!){addProjectV2ItemById(input:{projectId:$project,contentId:$content}){item{id}}}'
-  status_query='query{node(id:"PVT_kwHOAF0O6M4BjTV4"){... on ProjectV2{fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}}}}}'
-  status_json=$(gh api graphql -f query="$status_query")
+  status_query='query($project:ID!){node(id:$project){... on ProjectV2{fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}}}}}'
+  status_json=$(gh api graphql -f query="$status_query" -F project="$project_id")
   status_field_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
   todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
   progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
   [ -n "$status_field_id" ] && [ "$status_field_id" != "null" ] || { echo "Status field not found on project $project_id." >&2; exit 1; }
   [ -n "$todo_option_id" ] && [ "$todo_option_id" != "null" ] || { echo "Todo status option not found." >&2; exit 1; }
-  update_status_query='mutation($item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:"PVT_kwHOAF0O6M4BjTV4",itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
+  update_status_query='mutation($project:ID!,$item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:$project,itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
   issue_count=0
   status_count=0
   while IFS=$'\\t' read -r issue_number issue_node_id; do
@@ -57,7 +57,7 @@ project)
     target_option="$todo_option_id"
     case "$issue_number" in 19|61|62|63) target_option="$progress_option_id" ;; esac
     if [ -n "$item_id" ] && [ "$item_id" != "null" ] && [ -n "$target_option" ] && [ "$target_option" != "null" ]; then
-      gh api graphql -f query="$update_status_query" -F item="$item_id" -F field="$status_field_id" -F option="$target_option" >/dev/null
+      gh api graphql -f query="$update_status_query" -F project="$project_id" -F item="$item_id" -F field="$status_field_id" -F option="$target_option" >/dev/null
       status_count=$((status_count + 1))
     fi
   done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[] | [.number,.node_id] | @tsv')
