@@ -1083,7 +1083,8 @@ class MainActivity : Activity() {
             "Timestamps: Africa/Casablanca  ·  Evidence hashes: SHA-256", accent = TEAL))
         val ready = assets.isNotEmpty() &&
             unresolved == 0 &&
-            professionalCase?.authorization != null &&
+            professionalCase?.state == CaseState.FINALIZED &&
+            professionalCase.authorization != null &&
             reviewerAccepted
         content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
             if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
