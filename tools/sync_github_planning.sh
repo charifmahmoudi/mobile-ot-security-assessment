@@ -56,7 +56,7 @@ project)
     [ -n "$item_id" ] || continue
     target_option="$todo_option_id"
     case "$issue_number" in
-      19|61|62|63)
+      60|65)
         target_option="$progress_option_id"
         progress_count=$((progress_count + 1))
         echo "Moving issue #$issue_number to In Progress."
@@ -67,7 +67,7 @@ project)
   done < <(printf '%s' "$items_json" | jq -r '.items[] | select(.content.number != null) | "\(.id) \(.content.number)"')
 
   [ "$status_count" -gt 0 ] || { echo "No project item statuses were updated." >&2; exit 1; }
-  [ "$progress_count" -eq 4 ] || { echo "Expected 4 In Progress assignments, updated $progress_count." >&2; exit 1; }
+  [ "$progress_count" -eq 2 ] || { echo "Expected 2 In Progress assignments, updated $progress_count." >&2; exit 1; }
   echo "Imported $issue_count open issues into project $project_number."
   echo "Updated $status_count project item statuses."
   printf '%s\n' "$project_json"
