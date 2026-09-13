@@ -237,20 +237,28 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
         val reviewer = requireNotNull(repository.loadParticipants(caseId)).independentReviewer
         val acceptedReview = requireNotNull(current.reviewDecision) { "accepted case review is required" }
         require(acceptedReview.outcome == CaseReviewOutcome.ACCEPTED) { "accepted case review is required" }
+        val authorization = requireNotNull(current.authorization) { "authorization is required before finalization" }
+        val snapshotId = SnapshotId(
+            "SNAP-${current.id.value}-${current.revision}-${current.scopeHash.value.take(12)}-${current.dataPolicyHash.value.take(12)}"
+        )
         val finalized = current.finalizeCase(
             reviewer = reviewer,
             at = at,
-            snapshotId = SnapshotId("SNAP-${java.util.UUID.randomUUID()}"),
+            snapshotId = snapshotId,
             material = SnapshotMaterial(
                 objectHashes = mapOf(
-                    "authorization" to requireNotNull(current.authorization).artifactHash,
+                    "authorization" to authorization.artifactHash,
                     "scope" to current.scopeHash,
                     "data-policy" to current.dataPolicyHash,
-                    "review-decision" to Sha256.digest(acceptedReview.reason),
+                    "review-decision" to Sha256.digest(
+                        "${acceptedReview.reviewer.id.value}|${acceptedReview.outcome}|${acceptedReview.reason}|${acceptedReview.at}"
+                    ),
                 ),
-                toolBuild = "case-app-professional-workflow",
+                toolBuild = "case-app-professional-workflow-${current.context.assessmentPack}-r${current.revision}",
                 packVersions = mapOf(
-                    current.context.assessmentPack to Sha256.digest("golden-customer-assessment-fixture-v1")
+                    current.context.assessmentPack to Sha256.digest(
+                        "${current.context.assessmentPack}|${current.caseNumber}|${current.revision}|${current.scopeHash.value}|${current.dataPolicyHash.value}"
+                    )
                 ),
             ),
         )

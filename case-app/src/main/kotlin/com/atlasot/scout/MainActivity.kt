@@ -22,7 +22,6 @@ import java.io.InputStream
 import java.security.*
 import java.security.spec.ECGenParameterSpec
 import java.time.Instant
-import java.time.temporal.ChronoUnit
 import java.util.UUID
 import java.util.concurrent.Executors
 
@@ -268,7 +267,12 @@ class MainActivity : Activity() {
         content.addView(section("Data policy", "Policy changes require a new matching authorization fingerprint."))
         val classification = field("Classification", "Data classification", PROFESSIONAL_CASE_CLASSIFICATION_ID, fixture.classification)
         val exportDestination = field("Export destination", "Approved export destination", PROFESSIONAL_CASE_EXPORT_DESTINATION_ID, fixture.exportDestination.orEmpty())
-        val retentionDays = field("Retention (days)", "Days until local deletion", PROFESSIONAL_CASE_RETENTION_DAYS_ID, "30")
+        val deleteAfter = field(
+            "Delete after (UTC)",
+            "2026-10-01T12:00:00Z",
+            PROFESSIONAL_CASE_RETENTION_DAYS_ID,
+            fixture.deleteAfter?.toString().orEmpty()
+        )
         val retainPayloads = CheckBox(this).apply {
             text = "Retain payloads locally"
             isChecked = fixture.retainPayloads
@@ -298,9 +302,6 @@ class MainActivity : Activity() {
                 require(selectedMethods.isNotEmpty()) { "Select at least one approved evidence method." }
                 val selectedStopConditions = stopConditions.filterValues { it.isChecked }.keys
                 require(selectedStopConditions.isNotEmpty()) { "Select at least one stop condition." }
-                val retention = retentionDays.text.toString().trim().toLongOrNull()
-                    ?: throw IllegalArgumentException("Enter retention in whole days.")
-                require(retention > 0) { "Retention must be at least one day." }
                 val preparedInput = fixture.copy(
                     caseNumber = requiredText(caseNumber, "Case number"),
                     legalEntity = requiredText(legalEntity, "Customer"),
@@ -316,7 +317,7 @@ class MainActivity : Activity() {
                     retainPayloads = retainPayloads.isChecked,
                     includeRawCapturesInExport = includeRawExport.isChecked,
                     exportDestination = exportDestination.text.toString().trim().ifBlank { null },
-                    deleteAfter = submittedAt.plus(retention, ChronoUnit.DAYS),
+                    deleteAfter = Instant.parse(requiredText(deleteAfter, "Delete-after time")),
                     stopConditions = selectedStopConditions,
                     participants = ProfessionalCaseParticipants(
                         actorRef(assessor.text.toString()),
@@ -518,7 +519,7 @@ class MainActivity : Activity() {
         require(cleanName.isNotBlank()) { "${role.name.replace('_', ' ').lowercase().replaceFirstChar { it.uppercase() }} name is required." }
         val slug = cleanName.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
         require(slug.isNotBlank()) { "Use letters or digits in the ${role.name.replace('_', ' ').lowercase()} name." }
-        return ActorRef(ActorId("actor-$slug"), cleanName, role)
+        return ActorRef(ActorId("actor-$slug-${role.name.lowercase()}"), cleanName, role)
     }
 
     private fun requiredText(field: EditText, label: String): String =
