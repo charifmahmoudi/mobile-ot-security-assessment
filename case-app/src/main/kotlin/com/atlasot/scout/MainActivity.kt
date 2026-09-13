@@ -299,17 +299,17 @@ class MainActivity : Activity() {
                     ?: throw IllegalArgumentException("Enter retention in whole days.")
                 require(retention > 0) { "Retention must be at least one day." }
                 val preparedInput = fixture.copy(
-                    caseNumber = caseNumber.text.toString().trim(),
-                    legalEntity = legalEntity.text.toString().trim(),
-                    site = site.text.toString().trim(),
-                    processArea = processArea.text.toString().trim(),
-                    question = question.text.toString().trim(),
-                    requestedDecision = requestedDecision.text.toString().trim(),
+                    caseNumber = requiredText(caseNumber, "Case number"),
+                    legalEntity = requiredText(legalEntity, "Customer"),
+                    site = requiredText(site, "Site"),
+                    processArea = requiredText(processArea, "Process area"),
+                    question = requiredText(question, "Assessment question"),
+                    requestedDecision = requiredText(requestedDecision, "Requested outcome"),
                     scopeCidrs = parseCsvValues(scope.text.toString()),
                     excludedAddresses = parseCsvValues(exclusions.text.toString()),
                     methods = selectedMethods,
                     physicalAreas = parseCsvValues(physicalArea.text.toString()),
-                    classification = classification.text.toString().trim(),
+                    classification = requiredText(classification, "Classification"),
                     retainPayloads = retainPayloads.isChecked,
                     includeRawCapturesInExport = includeRawExport.isChecked,
                     exportDestination = exportDestination.text.toString().trim().ifBlank { null },
@@ -516,6 +516,9 @@ class MainActivity : Activity() {
         require(slug.isNotBlank()) { "Use letters or digits in the ${role.name.replace('_', ' ').lowercase()} name." }
         return ActorRef(ActorId("$prefix-$slug"), cleanName, role)
     }
+
+    private fun requiredText(field: EditText, label: String): String =
+        field.text.toString().trim().also { require(it.isNotBlank()) { "$label is required." } }
 
     private fun professionalCaseFor(site: SiteProfile): AssessmentCase? =
         if (site.sample) professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) else null
