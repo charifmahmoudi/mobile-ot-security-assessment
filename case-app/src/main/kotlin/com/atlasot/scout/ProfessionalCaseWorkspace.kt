@@ -236,6 +236,7 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
         val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
         val reviewer = requireNotNull(repository.loadParticipants(caseId)).independentReviewer
         val acceptedReview = requireNotNull(current.reviewDecision) { "accepted case review is required" }
+        require(acceptedReview.outcome == CaseReviewOutcome.ACCEPTED) { "accepted case review is required" }
         val finalized = current.finalizeCase(
             reviewer = reviewer,
             at = at,

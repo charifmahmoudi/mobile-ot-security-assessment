@@ -286,6 +286,7 @@ class MainActivity : Activity() {
         content.addView(error)
         content.addView(button("Create case and request approval", CREATE_PROFESSIONAL_CASE_ID) {
             runCatching {
+                val submittedAt = Instant.now()
                 val selectedMethods = buildSet {
                     if (activeMethod.isChecked) add(EvidenceMethod.H1_EXACT_ACTIVE_IDENTITY)
                     if (offlineMethod.isChecked) add(EvidenceMethod.H3_OFFLINE_IMPORT)
@@ -310,7 +311,7 @@ class MainActivity : Activity() {
                     retainPayloads = retainPayloads.isChecked,
                     includeRawCapturesInExport = includeRawExport.isChecked,
                     exportDestination = exportDestination.text.toString().trim().ifBlank { null },
-                    deleteAfter = now.plusSeconds(retention * 24 * 3600),
+                    deleteAfter = submittedAt.plusSeconds(retention * 24 * 3600),
                     stopConditions = selectedStopConditions,
                     participants = ProfessionalCaseParticipants(
                         actorRef("assessor", assessor.text.toString()),
@@ -319,7 +320,7 @@ class MainActivity : Activity() {
                         actorRef("reviewer", reviewer.text.toString(), ActorRole.REVIEWER),
                     ),
                 )
-                professionalCases.createPrepared(preparedInput, now)
+                professionalCases.createPrepared(preparedInput, submittedAt)
             }
                 .onSuccess { renderProfessionalCase(it.id) }
                 .onFailure { error.text = it.message ?: "Unable to create the professional case." }
