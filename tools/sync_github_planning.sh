@@ -27,43 +27,41 @@ labels-milestones)
   milestone 'A3 — Community extensible' 'External contributors reproduce and extend Atlas'
   ;;
 project)
-  owner_login=$(gh api user --jq .login)
-  owner_id=$(gh api user --jq .node_id)
-  repo_id=$(gh api "repos/${repo}" --jq .node_id)
-  project_title='Atlas Product Delivery'
-  lookup_query='query($login:String!,$number:Int!){user(login:$login){projectV2(number:$number){id number url title}}}'
-  project_row=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" -F number=6 --jq '.data.user.projectV2 | [.id,.number] | @tsv')
-  read -r project_id project_number <<< "$project_row"
-  project_json=$(gh api graphql -f query="$lookup_query" -F login="$owner_login" -F number=6 --jq '.data.user.projectV2')
-  test -n "$project_id" -a "$project_id" != "null"
-  # The project is already linked. Do not call linkProjectV2ToRepository during sync.
-  # Existing Project views are preserved; view creation is intentionally manual to avoid duplicates.
-  add_item_query='mutation($project:ID!,$content:ID!){addProjectV2ItemById(input:{projectId:$project,contentId:$content}){item{id}}}'
-  status_query='query($project:ID!){node(id:$project){... on ProjectV2{fields(first:50){nodes{... on ProjectV2SingleSelectField{id name options{id name}}}}}}}'
-  status_json=$(gh api graphql -f query="$status_query" -F project="$project_id")
-  status_field_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .id')
-  todo_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
-  progress_option_id=$(printf '%s' "$status_json" | jq -r '.data.node.fields.nodes[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
-  [ -n "$status_field_id" ] && [ "$status_field_id" != "null" ] || { echo "Status field not found on project $project_id." >&2; exit 1; }
-  [ -n "$todo_option_id" ] && [ "$todo_option_id" != "null" ] || { echo "Todo status option not found." >&2; exit 1; }
-  update_status_query='mutation($project:ID!,$item:ID!,$field:ID!,$option:String!){updateProjectV2ItemFieldValue(input:{projectId:$project,itemId:$item,fieldId:$field,value:{singleSelectOptionId:$option}}){projectV2Item{id}}}'
+  owner_login='charifmahmoudi'
+  project_number=6
+  project_json=$(gh project view "$project_number" --owner "$owner_login" --format json)
+  project_id=$(printf '%s' "$project_json" | jq -r '.id')
+  [ -n "$project_id" ] && [ "$project_id" != "null" ] || { echo "Project #6 could not be resolved." >&2; exit 1; }
+
+  # Import all open issues idempotently. Existing views are never created or modified.
   issue_count=0
-  status_count=0
-  while IFS=$'\\t' read -r issue_number issue_node_id; do
-    [ -n "$issue_node_id" ] || continue
-    item_json=$(gh api graphql -f query="$add_item_query" -F project="$project_id" -F content="$issue_node_id")
-    item_id=$(printf '%s' "$item_json" | jq -r '.data.addProjectV2ItemById.item.id')
+  while IFS= read -r issue_url; do
+    [ -n "$issue_url" ] || continue
+    gh project item-add "$project_number" --owner "$owner_login" --url "$issue_url" >/dev/null
     issue_count=$((issue_count + 1))
+  done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[].html_url')
+
+  fields_json=$(gh project field-list "$project_number" --owner "$owner_login" --format json)
+  status_field_id=$(printf '%s' "$fields_json" | jq -r '.fields[] | select(.name == "Status") | .id')
+  todo_option_id=$(printf '%s' "$fields_json" | jq -r '.fields[] | select(.name == "Status") | .options[] | select(.name == "Todo") | .id')
+  progress_option_id=$(printf '%s' "$fields_json" | jq -r '.fields[] | select(.name == "Status") | .options[] | select(.name == "In Progress") | .id')
+  [ -n "$status_field_id" ] && [ "$status_field_id" != "null" ] || { echo "Status field not found." >&2; exit 1; }
+  [ -n "$todo_option_id" ] && [ "$todo_option_id" != "null" ] || { echo "Todo option not found." >&2; exit 1; }
+  [ -n "$progress_option_id" ] && [ "$progress_option_id" != "null" ] || { echo "In Progress option not found." >&2; exit 1; }
+
+  items_json=$(gh project item-list "$project_number" --owner "$owner_login" --format json --limit 100)
+  status_count=0
+  while read -r item_id issue_number; do
+    [ -n "$item_id" ] || continue
     target_option="$todo_option_id"
     case "$issue_number" in 19|61|62|63) target_option="$progress_option_id" ;; esac
-    if [ -n "$item_id" ] && [ "$item_id" != "null" ] && [ -n "$target_option" ] && [ "$target_option" != "null" ]; then
-      gh api graphql -f query="$update_status_query" -F project="$project_id" -F item="$item_id" -F field="$status_field_id" -F option="$target_option" >/dev/null
-      status_count=$((status_count + 1))
-    fi
-  done < <(gh api "repos/$repo/issues?state=open&per_page=100" --jq '.[] | [.number,.node_id] | @tsv')
+    gh project item-edit --id "$item_id" --project-id "$project_id" --field-id "$status_field_id" --single-select-option-id "$target_option" >/dev/null
+    status_count=$((status_count + 1))
+  done < <(printf '%s' "$items_json" | jq -r '.items[] | select(.content.number != null) | [.id,.content.number] | @tsv')
+
   [ "$status_count" -gt 0 ] || { echo "No project item statuses were updated." >&2; exit 1; }
-  echo "Updated $status_count project item statuses."
   echo "Imported $issue_count open issues into project $project_number."
+  echo "Updated $status_count project item statuses."
   printf '%s\n' "$project_json"
   ;;
 validate) echo 'Planning metadata validation complete.' ;;
