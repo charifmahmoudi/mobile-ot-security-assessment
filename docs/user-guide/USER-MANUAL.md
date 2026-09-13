@@ -18,9 +18,9 @@ Evidence assigned to the wrong site or process area can produce a misleading wor
 
 ### Establish professional authority first
 
-For the pilot journey, choose **Prepare Golden Customer Assessment**. Review the customer, site, process area, assessment question, requested decision, exact `/32` target, exclusion, approved methods, stop conditions, data policy and named roles. Creating the record moves it to `AWAITING_AUTHORIZATION`; it does not unlock collection.
+For the pilot journey, choose **Prepare Golden Customer Assessment**. Review and, where needed, edit the customer, site, process area, assessment question, requested decision, exact `/32` target, exclusion, approved methods, stop conditions, data policy and named roles. Creating the record moves it to `AWAITING_AUTHORIZATION`; it does not unlock collection.
 
-Record the operational and security approvals as distinct actions. Atlas binds the resulting authorization to the exact scope and data-policy fingerprints. Start protected collection only after the workspace reports `AUTHORIZED`. Closing and reopening the app resumes the same encrypted case and audit history.
+Record the operational and security approvals as distinct actions. Atlas binds the resulting authorization to the exact scope and data-policy fingerprints. Start protected collection only after the workspace reports `AUTHORIZED`. Closing and reopening the app resumes the same encrypted case and audit history, and the same case screen can then advance through evidence review, reconciliation, assessment, independent review, finalization and successor-revision creation.
 
 ## 2. Create a site workspace
 
@@ -142,7 +142,7 @@ Use the process/zone view as a review aid. Missing communication in the availabl
 
 Findings keep evidence/confidence separate from operational consequence. Protocol presence alone is not automatically a vulnerability or business-impact conclusion.
 
-The Report area shows readiness blockers. A professional handoff should remain blocked until the required authorization, evidence review and release controls exist under the P0 method.
+The Report area shows readiness blockers. A professional handoff should remain blocked until the required authorization, evidence review, reviewer decision and release controls exist under the P0 method.
 
 ![Report readiness with explicit blockers](screenshots/10-guided-report-readiness-api35.png)
 

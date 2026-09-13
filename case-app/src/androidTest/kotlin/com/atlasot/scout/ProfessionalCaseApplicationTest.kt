@@ -130,5 +130,35 @@ class ProfessionalCaseApplicationTest {
         assertEquals(CaseState.SUPERSEDED, app.load(supersession.superseded.id)?.state)
     }
 
+    @Test fun applicationBoundaryCanDriveReviewFinalizationAndSuccessorPreparation() {
+        val app = application()
+        val now = Instant.now()
+        val awaiting = app.createPrepared(GoldenCustomerAssessment.input(now, uniqueId("FLOW")), now)
+        val proposal = app.proposeAuthorization(
+            awaiting.id, true, true, now.minusSeconds(1), now.plusSeconds(3600),
+            "workflow authorization", now.plusMillis(10),
+        )
+        app.authorize(awaiting.id, proposal, now.plusMillis(20))
+        app.startCollection(awaiting.id, now.plusMillis(30))
+        app.beginEvidenceReview(awaiting.id, now.plusMillis(40))
+        app.beginReconciliation(awaiting.id, now.plusMillis(50))
+        app.beginAssessment(awaiting.id, now.plusMillis(60))
+        app.requestReview(awaiting.id, now.plusMillis(70))
+        app.recordReview(awaiting.id, accepted = true, reason = "independent review accepted", at = now.plusMillis(80))
+        val finalized = app.finalizeCase(awaiting.id, now.plusMillis(90))
+
+        assertEquals(CaseState.FINALIZED, finalized.state)
+        assertEquals(CaseState.FINALIZED, app.load(awaiting.id)?.state)
+
+        val supersession = app.createSuccessorRevision(awaiting.id, now.plusMillis(100))
+        assertEquals(CaseState.SUPERSEDED, app.load(awaiting.id)?.state)
+        assertEquals(CaseState.DRAFT, supersession.successor.state)
+        assertEquals(2, supersession.successor.revision)
+
+        val awaitingSuccessor = app.prepareAndRequestAuthorization(supersession.successor.id, now.plusMillis(110))
+        assertEquals(CaseState.AWAITING_AUTHORIZATION, awaitingSuccessor.state)
+        assertEquals(CaseState.AWAITING_AUTHORIZATION, app.load(supersession.successor.id)?.state)
+    }
+
     private fun uniqueId(prefix: String) = "GOLDEN-$prefix-${UUID.randomUUID()}"
 }
