@@ -14,6 +14,13 @@ Atlas OT Scout is an executable research prototype with safety-critical OT bound
 
 Repository-owner documentation maintenance may be committed directly, but packet-producing behavior, authorization policy, parser trust boundaries, cryptography, or release controls require independent technical and safety review.
 
+## Agent-ready issue and pull-request contracts
+
+- Issues intended for coding-agent assignment must include `## Outcome`, `## Scope`, `## Dependencies`, `## Failure behavior`, `## Non-goals`, `## Acceptance criteria`, `## Tests and evidence`, `## Human validation still required`, and `## Agent completion report`.
+- Only issues in `state: ready-for-agent` should be assigned to a coding agent. `state: needs-product-decision`, `state: needs-architecture`, and `state: blocked-by-evidence` are not agent-assignable. `state: needs-human-validation` means human-only proof or approval remains before closure.
+- Pull requests must use the repository template and include the implementation contract, dependencies, failure behavior, evidence artifact, tests/evidence, documentation impact, and the human validation that remains unproven.
+- Automated tests and CI prove software/documentation paths only unless a document explicitly cites stronger human-reviewed evidence; they do not by themselves prove physical or customer qualification.
+
 ## Required local checks
 
 ```bash
