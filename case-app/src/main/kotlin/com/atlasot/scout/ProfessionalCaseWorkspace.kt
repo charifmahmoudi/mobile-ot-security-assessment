@@ -239,7 +239,7 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
         val finalized = current.finalizeCase(
             reviewer = reviewer,
             at = at,
-            snapshotId = SnapshotId("SNAP-${current.caseNumber}-R${current.revision}"),
+            snapshotId = SnapshotId("SNAP-${current.id.value}"),
             material = SnapshotMaterial(
                 objectHashes = mapOf(
                     "authorization" to requireNotNull(current.authorization).artifactHash,
