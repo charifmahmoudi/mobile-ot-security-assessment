@@ -261,7 +261,8 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
     fun createSuccessorRevision(caseId: CaseId, at: Instant): Supersession {
         val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
         val participants = requireNotNull(repository.loadParticipants(caseId)) { "case participants not found" }
-        val nextCaseId = CaseId("${current.caseNumber}-R${current.revision + 1}")
+        val caseIdBase = current.caseNumber.replace(Regex("-R\\d+$"), "")
+        val nextCaseId = CaseId("$caseIdBase-R${current.revision + 1}")
         val supersession = current.supersedeWith(nextCaseId, participants.assessor, at)
         repository.save(supersession.superseded, expectedVersion = current.version)
         repository.saveNewCase(supersession.successor, participants)

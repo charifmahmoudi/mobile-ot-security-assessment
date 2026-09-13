@@ -319,10 +319,10 @@ class MainActivity : Activity() {
                     deleteAfter = submittedAt.plus(retention, ChronoUnit.DAYS),
                     stopConditions = selectedStopConditions,
                     participants = ProfessionalCaseParticipants(
-                        actorRef("assessor", assessor.text.toString()),
-                        actorRef("operational-approver", operationalApprover.text.toString(), ActorRole.OPERATIONAL_APPROVER),
-                        actorRef("security-approver", securityApprover.text.toString(), ActorRole.SECURITY_APPROVER),
-                        actorRef("reviewer", reviewer.text.toString(), ActorRole.REVIEWER),
+                        actorRef(assessor.text.toString()),
+                        actorRef(operationalApprover.text.toString(), ActorRole.OPERATIONAL_APPROVER),
+                        actorRef(securityApprover.text.toString(), ActorRole.SECURITY_APPROVER),
+                        actorRef(reviewer.text.toString(), ActorRole.REVIEWER),
                     ),
                 )
                 professionalCases.createPrepared(preparedInput, submittedAt)
@@ -513,12 +513,12 @@ class MainActivity : Activity() {
         .filter { it.isNotEmpty() }
         .toCollection(linkedSetOf())
 
-    private fun actorRef(prefix: String, displayName: String, role: ActorRole = ActorRole.ASSESSOR): ActorRef {
+    private fun actorRef(displayName: String, role: ActorRole = ActorRole.ASSESSOR): ActorRef {
         val cleanName = displayName.trim()
         require(cleanName.isNotBlank()) { "${role.name.replace('_', ' ').lowercase().replaceFirstChar { it.uppercase() }} name is required." }
         val slug = cleanName.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
         require(slug.isNotBlank()) { "Use letters or digits in the ${role.name.replace('_', ' ').lowercase()} name." }
-        return ActorRef(ActorId("$prefix-$slug"), cleanName, role)
+        return ActorRef(ActorId("actor-$slug"), cleanName, role)
     }
 
     private fun requiredText(field: EditText, label: String): String =
