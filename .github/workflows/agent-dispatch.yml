@@ -24,7 +24,6 @@ jobs:
           GH_TOKEN: ${{ secrets.ATLAS_GITHUB_TOKEN || github.token }}
           ISSUE_NUMBER: ${{ inputs.issue_number || github.event.issue.number }}
           ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_BODY_SOURCE: ${{ github.event_name }}
         run: python3 tools/validate_agent_issue.py "$ISSUE_NUMBER"
       - name: Report boundary
         run: echo 'Readiness passed; agent assignment, merge and closure remain explicit human actions.'
