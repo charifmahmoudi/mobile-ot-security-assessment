@@ -18,6 +18,10 @@ Files/modules likely involved:
 
 Related epic/issues:
 
+## Failure behavior
+
+How must invalid, unsupported, unauthorized, ambiguous or unavailable inputs fail closed or remain explicitly unknown?
+
 ## Non-goals
 
 ## Acceptance criteria
@@ -34,7 +38,7 @@ Related epic/issues:
 
 ## Human validation still required
 
-List physical, customer, product, security or architecture validation that the agent cannot prove.
+List physical, customer, product, security or architecture validation that the agent cannot prove. Keep unproven validation explicitly unproven.
 
 ## Agent completion report
 

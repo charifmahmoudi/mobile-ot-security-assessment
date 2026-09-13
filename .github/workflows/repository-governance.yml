@@ -6,14 +6,38 @@ on:
     paths:
       - ".github/workflows/repository-governance.yml"
       - ".github/ISSUE_TEMPLATE/**"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - "tools/validate_pull_request.py"
   workflow_dispatch:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
 
 permissions:
   contents: read
   issues: write
+  pull-requests: read
 
 jobs:
+  validate-pull-request:
+    if: github.event_name == 'pull_request_target'
+    name: Pull request contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+      - name: Validate pull request contract
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: python3 tools/validate_pull_request.py "$PR_NUMBER"
+      - name: Report boundary
+        run: echo 'PR contract passed; automated checks prove software/documentation paths only, not physical or customer qualification.'
+
   synchronize:
+    if: github.event_name != 'pull_request_target'
     name: Labels, milestone, and pilot issues
     runs-on: ubuntu-latest
     timeout-minutes: 5
