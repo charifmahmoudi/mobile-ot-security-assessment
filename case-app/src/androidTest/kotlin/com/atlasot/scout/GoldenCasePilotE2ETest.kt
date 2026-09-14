@@ -139,6 +139,15 @@ class GoldenCasePilotE2ETest {
             capture("14-golden-case-successor")
             scenario.onActivity { activity ->
                 activity.renderHome()
+                activity.findViewById<View>(MainActivity.PROFESSIONAL_CASE_CARD_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("AWAITING AUTHORIZATION"))
+                assertTrue(text.contains("ATLAS-PILOT-001-R2"))
+            }
+            scenario.onActivity { activity ->
+                activity.renderHome()
                 activity.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
             }
             scenario.onActivity { activity ->
@@ -155,9 +164,7 @@ class GoldenCasePilotE2ETest {
                 activity.findViewById<View>(MainActivity.REPORT_BLOCKERS_ACTION_ID).performClick()
             }
             scenario.onActivity { activity ->
-                val text = screenText(activity)
-                assertTrue(text.contains("AWAITING AUTHORIZATION"))
-                assertTrue(text.contains("ATLAS-PILOT-001-R2"))
+                assertTrue(screenText(activity).contains("Asset inventory"))
             }
         }
         val context = InstrumentationRegistry.getInstrumentation().targetContext
