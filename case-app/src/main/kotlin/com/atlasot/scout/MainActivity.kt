@@ -198,6 +198,7 @@ class MainActivity : Activity() {
         }
         content.addView(button("Create a new site", NEW_SITE_ACTION_ID, false, ::renderNewSite))
         content.addView(section("Professional cases", "Scope, authority and decisions are stored in the encrypted case record."))
+        val activeCaseId = activeProfessionalCaseId()
         professionalCases.list().forEach { summary ->
             content.addView(card(
                 "${summary.caseNumber} · revision ${summary.revision}",
@@ -205,7 +206,9 @@ class MainActivity : Activity() {
                 accent = if (summary.state == CaseState.AUTHORIZED || summary.state == CaseState.COLLECTING) TEAL else BLUE,
             ).apply {
                 setOnClickListener { renderProfessionalCase(summary.id) }
-                if (summary.id.value == GoldenCustomerAssessment.CASE_ID) id = PROFESSIONAL_CASE_CARD_ID
+                if (summary.id == activeCaseId || (activeCaseId == null && summary.id.value == GoldenCustomerAssessment.CASE_ID)) {
+                    id = PROFESSIONAL_CASE_CARD_ID
+                }
             })
         }
         if (professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID)) == null) {
@@ -225,37 +228,113 @@ class MainActivity : Activity() {
         page("Professional case · prepare", fixture.caseNumber, "Review the bounded assessment before requesting approval", ::renderSiteSelection)
         content.addView(banner("GOLDEN CUSTOMER ASSESSMENT", "Deterministic water-treatment pilot fixture · no packet is sent during preparation"))
         content.addView(section("Operational context", "Evidence remains bound to this legal entity, site and process area."))
-        content.addView(keyValue("Customer", fixture.legalEntity))
-        content.addView(keyValue("Site", fixture.site))
-        content.addView(keyValue("Process area", fixture.processArea))
+        val caseNumber = field("Case number", "ATLAS-PILOT-001", PROFESSIONAL_CASE_NUMBER_ID, fixture.caseNumber)
+        val legalEntity = field("Customer", "Legal entity", PROFESSIONAL_CASE_LEGAL_ENTITY_ID, fixture.legalEntity)
+        val site = field("Site", "Exact site name", PROFESSIONAL_CASE_SITE_ID, fixture.site)
+        val processArea = field("Process area", "Named process area", PROFESSIONAL_CASE_PROCESS_AREA_ID, fixture.processArea)
         content.addView(section("Decision", "Collection exists to answer a named operational question."))
-        content.addView(card("ASSESSMENT QUESTION", fixture.question + "\n\nRequested outcome\n" + fixture.requestedDecision, accent = BLUE))
+        val question = field("Assessment question", "Decision-oriented question", PROFESSIONAL_CASE_QUESTION_ID, fixture.question)
+        val requestedDecision = field("Requested outcome", "Decision or outcome sought", PROFESSIONAL_CASE_DECISION_ID, fixture.requestedDecision)
         content.addView(section("Exact authority requested", "The active boundary is one /32 target; Atlas cannot broaden it."))
-        content.addView(keyValue("Scope", fixture.scopeCidrs.joinToString()))
-        content.addView(keyValue("Exclusion", fixture.excludedAddresses.joinToString()))
-        content.addView(keyValue("Methods", "H3 offline import · H1 Modbus 43/14 basic identity"))
-        content.addView(keyValue("Window", "Four hours from approval"))
-        content.addView(keyValue("Stop", "Process alarm · instability · approver request · manual stop"))
+        val scope = field("Scope", "Comma-separated CIDRs", PROFESSIONAL_CASE_SCOPE_ID, fixture.scopeCidrs.joinToString())
+        val exclusions = field("Exclusions", "Comma-separated IPv4 addresses", PROFESSIONAL_CASE_EXCLUSIONS_ID, fixture.excludedAddresses.joinToString())
+        val physicalArea = field("Physical area", "Collection area", PROFESSIONAL_CASE_PHYSICAL_AREA_ID, fixture.physicalAreas.joinToString())
+        content.addView(txt("Approved methods", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(6), 0, dp(5)) })
+        val activeMethod = CheckBox(this).apply {
+            id = PROFESSIONAL_CASE_METHOD_ACTIVE_ID
+            text = "H1 exact active identity"
+            isChecked = EvidenceMethod.H1_EXACT_ACTIVE_IDENTITY in fixture.methods
+            setTextColor(NAVY)
+        }
+        val offlineMethod = CheckBox(this).apply {
+            id = PROFESSIONAL_CASE_METHOD_OFFLINE_ID
+            text = "H3 offline import"
+            isChecked = EvidenceMethod.H3_OFFLINE_IMPORT in fixture.methods
+            setTextColor(NAVY)
+        }
+        content.addView(activeMethod)
+        content.addView(offlineMethod)
+        content.addView(keyValue("Authorization window", "Four hours from approval"))
+        content.addView(txt("Stop conditions", 12f, MUTED, Typeface.BOLD).apply { setPadding(dp(2), dp(12), 0, dp(5)) })
+        val stopConditions = StopCondition.entries.associateWith { stop ->
+            CheckBox(this).apply {
+                text = stop.name.replace('_', ' ').lowercase().replaceFirstChar { it.uppercase() }
+                isChecked = stop in fixture.stopConditions
+                setTextColor(NAVY)
+                content.addView(this)
+            }
+        }
         content.addView(section("Data policy", "Policy changes require a new matching authorization fingerprint."))
-        content.addView(keyValue("Classification", fixture.classification))
-        content.addView(keyValue("Raw capture export", "Not permitted"))
-        content.addView(keyValue("Retention", "30 days"))
-        content.addView(keyValue("Destination", fixture.exportDestination.orEmpty()))
+        val classification = field("Classification", "Data classification", PROFESSIONAL_CASE_CLASSIFICATION_ID, fixture.classification)
+        val exportDestination = field("Export destination", "Approved export destination", PROFESSIONAL_CASE_EXPORT_DESTINATION_ID, fixture.exportDestination.orEmpty())
+        val deleteAfter = field(
+            "Delete after (UTC)",
+            "2026-10-01T12:00:00Z",
+            PROFESSIONAL_CASE_RETENTION_DAYS_ID,
+            fixture.deleteAfter?.toString().orEmpty()
+        )
+        val retainPayloads = CheckBox(this).apply {
+            text = "Retain payloads locally"
+            isChecked = fixture.retainPayloads
+            setTextColor(NAVY)
+        }
+        val includeRawExport = CheckBox(this).apply {
+            text = "Include raw captures in export"
+            isChecked = fixture.includeRawCapturesInExport
+            setTextColor(NAVY)
+        }
+        content.addView(retainPayloads)
+        content.addView(includeRawExport)
         content.addView(section("Named professional roles", "Each action retains the role used, even if customer policy permits one person to hold more than one role."))
-        content.addView(keyValue("Assessor", fixture.participants.assessor.displayName))
-        content.addView(keyValue("Operational approver", fixture.participants.operationalApprover.displayName))
-        content.addView(keyValue("Security approver", fixture.participants.securityApprover.displayName))
-        content.addView(keyValue("Independent reviewer", fixture.participants.independentReviewer.displayName))
+        val assessor = field("Assessor", "Assessor name", PROFESSIONAL_CASE_ASSESSOR_ID, fixture.participants.assessor.displayName)
+        val operationalApprover = field("Operational approver", "Operational approver name", PROFESSIONAL_CASE_OPERATIONAL_APPROVER_ID, fixture.participants.operationalApprover.displayName)
+        val securityApprover = field("Security approver", "Security approver name", PROFESSIONAL_CASE_SECURITY_APPROVER_ID, fixture.participants.securityApprover.displayName)
+        val reviewer = field("Independent reviewer", "Reviewer name", PROFESSIONAL_CASE_REVIEWER_ID, fixture.participants.independentReviewer.displayName)
         val error = txt("", 13f, DANGER).apply { id = PROFESSIONAL_CASE_ERROR_ID }
         content.addView(error)
         content.addView(button("Create case and request approval", CREATE_PROFESSIONAL_CASE_ID) {
-            runCatching { professionalCases.createPrepared(fixture, now) }
+            runCatching {
+                val submittedAt = Instant.now()
+                val selectedMethods = buildSet {
+                    if (activeMethod.isChecked) add(EvidenceMethod.H1_EXACT_ACTIVE_IDENTITY)
+                    if (offlineMethod.isChecked) add(EvidenceMethod.H3_OFFLINE_IMPORT)
+                }
+                require(selectedMethods.isNotEmpty()) { "Select at least one approved evidence method." }
+                val selectedStopConditions = stopConditions.filterValues { it.isChecked }.keys
+                require(selectedStopConditions.isNotEmpty()) { "Select at least one stop condition." }
+                val preparedInput = fixture.copy(
+                    caseNumber = requiredText(caseNumber, "Case number"),
+                    legalEntity = requiredText(legalEntity, "Customer"),
+                    site = requiredText(site, "Site"),
+                    processArea = requiredText(processArea, "Process area"),
+                    question = requiredText(question, "Assessment question"),
+                    requestedDecision = requiredText(requestedDecision, "Requested outcome"),
+                    scopeCidrs = parseCsvValues(scope.text.toString()),
+                    excludedAddresses = parseCsvValues(exclusions.text.toString()),
+                    methods = selectedMethods,
+                    physicalAreas = parseCsvValues(physicalArea.text.toString()),
+                    classification = requiredText(classification, "Classification"),
+                    retainPayloads = retainPayloads.isChecked,
+                    includeRawCapturesInExport = includeRawExport.isChecked,
+                    exportDestination = exportDestination.text.toString().trim().ifBlank { null },
+                    deleteAfter = Instant.parse(requiredText(deleteAfter, "Delete-after time")),
+                    stopConditions = selectedStopConditions,
+                    participants = ProfessionalCaseParticipants(
+                        actorRef(assessor.text.toString()),
+                        actorRef(operationalApprover.text.toString(), ActorRole.OPERATIONAL_APPROVER),
+                        actorRef(securityApprover.text.toString(), ActorRole.SECURITY_APPROVER),
+                        actorRef(reviewer.text.toString(), ActorRole.REVIEWER),
+                    ),
+                )
+                professionalCases.createPrepared(preparedInput, submittedAt)
+            }
                 .onSuccess { renderProfessionalCase(it.id) }
                 .onFailure { error.text = it.message ?: "Unable to create the professional case." }
         })
     }
 
     private fun renderProfessionalCase(caseId: CaseId) {
+        setActiveProfessionalCaseId(caseId)
         val professionalCase = requireNotNull(professionalCases.load(caseId))
         val participants = requireNotNull(professionalCases.participants(caseId))
         page(
@@ -282,29 +361,113 @@ class MainActivity : Activity() {
         content.addView(keyValue("Export destination", professionalCase.dataPolicy.exportDestination ?: "No export destination"))
         content.addView(keyValue("Delete after", professionalCase.dataPolicy.deleteAfter?.toString() ?: "No automatic deletion date"))
         content.addView(keyValue("Authorization window", professionalCase.authorization?.let { "${it.validFrom} — ${it.validUntil}" } ?: "Pending approval"))
-        content.addView(section("Professional roles", "Approval identities are recorded in the professional aggregate; the planned reviewer stays in encrypted case metadata."))
+        professionalCase.supersedesSnapshotId?.let { snapshotId ->
+            content.addView(keyValue("Supersedes snapshot", snapshotId.value))
+        }
+        professionalCase.finalizedSnapshot?.let { content.addView(keyValue("Finalized snapshot", it.id.value)) }
+        content.addView(section("Professional roles", "Approval identities, reviewer decisions and revision lineage are restored from encrypted case metadata."))
         content.addView(keyValue("Assessor", participants.assessor.displayName))
         content.addView(keyValue("Operational approver", participants.operationalApprover.displayName))
         content.addView(keyValue("Security approver", participants.securityApprover.displayName))
         content.addView(keyValue("Independent reviewer", participants.independentReviewer.displayName))
+        val approvals = professionalCase.authorization?.approvals?.associateBy { it.role }.orEmpty()
+        content.addView(keyValue("Operational approval", approvals[ActorRole.OPERATIONAL_APPROVER]?.let { "${it.actor.displayName} · ${it.at}" } ?: "Pending"))
+        content.addView(keyValue("Security approval", approvals[ActorRole.SECURITY_APPROVER]?.let { "${it.actor.displayName} · ${it.at}" } ?: "Pending"))
+        content.addView(keyValue("Reviewer decision", professionalCase.reviewDecision?.let { "${it.outcome.name.replace('_', ' ')} · ${it.reviewer.displayName}\n${it.reason}" } ?: "Pending independent review"))
 
         when (professionalCase.state) {
+            CaseState.DRAFT -> {
+                content.addView(banner("REVISION DRAFT", "This case revision is not yet prepared for authorization."))
+                content.addView(button("Prepare and request authorization", PREPARE_PROFESSIONAL_CASE_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.prepareAndRequestAuthorization(caseId, Instant.now()) }
+                })
+            }
+            CaseState.PREPARED -> {
+                content.addView(banner("PREPARED", "Preparation is complete; request refreshed authority before collection."))
+                content.addView(button("Request authorization", PREPARE_PROFESSIONAL_CASE_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.prepareAndRequestAuthorization(caseId, Instant.now()) }
+                })
+            }
             CaseState.AWAITING_AUTHORIZATION -> renderCaseAuthorizationControls(professionalCase)
             CaseState.AUTHORIZED -> {
                 content.addView(banner("AUTHORIZED", "Both required approvals match scope ${professionalCase.scopeHash.value.take(12)}… and data policy ${professionalCase.dataPolicyHash.value.take(12)}…"))
                 content.addView(button("Start protected collection", START_PROFESSIONAL_COLLECTION_ID) {
-                    runCatching { professionalCases.startCollection(caseId, Instant.now()) }
-                        .onSuccess { renderProfessionalCase(caseId) }
+                    runProfessionalCaseTransition(caseId) { professionalCases.startCollection(caseId, Instant.now()) }
+                })
+            }
+            CaseState.COLLECTING -> {
+                content.addView(banner("PROTECTED COLLECTION AVAILABLE", "The Case App will still ask the domain operation guard before issuing any signed broker grant."))
+                content.addView(button("Begin evidence review", BEGIN_EVIDENCE_REVIEW_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.beginEvidenceReview(caseId, Instant.now()) }
+                })
+            }
+            CaseState.EVIDENCE_REVIEW -> {
+                content.addView(banner("EVIDENCE REVIEW", "Observed evidence is preserved before reconciliation or accepted inventory updates."))
+                content.addView(button("Begin reconciliation", BEGIN_RECONCILIATION_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.beginReconciliation(caseId, Instant.now()) }
+                })
+            }
+            CaseState.RECONCILING -> {
+                content.addView(banner("RECONCILING", "Record missing, unexpected, conflicting and corroborated outcomes explicitly."))
+                content.addView(button("Begin assessment", BEGIN_ASSESSMENT_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.beginAssessment(caseId, Instant.now()) }
+                })
+            }
+            CaseState.ASSESSING -> {
+                content.addView(banner("ASSESSING", "The assessor is preparing the reviewable professional conclusion for this revision."))
+                content.addView(button("Request independent review", REQUEST_REVIEW_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.requestReview(caseId, Instant.now()) }
+                })
+            }
+            CaseState.REVIEW_PENDING -> renderProfessionalCaseReviewControls(professionalCase)
+            CaseState.READY_TO_FINALIZE -> {
+                content.addView(banner("READY TO FINALIZE", "Independent review accepted this revision; finalization freezes scope, policy and audit state."))
+                content.addView(button("Finalize revision", FINALIZE_PROFESSIONAL_CASE_ID) {
+                    runProfessionalCaseTransition(caseId) { professionalCases.finalizeCase(caseId, Instant.now()) }
+                })
+            }
+            CaseState.FINALIZED -> {
+                content.addView(banner("FINALIZED", "This revision is frozen. Corrections must create a successor revision instead of rewriting the finalized record."))
+                content.addView(button("Create successor revision", CREATE_SUCCESSOR_CASE_ID) {
+                    runCatching { professionalCases.createSuccessorRevision(caseId, Instant.now()) }
+                        .onSuccess { renderProfessionalCase(it.successor.id) }
                         .onFailure { renderProfessionalCaseFailure(caseId, it) }
                 })
             }
-            CaseState.COLLECTING -> content.addView(banner("PROTECTED COLLECTION AVAILABLE", "The Case App will still ask the domain operation guard before issuing any signed broker grant."))
+            CaseState.SUPERSEDED -> {
+                content.addView(banner("SUPERSEDED", "This finalized revision remains immutable; continue work in the recorded successor revision."))
+            }
             else -> content.addView(banner("COLLECTION UNAVAILABLE", "The professional lifecycle is ${professionalCase.state.name.replace('_', ' ')}."))
         }
         content.addView(section("Audit trail", "Integrity-verified lifecycle actions restored from encrypted persistence."))
         professionalCase.auditTrail.events.takeLast(8).forEach { event ->
             content.addView(keyValue("#${event.sequence} ${event.type.name}", "${event.actor.displayName} · ${event.actor.role.name}"))
         }
+    }
+
+    private fun renderProfessionalCaseReviewControls(professionalCase: AssessmentCase) {
+        content.addView(section("Independent review", "Reviewer decisions are explicit and auditable; acceptance and changes-required remain part of the restored case history."))
+        val reason = field("Reviewer rationale", "Explain acceptance or required changes", REVIEW_REASON_ID, "Pilot workflow reviewed against evidence and scope.")
+        val error = txt("", 13f, DANGER).apply { id = PROFESSIONAL_CASE_ERROR_ID }
+        content.addView(error)
+        content.addView(button("Accept revision", ACCEPT_REVIEW_ID) {
+            runCatching {
+                professionalCases.recordReview(professionalCase.id, accepted = true, reason = reason.text.toString().trim(), at = Instant.now())
+            }.onSuccess { renderProfessionalCase(professionalCase.id) }
+                .onFailure { error.text = it.message ?: "Reviewer decision failed." }
+        })
+        content.addView(button("Return changes required", RETURN_REVIEW_ID, false) {
+            runCatching {
+                professionalCases.recordReview(professionalCase.id, accepted = false, reason = reason.text.toString().trim(), at = Instant.now())
+            }.onSuccess { renderProfessionalCase(professionalCase.id) }
+                .onFailure { error.text = it.message ?: "Reviewer decision failed." }
+        })
+    }
+
+    private fun runProfessionalCaseTransition(caseId: CaseId, operation: () -> AssessmentCase) {
+        runCatching { operation() }
+            .onSuccess { renderProfessionalCase(it.id) }
+            .onFailure { renderProfessionalCaseFailure(caseId, it) }
     }
 
     private fun renderCaseAuthorizationControls(professionalCase: AssessmentCase) {
@@ -345,6 +508,57 @@ class MainActivity : Activity() {
         page("Professional case", "Protected action blocked", "The domain guard failed closed", { renderProfessionalCase(caseId) })
         content.addView(card("ACTION REQUIRED", error.message ?: error.javaClass.simpleName, accent = DANGER))
     }
+
+    private fun parseCsvValues(value: String): Set<String> = value.split(',', '\n')
+        .map { it.trim() }
+        .filter { it.isNotEmpty() }
+        .toCollection(linkedSetOf())
+
+    private fun actorRef(displayName: String, role: ActorRole = ActorRole.ASSESSOR): ActorRef {
+        val cleanName = displayName.trim()
+        require(cleanName.isNotBlank()) { "${role.name.replace('_', ' ').lowercase().replaceFirstChar { it.uppercase() }} name is required." }
+        val slug = cleanName.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-')
+        require(slug.isNotBlank()) { "Use letters or digits in the ${role.name.replace('_', ' ').lowercase()} name." }
+        return ActorRef(ActorId("actor-$slug-${role.name.lowercase()}"), cleanName, role)
+    }
+
+    private fun requiredText(field: EditText, label: String): String =
+        field.text.toString().trim().also { require(it.isNotBlank()) { "$label is required." } }
+
+    private fun professionalCaseFor(site: SiteProfile): AssessmentCase? =
+        if (site.sample) {
+            activeProfessionalCaseId()?.let(professionalCases::load)
+                ?: professionalCases.load(CaseId(GoldenCustomerAssessment.CASE_ID))
+        } else {
+            null
+        }
+
+    private fun reportableProfessionalCaseFor(site: SiteProfile): AssessmentCase? {
+        if (!site.sample) return null
+        val active = professionalCaseFor(site) ?: return null
+        val activeBaseCaseNumber = baseCaseNumber(active.caseNumber)
+        return professionalCases.list()
+            .filter {
+                baseCaseNumber(it.caseNumber) == activeBaseCaseNumber &&
+                    it.state in setOf(CaseState.FINALIZED, CaseState.SUPERSEDED)
+            }
+            .maxByOrNull { it.revision }
+            ?.let { professionalCases.load(it.id) }
+    }
+
+    private fun activeProfessionalCaseId(): CaseId? =
+        getSharedPreferences(PROFESSIONAL_CASE_PREFERENCES, Context.MODE_PRIVATE)
+            .getString(ACTIVE_PROFESSIONAL_CASE_KEY, null)
+            ?.let(::CaseId)
+
+    private fun setActiveProfessionalCaseId(caseId: CaseId) {
+        getSharedPreferences(PROFESSIONAL_CASE_PREFERENCES, Context.MODE_PRIVATE)
+            .edit()
+            .putString(ACTIVE_PROFESSIONAL_CASE_KEY, caseId.value)
+            .apply()
+    }
+
+    private fun baseCaseNumber(caseNumber: String): String = caseNumber.replace(Regex("-R\\d+$"), "")
 
     private fun addressToText(address: Int): String = listOf(24, 16, 8, 0)
         .joinToString(".") { ((address ushr it) and 0xff).toString() }
@@ -885,6 +1099,18 @@ class MainActivity : Activity() {
         val current = requireNotNull(site)
         val assets = repository.assets(current.id)
         val unresolved = assets.count { it.reviewState == "Needs review" }
+        val activeProfessionalCase = professionalCaseFor(current)
+        val professionalCase = reportableProfessionalCaseFor(current)
+        val activeReviewerAccepted = activeProfessionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
+        val reviewerAssigned = professionalCase?.let { professionalCases.participants(it.id)?.independentReviewer != null } == true
+        val reviewerAccepted = professionalCase?.reviewDecision?.outcome == CaseReviewOutcome.ACCEPTED
+        val professionalGateSatisfied = if (current.sample) {
+            activeProfessionalCase?.state == CaseState.FINALIZED &&
+                activeProfessionalCase.authorization != null &&
+                activeReviewerAccepted
+        } else {
+            true
+        }
         page("Report readiness", current.name, "Professional handoff checklist · " + current.reportLanguage, ::renderWorkspace, WorkspaceSection.REPORT)
         content.addView(card("STEP 5 OF 5 · REPORT",
             "The report remains blocked until required context, review and approval records are complete.", accent = BLUE))
@@ -894,16 +1120,39 @@ class MainActivity : Activity() {
             if (assets.isEmpty()) "No assets recorded" else assets.size.toString() + " assets with provenance"))
         content.addView(readinessRow(unresolved == 0 && assets.isNotEmpty(), "Observation review",
             if (unresolved == 0 && assets.isNotEmpty()) "No unresolved identities" else "$unresolved assets require review"))
-        content.addView(readinessRow(false, "Signed authorization record", "Persist operational and security approvals in the case record"))
-        content.addView(readinessRow(false, "Independent reviewer", "Assign a reviewer before finalization"))
+        content.addView(readinessRow(professionalCase?.authorization != null, "Signed authorization record",
+            professionalCase?.authorization?.let { "${it.id.value} · ${it.validFrom} — ${it.validUntil}" }
+                ?: "Persist operational and security approvals in the case record"))
+        content.addView(readinessRow(reviewerAssigned, "Independent reviewer",
+            when {
+                reviewerAccepted -> "Accepted by ${professionalCase?.reviewDecision?.reviewer?.displayName}"
+                reviewerAssigned -> "Assigned; reviewer decision still pending"
+                else -> "Assign a reviewer before finalization"
+            }))
         content.addView(section("Deliverable", "The final package will contain a signed PDF, machine-readable JSON, inventory CSV and evidence manifest."))
         content.addView(card("REPORT SETTINGS", current.reportLanguage + "  ·  Local retention " + current.retentionDays + " days\n" +
             "Timestamps: Africa/Casablanca  ·  Evidence hashes: SHA-256", accent = TEAL))
-        val ready = assets.isNotEmpty() && unresolved == 0
-        content.addView(button(if (ready) "Preview draft report" else "Resolve readiness blockers", REPORT_ACTION_ID, ready) {
-            if (ready) renderReportPreview() else renderInventory(if (unresolved > 0) "Needs review" else "All assets")
+        val ready = assets.isNotEmpty() &&
+            unresolved == 0 &&
+            professionalGateSatisfied
+        content.addView(button("Preview draft report", REPORT_ACTION_ID) { renderReportPreview() }.apply {
+            isEnabled = ready
+            alpha = if (ready) 1f else 0.5f
         })
-        content.addView(txt("Final signing and export remain disabled in this PoC until encrypted case storage and reviewer approval are implemented.", 12f, MUTED).apply {
+        if (!ready) {
+            content.addView(button("Resolve readiness blockers", REPORT_BLOCKERS_ACTION_ID, false) {
+                when {
+                    assets.isEmpty() -> renderWorkspace()
+                    unresolved > 0 -> renderInventory("Needs review")
+                    !professionalGateSatisfied -> {
+                        val blockerCase = activeProfessionalCase ?: professionalCase
+                        if (blockerCase != null) renderProfessionalCase(blockerCase.id) else renderSiteSelection()
+                    }
+                    else -> renderInventory("All assets")
+                }
+            })
+        }
+        content.addView(txt("Final package export remains disabled until deterministic signed PDF/JSON/CSV materialization is implemented.", 12f, MUTED).apply {
             setPadding(0, dp(10), 0, 0)
         })
     }
@@ -1206,6 +1455,7 @@ class MainActivity : Activity() {
         const val LIVE_CAPTURE_ACTION_ID = 0x41544C63
         const val FINDINGS_SUMMARY_ID = 0x41544C64
         const val REPORT_ACTION_ID = 0x41544C65
+        const val REPORT_BLOCKERS_ACTION_ID = 0x41544C93
         const val CONTINUE_ACTION_ID = 0x41544C66
         const val OVERVIEW_NAV_ID = 0x41544C67
         const val COLLECT_NAV_ID = 0x41544C68
@@ -1223,8 +1473,38 @@ class MainActivity : Activity() {
         const val RECORD_APPROVALS_ID = 0x41544C74
         const val START_PROFESSIONAL_COLLECTION_ID = 0x41544C75
         const val PROFESSIONAL_CASE_ERROR_ID = 0x41544C76
+        const val PROFESSIONAL_CASE_NUMBER_ID = 0x41544C77
+        const val PROFESSIONAL_CASE_LEGAL_ENTITY_ID = 0x41544C78
+        const val PROFESSIONAL_CASE_SITE_ID = 0x41544C79
+        const val PROFESSIONAL_CASE_PROCESS_AREA_ID = 0x41544C7A
+        const val PROFESSIONAL_CASE_QUESTION_ID = 0x41544C7B
+        const val PROFESSIONAL_CASE_DECISION_ID = 0x41544C7C
+        const val PROFESSIONAL_CASE_SCOPE_ID = 0x41544C7D
+        const val PROFESSIONAL_CASE_EXCLUSIONS_ID = 0x41544C7E
+        const val PROFESSIONAL_CASE_CLASSIFICATION_ID = 0x41544C7F
+        const val PROFESSIONAL_CASE_EXPORT_DESTINATION_ID = 0x41544C80
+        const val PROFESSIONAL_CASE_RETENTION_DAYS_ID = 0x41544C81
+        const val PROFESSIONAL_CASE_ASSESSOR_ID = 0x41544C82
+        const val PROFESSIONAL_CASE_OPERATIONAL_APPROVER_ID = 0x41544C83
+        const val PROFESSIONAL_CASE_SECURITY_APPROVER_ID = 0x41544C84
+        const val PROFESSIONAL_CASE_REVIEWER_ID = 0x41544C85
+        const val PROFESSIONAL_CASE_METHOD_ACTIVE_ID = 0x41544C86
+        const val PROFESSIONAL_CASE_METHOD_OFFLINE_ID = 0x41544C87
+        const val PROFESSIONAL_CASE_PHYSICAL_AREA_ID = 0x41544C88
+        const val PREPARE_PROFESSIONAL_CASE_ID = 0x41544C89
+        const val BEGIN_EVIDENCE_REVIEW_ID = 0x41544C8A
+        const val BEGIN_RECONCILIATION_ID = 0x41544C8B
+        const val BEGIN_ASSESSMENT_ID = 0x41544C8C
+        const val REQUEST_REVIEW_ID = 0x41544C8D
+        const val REVIEW_REASON_ID = 0x41544C8E
+        const val ACCEPT_REVIEW_ID = 0x41544C8F
+        const val RETURN_REVIEW_ID = 0x41544C90
+        const val FINALIZE_PROFESSIONAL_CASE_ID = 0x41544C91
+        const val CREATE_SUCCESSOR_CASE_ID = 0x41544C92
         private const val OPEN_CAPTURE = 70
         private const val KEY_ALIAS = "atlas-grant-key-v1"
+        private const val PROFESSIONAL_CASE_PREFERENCES = "professional-case-workspace"
+        private const val ACTIVE_PROFESSIONAL_CASE_KEY = "active-professional-case-id"
         private val INDUSTRIES = listOf("Water & wastewater", "Manufacturing", "Energy & utilities", "Mining & minerals", "Food & beverage", "Ports & logistics", "Oil & gas", "Pharmaceutical")
         private val VENDORS = listOf("Siemens", "Schneider Electric", "Rockwell Automation", "ABB", "Emerson", "Honeywell", "Yokogawa", "Endress+Hauser", "Phoenix Contact", "WAGO")
         private val NAVY = Color.rgb(11, 31, 51)

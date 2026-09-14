@@ -13,10 +13,14 @@ import com.atlasot.domain.CaseDataPolicy
 import com.atlasot.domain.CaseId
 import com.atlasot.domain.CaseScope
 import com.atlasot.domain.CaseState
+import com.atlasot.domain.CaseReviewDecision
+import com.atlasot.domain.CaseReviewOutcome
 import com.atlasot.domain.EvidenceMethod
 import com.atlasot.domain.IPv4Cidr
 import com.atlasot.domain.Operation
 import com.atlasot.domain.Sha256
+import com.atlasot.domain.SnapshotId
+import com.atlasot.domain.SnapshotMaterial
 import com.atlasot.domain.StopCondition
 import java.time.Instant
 
@@ -168,6 +172,111 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
         return collecting
     }
 
+    fun prepareAndRequestAuthorization(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val assessor = requireNotNull(repository.loadParticipants(caseId)).assessor
+        val prepared = when (current.state) {
+            CaseState.DRAFT -> current.prepare(assessor, at)
+            CaseState.PREPARED -> current
+            else -> throw IllegalArgumentException("case cannot be prepared from ${current.state}")
+        }
+        val awaiting = prepared.requestAuthorization(assessor, at.plusMillis(1))
+        repository.save(awaiting, expectedVersion = current.version)
+        return awaiting
+    }
+
+    fun beginEvidenceReview(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val assessor = requireNotNull(repository.loadParticipants(caseId)).assessor
+        val reviewing = current.beginEvidenceReview(assessor, at)
+        repository.save(reviewing, expectedVersion = current.version)
+        return reviewing
+    }
+
+    fun beginReconciliation(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val assessor = requireNotNull(repository.loadParticipants(caseId)).assessor
+        val reconciling = current.beginReconciliation(assessor, at)
+        repository.save(reconciling, expectedVersion = current.version)
+        return reconciling
+    }
+
+    fun beginAssessment(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val assessor = requireNotNull(repository.loadParticipants(caseId)).assessor
+        val assessing = current.beginAssessment(assessor, at)
+        repository.save(assessing, expectedVersion = current.version)
+        return assessing
+    }
+
+    fun requestReview(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val assessor = requireNotNull(repository.loadParticipants(caseId)).assessor
+        val pending = current.requestReview(assessor, at)
+        repository.save(pending, expectedVersion = current.version)
+        return pending
+    }
+
+    fun recordReview(caseId: CaseId, accepted: Boolean, reason: String, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val reviewer = requireNotNull(repository.loadParticipants(caseId)).independentReviewer
+        val reviewed = current.recordReview(
+            CaseReviewDecision(
+                reviewer = reviewer,
+                outcome = if (accepted) CaseReviewOutcome.ACCEPTED else CaseReviewOutcome.CHANGES_REQUIRED,
+                reason = reason,
+                at = at,
+            )
+        )
+        repository.save(reviewed, expectedVersion = current.version)
+        return reviewed
+    }
+
+    fun finalizeCase(caseId: CaseId, at: Instant): AssessmentCase {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val reviewer = requireNotNull(repository.loadParticipants(caseId)).independentReviewer
+        val acceptedReview = requireNotNull(current.reviewDecision) { "accepted case review is required" }
+        require(acceptedReview.outcome == CaseReviewOutcome.ACCEPTED) { "accepted case review is required" }
+        val authorization = requireNotNull(current.authorization) { "authorization is required before finalization" }
+        val snapshotId = SnapshotId(
+            "SNAP-${current.id.value}-${current.revision}-${current.scopeHash.value.take(12)}-${current.dataPolicyHash.value.take(12)}"
+        )
+        val finalized = current.finalizeCase(
+            reviewer = reviewer,
+            at = at,
+            snapshotId = snapshotId,
+            material = SnapshotMaterial(
+                objectHashes = mapOf(
+                    "authorization" to authorization.artifactHash,
+                    "scope" to current.scopeHash,
+                    "data-policy" to current.dataPolicyHash,
+                    "review-decision" to Sha256.digest(
+                        "${acceptedReview.reviewer.id.value}|${acceptedReview.outcome}|${acceptedReview.reason}|${acceptedReview.at}"
+                    ),
+                ),
+                toolBuild = "case-app-professional-workflow-${current.context.assessmentPack}-r${current.revision}",
+                packVersions = mapOf(
+                    current.context.assessmentPack to Sha256.digest(
+                        "${current.context.assessmentPack}|${current.caseNumber}|${current.revision}|${current.scopeHash.value}|${current.dataPolicyHash.value}"
+                    )
+                ),
+            ),
+        )
+        repository.save(finalized, expectedVersion = current.version)
+        return finalized
+    }
+
+    fun createSuccessorRevision(caseId: CaseId, at: Instant): Supersession {
+        val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
+        val participants = requireNotNull(repository.loadParticipants(caseId)) { "case participants not found" }
+        val caseIdBase = current.caseNumber.replace(Regex("-R\\d+$"), "")
+        val nextCaseId = CaseId("$caseIdBase-R${current.revision + 1}")
+        val supersession = current.supersedeWith(nextCaseId, participants.assessor, at)
+        repository.save(supersession.superseded, expectedVersion = current.version)
+        repository.saveNewCase(supersession.successor, participants)
+        return Supersession(supersession.superseded, supersession.successor)
+    }
+
     fun assertOperationAllowed(caseId: CaseId, target: String, at: Instant): AssessmentCase {
         val current = requireNotNull(repository.load(caseId)) { "professional case not found" }
         current.assertOperationAllowed(Operation.MODBUS_DEVICE_ID_BASIC, IPv4Cidr.parseAddress(target), at)
@@ -178,6 +287,11 @@ class ProfessionalCaseApplication(private val repository: SqlCipherCaseRepositor
     fun participants(caseId: CaseId): ProfessionalCaseParticipants? = repository.loadParticipants(caseId)
     fun list() = repository.list()
 }
+
+data class Supersession(
+    val superseded: AssessmentCase,
+    val successor: AssessmentCase,
+)
 
 object GoldenCustomerAssessment {
     const val CASE_ID = "GOLDEN-WATER-001"

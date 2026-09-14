@@ -44,6 +44,8 @@ class LiveDemoCaptureTest {
             // trim away the beginning of the buyer story.
             pause(12_000)
 
+            prepareCollectingProfessionalCase(scenario)
+
             // User story 1: enter a bounded water-treatment workspace.
             click(scenario, MainActivity.SITE_CARD_ID)
             waitForText(scenario, "North Water Treatment Plant")
@@ -94,18 +96,14 @@ class LiveDemoCaptureTest {
             // First prove the local fail-closed scope boundary.
             scenario.onActivity { activity ->
                 activity.findViewById<EditText>(MainActivity.TARGET_FIELD_ID).setText("192.0.2.5")
-                activity.findViewById<CheckBox>(MainActivity.AUTHORIZATION_CHECK_ID).isChecked = true
                 activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID).performClick()
             }
-            waitForText(scenario, "outside the authorized CIDR")
+            waitForText(scenario, "outside case scope")
             pause(2_500)
 
             // Then run the exact authorized identity request against the CI testbed.
             scenario.onActivity { activity ->
-                activity.findViewById<EditText>(MainActivity.CASE_FIELD_ID).setText("E2E-WATER-DEMO")
-                activity.findViewById<EditText>(MainActivity.SITE_FIELD_ID).setText("Treatment line 2")
                 activity.findViewById<EditText>(MainActivity.TARGET_FIELD_ID).setText("10.0.2.2")
-                activity.findViewById<EditText>(MainActivity.SCOPE_FIELD_ID).setText("10.0.2.0/24")
                 activity.findViewById<EditText>(MainActivity.UNIT_FIELD_ID).setText("1")
                 activity.findViewById<Button>(MainActivity.ACTIVE_ACTION_ID).performClick()
             }
@@ -131,6 +129,27 @@ class LiveDemoCaptureTest {
             waitForText(scenario, "Report readiness")
             pause(4_000)
         }
+    }
+
+    private fun prepareCollectingProfessionalCase(scenario: ActivityScenario<MainActivity>) {
+        click(scenario, MainActivity.PROFESSIONAL_CASE_ACTION_ID)
+        waitForText(scenario, "GOLDEN CUSTOMER ASSESSMENT")
+        scenario.onActivity { activity ->
+            activity.findViewById<View>(MainActivity.CREATE_PROFESSIONAL_CASE_ID).performClick()
+        }
+        waitForText(scenario, "AWAITING AUTHORIZATION")
+        scenario.onActivity { activity ->
+            activity.findViewById<CheckBox>(MainActivity.OPERATIONAL_APPROVAL_ID).isChecked = true
+            activity.findViewById<CheckBox>(MainActivity.SECURITY_APPROVAL_ID).isChecked = true
+            activity.findViewById<View>(MainActivity.RECORD_APPROVALS_ID).performClick()
+        }
+        waitForText(scenario, "AUTHORIZED")
+        scenario.onActivity { activity ->
+            activity.findViewById<View>(MainActivity.START_PROFESSIONAL_COLLECTION_ID).performClick()
+        }
+        waitForText(scenario, "PROTECTED COLLECTION AVAILABLE")
+        scenario.onActivity { it.renderHome() }
+        pause(1_500)
     }
 
     private fun click(scenario: ActivityScenario<MainActivity>, id: Int) {

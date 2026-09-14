@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.TextView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -35,6 +36,9 @@ class GoldenCasePilotE2ETest {
                 assertTrue(text.contains("North River Water Utility"))
                 assertTrue(text.contains("10.0.2.2/32"))
                 assertTrue(text.contains("Independent reviewer"))
+                activity.findViewById<EditText>(MainActivity.PROFESSIONAL_CASE_LEGAL_ENTITY_ID).setText("North River Utility Pilot")
+                activity.findViewById<EditText>(MainActivity.PROFESSIONAL_CASE_QUESTION_ID)
+                    .setText("Does the bounded pilot revision still match the approved maintenance baseline?")
             }
             capture("10a-golden-case-preparation")
             scenario.onActivity { activity ->
@@ -42,6 +46,7 @@ class GoldenCasePilotE2ETest {
             }
             scenario.onActivity { activity ->
                 assertTrue(screenText(activity).contains("AWAITING AUTHORIZATION"))
+                assertTrue(screenText(activity).contains("North River Utility Pilot"))
                 activity.findViewById<CheckBox>(MainActivity.OPERATIONAL_APPROVAL_ID).isChecked = true
                 activity.findViewById<View>(MainActivity.RECORD_APPROVALS_ID).performClick()
                 assertTrue(screenText(activity).contains("operational and security approvals are required"))
@@ -81,6 +86,91 @@ class GoldenCasePilotE2ETest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val repository = SqlCipherCaseRepository(context)
         assertEquals(CaseState.COLLECTING, repository.load(CaseId(GoldenCustomerAssessment.CASE_ID))?.state)
+        repository.verifyIntegrity()
+    }
+
+    @Test fun progressAuthorizedCaseThroughReviewFinalizationAndSuccessor() {
+        assumeTrue(InstrumentationRegistry.getArguments().getString("pilotPhase") == "finalize")
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            scenario.onActivity { activity ->
+                activity.findViewById<View>(MainActivity.PROFESSIONAL_CASE_CARD_ID).performClick()
+                assertTrue(screenText(activity).contains("COLLECTING"))
+                activity.findViewById<View>(MainActivity.BEGIN_EVIDENCE_REVIEW_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("EVIDENCE REVIEW"))
+                activity.findViewById<View>(MainActivity.BEGIN_RECONCILIATION_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("RECONCILING"))
+                activity.findViewById<View>(MainActivity.BEGIN_ASSESSMENT_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("ASSESSING"))
+                activity.findViewById<View>(MainActivity.REQUEST_REVIEW_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("REVIEW PENDING"))
+                activity.findViewById<EditText>(MainActivity.REVIEW_REASON_ID)
+                    .setText("Independent reviewer accepted the bounded pilot evidence and scope.")
+                activity.findViewById<View>(MainActivity.ACCEPT_REVIEW_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("READY TO FINALIZE"))
+                activity.findViewById<View>(MainActivity.FINALIZE_PROFESSIONAL_CASE_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("FINALIZED"))
+                assertTrue(screenText(activity).contains("Finalized snapshot"))
+            }
+            capture("13-golden-case-finalized")
+            scenario.onActivity { activity ->
+                activity.findViewById<View>(MainActivity.CREATE_SUCCESSOR_CASE_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("REVISION DRAFT"))
+                assertTrue(text.contains("revision 2", ignoreCase = true))
+                activity.findViewById<View>(MainActivity.PREPARE_PROFESSIONAL_CASE_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("AWAITING AUTHORIZATION"))
+            }
+            capture("14-golden-case-successor")
+            scenario.onActivity { activity ->
+                activity.renderHome()
+                activity.findViewById<View>(MainActivity.PROFESSIONAL_CASE_CARD_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("AWAITING AUTHORIZATION"))
+                assertTrue(text.contains("ATLAS-PILOT-001-R2"))
+            }
+            scenario.onActivity { activity ->
+                activity.renderHome()
+                activity.findViewById<View>(MainActivity.SITE_CARD_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                activity.findViewById<View>(MainActivity.REPORT_NAV_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                val text = screenText(activity)
+                assertTrue(text.contains("Signed authorization record"))
+                assertTrue(text.contains("Independent reviewer"))
+                assertTrue(text.contains("AUTH-ATLAS-PILOT-001-R1"))
+                assertTrue(text.contains("Accepted by Omar Tazi"))
+                assertTrue(text.contains("Resolve readiness blockers"))
+                assertTrue(!activity.findViewById<View>(MainActivity.REPORT_ACTION_ID).isEnabled)
+                activity.findViewById<View>(MainActivity.REPORT_BLOCKERS_ACTION_ID).performClick()
+            }
+            scenario.onActivity { activity ->
+                assertTrue(screenText(activity).contains("Asset inventory"))
+            }
+        }
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val repository = SqlCipherCaseRepository(context)
+        assertEquals(CaseState.SUPERSEDED, repository.load(CaseId(GoldenCustomerAssessment.CASE_ID))?.state)
+        assertEquals(CaseState.AWAITING_AUTHORIZATION, repository.load(CaseId("${GoldenCustomerAssessment.CASE_NUMBER}-R2"))?.state)
         repository.verifyIntegrity()
     }
 

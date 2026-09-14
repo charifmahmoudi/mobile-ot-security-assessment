@@ -55,6 +55,13 @@ adb shell am instrument -w \
   | tee "$evidence_dir/instrumentation-resume.txt"
 grep -q "OK (1 test)" "$evidence_dir/instrumentation-resume.txt"
 
+adb shell am instrument -w \
+  -e pilotPhase finalize \
+  -e class com.atlasot.scout.GoldenCasePilotE2ETest#progressAuthorizedCaseThroughReviewFinalizationAndSuccessor \
+  com.atlasot.scout.test/androidx.test.runner.AndroidJUnitRunner \
+  | tee "$evidence_dir/instrumentation-finalize.txt"
+grep -q "OK (1 test)" "$evidence_dir/instrumentation-finalize.txt"
+
 mkdir -p "$evidence_dir/screenshots"
 adb pull /sdcard/Pictures/AtlasOT/. "$evidence_dir/screenshots/"
 test -n "$(find "$evidence_dir/screenshots" -type f -name '1*-golden-case-*.png' -print -quit)"
