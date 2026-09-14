@@ -1,0 +1,1621 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:557e3ef8-a856-5b2a-af05-b67adc77b78d",
+  "version": 1,
+  "metadata": {
+    "component": {
+      "type": "application",
+      "name": "atlas-ot-scout",
+      "version": "0.1.0-p0"
+    },
+    "properties": [
+      {
+        "name": "atlas:inventory_source",
+        "value": "compliance/third_party_inventory.json"
+      },
+      {
+        "name": "atlas:unresolved_licensing_questions",
+        "value": "3"
+      }
+    ]
+  },
+  "components": [
+    {
+      "type": "application",
+      "name": "ffmpeg",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "name": "Ubuntu package metadata (FFmpeg upstream GPL/LGPL components)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:ffmpeg@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only media conversion in website/live-demo workflows."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "libreoffice-impress",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "expression": "MPL-2.0 AND LGPL-3.0-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:libreoffice-impress@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only deck-to-PDF conversion."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "poppler-utils",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-or-later"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:poppler-utils@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only PDF metadata validation."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "python3-numpy",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:python3-numpy@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only guided-story composition helpers."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "python3-opencv",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:python3-opencv@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only guided-story image processing."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "python3-pil",
+      "version": "runner-default",
+      "licenses": [
+        {
+          "license": {
+            "id": "HPND"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "apt:python3-pil@runner-default"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://packages.ubuntu.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only guided-story image composition."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "bacnet.pcap",
+      "version": "973724800eef38e1131368d4ebce0eafc6593ccb4763916b8ee69b3b1328d8ff",
+      "licenses": [
+        {
+          "license": {
+            "name": "Upstream ITI/ICS-Security-Tools terms (manual confirmation required)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "ci-asset:bacnet.pcap@973724800eef38e1131368d4ebce0eafc6593ccb4763916b8ee69b3b1328d8ff"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://raw.githubusercontent.com/ITI/ICS-Security-Tools/master/pcaps/BACnet/bacnet_test.pcap"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Test fixture fetched by hash-pinned CI script."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "dnp3.pcap",
+      "version": "71779cac342a37b412df5bb6372ec22c35b5127ad2bfed4447d7ab6b92ebb4bf",
+      "licenses": [
+        {
+          "license": {
+            "name": "Upstream ITI/ICS-Security-Tools terms (manual confirmation required)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "ci-asset:dnp3.pcap@71779cac342a37b412df5bb6372ec22c35b5127ad2bfed4447d7ab6b92ebb4bf"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://raw.githubusercontent.com/ITI/ICS-Security-Tools/master/pcaps/dnp3/dnp3_test_data_part1.pcap"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Test fixture fetched by hash-pinned CI script."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "iec104.pcap",
+      "version": "292c18a8765db3b1bcaa9bd0b8455e4e61b8366cc5910a7363b7381eb11441b8",
+      "licenses": [
+        {
+          "license": {
+            "name": "Upstream ITI/ICS-Security-Tools terms (manual confirmation required)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "ci-asset:iec104.pcap@292c18a8765db3b1bcaa9bd0b8455e4e61b8366cc5910a7363b7381eb11441b8"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://raw.githubusercontent.com/ITI/ICS-Security-Tools/master/pcaps/IEC60870-5-104/TestDissectIec104.pcap"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Test fixture fetched by hash-pinned CI script."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "data",
+      "name": "modbus.pcap",
+      "version": "94942b3d014810710f50836c95d3faf6df6e6370a6560bae541397c1df50213d",
+      "licenses": [
+        {
+          "license": {
+            "name": "Upstream ITI/ICS-Security-Tools terms (manual confirmation required)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "ci-asset:modbus.pcap@94942b3d014810710f50836c95d3faf6df6e6370a6560bae541397c1df50213d"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://raw.githubusercontent.com/ITI/ICS-Security-Tools/master/pcaps/ModbusTCP/modbus_test_data_part1.pcap"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Test fixture fetched by hash-pinned CI script."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "mushorg/conpot",
+      "version": "32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-only"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "git-source:https://github.com/mushorg/conpot.git@32fc03bbdbbcbbb685c8d7e086210e0ecdcd7044"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/mushorg/conpot"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only conpot emulator build source."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "prohibited"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "ReactiveCircus/android-emulator-runner",
+      "version": "v2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:ReactiveCircus/android-emulator-runner@v2"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/ReactiveCircus/android-emulator-runner"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI Android emulator orchestration."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/checkout",
+      "version": "v4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/checkout@v4"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/checkout"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI repository checkout action."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/checkout",
+      "version": "v7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/checkout@v7"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/checkout"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website workflow checkout action."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/deploy-pages",
+      "version": "v5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/deploy-pages@v5"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/deploy-pages"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website deployment workflow only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/github-script",
+      "version": "v7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/github-script@v7"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/github-script"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Governance/planning automation workflows."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/setup-java",
+      "version": "v4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/setup-java@v4"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/setup-java"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI Java toolchain setup."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/setup-node",
+      "version": "v4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/setup-node@v4"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/setup-node"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI Node.js toolchain setup."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "actions/upload-artifact",
+      "version": "v4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:actions/upload-artifact@v4"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/actions/upload-artifact"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI evidence artifact publishing."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "withastro/action",
+      "version": "v6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "github-action:withastro/action@v6"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/withastro/action"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website build workflow action."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "framework",
+      "name": "Android Gradle Plugin",
+      "version": "8.13.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "gradle-plugin:com.android.application@8.13.0"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://developer.android.com/build"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Build-time plugin for Android modules only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "framework",
+      "name": "Kotlin Android Gradle Plugin",
+      "version": "2.1.20",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "gradle-plugin:org.jetbrains.kotlin.android@2.1.20"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://kotlinlang.org"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Build-time plugin for Kotlin Android sources."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "framework",
+      "name": "Kotlin JVM Gradle Plugin",
+      "version": "2.1.20",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "gradle-plugin:org.jetbrains.kotlin.jvm@2.1.20"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://kotlinlang.org"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Build-time plugin for JVM modules."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "androidx.sqlite:sqlite",
+      "version": "2.6.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:androidx.sqlite:sqlite@2.6.2"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://maven.google.com/web/index.html#androidx.sqlite:sqlite"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Case App encrypted database integration runtime."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "androidx.test.ext:junit",
+      "version": "1.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:androidx.test.ext:junit@1.2.1"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://maven.google.com/web/index.html#androidx.test.ext:junit"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Android instrumentation tests only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "androidx.test:core-ktx",
+      "version": "1.6.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:androidx.test:core-ktx@1.6.1"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://maven.google.com/web/index.html#androidx.test:core-ktx"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Android instrumentation helper APIs only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "androidx.test:runner",
+      "version": "1.6.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:androidx.test:runner@1.6.2"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://maven.google.com/web/index.html#androidx.test:runner"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Android instrumentation test runner only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "net.zetetic:sqlcipher-android",
+      "version": "4.17.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:net.zetetic:sqlcipher-android@4.17.0"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://github.com/sqlcipher/sqlcipher-android"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Case App secure local storage runtime."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "org.jetbrains.kotlin:kotlin-stdlib",
+      "version": "2.1.20",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:org.jetbrains.kotlin:kotlin-stdlib@2.1.20"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-stdlib/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Kotlin runtime used by app and test codepaths."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "org.jetbrains.kotlin:kotlin-test-junit",
+      "version": "2.1.20",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "maven:org.jetbrains.kotlin:kotlin-test-junit@2.1.20"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-test-junit/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Unit test assertion/runtime adapter only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "@tailwindcss/vite",
+      "version": "4.3.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "npm:@tailwindcss/vite@4.3.3"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://www.npmjs.com/package/@tailwindcss/vite"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website build-time styling plugin."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "astro",
+      "version": "7.2.10",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "npm:astro@7.2.10"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://www.npmjs.com/package/astro"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website static-site framework in CI and local docs builds."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pptxgenjs",
+      "version": "4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "npm:pptxgenjs@4.0.0"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://www.npmjs.com/package/pptxgenjs"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Live-demo workflow deck generation only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tailwindcss",
+      "version": "4.3.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "npm:tailwindcss@4.3.3"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://www.npmjs.com/package/tailwindcss"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Website styling compiler at build time."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "modbus-tk",
+      "version": "1.1.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "LGPL-2.1-only"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "pypi:modbus-tk@1.1.5"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://pypi.org/project/modbus-tk/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI-only active E2E emulator target."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "review-required"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pymodbus",
+      "version": "3.11.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "pypi:pymodbus@3.11.3"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://pypi.org/project/pymodbus/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI/live-demo controlled Modbus server container."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "setuptools",
+      "version": "80.9.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "pypi:setuptools@80.9.0"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://pypi.org/project/setuptools/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Conpot CI image compatibility shim only."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Gradle",
+      "version": "8.13",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "tooling:gradle@8.13"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://gradle.org/releases/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Local and CI build toolchain."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "platform",
+      "name": "Node.js",
+      "version": "22",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "tooling:node@22"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://nodejs.org/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI runtime for live-demo deck generation script."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "platform",
+      "name": "Node.js",
+      "version": "24",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "tooling:node@24"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://nodejs.org/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI runtime for Astro website build action."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "npm",
+      "version": "10.9.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "Artistic-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "tooling:npm@10.9.2"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://www.npmjs.com/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "Package manager selected by withastro/action in CI."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "type": "platform",
+      "name": "Eclipse Temurin JDK",
+      "version": "17",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-2.0-with-classpath-exception"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "atlas:key",
+          "value": "tooling:temurin-java@17"
+        },
+        {
+          "name": "atlas:source",
+          "value": "https://adoptium.net/"
+        },
+        {
+          "name": "atlas:notice_required",
+          "value": "true"
+        },
+        {
+          "name": "atlas:usage_boundary",
+          "value": "CI Java runtime for Gradle and Android builds."
+        },
+        {
+          "name": "atlas:redistribution_status",
+          "value": "allowed"
+        },
+        {
+          "name": "atlas:tracked_from_repo",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}

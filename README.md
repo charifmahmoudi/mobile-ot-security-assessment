@@ -100,7 +100,8 @@ Device and emulator acceptance paths are defined by [.github/workflows/android-c
 Atlas OT Scout is licensed under the [Apache License 2.0](LICENSE). This
 permits use, modification, redistribution and commercial integration subject
 to the license terms. Third-party libraries, protocol implementations, models
-and datasets retain their own licenses; see their notices and capability
+and datasets retain their own licenses; see the [third-party license and SBOM
+inventory](docs/testing/THIRD-PARTY-LICENSE-INVENTORY.md) and capability
 metadata before redistribution. The project name and logos are governed by
 the [trademark policy](TRADEMARKS.md).
 

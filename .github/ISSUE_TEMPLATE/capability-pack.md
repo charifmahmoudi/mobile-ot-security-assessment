@@ -14,7 +14,7 @@ Parser / protocol adapter / ML model / topology inference / import-export
 
 ## Source and licensing
 
-Library/model URL, version, license, attribution and transitive dependency review:
+Library/model URL, version, license, attribution and transitive dependency review. Reference the authoritative inventory and unresolved licensing questions in `compliance/third_party_inventory.json` and `docs/testing/THIRD-PARTY-LICENSE-INVENTORY.md`:
 
 ## Input and output contract
 
@@ -35,4 +35,3 @@ Passive/active classification, required permissions, resource limits and prohibi
 - [ ] Human validation completed where required
 
 ## Non-goals
-
